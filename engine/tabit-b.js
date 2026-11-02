@@ -1711,7 +1711,10 @@ function makeScrollSky(root, IDEA, LOGO, OPT) {
     }
     var SH = {
       home: null,
-      mintaka: sample(function (g) { g.lineWidth = 14; g.beginPath(); g.arc(190, 210, 120, 0, 6.2832); g.stroke(); g.beginPath(); g.arc(330, 210, 120, 0, 6.2832); g.stroke(); }),
+      mintaka: sample(function (g) {   // (Re)insurance: a navigator's compass rose, finding a way into risks the market has not charted
+        g.lineWidth = 7; g.beginPath(); g.arc(260, 210, 170, 0, 6.2832); g.stroke();
+        function pt(a, L, w) { g.beginPath(); g.moveTo(260 + L * Math.cos(a), 210 + L * Math.sin(a)); g.lineTo(260 + w * Math.cos(a + Math.PI / 2), 210 + w * Math.sin(a + Math.PI / 2)); g.lineTo(260 + w * Math.cos(a - Math.PI / 2), 210 + w * Math.sin(a - Math.PI / 2)); g.closePath(); g.fill(); }
+        [0, 1, 2, 3].forEach(function (i) { pt(i * Math.PI / 2 - Math.PI / 2, 196, 26); pt(i * Math.PI / 2 - Math.PI / 4, 108, 18); }); }),
       alnilam: sample(function (g) { [160, 115, 70].forEach(function (r, i) { g.lineWidth = [10, 8, 6][i]; g.beginPath(); g.arc(260, 210, r, 0, 6.2832); g.stroke(); }); g.beginPath(); g.arc(260, 210, 22, 0, 6.2832); g.fill(); }),
       alnitak: sample(function (g) { g.lineWidth = 10; g.beginPath(); g.moveTo(30, 330); g.bezierCurveTo(180, 320, 300, 200, 490, 80); g.stroke(); for (var x = 40; x < 500; x += 60) g.fillRect(x, 352, 6, 22); g.fillRect(20, 380, 480, 6); }),
       meissa: sample(function (g) { g.font = '800 300px Manrope, Arial, sans-serif'; g.textAlign = 'center'; g.fillText('AI', 260, 320); }),
