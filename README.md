@@ -2,8 +2,8 @@
 
 The code behind the Tabit Insurance website prototype in Framer ("TABIT Alpha V0.1").
 
-- `engine/tabit-b.js`: Beta 3.0 option B, "the stars become diagrams" (AS12.10). The chosen direction. Six pages:
-  Home, AI, Capital, Life & PPLI, Licence & audit, About us, with the copy from the "Tabit website copy" doc.
+- `engine/tabit-b.js`: Beta 3.0 option B, "the stars become diagrams" (AS12.10). The chosen direction. Six scroll pages:
+  Home, (Re)insurance, Captives, AI, Licence & audit, About us (final copy of 2 November). Contact is a separate page at /contact.
 - `engine/tabit-a.js`: Beta 3.0 option A, "down the bow" (AS7.14).
 
 Each is an ES module exporting `runTabit(host, THREE, init)` and `TABIT_FONTS`. `runTabit` draws the whole site
