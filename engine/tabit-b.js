@@ -1709,13 +1709,24 @@ function makeScrollSky(root, IDEA, LOGO, OPT) {
       var d = g.getImageData(0, 0, 520, 420).data, pts = []; for (var y = 0; y < 420; y += 3) for (var x = 0; x < 520; x += 3) if (d[(y * 520 + x) * 4 + 3] > 120) pts.push([x, y]);
       var out = []; for (var i = 0; i < N; i++) { var p = pts[Math.floor(rnd() * pts.length)] || [260, 210]; out.push([(HL ? 680 : 640) + p[0], 150 + p[1]]); } return out;
     }
+    // Captives: a captured orbit. The geometry is shared by the stars' shape and the satellite that is caught into it
+    var CAPO = { cx: 300, cy: 236, rx: 175, ry: 92, rot: -.32, t0: 3.5 }, capS = -1;
+    function capE(t) { var cr = Math.cos(CAPO.rot), sr = Math.sin(CAPO.rot), x = CAPO.rx * Math.cos(t), y = CAPO.ry * Math.sin(t); return [CAPO.cx + x * cr - y * sr, CAPO.cy + x * sr + y * cr]; }
+    function capIn() { var t0 = CAPO.t0, cr = Math.cos(CAPO.rot), sr = Math.sin(CAPO.rot), J = capE(t0), d = [-CAPO.rx * Math.sin(t0) * cr - CAPO.ry * Math.cos(t0) * sr, -CAPO.rx * Math.sin(t0) * sr + CAPO.ry * Math.cos(t0) * cr], l = Math.hypot(d[0], d[1]); return { a: [8, 18], c: [J[0] + d[0] / l * 150, J[1] + d[1] / l * 150], b: J }; }
+    function capAt(st) {   // the satellite: 2.4s in along the incoming path, then round the orbit (about 5s a lap)
+      if (st < 2.4) { var Q = capIn(), k = st / 2.4, v = 1 - k; return [v * v * Q.a[0] + 2 * v * k * Q.c[0] + k * k * Q.b[0], v * v * Q.a[1] + 2 * v * k * Q.c[1] + k * k * Q.b[1]]; }
+      return capE(CAPO.t0 - (st - 2.4) * 1.2);
+    }
     var SH = {
       home: null,
       mintaka: sample(function (g) {   // (Re)insurance: a navigator's compass rose, finding a way into risks the market has not charted
         g.lineWidth = 7; g.beginPath(); g.arc(260, 210, 170, 0, 6.2832); g.stroke();
         function pt(a, L, w) { g.beginPath(); g.moveTo(260 + L * Math.cos(a), 210 + L * Math.sin(a)); g.lineTo(260 + w * Math.cos(a + Math.PI / 2), 210 + w * Math.sin(a + Math.PI / 2)); g.lineTo(260 + w * Math.cos(a - Math.PI / 2), 210 + w * Math.sin(a - Math.PI / 2)); g.closePath(); g.fill(); }
         [0, 1, 2, 3].forEach(function (i) { pt(i * Math.PI / 2 - Math.PI / 2, 196, 26); pt(i * Math.PI / 2 - Math.PI / 4, 108, 18); }); }),
-      alnilam: sample(function (g) { [160, 115, 70].forEach(function (r, i) { g.lineWidth = [10, 8, 6][i]; g.beginPath(); g.arc(260, 210, r, 0, 6.2832); g.stroke(); }); g.beginPath(); g.arc(260, 210, 22, 0, 6.2832); g.fill(); }),
+      alnilam: sample(function (g) {   // Captives: a captured orbit; what would have passed by is caught and kept in your orbit
+        g.beginPath(); g.arc(CAPO.cx, CAPO.cy, 30, 0, 6.2832); g.fill();
+        g.lineWidth = 6; g.beginPath(); for (var t = 0; t <= 6.29; t += .02) { var p = capE(t); if (t === 0) g.moveTo(p[0], p[1]); else g.lineTo(p[0], p[1]); } g.stroke();
+        var Q = capIn(); g.lineWidth = 5; g.setLineDash([3, 13]); g.beginPath(); g.moveTo(Q.a[0], Q.a[1]); g.quadraticCurveTo(Q.c[0], Q.c[1], Q.b[0], Q.b[1]); g.stroke(); g.setLineDash([]); }),
       alnitak: sample(function (g) { g.lineWidth = 10; g.beginPath(); g.moveTo(30, 330); g.bezierCurveTo(180, 320, 300, 200, 490, 80); g.stroke(); for (var x = 40; x < 500; x += 60) g.fillRect(x, 352, 6, 22); g.fillRect(20, 380, 480, 6); }),
       meissa: sample(function (g) { g.font = '800 300px Manrope, Arial, sans-serif'; g.textAlign = 'center'; g.fillText('AI', 260, 320); }),
       ai: sample(function (g) {   // a small network: three layers of nodes, every node joined to the next layer
@@ -1756,6 +1767,17 @@ function makeScrollSky(root, IDEA, LOGO, OPT) {
           dot(x, y, (inShape ? 1.3 : .8) + .5 * gf, Math.min(1, (inShape ? .85 : .5) + .3 * gf), inShape ? IVORY : '220,226,246');
         });
         c.globalCompositeOperation = 'source-over';
+        var capI = -1; CH.forEach(function (ch, i) { if (ch.k === 'alnilam') capI = i; });
+        if (HL && capI >= 0) {
+          var onCap = near === capI ? hold : 0;
+          if (onCap > .9 && capS < 0) capS = T; if (onCap < .2) capS = -1;
+          if (capS >= 0 && onCap > .01) {
+            var SG = TABIT_SUBJ, st = T - capS; c.globalCompositeOperation = 'lighter';
+            for (var tj = 12; tj >= 1; tj--) { if (st - tj * .045 < 0) continue; var qj = capAt(st - tj * .045); dot(SG.cx + (qj[0] - 260) * SG.s, 360 + (qj[1] - 210) * SG.s, 2.2 - tj * .13, onCap * .7 * (1 - tj / 13), '255,248,232'); }   // a fading trail
+            var qs = capAt(st), sx0 = SG.cx + (qs[0] - 260) * SG.s, sy0 = 360 + (qs[1] - 210) * SG.s; star(sx0, sy0, 5, onCap, '255,248,232'); dot(sx0, sy0, 2.8, onCap, '255,252,244');   // the satellite: brighter than any star in the figure
+            c.globalCompositeOperation = 'source-over';
+          }
+        }
         lock(ch_is(near, 'home') ? 1 - sg(u, 0, .25) : 0);
         placePanel('left', 250);
       }
