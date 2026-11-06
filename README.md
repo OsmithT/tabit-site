@@ -13,3 +13,9 @@ fills any landscape display and follows a window live as it is resized.
 
 The Framer code component `TabitSite` loads one of these from jsDelivr, pinned to a commit, and passes in three.js.
 To update the site: commit a new version here, then point the component's `COMMIT` at the new commit.
+
+- `framer/alpha1/`: the source files of the Framer project "Tabit Alpha version 1" (7 November 2026).
+  `TabitSite.js` is the XR2.5.7 engine (the latest Design-canvas board, hrefs mapped to Framer routes);
+  `pages/*.js` are the (Re)insurance, Captives, About us and Contact pop-out pages, byte-identical to the
+  "Ashleigh Edits" Framer project; `TabitHome.tsx`, `TabitPage.tsx` and `TabitHomeStyles.js` are the code
+  components. Framer pulls these in through jsDelivr (`cdn.jsdelivr.net/gh/OsmithT/tabit-site@<commit>/framer/alpha1/...`).
