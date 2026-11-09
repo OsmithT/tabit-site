@@ -1,0 +1,50 @@
+# Tabit website — cardinal rules
+
+The rules every change to the Tabit site is checked against. A change that breaks a **cardinal** rule does not ship
+(not to a canvas row, not to Framer) until it is fixed. **House** rules come from the design and performance skills the
+team has adopted (design-taste-lite, impeccable-lite, break-ui, mobile-native, animation-performance); a house-rule
+failure is flagged for Oscar's decision rather than blocking on its own. Owner of the rules: Oscar Lindley-Smith.
+
+## Cardinal (set by Oscar and Stephen)
+
+1. **Colour.** Text is Paper `#FBF9F4`. The only gold is Brass `#A8823A`. Night ground `#04070F`. Dusk `#B8C0D4` for
+   hairline chart lines and small labels only. No other hues on UI; the sky's stars and nebula are the sole exception.
+2. **The logo is never altered.** The Tabit knot and wordmark paths, their proportions and their white are fixed.
+   They may move, scale and fade; nothing is redrawn, recoloured or re-spaced.
+3. **No kicker or eyebrow labels** above headings (no small tracked caps saying what the section is). Chapter names on
+   the star path are navigation, not kickers, and are allowed.
+4. **Motion is scroll- or pointer-driven, never on timers** — no `setInterval`/`setTimeout` loops, no autoplaying
+   carousels or slideshows, nothing that changes while the visitor does nothing. The approved load-time intro
+   (0 – 7.2 s) is the one exception.
+5. **No pictures behind pages** unless Oscar asks for one. The night sky is the only background.
+6. **Only approved site copy.** The words on the site are the words already approved on the XR2.5.7 boards (and
+   Ashleigh's XR2.4 pages). Nothing from internal documents (the 1-pager, decks, Notion) goes on the site without
+   Oscar saying so. Each fact appears once.
+7. **Every change is a new board** on the current Beta canvas; earlier boards are never overwritten; assets are never
+   deleted unless asked. The decisions doc is updated with every row.
+8. **Layout follows the space available, not the device.** Two columns at ≥ 1.6:1; stacked (copy centred top, subject
+   centred below, chapter path thinned to the right edge) at ≤ 4:3; positions interpolate between. The sky always
+   fills the screen — never letterboxed. Phones get their own composition.
+9. **GitHub is the source of truth for Framer.** Every Framer change is a commit in `framer/alpha1/` first, pulled in
+   pinned to a commit hash; nothing is edited only in Framer's code editor.
+
+## House (from the adopted skills)
+
+- Headlines ≤ 2 lines at every width; one `h1`-equivalent per screen; a real primary action on screen one.
+- Body text ≥ 16 px, 45–75 characters a line; text contrast ≥ 4.5:1 (3:1 at 24 px+); running text ≥ 7:1 preferred.
+- No index numbering (01/02/03), no icon-topped card rows, no nested cards, no 1 px hairline rules as decoration,
+  no gradients or glows on UI, no monospace outside code, no emoji, no placeholder content on a live page.
+- Hover styles only inside `@media (hover: hover) and (pointer: fine)`; every tappable has `:active` feedback;
+  `-webkit-tap-highlight-color: transparent`; `100svh`/`100dvh` not `100vh` on phones; no `user-scalable=no`.
+- Animate `transform`/`opacity`; never `transition: all`; no per-frame `getImageData`/`putImageData`; animated blur
+  ≤ 20 px; frame budget 8 ms (120 Hz) — `?diag` shows dropped < 5 % and js/frame < 4 ms on an M1 Mac.
+- Worst-case content must hold: long names and titles wrap without breaking rows; `flex-shrink: 0` on buttons and
+  icons; `min-width: 0` on text columns; one item, no items and many items all render.
+- Reduced motion keeps opacity and colour changes, drops travel, scale, parallax and autoplay.
+
+## How the gate runs
+
+After any change to a board or to `framer/alpha1/`: render the changed surfaces at 1440×810, 1440×900, 1776×1286,
+1200×1200, 900×1200 and 390×844; run the reviewers (one per lens: cardinal rules, design-taste/impeccable, break-ui +
+mobile-native, animation-performance); every finding names the rule, the surface and size, the evidence (screenshot
+or `file:line`) and the fix. Cardinal FAIL → fix and re-run before publishing. Result logged in the decisions doc.
