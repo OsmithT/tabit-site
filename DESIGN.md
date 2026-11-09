@@ -42,6 +42,20 @@ failure is flagged for Oscar's decision rather than blocking on its own. Owner o
   icons; `min-width: 0` on text columns; one item, no items and many items all render.
 - Reduced motion keeps opacity and colour changes, drops travel, scale, parallax and autoplay.
 
+## Sanctioned exceptions (approved by Oscar; the gate lists them as "exception", not as failures)
+
+- The brass key word in each chapter headline ("underwritten.", "reward.", "risk.", "accountable.", "endure.") — the
+  brand's signature device, although the rubrics say "no accent in headings".
+- The three-line Captives statement "Your risk. / Your premium. / Your reward." — approved copy set as three lines on
+  purpose.
+- The star glows, flares and the nebula — they are the subject, not UI decoration.
+- The load-time intro (0 – 7.2 s), time-driven by design.
+- The star-path chapter labels — navigation, not kickers.
+
+Under decision (flag, do not block, until Oscar rules): the film-grain loop and the EXPLORE cue pulse (cardinal 4 as
+worded); the hairline above the Home proof row; `Replay` and the coordinates as on-screen chrome; the splash having
+no primary action.
+
 ## How the gate runs
 
 After any change to a board or to `framer/alpha1/`: render the changed surfaces at 1440×810, 1440×900, 1776×1286,
