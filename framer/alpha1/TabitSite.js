@@ -1,4 +1,4 @@
-// Tabit XR2.7.1 site script (from the design canvas, Beta 4.2 Live): XR2.5.7 with the burger top left (no label, no hairlines) and Contact us alone top right. Exposes runTabit(host, THREE, options).
+// Tabit XR2.7.2 site script (from the design canvas, Beta 4.2 Live): XR2.7.1 made fast — one baked cloud sprite, no MSAA, invisible sprites skipped, masks written once, a frame governor, ?diag readout. Exposes runTabit(host, THREE, options).
 function TB_RGB(n,d){try{var v=getComputedStyle(document.documentElement).getPropertyValue(n).trim();var m=/^#([0-9a-f]{6})$/i.exec(v);if(m){var x=parseInt(m[1],16);return((x>>16)&255)+','+((x>>8)&255)+','+(x&255);}}catch(e){}return d;}
 var TB_VARC={};function TB_VAR(n,d){var c=TB_VARC[n],t=Date.now();if(c&&t-c.t<500)return c.v;var v=d;try{var r=parseFloat(getComputedStyle(document.documentElement).getPropertyValue(n));if(!isNaN(r))v=Math.max(0,Math.min(1,r));}catch(e){}TB_VARC[n]={v:v,t:t};return v;}
 var TABIT_STYLE = ".tb-menu{position:relative;pointer-events:auto}.tb-menu summary{list-style:none;display:flex;align-items:center;height:44px;padding:0 4px;cursor:pointer;color:var(--tabit-ink,#FBF9F4);font-size:13px;font-weight:500;letter-spacing:.02em;user-select:none}.tb-menu summary::-webkit-details-marker{display:none}.tb-menu summary:focus-visible{outline:2px solid #A8823A;outline-offset:3px}.tb-menu-ic{display:block;width:22px;height:12px;position:relative}.tb-menu-ic i{position:absolute;left:0;right:0;height:1.5px;background:var(--tabit-ink,#FBF9F4);transition:transform .25s cubic-bezier(.23,1,.32,1),top .25s cubic-bezier(.23,1,.32,1)}.tb-menu-ic i:first-child{top:0}.tb-menu-ic i:last-child{top:10.5px}.tb-menu[open] .tb-menu-ic i:first-child{top:5.25px;transform:rotate(45deg)}.tb-menu[open] .tb-menu-ic i:last-child{top:5.25px;transform:rotate(-45deg)}.tb-menu-nav{position:absolute;left:-16px;top:60px;width:280px;padding:16px 28px 18px;background:rgba(8,13,30,.94);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid rgba(184,192,212,.14);border-radius:2px;display:flex;flex-direction:column;z-index:12}.tb-menu-nav a{display:block;padding:9px 0;font-size:17px;line-height:24px;font-weight:400;letter-spacing:-.01em;color:var(--tb-text,#FBF9F4);text-decoration:none;transition:color .25s ease}.tb-menu-nav a:hover{color:var(--tb-gold,#A8823A)}.tb-menu-nav a[aria-current=\"page\"]{color:var(--tb-gold,#A8823A)}@media (prefers-reduced-motion: reduce){.tb-menu-ic i{transition:none}}\n\n@keyframes tabitGrain{0%{transform:translate(0,0)}25%{transform:translate(-40px,22px)}50%{transform:translate(18px,-36px)}75%{transform:translate(-22px,-14px)}100%{transform:translate(0,0)}}\n.tabit-grain{animation:tabitGrain .5s steps(4) infinite}\n@keyframes tabitCue{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}\n.tabit-cue-line{animation:tabitCue 2.2s cubic-bezier(.65,0,.35,1) infinite}\n.tabit-cue:focus-visible,.tabit-replay:focus-visible{outline:2px solid #A8823A;outline-offset:3px}\n.tabit-replay{transition:background .25s ease,border-color .25s ease}\n.tabit-replay:hover{background:rgba(246,242,234,.08);border-color:rgba(246,242,234,.75)}\n.tabit-dot{position:absolute;width:28px;height:28px;border:0;padding:0;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center}\n.tabit-star{display:block;width:11px;height:8.6px;color:var(--tabit-ink2,#F6F2EA);transition:transform .35s ease,opacity .35s ease,filter .35s ease}\n.tabit-dotlabel{position:absolute;right:30px;top:50%;transform:translate(8px,-50%);opacity:0;white-space:nowrap;pointer-events:none;font-family:Manrope,system-ui,sans-serif;font-size:11px;font-weight:600;letter-spacing:.2em;color:var(--tabit-ink2,#F6F2EA);transition:opacity .3s ease,transform .3s ease}\n.tabit-dotlabel b{color:var(--tb-gold,#A8823A);font-weight:600;margin-right:8px}\n.tabit-dot:hover .tabit-dotlabel,.tabit-dot:focus-visible .tabit-dotlabel{opacity:1;transform:translate(0,-50%)}\n.tabit-dot:hover .tabit-star{filter:drop-shadow(0 0 5px rgba(246,242,234,.9))!important}\n.tabit-dot:focus-visible,.tabit-home:focus-visible,.tabit-skip:focus-visible{outline:2px solid #A8823A;outline-offset:3px}\n.tabit-skip{transition:background .25s ease,border-color .25s ease,color .25s ease}\n.tabit-skip:hover{background:rgba(246,242,234,.08);border-color:rgba(246,242,234,.7);color:var(--tb-text,#F6F2EA)}\n@media (prefers-reduced-motion: reduce){.tabit-grain,.tabit-cue-line{animation:none}}\n\n.tabit-plabel{position:absolute;left:30px;top:0;writing-mode:vertical-rl;transform:translateX(-50%);white-space:nowrap;pointer-events:none;font-family:Manrope,system-ui,sans-serif;font-size:12px;line-height:14px;font-weight:500;letter-spacing:.08em;color:var(--tabit-ink2,#F6F2EA);opacity:0}\n";
@@ -445,7 +445,7 @@ function makeTabitHero(glCanvas, ovCanvas, DATA, DOM) {
   var T3 = THREE;
   var W = TABIT_W, H = 720, OX = TABIT_OX, dpr = Math.min((window.devicePixelRatio || 1) * TABIT_K, 2);   // W follows the screen; OX centres the 1280 design in it
   var C_NIGHT = 0x04070F, BRASS = '168,130,58', DUSK = '184,192,212', IVORY = '246,242,234';
-  var renderer = new T3.WebGLRenderer({ canvas: glCanvas, antialias: true, preserveDrawingBuffer: !!DATA.preserve });
+  var renderer = new T3.WebGLRenderer({ canvas: glCanvas, antialias: false, preserveDrawingBuffer: !!DATA.preserve });   // XR2.7.2: MSAA does nothing for point sprites and additive quads
   renderer.setPixelRatio(dpr); renderer.setSize(W, H, false);
   renderer.outputEncoding = T3.sRGBEncoding; renderer.setClearColor(C_NIGHT, 1);
   var scene = new T3.Scene();
@@ -672,6 +672,17 @@ function makeTabitHero(glCanvas, ovCanvas, DATA, DOM) {
     cl.position.copy(framePoint(lerp(-330, 300, aa) + gauss() * 30, lerp(-160, 900, aa), 22000)); cl.scale.setScalar(5600 + rnd() * 4200);
     cl.material.rotation = rnd() * 6.28; cl.userData.op = .1 + rnd() * .05; clouds.push(cl);
   }
+  (function () {   // XR2.7.2: the nine clouds share one depth, so bake them into one sprite (same additive sum, same parallax): one full-screen fill a frame instead of nine
+    var minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+    clouds.forEach(function (c) { var h = c.scale.x / 2; minX = Math.min(minX, c.position.x - h); maxX = Math.max(maxX, c.position.x + h); minY = Math.min(minY, c.position.y - h); maxY = Math.max(maxY, c.position.y + h); });
+    var bw = maxX - minX, bh = maxY - minY, PX = 1024, PY = Math.round(PX * bh / bw), tints = {};
+    function tinted(col) { var key = col.getHexString(); if (tints[key]) return tints[key]; var c = document.createElement('canvas'); c.width = c.height = 256; var g = c.getContext('2d'); g.fillStyle = '#' + key; g.fillRect(0, 0, 256, 256); g.globalCompositeOperation = 'destination-in'; g.drawImage(texCloud.image, 0, 0); return tints[key] = c; }
+    var cvs = document.createElement('canvas'); cvs.width = PX; cvs.height = PY; var g = cvs.getContext('2d'); g.globalCompositeOperation = 'lighter';
+    clouds.forEach(function (c) { var cx = (c.position.x - minX) / bw * PX, cy = (maxY - c.position.y) / bh * PY, s = c.scale.x / bw * PX; g.save(); g.translate(cx, cy); g.rotate(-c.material.rotation); g.globalAlpha = c.userData.op; g.drawImage(tinted(c.material.color), -s / 2, -s / 2, s, s); g.restore(); });
+    var tex = new T3.CanvasTexture(cvs); tex.encoding = T3.sRGBEncoding;
+    var one = addSprite(tex, [1, 1, 1], 0); one.position.set((minX + maxX) / 2, (minY + maxY) / 2, clouds[0].position.z); one.scale.set(bw, bh, 1); one.userData.op = 1;
+    clouds.forEach(function (c) { scene.remove(c); c.material.dispose(); }); clouds = [one];
+  })();
 
   // ------------------------------------------------------------------ Tabit's flare
   var flare = {
@@ -762,6 +773,7 @@ function makeTabitHero(glCanvas, ovCanvas, DATA, DOM) {
     var pu = Math.exp(-Math.pow((t - (TL.pulse + .1)) / .32, 2));
     flare.pulse.material.opacity = 0; pxScale(flare.pulse, 760);
 
+    for (var si = 0; si < scene.children.length; si++) { var so = scene.children[si]; if (so.isSprite) so.visible = so.material.opacity > .002; }   // XR2.7.2: nothing is drawn for a sprite you cannot see
     renderer.render(scene, cam);
     drawOverlay(t, focus);
     if (DOM) drawDom(t);
@@ -910,10 +922,10 @@ function makeTabitHero(glCanvas, ovCanvas, DATA, DOM) {
         hd.style.opacity = (seg(t, TL.draw0, TL.draw0 + .12) * (1 - seg(t, TL.draw1 - .12, TL.draw1 + .1))).toFixed(3);
       }
     });
-    (DOM.masks || []).forEach(function (m) { m.setAttribute('stroke-width', 60); });
+    if (!DOM.__masksSet) { DOM.__masksSet = true; (DOM.masks || []).forEach(function (m) { m.setAttribute('stroke-width', 60); }); }   // XR2.7.2: once, not every frame (each write re-rasterised the mask)
     // the mark comes into focus over its constellation, like a lens pulling focus
     var g = eIOS(seg(t, TL.grow0, TL.grow1));
-    if (DOM.mark) { DOM.mark.style.opacity = g.toFixed(3); DOM.mark.style.filter = g < 1 ? 'blur(' + (4 * (1 - g)).toFixed(2) + 'px)' : 'none'; }
+    if (DOM.mark) { var mo = g.toFixed(3), mf = g < 1 ? 'blur(' + (4 * (1 - g)).toFixed(2) + 'px)' : 'none'; if (DOM.__mo !== mo) { DOM.__mo = mo; DOM.mark.style.opacity = mo; } if (DOM.__mf !== mf) { DOM.__mf = mf; DOM.mark.style.filter = mf; } }
     (DOM.extras || []).forEach(function (el) {
       var d = parseFloat(el.getAttribute('data-tabit-in')) || 6, e = eOQ(seg(t, d, d + 1.0));
       el.style.opacity = e.toFixed(3); el.style.transform = 'translateY(' + (12 * (1 - e)).toFixed(2) + 'px)';
@@ -926,6 +938,11 @@ function makeTabitHero(glCanvas, ovCanvas, DATA, DOM) {
 
   return {
     render: render,
+    setDpr: function (d) {   // XR2.7.2: the governor lowers the sky's pixel ratio when frames are being dropped
+      d = Math.max(.75, Math.min(2, d)); if (Math.abs(d - dpr) < .01) return dpr; dpr = d;
+      renderer.setPixelRatio(dpr); renderer.setSize(W, H, false); ovCanvas.width = Math.round(W * dpr); ovCanvas.height = Math.round(H * dpr); starMat.uniforms.uPR.value = dpr; return dpr;
+    },
+    getDpr: function () { return dpr; },
     pointer: function (x, y) { pointer.x = clamp(x, -1, 1); pointer.y = clamp(y, -1, 1); },
     mouse: function (px, py, on) { if (on && LENS.mx < -900) { LENS.mx = px; LENS.my = py; } LENS.tx = px; LENS.ty = py; LENS.on = on ? 1 : 0; },
     dispose: function () { renderer.dispose(); },
@@ -2796,7 +2813,32 @@ self.tick = function () {
   if (TB_PIN && self.t >= TABIT_END && now - (self.lastIn || 0) > 240) {   // XR2: while the page holds, settle on the nearest line when the wheel stops
     var yy = self.St - TABIT_HAND - 720; if (yy > 1 && yy < TB_PIN - 1) self.St += (Math.round(yy / TB_STEPPX) * TB_STEPPX - yy) * Math.min(1, dt * 7); }
   self.S += (self.St - self.S) * (1 - Math.exp(-dt * (TABIT_SNAP && !TABIT_FLOW ? 4.2 : TABIT_OPT >= 13 ? 3 : 5.5))); if (Math.abs(self.St - self.S) < .3) self.S = self.St;
-  if (self.hero) { self.hero.render(self.t); if (self.hand) self.hand.update(self.t, self.S); }
+  // XR2.7.2: frame governor. Watches the gaps between frames; when more than 12% of a window are dropped it steps the quality down:
+  // level 1 renders every other frame on a 120 Hz display (a steady 60), levels 2 and 3 lower the sky's pixel ratio. Never steps back up.
+  var G = self.gov || (self.gov = { gaps: [], lvl: 0, skip: false, hz: 60, base: 0 });
+  if (self.last0) { G.gaps.push(now - self.last0); if (G.gaps.length >= 72) {
+    var sorted = G.gaps.slice().sort(function (a, b) { return a - b; }), ref = sorted[Math.floor(sorted.length * .2)]; G.hz = ref < 10 ? 120 : 60;
+    var budget = (G.hz === 120 && G.lvl >= 1 ? 2 : 1) * (1000 / G.hz) * 1.45, dropped = G.gaps.filter(function (x) { return x > budget; }).length / G.gaps.length;
+    if (dropped > .12 && G.lvl < 3 && self.t < TABIT_END + 2 && !window.__TABIT_NOGOV) {
+      G.lvl++; if (G.hz !== 120 && G.lvl === 1) G.lvl = 2;   // nothing to halve on a 60 Hz display: go straight to the pixel ratio
+      if (G.lvl >= 2 && self.hero && self.hero.setDpr) { if (!G.base) G.base = self.hero.getDpr(); self.hero.setDpr(G.base * (G.lvl === 2 ? .75 : .55)); }
+      if (window.console && (init.debug || window.__TABIT_DEBUG)) console.log('tabit governor: level ' + G.lvl + ' (' + Math.round(dropped * 100) + '% dropped at ' + G.hz + ' Hz)');
+    }
+    G.gaps.length = 0; } }
+  self.lastGap = self.last0 ? now - self.last0 : 0; self.last0 = now;
+  var DG = self.diag; if (DG === undefined) { try { DG = /diag/.test(location.search + location.hash) || !!window.__TABIT_DIAG; } catch (e2) { DG = false; }
+    if (DG) { DG = self.diag = { el: document.createElement('div'), gaps: [], ticks: [], stalls: [], n: 0 }; DG.el.style.cssText = 'position:absolute;left:16px;top:96px;z-index:40;font:11px/15px ui-monospace,Menlo,monospace;color:#FBF9F4;background:rgba(4,7,15,.72);padding:8px 10px;border:1px solid rgba(246,242,234,.25);border-radius:2px;white-space:pre;pointer-events:none;letter-spacing:0'; root.appendChild(DG.el); } else self.diag = false; }
+  if (DG) { DG.t0 = performance.now(); if (self.lastGap) DG.gaps.push(self.lastGap); }
+  G.skip = G.lvl >= 1 && G.hz === 120 ? !G.skip : false;
+  if (self.hero) { if (!G.skip) { self.hero.render(self.t); if (self.hand) self.hand.update(self.t, self.S); } }
+  if (DG) { var tk = performance.now() - DG.t0; DG.ticks.push(tk); if (tk > 20 || (self.lastGap > 40 && self.t > .3)) DG.stalls.push('t=' + self.t.toFixed(2) + 's  gap ' + Math.round(self.lastGap) + 'ms  js ' + Math.round(tk) + 'ms'); if (DG.stalls.length > 7) DG.stalls.shift();
+    if (++DG.n % 30 === 0) { var gs = DG.gaps.slice(-240).sort(function (a, b) { return a - b; }), ts = DG.ticks.slice(-240), hz = gs.length ? 1000 / gs[Math.floor(gs.length * .2)] : 0, bud = hz ? 1000 / hz * 1.45 : 30, drop = gs.length ? gs.filter(function (x) { return x > bud; }).length / gs.length : 0;
+      var glc = host.querySelector('canvas[data-tabit-gl]'), ua = navigator.userAgent, br = /Chrome\//.test(ua) ? 'Chrome ' + (ua.match(/Chrome\/(\d+)/) || [])[1] : /Safari\//.test(ua) ? 'Safari ' + (ua.match(/Version\/([\d.]+)/) || [])[1] : /Firefox\//.test(ua) ? 'Firefox' : 'browser';
+      DG.el.textContent = 'TABIT diag  ' + br + '  ' + innerWidth + 'x' + innerHeight + ' @' + (window.devicePixelRatio || 1) + 'x\n'
+        + 'display ~' + Math.round(hz) + ' Hz   fps ' + (gs.length ? Math.round(1000 / (gs.reduce(function (a, b) { return a + b; }, 0) / gs.length)) : 0) + '   dropped ' + Math.round(drop * 100) + '%   gap p90 ' + (gs.length ? gs[Math.floor(gs.length * .9)].toFixed(1) : '-') + 'ms\n'
+        + 'js/frame mean ' + (ts.reduce(function (a, b) { return a + b; }, 0) / Math.max(1, ts.length)).toFixed(1) + 'ms  max ' + Math.max.apply(null, ts.concat([0])).toFixed(1) + 'ms\n'
+        + 'sky canvas ' + (glc ? glc.width + 'x' + glc.height : '-') + '  W ' + TABIT_W + '  governor level ' + G.lvl + (G.skip !== undefined && G.lvl >= 1 && G.hz === 120 ? ' (60 lock)' : '') + '  t ' + self.t.toFixed(1) + 's\n'
+        + (DG.stalls.length ? 'stalls:\n  ' + DG.stalls.join('\n  ') : 'stalls: none'); } }
   else if (self.failed) { var d = tabitDom(); [d.mark].concat(d.letters).forEach(function (el) { if (el) { el.style.opacity = 1; el.style.transform = 'none'; } }); d.masks.forEach(function (m) { m.setAttribute('stroke-width', 60); }); }
   self.raf = requestAnimationFrame(self.tick);
 };
