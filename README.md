@@ -1,21 +1,60 @@
 # Tabit site
 
-The code behind the Tabit Insurance website prototype in Framer ("TABIT Alpha V0.1").
+The code behind the Tabit Insurance website prototype in Framer.
 
-- `engine/tabit-b.js`: Beta 3.0 option B, "the stars become diagrams" (AS12.10). The chosen direction. Six scroll pages:
-  Home, (Re)insurance, Captives, AI, Licence & audit, About us (final copy of 2 November). Contact is a separate page at /contact.
-- `engine/tabit-a.js`: Beta 3.0 option A, "down the bow" (AS7.14).
+## What is where
 
-Each is an ES module exporting `runTabit(host, THREE, init)` and `TABIT_FONTS`. `runTabit` draws the whole site
-(night-sky intro, logo, scene, page copy, nav and page markers) into `host` and returns `{ dispose() }`.
-The design is 720 units tall; its width follows `host` (960 to 1940 units) and is re-read every frame, so the site
-fills any landscape display and follows a window live as it is resized.
+- `framer/alpha1/`: **the live site.** The source files of the Framer project "Tabit Alpha version 1"
+  (https://practical-monstera-026490.framer.app).
+  - `TabitSite.js`: the home-page engine (XR2.7: the XR2.5.7 night-sky site with the burger menu top left and
+    Contact us top right). An ES module exporting `runTabit(host, THREE, init)` and `TABIT_FONTS`; `runTabit` draws the
+    whole home page (intro, logo, scene, copy, nav) into `host` and returns `{ dispose() }`.
+  - `TabitHome.tsx`: the Framer code component on the `/` page. Loads three.js, calls `runTabit`, and scales the
+    720-unit-tall design to the component's height, letting the width run to the edges (960–1940 design units), so the
+    page fills laptops and ultrawides alike.
+  - `pages/reinsurance.js`, `captives.js`, `aboutus.js`, `contact.js`: the click-out pages as `{ css, html }` strings,
+    with the burger header. `TabitPage.tsx` renders one of them (its `page` control picks which).
+  - `TabitHomeStyles.js`: global CSS the home component injects once.
+- `engine/tabit-b.js`, `engine/tabit-a.js`: the earlier Beta 3.0 engines (options B and A), kept for reference.
 
-The Framer code component `TabitSite` loads one of these from jsDelivr, pinned to a commit, and passes in three.js.
-To update the site: commit a new version here, then point the component's `COMMIT` at the new commit.
+Design decisions and every version are logged in the "Tabit website — decisions" Claude doc; the boards themselves live
+on the "Beta 4.2 Live" Design canvas (XR2.5.7 row 1 … XR2.7 row 4). Ask Oscar for both links.
 
-- `framer/alpha1/`: the source files of the Framer project "Tabit Alpha version 1" (7 November 2026).
-  `TabitSite.js` is the XR2.5.7 engine (the latest Design-canvas board, hrefs mapped to Framer routes);
-  `pages/*.js` are the (Re)insurance, Captives, About us and Contact pop-out pages, byte-identical to the
-  "Ashleigh Edits" Framer project; `TabitHome.tsx`, `TabitPage.tsx` and `TabitHomeStyles.js` are the code
-  components. Framer pulls these in through jsDelivr (`cdn.jsdelivr.net/gh/OsmithT/tabit-site@<commit>/framer/alpha1/...`).
+## How to work on this (for a collaborator)
+
+You need three things:
+
+1. **Framer** — edit access to the project "Tabit Alpha version 1" (Stephen's Framer account owns it; he or Oscar
+   invites you from the project's Share menu). Project id `Z0aoK3S6M9yjyG33CeIM`.
+2. **GitHub** — this repo, `OsmithT/tabit-site`. It is public, so anyone can read it; to push you need to be added as a
+   collaborator (Settings → Collaborators) or work from a fork and open a pull request.
+3. **Claude** with the Framer and GitHub connectors turned on (Settings → Connectors in claude.ai). Claude then edits the
+   Framer project through its own tools and reads/pushes this repo. Nothing else to install.
+
+The workflow is always the same, and is what Claude does when you ask it to change the site:
+
+1. Edit the files under `framer/alpha1/` (locally, or Claude does it in its workspace).
+2. Commit and push to `main`. Note the commit hash.
+3. In Framer (via Claude), pull each changed file in and write it over the project's copy:
+   ```js
+   const base = "https://raw.githubusercontent.com/OsmithT/tabit-site/<commit>/framer/alpha1/";
+   const src = await (await fetch(base + "TabitSite.js")).text();
+   await api.files.write("TabitSite.js", src);
+   ```
+   (`cdn.jsdelivr.net/gh/...@<commit>` also works once the commit has propagated — raw.githubusercontent.com is
+   immediate.) Compare a SHA-256 of the source and the written file if you want to be sure nothing was altered.
+4. Screenshot the pages in Framer to check, then publish from Framer.
+
+Rules that keep two people from treading on each other:
+
+- GitHub is the source of truth. Never edit a file directly in Framer's code editor without committing the same change
+  here — otherwise the next pull from GitHub overwrites it.
+- Pin every pull to a commit hash, never `@main`, so a half-finished push can't land on the live site.
+- Pull `main` before you start, push small commits, and say in the commit message which board/version it is
+  (e.g. "XR2.7 burger menu").
+- The Framer page tree (pages, breakpoints, which component sits on which page) is the one thing not in this repo.
+  It rarely changes; if you add a page, note it in the decisions doc.
+
+Brand rules that apply to any change: text colour Paper `#FBF9F4`, the only gold is Brass `#A8823A`, never alter the
+Tabit logo, animations are scroll-driven (never on timers), no kicker labels, no pictures behind pages unless asked,
+and only approved site copy goes on the site — nothing from internal documents without Oscar's say.
