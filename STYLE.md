@@ -94,6 +94,11 @@ Radius 2 everywhere; no other radius, no pill.
 
 - Nav bar: 88 tall, contents inset 40, Night wash + 14 px blur, bottom edge Dusk 14 (under decision). Burger left,
   lockup centred (docked at y 44, proportions fixed), one secondary button "Contact us" right at nav size.
+- Home link (every page but home): right of the burger, 20 apart — the Tabit knot at 11 × 8.6 (home's own chapter-path
+  stop, Paper at 72 %, unaltered) then "Home" at the nav size (13/500/.02em), 8 between, 44 tall; hover Brass with the
+  knot at full strength, .25 s; presses down 1; 4 units of side padding, as the burger has. On phones the word drops
+  and the knot stays (14 × 11 in a 44 tap target, labelled "Home", 8 from the burger), and the lockup is 100 wide
+  with its height following (never squashed). Burger and Home link are at least 44 × 44 px at every size. The idea 9 breadcrumb reduced to its essence: the star you came from, one tap back.
 - Burger: 44 × 30 hit area, two Paper lines 22 × 1.5, 10.5 apart, no word. Open → cross, .25 s. Panel 280 wide, 60
   under the nav line, padding 16/28/18, `rgba(4,7,15,.92)` + 14 px blur, border Paper 14, radius 2; links Body 17/24,
   9 above/below, no dividers; hover and current page Brass; focus ring 2 px Brass offset 3.
@@ -181,6 +186,9 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
 - 10 Nov 2026 — v1. From XR2.8.2 and the brand guidelines. Queued for XR2.9: Paper text throughout; chapter "Explore"
   buttons at Control size; the four click-out pages restyled to this code; a fifth gate reviewer checks changes
   against this file.
+- 11 Nov 2026 — v1.3 (XR2.9.4). The Home link beside the burger on the click-out pages (Oscar: home should not be
+  buried in the menu); the phone lockup 100 wide; nav buttons never wrap. The journey devices (round 2, ten ideas)
+  are not adopted.
 - 10 Nov 2026 — v1.2 (XR2.9.2). Lists on the click-out pages are a term/description grid (the run-on lines with
   middots were rejected); the About people cards return with photo placeholder boxes (photographs to come); the page
   sky drifts with the scroll (×0.3) and leans toward the pointer (±24 × ±16 units), scroll- and pointer-driven only;
