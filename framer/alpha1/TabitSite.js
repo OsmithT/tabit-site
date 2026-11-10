@@ -749,6 +749,11 @@ function makeTabitHero(glCanvas, ovCanvas, DATA, DOM) {
     cam.position.set(x, cy, z); cam.lookAt(x, cy, z - 1000);
     cam.updateProjectionMatrix(); cam.updateMatrixWorld();
   }
+  (function precompile() {   // XR2.9.1: every program is compiled here, while the screen is still black, not when an object first appears
+    var hidden = []; scene.traverse(function (o) { if (o.isSprite && !o.visible) { hidden.push(o); o.visible = true; } });
+    try { renderer.compile(scene, cam); } catch (err) {}
+    hidden.forEach(function (o) { o.visible = false; });
+  })();
   var v3 = new T3.Vector3(), ORIGIN = new T3.Vector3();
   function toScreen(v) { v3.copy(v).project(cam); return [(v3.x + 1) / 2 * W - OX, (1 - v3.y) / 2 * H]; }   // in the 1280 design's units
 
