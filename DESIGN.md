@@ -59,6 +59,9 @@ no primary action.
 ## How the gate runs
 
 After any change to a board or to `framer/alpha1/`: render the changed surfaces at 1440×810, 1440×900, 1776×1286,
-1200×1200, 900×1200 and 390×844; run the reviewers (one per lens: cardinal rules, design-taste/impeccable, break-ui +
-mobile-native, animation-performance); every finding names the rule, the surface and size, the evidence (screenshot
-or `file:line`) and the fix. Cardinal FAIL → fix and re-run before publishing. Result logged in the decisions doc.
+1200×1200, 900×1200 and 390×844; run the reviewers (one per lens: cardinal rules, **style code (`STYLE.md`: every
+colour, size, weight, tracking, radius, spacing and component value used must be one listed there)**,
+design-taste/impeccable, break-ui + mobile-native, animation-performance); every finding names the rule, the surface
+and size, the evidence (screenshot or `file:line`) and the fix. Cardinal FAIL or a style-code value not in `STYLE.md`
+→ fix (or add the value to `STYLE.md` with a reason, logged in its §10) and re-run before publishing. Result logged in
+the decisions doc.
