@@ -6,8 +6,12 @@ code disagree, the page is wrong. A change that uses a value not listed here is 
 listed one or added here with a reason (and logged in §10). The same text lives in the Claude doc "Tabit website —
 style code"; keep the two identical.
 
-All numbers are design units on the 1280 × 720 stage (scaled to screen height; 960 × up-to-1280 when squarer than 4:3,
-with stacked copy scaled ×0.8 → ×1.12 by height).
+All numbers are design units on the 1280 × 720 stage. **Sizing (v1.4, Oscar 11 Nov): sizes follow the window's width,
+never its height, as apple.com does.** 1 unit = 1 px from 960 to 1152 px wide, rising with the width to at most
+1.25 px (reached at 1440); below 960 px the 960-unit stage scales down; phones (≤ 600 px) are 1 unit = 1 px. On the
+home, a window shorter than the stage may tighten the size only to 0.8 — below that the page keeps its size and the
+bottom is cropped. The click-out pages ignore the height entirely and scroll; their content sits in a centred
+1440-unit column, and wider screens get night either side. Nothing ever shrinks to fit a short or very wide window.
 
 ## 1. Principles
 
@@ -68,7 +72,8 @@ Deviations to correct (XR2.9): click-out pages use clamp(52–104)/1.02/300, 30/
 
 ## 4. Layout
 
-Stage 1280 × 720 scaled to screen height; width runs 960–1940; squarer than 4:3 keeps 960 wide and grows taller.
+Stage 1280 × 720 at the width-led scale above (pinned to the top of the screen); width runs 960–1940 units; when the
+window is taller than 720 units the stage grows taller (and, squarer than 4:3, stacks).
 
 Two columns (≥ 1.6:1): copy column left 80, width 640, text ≤ 610, vertically centred (home column top-aligned at 88);
 subject centred at x 940 (spreads right / draws in with width), y 360; chapter path at the right edge 1180–1220.
@@ -183,6 +188,11 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
 
 ## 10. Change log
 
+- 11 Nov 2026 — v1.4 (XR2.9.6). Sizing by width, as apple.com: the site no longer shrinks to fill a short or very
+  wide window (it had scaled everything by min(height ÷ 720, width ÷ 960)). Home: scale = width-led (1 → 1.25), a short
+  window tightens it to no less than 0.8, then crops at the bottom; stage pinned to the top. Pages: 1 unit =
+  min(1.25 px, 100vw ÷ 1152), 1 px from 960 to 1152, 100vw ÷ 960 below; content in a centred 1440-unit column; the
+  hero no taller than the window.
 - 10 Nov 2026 — v1. From XR2.8.2 and the brand guidelines. Queued for XR2.9: Paper text throughout; chapter "Explore"
   buttons at Control size; the four click-out pages restyled to this code; a fifth gate reviewer checks changes
   against this file.

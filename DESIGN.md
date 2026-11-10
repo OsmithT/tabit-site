@@ -24,7 +24,9 @@ failure is flagged for Oscar's decision rather than blocking on its own. Owner o
    deleted unless asked. The decisions doc is updated with every row.
 8. **Layout follows the space available, not the device.** Two columns at ≥ 1.6:1; stacked (copy centred top, subject
    centred below, chapter path thinned to the right edge) at ≤ 4:3; positions interpolate between. The sky always
-   fills the screen — never letterboxed. Phones get their own composition.
+   fills the screen — never letterboxed. Phones get their own composition. **Sizes follow the width, never the
+   height (Oscar, 11 Nov — as apple.com):** text and the nav keep their size on a short or very wide window, which
+   crops (home) or scrolls (pages) instead of shrinking; see STYLE.md "Sizing".
 9. **GitHub is the source of truth for Framer.** Every Framer change is a commit in `framer/alpha1/` first, pulled in
    pinned to a commit hash; nothing is edited only in Framer's code editor.
 

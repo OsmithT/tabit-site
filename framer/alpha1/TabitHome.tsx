@@ -3,9 +3,9 @@ import { runTabit } from "./TabitSite.js"
 import { TABIT_HOME_CSS } from "./TabitHomeStyles.js"
 
 // Tabit XR2.7 home page: the animated night-sky site. Put it on the "/" page, full width and full height.
-// The design is 720 units tall and its width follows the screen (960 to 1940 units, the copy column centred),
-// so the stage is scaled to the component's HEIGHT and its width is let run to the component's edges:
-// a 1366×768 laptop, a 1440×900 MacBook and a 2560×1080 ultrawide are all filled, no letterbox.
+// XR2.9.6: the design keeps its size the way apple.com does: the scale follows the screen's width (capped at 1.25), a shorter
+// window can tighten it only to 0.8, and below that the bottom is cropped rather than everything shrinking. The sky fills the
+// screen; on very wide screens the night continues either side of a 1940-unit stage.
 // Squarer than 4:3 the stage keeps 960 units of width and grows taller, so the sky fills the screen and the engine stacks the content; phones still await their own layout.
 // @framerSupportedLayoutWidth any
 // @framerSupportedLayoutHeight any
@@ -13,7 +13,7 @@ const THREE_URL = "https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js
 const FONT_URL =
     "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@300;400;500;600&display=swap"
 const OPTIONS = { k: 1, opt: 37, x23: true, x2313: true, x2310: true, x237: true, x234: true, noMark: true, x251: true }
-const H = 720, WMIN = 960, WMAX = 1940
+const H = 720, WMIN = 960, WMAX = 1940, SMIN = 0.8, SMAX = 1.25
 
 function once(id: string, make: () => HTMLElement) {
     if (!document.getElementById(id)) { const el = make(); el.id = id; document.head.appendChild(el) }
@@ -44,15 +44,17 @@ export default function TabitHome(props: { style?: any }) {
             if (!wrap.current || !stage.current) return
             const r = wrap.current.getBoundingClientRect()
             if (!r.width || !r.height) return
-            let s = r.height / H                              // fill the height…
-            let w = r.width / s                               // …and let the width run to the edges
-            let h = H
-            if (w < WMIN) { s = r.width / WMIN; w = WMIN; h = r.height / s }   // squarer than 4:3: keep 960 units of width and let the stage grow taller — the sky fills the screen, the engine stacks the content (DESIGN.md rule 8)
-            if (w > WMAX) w = WMAX                            // wider than the design allows: the night continues either side
+            // XR2.9.6: sized like apple.com, not to fill the window. The size follows the WIDTH (1 unit = 1 px from 960 to 1152 px wide,
+            // growing to at most 1.25 at 1440 and above); a shorter window may tighten it only down to SMIN, and below that the page
+            // keeps its size and the bottom is cropped. A very wide window gets night either side; a big monitor no longer blows everything up.
+            const sw = r.width >= 1152 ? Math.min(SMAX, r.width / 1152) : Math.min(1, r.width / WMIN)
+            const s = Math.min(sw, Math.max(r.height / H, SMIN))
+            const w = Math.min(WMAX, r.width / s)
+            const h = Math.max(H, r.height / s)                // squarer than 4:3 the stage grows taller and the engine stacks (DESIGN.md rule 8)
             const st = stage.current.style
             st.width = Math.round(w) + "px"
             st.height = Math.round(h) + "px"
-            st.transform = `translate(-50%, -50%) scale(${s})`
+            st.transform = `translate(-50%, 0) scale(${s})`
         }
         const ro = new ResizeObserver(fit); if (wrap.current) ro.observe(wrap.current); fit()
         return () => { alive = false; ro.disconnect(); try { inst && inst.dispose() } catch (e) {} }
@@ -60,7 +62,7 @@ export default function TabitHome(props: { style?: any }) {
 
     return (
         <div ref={wrap} style={{ ...props.style, position: "relative", width: "100%", height: "100%", minHeight: 400, background: "#04070F", overflow: "hidden" }}>
-            <div ref={stage} style={{ position: "absolute", left: "50%", top: "50%", width: 1280, height: H, overflow: "hidden", background: "#04070F", fontFamily: "Manrope, system-ui, sans-serif", color: "#FBF9F4", transform: "translate(-50%, -50%)", transformOrigin: "center center" }}>
+            <div ref={stage} style={{ position: "absolute", left: "50%", top: 0, width: 1280, height: H, overflow: "hidden", background: "#04070F", fontFamily: "Manrope, system-ui, sans-serif", color: "#FBF9F4", transform: "translate(-50%, 0)", transformOrigin: "top center" }}>
                 <div ref={host} style={{ position: "absolute", inset: 0 }} />
             </div>
         </div>
