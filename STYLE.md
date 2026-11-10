@@ -119,6 +119,12 @@ Radius 2 everywhere; no other radius, no pill.
   phones), Small label 6 above, 12 between fields, two short fields may share a row 12 apart, focus ring 2 px Brass
   offset 3, placeholder text Paper 38, dropdown options Paper on Night; submit is a primary button; no
   placeholder-as-label.
+- Lists (click-out pages): a term/description grid — term column 240 at Body 600, description Body, columns 32 apart,
+  rows 16 apart, the grid 880 wide; stacked, one column with the term above its description and 20 between items.
+- People (About us): a grid of cards, four across (two stacked, one on phones), 32 × 40 apart, 1120 wide: a 4:5
+  photo box (Paper 14 border, radius 2, nav wash fill, a Small "Photo n" label at Paper 60 until the photograph is
+  in), name Body 600 (16 above), title Body at Paper 72, a Small "LinkedIn" text link, bio Body (12 above). The
+  boxes are placeholders for photographs (Oscar, 10 Nov), not decorative cards.
 - Not components: cards, panels, badges, chips, pills, icon rows, numbered steps, paragraph dividers, progress bars,
   carousels, image blocks.
 
@@ -175,6 +181,10 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
 - 10 Nov 2026 — v1. From XR2.8.2 and the brand guidelines. Queued for XR2.9: Paper text throughout; chapter "Explore"
   buttons at Control size; the four click-out pages restyled to this code; a fifth gate reviewer checks changes
   against this file.
+- 10 Nov 2026 — v1.2 (XR2.9.2). Lists on the click-out pages are a term/description grid (the run-on lines with
+  middots were rejected); the About people cards return with photo placeholder boxes (photographs to come); the page
+  sky drifts with the scroll (×0.3) and leans toward the pointer (±24 × ±16 units), scroll- and pointer-driven only;
+  the nav edge stays (Oscar). Sub-head "Leadership" struck.
 - 10 Nov 2026 — v1.1 (XR2.9). Corrections from building the pages: the lockup keeps its own white (rule 2), not Paper;
   button labels are Control 14/18 for both styles, primary at 600 and secondary at 500; Title (40/44/600) also serves
   as the section headline on long-scroll pages ("Licensed, audited, aligned." on Captives); pages set 1 unit =

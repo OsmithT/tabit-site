@@ -5,10 +5,10 @@ import * as captives from "./pages/captives.js"
 import * as aboutus from "./pages/aboutus.js"
 import * as contact from "./pages/contact.js"
 
-// Tabit XR2.4 pop-out pages (Ashleigh's). Put one on each page, full width, height "fit content".
+// Tabit XR2.9.2 click-out pages, restyled to STYLE.md (the approved XR2.4 copy). Put one on each page, full width, height "fit content".
 // @framerSupportedLayoutWidth any
 // @framerSupportedLayoutHeight auto
-const PAGES: Record<string, { css: string; html: string }> = { reinsurance, captives, aboutus, contact }
+const PAGES: Record<string, { css: string; html: string; js?: string }> = { reinsurance, captives, aboutus, contact }
 const FONT_URL = "https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&display=swap"
 
 export default function TabitPage(props: { page: string; style?: any }) {
@@ -17,7 +17,9 @@ export default function TabitPage(props: { page: string; style?: any }) {
         if (!document.getElementById("tabit-fonts-pages")) {
             const l = document.createElement("link"); l.id = "tabit-fonts-pages"; l.rel = "stylesheet"; l.href = FONT_URL; document.head.appendChild(l)
         }
-    }, [])
+        // XR2.9.2: the page sky drifts with the scroll and leans toward the pointer (the page module's own script; scroll- and pointer-driven only)
+        if (p.js && !(window as any).__tabitPageSky) { (window as any).__tabitPageSky = true; try { new Function(p.js)() } catch (e) {} }
+    }, [p.js])
     return (
         <div className="tb-page" style={{ ...props.style, width: "100%", background: "#04070F" }}>
             <style>{p.css}</style>
