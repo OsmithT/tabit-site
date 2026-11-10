@@ -6,7 +6,7 @@ import { TABIT_HOME_CSS } from "./TabitHomeStyles.js"
 // The design is 720 units tall and its width follows the screen (960 to 1940 units, the copy column centred),
 // so the stage is scaled to the component's HEIGHT and its width is let run to the component's edges:
 // a 1366×768 laptop, a 1440×900 MacBook and a 2560×1080 ultrawide are all filled, no letterbox.
-// Narrow (portrait) screens scale to the width instead, until the phone layout is designed.
+// Squarer than 4:3 the stage keeps 960 units of width and grows taller, so the sky fills the screen and the engine stacks the content; phones still await their own layout.
 // @framerSupportedLayoutWidth any
 // @framerSupportedLayoutHeight any
 const THREE_URL = "https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"
@@ -46,10 +46,12 @@ export default function TabitHome(props: { style?: any }) {
             if (!r.width || !r.height) return
             let s = r.height / H                              // fill the height…
             let w = r.width / s                               // …and let the width run to the edges
-            if (w < WMIN) { s = r.width / WMIN; w = WMIN }    // too narrow for the copy column: fit the width instead
+            let h = H
+            if (w < WMIN) { s = r.width / WMIN; w = WMIN; h = r.height / s }   // squarer than 4:3: keep 960 units of width and let the stage grow taller — the sky fills the screen, the engine stacks the content (DESIGN.md rule 8)
             if (w > WMAX) w = WMAX                            // wider than the design allows: the night continues either side
             const st = stage.current.style
             st.width = Math.round(w) + "px"
+            st.height = Math.round(h) + "px"
             st.transform = `translate(-50%, -50%) scale(${s})`
         }
         const ro = new ResizeObserver(fit); if (wrap.current) ro.observe(wrap.current); fit()
