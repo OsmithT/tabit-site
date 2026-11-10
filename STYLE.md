@@ -27,7 +27,7 @@ photographs, illustrations or icons.
 | Token | Value | Used for | Never for |
 |---|---|---|---|
 | Night | `#04070F` | The one background; text on a brass button | Anything else |
-| Paper | `#FBF9F4` | All text; the logo; burger lines; star-path dots | Backgrounds, fills |
+| Paper | `#FBF9F4` | All text; burger lines; star-path dots (the lockup keeps its own white — cardinal rule 2) | Backgrounds, fills |
 | Brass | `#A8823A` | Headline key word; primary button fill; current chapter; compass points/diamonds; link hover | Body text, borders, backgrounds behind text, decorative lines |
 | Dusk | `#B8C0D4` | EXPLORE cue; hairline chart lines in the sky; compass rim ticks | Text > 13, anything that must be read |
 
@@ -81,8 +81,10 @@ size (compass capped .75). Content box lifts towards the nav by 60 % of the extr
 Between: every position lerps on `ST = (1.6 − aspect) / (1.6 − 1.333)` clamped 0–1.
 
 Margins and rhythm: nav contents 40 from the edges; Replay 24; coordinates 64; EXPLORE cue 34. Headline → body 24;
-body → button 30 (home 28); body → trust row 26 above the hairline, 18 below; dictionary blocks 14; timeline 46 (28
-stacked); buttons in a row 12 apart. Positions on multiples of 2.
+body → button 30 (home 28); body → trust row 26 above the hairline, 18 below; dictionary blocks 14; sub-head →
+content 14; timeline 46 (28 stacked); buttons in a row 12 apart; list items 12 apart; sections 96 apart on the
+click-out pages, whose hero copy starts 176 from the top (88 nav + 88) and whose footer ends 40 above the bottom.
+Positions on multiples of 2.
 
 Phones (< 600 px): not yet composed — same values, stacked, 16-unit margins, chapter path as a bottom bar.
 
@@ -95,9 +97,9 @@ Radius 2 everywhere; no other radius, no pill.
 - Burger: 44 × 30 hit area, two Paper lines 22 × 1.5, 10.5 apart, no word. Open → cross, .25 s. Panel 280 wide, 60
   under the nav line, padding 16/28/18, `rgba(4,7,15,.92)` + 14 px blur, border Paper 14, radius 2; links Body 17/24,
   9 above/below, no dividers; hover and current page Brass; focus ring 2 px Brass offset 3.
-- Buttons: height 44, padding 13 × 24, radius 2, label Control. Primary: Brass fill, Night text, +8 % brightness on
-  hover. Secondary: transparent, 1 Paper 38 border, Paper 500 text; hover Paper 8 % fill, border Paper 75. Both press
-  down 1 on `:active`. Hover only in `@media (hover: hover) and (pointer: fine)`. Nav size: height 38, padding 10 × 18,
+- Buttons: height 44, padding 13 × 24, radius 2, label Control 14/18. Primary: Brass fill, Night text at 600, +8 %
+  brightness on hover (a state, not animated). Secondary: transparent, 1 Paper 38 border, Paper text at 500; hover
+  Paper 8 % fill, border Paper 75, .25 s. Both press down 1 on `:active`. Hover only in `@media (hover: hover) and (pointer: fine)`. Nav size: height 38, padding 10 × 18,
   13/500/.02em — nav bar only. One primary per screen; a secondary may sit 12 to its left.
 - Trust row (home): three Small facts, Brass middots, 12 apart, under a Paper 14 hairline (26 above, 18 below). Under
   decision as the one hairline above text.
@@ -113,8 +115,10 @@ Radius 2 everywhere; no other radius, no pill.
 - Replay (24, 24): 36 tall, padding 0 × 16, Dusk 45 border, `rgba(4,7,15,.35)`, Small 600. Coordinates (64, 30): Label
   400/.14em Paper 80, links to About, Brass on hover. EXPLORE cue (34): Label .26em Dusk over a 1-unit line. All three
   under decision as chrome.
-- Forms (Contact): inputs 44 tall, radius 2, Paper 38 border, transparent, Body text (≥ 16 px on phones), Small label
-  above, 12 between fields, focus ring 2 px Brass; submit is a primary button; no placeholder-as-label.
+- Forms (Contact): inputs 44 tall, padding 8 × 14, radius 2, Paper 38 border, transparent, Body text (≥ 16 px on
+  phones), Small label 6 above, 12 between fields, two short fields may share a row 12 apart, focus ring 2 px Brass
+  offset 3, placeholder text Paper 38, dropdown options Paper on Night; submit is a primary button; no
+  placeholder-as-label.
 - Not components: cards, panels, badges, chips, pills, icon rows, numbered steps, paragraph dividers, progress bars,
   carousels, image blocks.
 
@@ -171,3 +175,9 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
 - 10 Nov 2026 — v1. From XR2.8.2 and the brand guidelines. Queued for XR2.9: Paper text throughout; chapter "Explore"
   buttons at Control size; the four click-out pages restyled to this code; a fifth gate reviewer checks changes
   against this file.
+- 10 Nov 2026 — v1.1 (XR2.9). Corrections from building the pages: the lockup keeps its own white (rule 2), not Paper;
+  button labels are Control 14/18 for both styles, primary at 600 and secondary at 500; Title (40/44/600) also serves
+  as the section headline on long-scroll pages ("Licensed, audited, aligned." on Captives); pages set 1 unit =
+  min(100svh/720, 100vw/960) and switch two-column → stacked at 1.6:1 as a step (they scroll, so the home's
+  interpolation does not apply); sub-heads added to pages where the kickers used to carry the section name
+  ("Leadership", "Write to us") — for Oscar to approve or strike; the figure SVGs carry a screen-reader label.

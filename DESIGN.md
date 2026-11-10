@@ -53,8 +53,10 @@ failure is flagged for Oscar's decision rather than blocking on its own. Owner o
 - The star-path chapter labels — navigation, not kickers.
 
 Under decision (flag, do not block, until Oscar rules): the film-grain loop and the EXPLORE cue pulse (cardinal 4 as
-worded); the hairline above the Home proof row; `Replay` and the coordinates as on-screen chrome; the splash having
-no primary action.
+worded); the hairline above the Home proof row and the 1 px Dusk 14 edge under the nav bar; `Replay` and the
+coordinates as on-screen chrome; the splash having no primary action; the About legal line at 11 px; on the click-out
+pages, the hero headline and button repeated at the foot (as on the approved XR2.4 pages), the (Re)insurance hero
+keeping copy left / compass right (the home chapter has them swapped), and whether the pages carry the chapter path.
 
 ## How the gate runs
 
