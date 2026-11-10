@@ -1,4 +1,4 @@
-// Tabit XR2.9 site script (from the design canvas, Beta 4.2 Live): the style code applied — Paper #FBF9F4 as the text colour throughout, chapter buttons at the Control size (STYLE.md v1); XR2.8.2 layout: below 4:3 the stage grows taller and uses its height — two columns at >=1.6:1, stacked at <=4:3, interpolated between (DESIGN.md rule 8); XR2.7.3 fixes (no setInterval, ?nograin A/B flag, menu on Night, transform-only burger); XR2.7.1 made fast — one baked cloud sprite, no MSAA, invisible sprites skipped, masks written once, logo-to-stars map warmed at start, a frame governor, ?diag readout. Exposes runTabit(host, THREE, options).
+// Tabit XR2.9.1 site script (from the design canvas, Beta 4.2 Live): the start-up stall removed — the scroll sky and its star figures and the logo-to-stars pixel map are built lazily in idle time from 2.5 s into the intro, on CPU canvases, never at load; the style code applied — Paper #FBF9F4 as the text colour throughout, chapter buttons at the Control size (STYLE.md v1); XR2.8.2 layout: below 4:3 the stage grows taller and uses its height — two columns at >=1.6:1, stacked at <=4:3, interpolated between (DESIGN.md rule 8); XR2.7.3 fixes (no setInterval, ?nograin A/B flag, menu on Night, transform-only burger); XR2.7.1 made fast — one baked cloud sprite, no MSAA, invisible sprites skipped, masks written once, logo-to-stars map warmed at start, a frame governor, ?diag readout. Exposes runTabit(host, THREE, options).
 function TB_RGB(n,d){try{var v=getComputedStyle(document.documentElement).getPropertyValue(n).trim();var m=/^#([0-9a-f]{6})$/i.exec(v);if(m){var x=parseInt(m[1],16);return((x>>16)&255)+','+((x>>8)&255)+','+(x&255);}}catch(e){}return d;}
 var TB_VARC={};function TB_VAR(n,d){var c=TB_VARC[n],t=Date.now();if(c&&t-c.t<500)return c.v;var v=d;try{var r=parseFloat(getComputedStyle(document.documentElement).getPropertyValue(n));if(!isNaN(r))v=Math.max(0,Math.min(1,r));}catch(e){}TB_VARC[n]={v:v,t:t};return v;}
 var TABIT_STYLE = ".tb-stack [data-tabit-sec],.tb-stack [data-tabit-col]{text-align:center}.tb-stack [data-tabit-sec] [style*='display: flex'],.tb-stack [data-tabit-col] [style*='display: flex']{justify-content:center}.tb-stack [data-tabit-sec] [style*='display: inline-flex']{justify-content:center}.tb-stack [data-tabit-col] [style*='max-width: 610px']{margin-left:auto;margin-right:auto}.tb-stack [data-tabit-col]>span[style*='bottom: 84px']{left:calc(50% - 280px)!important;bottom:130px!important}.tb-stack [data-tabit-sec='5'] [data-tb-about-seq]{left:0!important;top:412px!important;width:470px!important}.tb-stack [data-tabit-sec] [style*='font-size: 15px; line-height: 24px']{font-size:17px!important;line-height:26px!important}.tb-stack [data-tb-about-seq] [style*='margin-top: 46px']{margin-top:28px!important}.tb-stack [data-tabit-sec='5'] [data-tb-about-seq] [style*='display: flex']{justify-content:center}.tb-menu{position:relative;pointer-events:auto}.tb-menu summary{list-style:none;display:flex;align-items:center;height:44px;padding:0 4px;cursor:pointer;color:var(--tabit-ink,#FBF9F4);font-size:13px;font-weight:500;letter-spacing:.02em;user-select:none}.tb-menu summary::-webkit-details-marker{display:none}.tb-menu summary:focus-visible{outline:2px solid #A8823A;outline-offset:3px}.tb-menu-ic{display:block;width:22px;height:12px;position:relative}.tb-menu-ic i{position:absolute;left:0;right:0;height:1.5px;background:var(--tabit-ink,#FBF9F4);transition:transform .25s cubic-bezier(.23,1,.32,1)}.tb-menu-ic i:first-child{top:0}.tb-menu-ic i:last-child{top:10.5px}.tb-menu[open] .tb-menu-ic i:first-child{transform:translateY(5.25px) rotate(45deg)}.tb-menu[open] .tb-menu-ic i:last-child{transform:translateY(-5.25px) rotate(-45deg)}.tb-menu-nav{position:absolute;left:-16px;top:60px;width:280px;padding:16px 28px 18px;background:rgba(4,7,15,.92);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid rgba(184,192,212,.14);border-radius:2px;display:flex;flex-direction:column;z-index:12}.tb-menu-nav a{display:block;padding:9px 0;font-size:17px;line-height:24px;font-weight:400;letter-spacing:-.01em;color:var(--tb-text,#FBF9F4);text-decoration:none;transition:color .25s ease}@media (hover:hover) and (pointer:fine){.tb-menu-nav a:hover{color:var(--tb-gold,#A8823A)}}.tb-menu-nav a[aria-current=\"page\"]{color:var(--tb-gold,#A8823A)}@media (prefers-reduced-motion: reduce){.tb-menu-ic i{transition:none}}\n\n@keyframes tabitGrain{0%{transform:translate(0,0)}25%{transform:translate(-40px,22px)}50%{transform:translate(18px,-36px)}75%{transform:translate(-22px,-14px)}100%{transform:translate(0,0)}}\n.tabit-grain{animation:tabitGrain .5s steps(4) infinite}\n@keyframes tabitCue{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}\n.tabit-cue-line{animation:tabitCue 2.2s cubic-bezier(.65,0,.35,1) infinite}\n.tabit-cue:focus-visible,.tabit-replay:focus-visible{outline:2px solid #A8823A;outline-offset:3px}\n.tabit-replay{transition:background .25s ease,border-color .25s ease}\n.tabit-replay:hover{background:rgba(251,249,244,.08);border-color:rgba(251,249,244,.75)}\n.tabit-dot{position:absolute;width:28px;height:28px;border:0;padding:0;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center}\n.tabit-star{display:block;width:11px;height:8.6px;color:var(--tabit-ink2,#FBF9F4);transition:transform .35s ease,opacity .35s ease,filter .35s ease}\n.tabit-dotlabel{position:absolute;right:30px;top:50%;transform:translate(8px,-50%);opacity:0;white-space:nowrap;pointer-events:none;font-family:Manrope,system-ui,sans-serif;font-size:11px;font-weight:600;letter-spacing:.2em;color:var(--tabit-ink2,#FBF9F4);transition:opacity .3s ease,transform .3s ease}\n.tabit-dotlabel b{color:var(--tb-gold,#A8823A);font-weight:600;margin-right:8px}\n.tabit-dot:hover .tabit-dotlabel,.tabit-dot:focus-visible .tabit-dotlabel{opacity:1;transform:translate(0,-50%)}\n.tabit-dot:hover .tabit-star{filter:drop-shadow(0 0 5px rgba(251,249,244,.9))!important}\n.tabit-dot:focus-visible,.tabit-home:focus-visible,.tabit-skip:focus-visible{outline:2px solid #A8823A;outline-offset:3px}\n.tabit-skip{transition:background .25s ease,border-color .25s ease,color .25s ease}\n.tabit-skip:hover{background:rgba(251,249,244,.08);border-color:rgba(251,249,244,.7);color:var(--tb-text,#FBF9F4)}\n@media (prefers-reduced-motion: reduce){.tabit-grain,.tabit-cue-line{animation:none}}\n\n.tabit-plabel{position:absolute;left:30px;top:0;writing-mode:vertical-rl;transform:translateX(-50%);white-space:nowrap;pointer-events:none;font-family:Manrope,system-ui,sans-serif;font-size:12px;line-height:14px;font-weight:500;letter-spacing:.08em;color:var(--tabit-ink2,#FBF9F4);opacity:0}\n";
@@ -1016,7 +1016,7 @@ function makeHandoff(hero, root, V) {
   function rippleInit(tx, ty, s1) {
     var d = FL2.dpr, M = 40, wL = parseFloat(lock.getAttribute('width')), hL = parseFloat(lock.getAttribute('height'));
     var gx0 = Math.floor(L0 + tx - M), gy0 = Math.floor(T0 + ty - M), gw = Math.ceil(s1 * wL + 2 * M), gh = Math.ceil(s1 * hL + 2 * M);
-    var cv = document.createElement('canvas'); cv.width = gw * d; cv.height = gh * d; var g = cv.getContext('2d'), k = d * s1 * K;
+    var cv = document.createElement('canvas'); cv.width = gw * d; cv.height = gh * d; var g = cv.getContext('2d', { willReadFrequently: true }), k = d * s1 * K;
     g.setTransform(k, 0, 0, k, d * (L0 + tx - gx0) - k * VB.x, d * (T0 + ty - gy0) - k * VB.y); g.fillStyle = '#fff';
     g.fill(new Path2D(mark.getAttribute('d')), 'evenodd'); letters.forEach(function (el) { g.fill(new Path2D(el.getAttribute('d')), 'evenodd'); });
     var px = g.getImageData(0, 0, cv.width, cv.height).data, P = [];
@@ -1360,7 +1360,7 @@ function makeHandoff(hero, root, V) {
   var FLY = null;
   function flyInit() {
     var wL = parseFloat(lock.getAttribute('width')), hL = parseFloat(lock.getAttribute('height'));
-    var sc = document.createElement('canvas'); sc.width = Math.ceil(wL); sc.height = Math.ceil(hL); var g = sc.getContext('2d');
+    var sc = document.createElement('canvas'); sc.width = Math.ceil(wL); sc.height = Math.ceil(hL); var g = sc.getContext('2d', { willReadFrequently: true });   // XR2.9.1: CPU canvas, no GPU readback
     g.setTransform(K, 0, 0, K, -VB.x * K, -VB.y * K); g.fillStyle = '#fff';
     g.fill(new Path2D(mark.getAttribute('d')), 'evenodd'); letters.forEach(function (el) { g.fill(new Path2D(el.getAttribute('d')), 'evenodd'); });
     var px = g.getImageData(0, 0, sc.width, sc.height).data, pts = [];
@@ -1413,7 +1413,7 @@ function makeHandoff(hero, root, V) {
   try { RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
   function fly2Init() {
     var wL = parseFloat(lock.getAttribute('width')), hL = parseFloat(lock.getAttribute('height'));
-    var sc = document.createElement('canvas'); sc.width = Math.ceil(wL); sc.height = Math.ceil(hL); var g = sc.getContext('2d');
+    var sc = document.createElement('canvas'); sc.width = Math.ceil(wL); sc.height = Math.ceil(hL); var g = sc.getContext('2d', { willReadFrequently: true });   // XR2.9.1: CPU canvas, no GPU readback
     g.setTransform(K, 0, 0, K, -VB.x * K, -VB.y * K); g.fillStyle = '#fff';
     g.fill(new Path2D(mark.getAttribute('d')), 'evenodd'); letters.forEach(function (el) { g.fill(new Path2D(el.getAttribute('d')), 'evenodd'); });
     var px = g.getImageData(0, 0, sc.width, sc.height).data;
@@ -1541,6 +1541,7 @@ function makeHandoff(hero, root, V) {
   }
 
   function update(t, S) {
+    if (!FL2 && t > 2.5 && V === 'dc17') warmMap();
     var F = hero.fx;
     if (cue) { var ca = sg(t, 7.3, 7.9) * (1 - sg(S, 0, 140)); cue.style.opacity = ca.toFixed(3); cue.style.pointerEvents = ca > .1 ? 'auto' : 'none'; }
     if (S < .5) { if (touched) { reset(); touched = false; }
@@ -1699,7 +1700,8 @@ function makeHandoff(hero, root, V) {
     if (CHOR) CHOR(yc);   // X1.1 to X1.10: this option's way of moving the copy
   };
   reset();
-  if (V === 'dc17' && !RM) { try { if (!FL2) fly2Init(); starAt(STB, 0, 0, 1, 0); } catch (e) {} reset(); }   // XR2.7.2: warm the logo-to-stars pixel map now, while nothing is on screen, instead of at the end of the intro
+  var warmReq = false;   // XR2.9.1: the pixel map is warmed in idle time from 2.5 s into the intro (XR2.7.2 did it at load, which was the start-up stall)
+  function warmMap() { if (warmReq || FL2) return; warmReq = true; var idle = window.requestIdleCallback || function (f) { return requestAnimationFrame(function () { f(); }); }; idle(function () { try { if (!FL2) fly2Init(); } catch (e) {} }); }
   return { update: update, qmax: QMAX, hoverLogo: function (tn) {}, ptr: function (x, y) { PTR.x = x; PTR.y = y; } };
 }
 
@@ -2181,10 +2183,11 @@ function makeScrollSky(root, IDEA, LOGO, OPT) {
   // explanation and scatters back into sky between chapters.
   scenes.diagrams = (function () {
     var N = 900, PTS = [];
-    function sample(drawFn) {
-      var o = document.createElement('canvas'); o.width = 520; o.height = 420; var g = o.getContext('2d'); g.fillStyle = '#fff'; g.strokeStyle = '#fff'; drawFn(g);
+    function sample(drawFn, seed) {   // XR2.9.1: a CPU canvas (no GPU readback) and its own sequence, so it can run lazily
+      var o = document.createElement('canvas'); o.width = 520; o.height = 420; var g = o.getContext('2d', { willReadFrequently: true }); g.fillStyle = '#fff'; g.strokeStyle = '#fff'; drawFn(g);
       var d = g.getImageData(0, 0, 520, 420).data, pts = []; for (var y = 0; y < 420; y += 3) for (var x = 0; x < 520; x += 3) if (d[(y * 520 + x) * 4 + 3] > 120) pts.push([x, y]);
-      var out = []; for (var i = 0; i < N; i++) { var p = pts[Math.floor(rnd() * pts.length)] || [260, 210]; out.push([(HL ? 680 : 640) + p[0], 150 + p[1]]); } return out;
+      var s9 = seed || 2468; function r9() { s9 = (s9 * 16807) % 2147483647; return (s9 - 1) / 2147483646; }
+      var out = []; for (var i = 0; i < N; i++) { var p = pts[Math.floor(r9() * pts.length)] || [260, 210]; out.push([(HL ? 680 : 640) + p[0], 150 + p[1]]); } return out;
     }
     // Captives: a captured orbit. The geometry is shared by the stars' shape and the satellite that is caught into it
     var CAPO = { cx: 300, cy: 236, rx: 175, ry: 92, rot: -.32, t0: 3.5 }, capS = -1;
@@ -2194,33 +2197,36 @@ function makeScrollSky(root, IDEA, LOGO, OPT) {
       if (st < 2.4) { var Q = capIn(), k = st / 2.4, v = 1 - k; return [v * v * Q.a[0] + 2 * v * k * Q.c[0] + k * k * Q.b[0], v * v * Q.a[1] + 2 * v * k * Q.c[1] + k * k * Q.b[1]]; }
       return capE(CAPO.t0 - (st - 2.4) * 1.2);
     }
-    var SH = {
+    var SHDEF = {
       home: null,
-      mintaka: sample(function (g) {   // (Re)insurance: a navigator's compass rose, finding a way into risks the market has not charted
+      mintaka: function (g) {   // (Re)insurance: a navigator's compass rose, finding a way into risks the market has not charted
         g.lineWidth = 7; g.beginPath(); g.arc(260, 210, 170, 0, 6.2832); g.stroke();
         function pt(a, L, w) { g.beginPath(); g.moveTo(260 + L * Math.cos(a), 210 + L * Math.sin(a)); g.lineTo(260 + w * Math.cos(a + Math.PI / 2), 210 + w * Math.sin(a + Math.PI / 2)); g.lineTo(260 + w * Math.cos(a - Math.PI / 2), 210 + w * Math.sin(a - Math.PI / 2)); g.closePath(); g.fill(); }
-        [0, 1, 2, 3].forEach(function (i) { pt(i * Math.PI / 2 - Math.PI / 2, 196, 26); pt(i * Math.PI / 2 - Math.PI / 4, 108, 18); }); }),
-      alnilam: sample(function (g) {   // Captives: a captured orbit; what would have passed by is caught and kept in your orbit
+        [0, 1, 2, 3].forEach(function (i) { pt(i * Math.PI / 2 - Math.PI / 2, 196, 26); pt(i * Math.PI / 2 - Math.PI / 4, 108, 18); }); },
+      alnilam: function (g) {   // Captives: a captured orbit; what would have passed by is caught and kept in your orbit
         g.beginPath(); g.arc(CAPO.cx, CAPO.cy, 30, 0, 6.2832); g.fill();
         g.lineWidth = 6; g.beginPath(); for (var t = 0; t <= 6.29; t += .02) { var p = capE(t); if (t === 0) g.moveTo(p[0], p[1]); else g.lineTo(p[0], p[1]); } g.stroke();
-        var Q = capIn(); g.lineWidth = 5; g.setLineDash([3, 13]); g.beginPath(); g.moveTo(Q.a[0], Q.a[1]); g.quadraticCurveTo(Q.c[0], Q.c[1], Q.b[0], Q.b[1]); g.stroke(); g.setLineDash([]); }),
-      alnitak: sample(function (g) { g.lineWidth = 10; g.beginPath(); g.moveTo(30, 330); g.bezierCurveTo(180, 320, 300, 200, 490, 80); g.stroke(); for (var x = 40; x < 500; x += 60) g.fillRect(x, 352, 6, 22); g.fillRect(20, 380, 480, 6); }),
-      meissa: sample(function (g) { g.font = '800 300px Manrope, Arial, sans-serif'; g.textAlign = 'center'; g.fillText('AI', 260, 320); }),
-      ai: sample(function (g) {   // a small network: three layers of nodes, every node joined to the next layer
+        var Q = capIn(); g.lineWidth = 5; g.setLineDash([3, 13]); g.beginPath(); g.moveTo(Q.a[0], Q.a[1]); g.quadraticCurveTo(Q.c[0], Q.c[1], Q.b[0], Q.b[1]); g.stroke(); g.setLineDash([]); },
+      alnitak: function (g) { g.lineWidth = 10; g.beginPath(); g.moveTo(30, 330); g.bezierCurveTo(180, 320, 300, 200, 490, 80); g.stroke(); for (var x = 40; x < 500; x += 60) g.fillRect(x, 352, 6, 22); g.fillRect(20, 380, 480, 6); },
+      meissa: function (g) { g.font = '800 300px Manrope, Arial, sans-serif'; g.textAlign = 'center'; g.fillText('AI', 260, 320); },
+      ai: function (g) {   // a small network: three layers of nodes, every node joined to the next layer
         var L = [[90, [110, 210, 310]], [260, [70, 160, 250, 340]], [430, [130, 290]]]; g.lineWidth = 3;
         for (var a = 0; a < 2; a++) L[a][1].forEach(function (y1) { L[a + 1][1].forEach(function (y2) { g.beginPath(); g.moveTo(L[a][0], y1); g.lineTo(L[a + 1][0], y2); g.stroke(); }); });
-        L.forEach(function (l) { l[1].forEach(function (y) { g.beginPath(); g.arc(l[0], y, 22, 0, 6.2832); g.fill(); }); }); }),
-      licence: sample(function (g) {   // Licence & audit: a padlock (no third-party logo)
+        L.forEach(function (l) { l[1].forEach(function (y) { g.beginPath(); g.arc(l[0], y, 22, 0, 6.2832); g.fill(); }); }); },
+      licence: function (g) {   // Licence & audit: a padlock (no third-party logo)
         g.lineWidth = 30; g.lineCap = 'butt'; g.beginPath(); g.moveTo(178, 196); g.lineTo(178, 140); g.arc(260, 140, 82, Math.PI, 0); g.lineTo(342, 196); g.stroke();
         g.beginPath(); g.moveTo(140, 200); g.lineTo(380, 200); g.lineTo(380, 390); g.lineTo(140, 390); g.closePath(); g.fill();
-        g.globalCompositeOperation = 'destination-out'; g.beginPath(); g.arc(260, 270, 24, 0, 6.2832); g.fill(); g.fillRect(250, 280, 20, 58); g.globalCompositeOperation = 'source-over'; }),
-      contact: sample(function (g) { g.translate(260, 210); g.scale(.86, .86); g.translate(-247.9, -193.2); g.fill(new Path2D(LOGO.mark), 'evenodd'); })   // About: the mark sits beside the intro, above the team
+        g.globalCompositeOperation = 'destination-out'; g.beginPath(); g.arc(260, 270, 24, 0, 6.2832); g.fill(); g.fillRect(250, 280, 20, 58); g.globalCompositeOperation = 'source-over'; },
+      contact: function (g) { g.translate(260, 210); g.scale(.86, .86); g.translate(-247.9, -193.2); g.fill(new Path2D(LOGO.mark), 'evenodd'); }   // About: the mark sits beside the intro, above the team
     };
+    var SHC = {}, SHKEYS = Object.keys(SHDEF), SH = {};
+    SHKEYS.forEach(function (k, ix) { Object.defineProperty(SH, k, { get: function () { if (!(k in SHC)) SHC[k] = SHDEF[k] ? sample(SHDEF[k], 2468 + 97 * ix) : null; return SHC[k]; } }); });
+    function warmShape() { for (var w = 0; w < SHKEYS.length; w++) if (!(SHKEYS[w] in SHC)) { void SH[SHKEYS[w]]; return true; } return false; }   // XR2.9.1: one shape per call, for idle time
     var SHELL_ORDER = [{ k: 'home', t: 'Home' }, { k: 'mintaka', t: '(Re)insurance' }, { k: 'alnilam', t: 'Captives' }, { k: 'ai', t: 'AI' }, { k: 'licence', t: 'Licence & audit' }, { k: 'contact', t: 'About us' }];
     var P = []; for (var i = 0; i < N; i++) { var s = SKY[(i * 7) % SKY.length]; P.push({ hx: s.x, hy: s.y, d: rnd() * .3, w: (rnd() - .5) * 2 }); }
     function shapeAt(i, j) { var sh = SH[CH[i].k]; if (TB_AIL && sh && HL && CH[i].k === 'ai') { var G0 = TABIT_SUBJ; var aic = TABIT_AIC != null ? TABIT_AIC : G0.cy; return [TB_AIFX() + (sh[j][0] - 940) * G0.s, aic + (sh[j][1] - 360) * G0.s]; } if (!sh) return [P[j].hx, P[j].hy]; if (!HL) return sh[j]; var G = TABIT_SUBJ; if (TB_RV && TB_RE && CH[i].k === 'mintaka') return TB_REX(sh[j][0] - 940, sh[j][1] - 360); return [G.cx + (sh[j][0] - 940) * G.s, G.cy + (sh[j][1] - 360) * G.s]; }
     return {
-      side: 'right', shell: { chapters: SHELL_ORDER, map: 'page' },
+      warm: warmShape, side: 'right', shell: { chapters: SHELL_ORDER, map: 'page' },
       draw: function (u, near, hold) {
         if (TB_SHARP) {   // XR2.2.6: the sky drifts a little against the mouse (nearer stars more) and parts round the pointer
           var pon = GRAV.on && GRAV.x > -900; MPX.x = lp(MPX.x, pon ? (GRAV.x - 640) / 640 : 0, .035); MPX.y = lp(MPX.y, pon ? (GRAV.y - 360) / 360 : 0, .035); MPX.k = lp(MPX.k, pon ? 1 : 0, .05);
@@ -2772,9 +2778,16 @@ function makeScene(cv, V0) {
   }
   function cl(x, a, b) { return Math.max(a, Math.min(b, x)); }
   function sg(x, a, b) { return cl((x - a) / (b - a), 0, 1); }
+  var warming = false;
+  function build() { if (!sky && !failed) { try { sky = makeScrollSky(cv, SS_IDEA, { mark: TABIT_DATA.mark }, { headless: true, side: SS_SIDE, focus: SS_FOCUS, focusFn: SS_SIDE === 'left' ? function () { return TABIT_FOCUS; } : null }); } catch (err) { failed = true; } } }
+  function warm() {   // XR2.9.1: the sky and its star figures are prepared in idle time during the intro, never in its first seconds
+    if (warming || sky || failed) return; warming = true;
+    var idle = window.requestIdleCallback || function (f) { return requestAnimationFrame(function () { f({ timeRemaining: function () { return 8; } }); }); };
+    idle(function step() { if (!sky) { build(); if (!sky) return; } if (sky.warm && sky.warm()) idle(step); });
+  }
   function draw(t, u, r) {
     if (r == null) r = 0;
-    if (!sky && !failed) { try { sky = makeScrollSky(cv, SS_IDEA, { mark: TABIT_DATA.mark }, { headless: true, side: SS_SIDE, focus: SS_FOCUS, focusFn: SS_SIDE === 'left' ? function () { return TABIT_FOCUS; } : null }); } catch (err) { failed = true; } }
+    if (!sky && !failed) { if (r > 0) build(); else if (t > 2.5) warm(); }
     var a = sg(r, .02, .3);   // the scene fades in over the hero's B11 sky (they match), then takes over from it
     if (!sky || a <= 0) { var cx0 = cv.getContext('2d'); cx0.setTransform(1, 0, 0, 1, 0, 0); cx0.clearRect(0, 0, cv.width, cv.height); cv.style.opacity = '0'; return { ph: 0, day: 0 }; }
     if (!bound) bindPointer();
