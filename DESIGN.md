@@ -33,7 +33,9 @@ failure is flagged for Oscar's decision rather than blocking on its own. Owner o
 ## House (from the adopted skills)
 
 - Headlines ≤ 2 lines at every width; one `h1`-equivalent per screen; a real primary action on screen one.
-- Body text ≥ 16 px, 45–75 characters a line; text contrast ≥ 4.5:1 (3:1 at 24 px+); running text ≥ 7:1 preferred.
+- Body text 45–75 characters a line; text contrast ≥ 4.5:1 (3:1 at 24 px+); running text ≥ 7:1 preferred. No minimum
+  pixel size beyond the style code's own steps: secondary text (Small, e.g. list descriptions) may render under 16 px
+  (Oscar, 11 Nov 2026; the earlier 16 px floor was general web practice, not a Tabit rule).
 - No index numbering (01/02/03), no icon-topped card rows, no nested cards, no 1 px hairline rules as decoration,
   no gradients or glows on UI, no monospace outside code, no emoji, no placeholder content on a live page.
 - Hover styles only inside `@media (hover: hover) and (pointer: fine)`; every tappable has `:active` feedback;
