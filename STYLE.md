@@ -7,8 +7,10 @@ listed one or added here with a reason (and logged in §10). The same text lives
 style code"; keep the two identical.
 
 All numbers are design units on the 1280 × 720 stage. **Sizing (v1.4, Oscar 11 Nov): sizes follow the window's width,
-never its height, as apple.com does.** 1 unit = 1 px from 960 to 1152 px wide, rising with the width to at most
-1.25 px (reached at 1440); below 960 px the 960-unit stage scales down; phones (≤ 600 px) are 1 unit = 1 px. On the
+never its height, as apple.com does.** On the click-out pages 1 unit is never less than 1 px at
+any width (it rises with the width to 1.25 px at 1440); two columns need both 1.6:1 and 1024 px, otherwise the page
+stacks. On the home, 1 unit = 1 px from 960 to 1152 px wide, rising to at most 1.25 px; below 960 px the 960-unit stage
+scales down (the home's phone composition is still to come). On the
 home, a window shorter than the stage may tighten the size only to 0.8 — below that the page keeps its size and the
 bottom is cropped. The click-out pages ignore the height entirely and scroll; their content sits in a centred
 1440-unit column, and wider screens get night either side. The home's sky and stage always run to the window's edges
@@ -189,6 +191,8 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
 
 ## 10. Change log
 
+- 11 Nov 2026 — v1.6 (XR2.9.7). Click-out pages checked at 17 widths × 4 heights: the unit no longer drops below 1 px
+  between 600 and 1152 px wide (it had shrunk legal text to 8 px), and two columns also need 1024 px of width.
 - 11 Nov 2026 — v1.5 (XR2.9.7). The home stage's 1940-unit width cap raised to 4096: with sizes no longer shrinking,
   wide windows showed starless bands either side of the stage (Oscar, 2000 × 535 window).
 - 11 Nov 2026 — v1.4 (XR2.9.6). Sizing by width, as apple.com: the site no longer shrinks to fill a short or very
