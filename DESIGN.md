@@ -34,6 +34,9 @@ failure is flagged for Oscar's decision rather than blocking on its own. Owner o
 
 ## House (from the adopted skills)
 
+- A figure is seen whole or not at all: never cut by the window's edge or the nav while visible (the home compass rim,
+  a horizon, is the one exception). STYLE.md §7, v1.14.
+
 - Headlines ≤ 2 lines at every width; one `h1`-equivalent per screen; a real primary action on screen one.
 - Body text 45–75 characters a line; text contrast ≥ 4.5:1 (3:1 at 24 px+); running text ≥ 7:1 preferred. No minimum
   pixel size beyond the style code's own steps: secondary text (Small, e.g. list descriptions) may render under 16 px

@@ -193,6 +193,9 @@ pointer, drifts with scroll; never carries an image. Subjects: Orion with Tabit 
 rim and needle ((Re)insurance), the ring and comet (Captives), the AI title formed from a star cloud (AI), the lock
 (Licence); About's subject is the dictionary entry. Paper-white points with the sky's glows (sanctioned). 55–60 % of
 stage height two-column, 40–45 % of width stacked; the compass rim is a horizon and runs off the bottom by design.
+A figure is seen whole or not at all (v1.14): on the click-out pages it fades in only once its bottom edge is inside the
+window and fades out as its top reaches the nav (a short stretch, about 8 % of the window); a hero figure, whole on the
+first screen, only fades out. The home compass rim is the one figure meant to run off an edge.
 Never photographs, illustrations, icons, other logos, UI charts, maps.
 
 ## 8. The click-out pages (measured 10 Nov)
@@ -224,6 +227,9 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
 
 ## 10. Change log
 
+- 11 Nov 2026 — v1.14. Oscar on XR2.9.17, the orbit figure rising half-drawn and cut off at the bottom of the window:
+  "Shouldn't be able to see this like this. When else do we allow that?" Only the home compass rim runs off an edge.
+  New rule: a figure is seen whole or not at all (§7).
 - 11 Nov 2026 — v1.13. Oscar on XR2.9.16: "Cells we offer is too small. It doesn't read like a title." Section openers
   on click-out pages move from Title (40/44, v1.1) to Headline (64/66, last word Brass), one per screen. A hovered list
   term and its figure label turn Brass (the link-hover job), not Dusk; the hovered ring stays Dusk (§3, §5 Lists).
