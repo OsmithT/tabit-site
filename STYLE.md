@@ -63,7 +63,7 @@ the site keeps its current values):
 | Night | `#04070F` | The one background; text on a brass button | Anything else |
 | Paper | `#FBF9F4` | All text; burger lines; star-path dots (the lockup keeps its own white — cardinal rule 2) | Backgrounds, fills |
 | Brass | `#A8823A` | Headline key word; primary button fill; current chapter; compass points/diamonds; link hover | Body text, borders, backgrounds behind text, decorative lines |
-| Dusk | `#B8C0D4` | EXPLORE cue; hairline chart lines in the sky; compass rim ticks | Text > 13, anything that must be read |
+| Dusk | `#B8C0D4` | EXPLORE cue; hairline chart lines in the sky; compass rim ticks; the hover state of a list term and its figure label, and the hovered orbit (v1.10) | Resting text > 13, anything that must be read at rest |
 
 Tints (fixed opacities, no others): Paper 80 `rgba(251,249,244,.80)` compass descriptions · Paper 72 secondary small
 text (pronunciation, timeline labels) · Paper 60 legal line · Paper 38 secondary/nav button border · Paper 22 About
@@ -162,6 +162,9 @@ Radius 2 everywhere; no other radius, no pill.
 - Lists (click-out pages): a term/description grid — term column 240 at Body 600 Paper, description Small at Paper 72
   (v1.9: a description must read as a different level from its term, by size and tint, not weight alone), columns 32
   apart, rows 16 apart, the grid 880 wide; stacked, one column with the term above its description and 20 between items.
+  Where a list has a figure beside it (Captives cells, v1.10), each item in the figure carries its term as a label in
+  Small at Paper 72 (Paper for the item being read); a mouse over a term or its figure item turns the term and the label
+  Dusk and lights that item's line in solid Dusk, .25 s ease, in the hover media query only.
 - People (About us): a grid of cards, four across (two stacked, one on phones), 32 × 40 apart, 1120 wide: a 4:5
   photo box (Paper 14 border, radius 2, nav wash fill, a Small "Photo n" label at Paper 60 until the photograph is
   in), name Body 600 (16 above), title Body at Paper 72, a Small "LinkedIn" text link, bio Body (12 above). The
@@ -219,6 +222,9 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
 
 ## 10. Change log
 
+- 11 Nov 2026 — v1.10. Oscar on XR2.9.13: hovering a cell's name turns it Dusk and lights its orbit ring; every planet
+  carries its cell's name. Dusk gains the hover state of a list term and its figure label, and the hovered orbit (§2
+  Dusk row, §5 Lists); figure labels are Small at Paper 72, as the timeline's.
 - 11 Nov 2026 — v1.9. Oscar on the Captives list (XR2.9.12): "the information text size should be distinct and obvious
   from the titles". List descriptions drop from Body to Small at Paper 72 under Body 600 Paper terms (§5 Lists).
   Open: sub-heads over paragraphs (Body 600 over Body) have the same likeness and await his review.
