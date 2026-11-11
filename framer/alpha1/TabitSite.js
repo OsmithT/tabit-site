@@ -409,7 +409,7 @@ var TABIT_AI_SHIFT = 2, TABIT_AI = 'stars', TABIT_VARIANT = 'dc17', TABIT_END = 
 // AS12.10: the site fills any landscape screen and follows a window as it is resized. The design is 720 units tall and
 // its width W follows the screen (960 to 1940). The centred 1280-wide stage keeps the logo and the copy where they were
 // designed; the sky, the nav bar, the page markers and the corner captions run to the screen's edges.
-var TABIT_W = 1280, TABIT_OX = 0, TABIT_DX = 0, TABIT_TS = 1, TABIT_RS = 1, TABIT_K = 1, TABIT_FOCUS = 240, TABIT_SUBJ = { cx: 940, cy: 360, s: 1 }, TABIT_C0 = 120;
+var TABIT_WMAX = 4096, TABIT_W = 1280, TABIT_OX = 0, TABIT_DX = 0, TABIT_TS = 1, TABIT_RS = 1, TABIT_K = 1, TABIT_FOCUS = 240, TABIT_SUBJ = { cx: 940, cy: 360, s: 1 }, TABIT_C0 = 120;
 var TABIT_ST = 0, TABIT_H = 720, TABIT_OY = 0, TABIT_LIFT = 0, TABIT_HF = 0, TABIT_AIC = null;   // XR2.8: stack factor (0 two columns at >=1.6:1, 1 stacked at <=4:3), stage height, vertical offset
 function tbLerp(a, b, t) { return a + (b - a) * t; }
 function tabitLayout(root, k) {
@@ -419,7 +419,7 @@ function tabitLayout(root, k) {
   if (root.__w == null) root.__w = root.clientWidth;
   if (root.__h == null) root.__h = root.clientHeight;
   var H = Math.max(720, Math.round(root.__h || 720)), OY = Math.round((H - 720) / 2);   // XR2.8.1: a taller stage on squarer screens; the content box sits centred
-  var W = Math.round(Math.max(960, Math.min(1940, root.__w || 1280)));
+  var W = Math.round(Math.max(960, Math.min(TABIT_WMAX, root.__w || 1280)));   // XR2.9.7: the stage runs to any window's edges (it was capped at 1940, which left starless bands beside it once sizes stopped shrinking)
   var A = (root.__w || 1280) / H, ST = Math.max(0, Math.min(1, (1.6 - A) / (1.6 - 4 / 3)));   // XR2.8: the stage is 720 units tall, so its width in units is the aspect ratio x 720
   if (root.__done && W === TABIT_W && H === TABIT_H && Math.abs(ST - TABIT_ST) < .002) return false;
   root.__done = true; TABIT_ST = ST; TABIT_H = H; TABIT_OY = OY;

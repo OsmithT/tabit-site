@@ -5,7 +5,7 @@ import { TABIT_HOME_CSS } from "./TabitHomeStyles.js"
 // Tabit XR2.7 home page: the animated night-sky site. Put it on the "/" page, full width and full height.
 // XR2.9.6: the design keeps its size the way apple.com does: the scale follows the screen's width (capped at 1.25), a shorter
 // window can tighten it only to 0.8, and below that the bottom is cropped rather than everything shrinking. The sky fills the
-// screen; on very wide screens the night continues either side of a 1940-unit stage.
+// screen edge to edge at any width (XR2.9.7).
 // Squarer than 4:3 the stage keeps 960 units of width and grows taller, so the sky fills the screen and the engine stacks the content; phones still await their own layout.
 // @framerSupportedLayoutWidth any
 // @framerSupportedLayoutHeight any
@@ -13,7 +13,7 @@ const THREE_URL = "https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js
 const FONT_URL =
     "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@300;400;500;600&display=swap"
 const OPTIONS = { k: 1, opt: 37, x23: true, x2313: true, x2310: true, x237: true, x234: true, noMark: true, x251: true }
-const H = 720, WMIN = 960, WMAX = 1940, SMIN = 0.8, SMAX = 1.25
+const H = 720, WMIN = 960, WMAX = 4096, SMIN = 0.8, SMAX = 1.25
 
 function once(id: string, make: () => HTMLElement) {
     if (!document.getElementById(id)) { const el = make(); el.id = id; document.head.appendChild(el) }

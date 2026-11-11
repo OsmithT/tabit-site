@@ -11,7 +11,8 @@ never its height, as apple.com does.** 1 unit = 1 px from 960 to 1152 px wide, r
 1.25 px (reached at 1440); below 960 px the 960-unit stage scales down; phones (≤ 600 px) are 1 unit = 1 px. On the
 home, a window shorter than the stage may tighten the size only to 0.8 — below that the page keeps its size and the
 bottom is cropped. The click-out pages ignore the height entirely and scroll; their content sits in a centred
-1440-unit column, and wider screens get night either side. Nothing ever shrinks to fit a short or very wide window.
+1440-unit column, and wider screens get night either side. The home's sky and stage always run to the window's edges
+(up to 4096 units wide); only the 1280-unit content box stays centred. Nothing ever shrinks to fit a short or very wide window.
 
 ## 1. Principles
 
@@ -188,6 +189,8 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
 
 ## 10. Change log
 
+- 11 Nov 2026 — v1.5 (XR2.9.7). The home stage's 1940-unit width cap raised to 4096: with sizes no longer shrinking,
+  wide windows showed starless bands either side of the stage (Oscar, 2000 × 535 window).
 - 11 Nov 2026 — v1.4 (XR2.9.6). Sizing by width, as apple.com: the site no longer shrinks to fill a short or very
   wide window (it had scaled everything by min(height ÷ 720, width ÷ 960)). Home: scale = width-led (1 → 1.25), a short
   window tightens it to no less than 0.8, then crops at the bottom; stage pinned to the top. Pages: 1 unit =
