@@ -18,6 +18,9 @@ failure is flagged for Oscar's decision rather than blocking on its own. Owner o
    (0 – 7.2 s) is the one exception.
    Exception (Oscar, 11 Nov 2026): the Captives cells figure orbits on its own, slowly (the system turns together,
    two minutes a revolution); it runs only while on screen and holds still under reduced motion.
+   The home sky's faint twinkle is part of the sky, which every page shows identically (Oscar, 12 Nov 2026: "same number
+   of stars, moving stars, colour, hue everything"); it is not a new timer on the click-out pages. The film grain stays
+   under decision (below).
 5. **No pictures behind pages** unless Oscar asks for one. The night sky is the only background, and it is the home's
    sky on every page, identical in every respect (Oscar, 12 Nov 2026; STYLE.md §7).
 6. **Only approved site copy.** The words on the site are the words already approved on the XR2.5.7 boards (and
