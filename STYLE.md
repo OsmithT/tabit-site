@@ -1,4 +1,4 @@
-# Tabit website — style code (v1, 10 Nov 2026)
+# Tabit website — style code (v1.16, 12 Nov 2026)
 
 The values behind every visual decision on the site, taken from the home page as shipped (XR2.8.2) and the brand
 guidelines. `DESIGN.md` holds the cardinal rules (what never ships); this file holds the values. Where a page and this
@@ -103,12 +103,19 @@ Deviations to correct (XR2.9): click-out pages use clamp(52–104)/1.02/300, 30/
 
 ## 4. Layout
 
-Stage 1280 × 720 at the width-led scale above (pinned to the top of the screen); width runs 960–1940 units; when the
-window is taller than 720 units the stage grows taller (and, squarer than 4:3, stacks).
+Stage 1280 × 720 at the width-led scale above (pinned to the top of the screen); width runs 960–4096 units; when the
+window is taller than 720 units the stage grows taller (and, squarer than 4:3, stacks). The 720-unit content box sits
+centred in a taller stage; the nav, the sky, the chapter path's targets and every layer drawn over the page follow the
+screen, not the box (v1.16).
 
 Two columns (≥ 1.6:1): copy column left 80, width 640, text ≤ 610, vertically centred (home column top-aligned at 88);
 subject centred at x 940 (spreads right / draws in with width), y 360; chapter path at the right edge 1180–1220.
-(Re)insurance swaps: compass left, copy right at 680 × 480.
+(Re)insurance swaps: compass left, copy right at 680 × 480. Wider than 1280 units, a column edge keeps its share of
+the width (v1.16): the left column's edge at 120 × W ÷ 1280, as before, and a right-hand copy column's text edge at its
+own x × W ÷ 1280 ((Re)insurance 720, AI 700, About's dictionary 640), so the gaps either side of it grow together.
+A compass title in transit travels and fades within the room it has, 24 clear of the copy beside it and of the window's
+edge. Where that room is less than its full travel (every window but the very widest), the leaving title is gone at the
+half-turn, as the arriving one begins (v1.16).
 
 Stacked (≤ 4:3): copy centred, top-aligned 88 under the content box top; subject centred x 640, y 586 → 630 as the
 stage grows taller; chapter path thinned to the edge. Copy scale .80 → 1.12 by height; subjects .46 → .87 of two-column
@@ -241,6 +248,18 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
 
 ## 10. Change log
 
+- 12 Nov 2026 — v1.16. Oscar on the live home (XR2.9.7 engine), from Safari at 1907 × 906 and 1981 × 1130 and an
+  ultrawide recording: the brass ring off the logo on the splash, letters cut at the left edge, "all of the height
+  alignment is completely off", "why is the spacing between the columns not consistent", the logo's break-up broken.
+  No value in this code changes; the engine had stopped following it. §4 now states what the engine does again:
+  two-column copy is vertically centred (XR2.8 had been clearing the centring, leaving every page's copy under the
+  nav); everything drawn over the page follows the screen on a stage taller than 720 or wider than 1280 (the ring and
+  Orion's lines sat lower than the logo by half the extra height; the logo's and the AI page's star layers were fixed
+  boxes that cut their figures; the chapter path's click targets sat above its stars; Safari cut the copy at the
+  stage's left edge). New in §4: a right-hand copy column keeps its share of the width on windows wider than 1280
+  units, and a compass title in transit travels and fades within the room it has, 24 clear of the copy and the window's edge
+  (24 is the code's headline-to-body step and Replay margin). The stage width
+  is corrected to 960–4096 (v1.5 raised the cap; §4 still said 1940).
 - 12 Nov 2026 — v1.15. Oscar on XR2.9.18: "the background for all the clickout pages is different to the home page.
   IT SHOULD BE IDENTICAL. Same number of stars, moving stars, colour, hue everything." The click-out pages had a still,
   tiled picture of stars drifting a third of the scroll; they now show the home's sky, drawn by the home's code (§7).
