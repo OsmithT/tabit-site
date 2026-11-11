@@ -163,10 +163,10 @@ Radius 2 everywhere; no other radius, no pill.
 - Lists (click-out pages): a term/description grid — term column 240 at Body 600 Paper, description Small at Paper 72
   (v1.9: a description must read as a different level from its term, by size and tint, not weight alone), columns 32
   apart, rows 16 apart, the grid 880 wide; stacked, one column with the term above its description and 20 between items.
-  Where a list has a figure beside it (Captives cells, v1.10), each item in the figure carries its term as a label in
-  Small at Paper 72. Nothing is picked out at rest and the scroll never picks an item (v1.12); a mouse over a term or its
-  figure item turns the term and the label Dusk, lights that item's line in solid Dusk, its point and the term's middot
-  Brass, .25 s ease, in the hover media query only, fading away when the mouse leaves.
+  Where a list has a figure beside it (Captives cells, v1.10), nothing in the figure is named or picked out at rest, and
+  the scroll never picks an item (v1.12). A mouse over a term or its figure item turns the term Dusk, shows that item's
+  term beside it in the figure as a Small label in Dusk (only that one), lights its line in solid Dusk, its point and the
+  term's middot Brass, .25 s ease, in the hover media query only, fading away when the mouse leaves.
 - People (About us): a grid of cards, four across (two stacked, one on phones), 32 × 40 apart, 1120 wide: a 4:5
   photo box (Paper 14 border, radius 2, nav wash fill, a Small "Photo n" label at Paper 60 until the photograph is
   in), name Body 600 (16 above), title Body at Paper 72, a Small "LinkedIn" text link, bio Body (12 above). The
@@ -224,8 +224,9 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
 
 ## 10. Change log
 
-- 11 Nov 2026 — v1.12. Oscar on XR2.9.15: the highlighted orbit changes only with the cursor, never with the scroll.
-  Nothing is picked out at rest; the hovered cell lights and fades away when the mouse leaves (§5 Lists).
+- 11 Nov 2026 — v1.12. Oscar on XR2.9.15: the highlighted orbit changes only with the cursor, never with the scroll,
+  and only the highlighted cell shows its label ("otherwise it's too messy"). Nothing is named or picked out at rest;
+  the hovered cell lights, with its name, and fades away when the mouse leaves (§5 Lists).
 - 11 Nov 2026 — v1.11. Oscar on XR2.9.14 chose orbiting "always, slowly": the Captives cells figure turns on its own,
   3 degrees a second as one system (cells evenly spread, so names keep their room), only while on screen, still under
   reduced motion. The one exception to the scroll-or-pointer rule besides the opening (§1, §9; DESIGN cardinal 4).
