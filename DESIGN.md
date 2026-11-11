@@ -16,6 +16,8 @@ failure is flagged for Oscar's decision rather than blocking on its own. Owner o
 4. **Motion is scroll- or pointer-driven, never on timers** — no `setInterval`/`setTimeout` loops, no autoplaying
    carousels or slideshows, nothing that changes while the visitor does nothing. The approved load-time intro
    (0 – 7.2 s) is the one exception.
+   Exception (Oscar, 11 Nov 2026): the Captives cells figure orbits on its own, slowly (the system turns together,
+   two minutes a revolution); it runs only while on screen and holds still under reduced motion.
 5. **No pictures behind pages** unless Oscar asks for one. The night sky is the only background.
 6. **Only approved site copy.** The words on the site are the words already approved on the XR2.5.7 boards (and
    Ashleigh's XR2.4 pages). Nothing from internal documents (the 1-pager, decks, Notion) goes on the site without

@@ -26,7 +26,8 @@ photographs, illustrations or icons.
 2. Two type voices, one scale — Manrope everywhere (Cormorant Garamond loaded for the hero only); seven sizes.
 3. One accent, one job — Brass marks the headline key word, the primary action, the current chapter, the compass
    points. Never a text background, border or decorative line.
-4. The subject sits still, the visitor moves — scroll- or pointer-driven motion only; the opening sequence excepted.
+4. The subject sits still, the visitor moves — scroll- or pointer-driven motion only; the opening sequence excepted,
+   and the Captives cells figure, which orbits slowly on its own (v1.11).
 5. Layout answers the space, not the device — two columns ≥ 1.6:1, stacked ≤ 4:3, interpolated; sky always fills.
 
 ## 2. Colour
@@ -216,12 +217,15 @@ Colours outside §2 (incl. `#FFFFFF`, greys, a second gold) · sizes/weights/tra
 kickers, eyebrows, index numbering, all-caps beyond the three Labels · cards, panels, boxes, borders around content,
 badges, chips, pills · decorative hairlines · gradients/glows/shadows on UI, radius ≠ 2, blur ≠ 14 px · photographs,
 illustrations, icons, emoji, stock, pictures behind pages · monospace, italics beyond the dictionary entry, underlines
-except focus · timer-driven motion outside the opening, `transition: all`, animated blur, layout animation · hover
+except focus · timer-driven motion outside the opening and the Captives orbits, `transition: all`, animated blur, layout animation · hover
 outside the hover/fine media query, tappables without `:active`, inputs < 16 px or `100vh` or `user-scalable=no` on
 phones · unapproved words, placeholder people or text · overwriting a board, a Framer edit without a commit.
 
 ## 10. Change log
 
+- 11 Nov 2026 — v1.11. Oscar on XR2.9.14 chose orbiting "always, slowly": the Captives cells figure turns on its own,
+  3 degrees a second as one system (cells evenly spread, so names keep their room), only while on screen, still under
+  reduced motion. The one exception to the scroll-or-pointer rule besides the opening (§1, §9; DESIGN cardinal 4).
 - 11 Nov 2026 — v1.10. Oscar on XR2.9.13: hovering a cell's name turns it Dusk and lights its orbit ring; every planet
   carries its cell's name. Dusk gains the hover state of a list term and its figure label, and the hovered orbit (§2
   Dusk row, §5 Lists); figure labels are Small at Paper 72, as the timeline's.
