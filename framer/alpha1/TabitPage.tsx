@@ -4,11 +4,18 @@ import * as reinsurance from "./pages/reinsurance.js"
 import * as captives from "./pages/captives.js"
 import * as aboutus from "./pages/aboutus.js"
 import * as contact from "./pages/contact.js"
+import * as press from "./pages/press.js"
+import * as pressHeader from "./pages/press-header.js"
+import * as contactTop from "./pages/contact-top.js"
+import * as legal from "./pages/legal.js"
+import * as articleBitcoin from "./pages/article-why-insurers-fear-bitcoin.js"
+import * as articleTemplate from "./pages/article-template.js"
 
+// Ashleigh11.11 (XR2.8): adds Press, Press: header, Contact: top, Legal line and the two article pages (see cms/SETUP.md).
 // Tabit XR2.9.2 click-out pages, restyled to STYLE.md (the approved XR2.4 copy). Put one on each page, full width, height "fit content".
 // @framerSupportedLayoutWidth any
 // @framerSupportedLayoutHeight auto
-const PAGES: Record<string, { css: string; html: string; js?: string }> = { reinsurance, captives, aboutus, contact }
+const PAGES: Record<string, { css: string; html: string; js?: string }> = { reinsurance, captives, aboutus, contact, press, pressHeader, contactTop, legal, articleBitcoin, articleTemplate }
 const FONT_URL = "https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&display=swap"
 
 export default function TabitPage(props: { page: string; style?: any }) {
@@ -30,5 +37,5 @@ export default function TabitPage(props: { page: string; style?: any }) {
 
 TabitPage.defaultProps = { page: "reinsurance" }
 addPropertyControls(TabitPage, {
-    page: { type: ControlType.Enum, title: "Page", options: ["reinsurance", "captives", "aboutus", "contact"], optionTitles: ["(Re)insurance", "Captives", "About us", "Contact"] },
+    page: { type: ControlType.Enum, title: "Page", options: ["reinsurance", "captives", "aboutus", "contact", "press", "pressHeader", "contactTop", "legal", "articleBitcoin", "articleTemplate"], optionTitles: ["(Re)insurance", "Captives", "About us", "Contact", "Press", "Press: header", "Contact: top", "Legal line", "Article: Bitcoin vs private credit", "Article template"] },
 })
