@@ -13,7 +13,7 @@ const THREE_URL = "https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js
 const FONT_URL =
     "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@300;400;500;600&display=swap"
 const OPTIONS = { k: 1, opt: 37, x23: true, x2313: true, x2310: true, x237: true, x234: true, noMark: true, x251: true }
-const H = 720, WMIN = 960, WMAX = 4096, SMIN = 0.8, SMAX = 1.25
+const H = 720, WMIN = 960, WMAX = 4096, SMIN = 0.62, SMAX = 1.25
 
 function once(id: string, make: () => HTMLElement) {
     if (!document.getElementById(id)) { const el = make(); el.id = id; document.head.appendChild(el) }

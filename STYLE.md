@@ -11,8 +11,8 @@ never its height, as apple.com does.** On the click-out pages 1 unit is never le
 any width (it rises with the width to 1.25 px at 1440); two columns need both 1.6:1 and 1024 px, otherwise the page
 stacks. On the home, 1 unit = 1 px from 960 to 1152 px wide, rising to at most 1.25 px; below 960 px the 960-unit stage
 scales down (the home's phone composition is still to come). On the
-home, a window shorter than the stage may tighten the size only to 0.8 — below that the page keeps its size and the
-bottom is cropped. The click-out pages ignore the height entirely and scroll; their content sits in a centred
+home (a pinned scene that cannot scroll), a window shorter than the stage tightens the size so the whole page stays
+in view, but never below 0.62 (windows under 446 px tall, which no one browses in); below that the bottom is cropped. The click-out pages ignore the height entirely and scroll; their content sits in a centred
 1440-unit column, and wider screens get night either side. The home's sky and stage always run to the window's edges
 (up to 4096 units wide); only the 1280-unit content box stays centred. Nothing ever shrinks to fit a short or very wide window.
 
@@ -191,6 +191,8 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
 
 ## 10. Change log
 
+- 11 Nov 2026 — v1.7 (XR2.9.7). Home floor 0.8 → 0.62: at 0.8 any window under 576 px tall cut the bottom of the page
+  (the trust row), and the home cannot scroll to reveal it. Checked as a grid of real screenshots (18 window shapes).
 - 11 Nov 2026 — v1.6 (XR2.9.7). Click-out pages checked at 17 widths × 4 heights: the unit no longer drops below 1 px
   between 600 and 1152 px wide (it had shrunk legal text to 8 px), and two columns also need 1024 px of width.
 - 11 Nov 2026 — v1.5 (XR2.9.7). The home stage's 1940-unit width cap raised to 4096: with sizes no longer shrinking,
