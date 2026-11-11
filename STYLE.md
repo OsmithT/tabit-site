@@ -193,9 +193,10 @@ pointer, drifts with scroll; never carries an image. Subjects: Orion with Tabit 
 rim and needle ((Re)insurance), the ring and comet (Captives), the AI title formed from a star cloud (AI), the lock
 (Licence); About's subject is the dictionary entry. Paper-white points with the sky's glows (sanctioned). 55–60 % of
 stage height two-column, 40–45 % of width stacked; the compass rim is a horizon and runs off the bottom by design.
-A figure is seen whole or not at all (v1.14): on the click-out pages it fades in only once its bottom edge is inside the
-window and fades out as its top reaches the nav (a short stretch, about 8 % of the window); a hero figure, whole on the
-first screen, only fades out. The home compass rim is the one figure meant to run off an edge.
+A figure is seen whole or not at all (v1.14): on the click-out pages every figure, the hero's included, fades in only
+once its bottom edge is inside the window and fades out as its top reaches the nav, over a short stretch (8 % of the
+window, at least 40 px). A figure held in view (the Captives orbits) tightens on a short window just enough to fit between
+the nav and the bottom edge, as the home does. The home compass rim is the one figure meant to run off an edge.
 Never photographs, illustrations, icons, other logos, UI charts, maps.
 
 ## 8. The click-out pages (measured 10 Nov)
