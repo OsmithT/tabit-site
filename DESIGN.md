@@ -18,7 +18,8 @@ failure is flagged for Oscar's decision rather than blocking on its own. Owner o
    (0 – 7.2 s) is the one exception.
    Exception (Oscar, 11 Nov 2026): the Captives cells figure orbits on its own, slowly (the system turns together,
    two minutes a revolution); it runs only while on screen and holds still under reduced motion.
-5. **No pictures behind pages** unless Oscar asks for one. The night sky is the only background.
+5. **No pictures behind pages** unless Oscar asks for one. The night sky is the only background, and it is the home's
+   sky on every page, identical in every respect (Oscar, 12 Nov 2026; STYLE.md §7).
 6. **Only approved site copy.** The words on the site are the words already approved on the XR2.5.7 boards (and
    Ashleigh's XR2.4 pages). Nothing from internal documents (the 1-pager, decks, Notion) goes on the site without
    Oscar saying so. Each fact appears once.

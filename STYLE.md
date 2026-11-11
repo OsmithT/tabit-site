@@ -166,7 +166,10 @@ Radius 2 everywhere; no other radius, no pill.
   Where a list has a figure beside it (Captives cells, v1.10), nothing in the figure is named or picked out at rest, and
   the scroll never picks an item (v1.12). A mouse over a term or its figure item turns the term Brass, shows that item's
   term beside it in the figure as a Small label in Brass (only that one), lights its line in solid Dusk, its point and the
-  term's middot Brass, .25 s ease, in the hover media query only, fading away when the mouse leaves.
+  term's middot Brass, .25 s ease, in the hover media query only, fading away when the mouse leaves. On Captives the
+  orbit figure is the page's one figure (v1.15): beside the headline, held there while the list passes (two columns);
+  stacked, under the hero copy. Its centre, the SCC, is the Tabit knot drawn in Paper star points, as the About figure
+  draws it, still while the cells turn; the SCC's name sits under it in Small at Paper 72.
 - People (About us): a grid of cards, four across (two stacked, one on phones), 32 × 40 apart, 1120 wide: a 4:5
   photo box (Paper 14 border, radius 2, nav wash fill, a Small "Photo n" label at Paper 60 until the photograph is
   in), name Body 600 (16 above), title Body at Paper 72, a Small "LinkedIn" text link, bio Body (12 above). The
@@ -189,7 +192,14 @@ grain and cue, stops the tilt, stars no longer travel between figures. Budget 8 
 
 Three depth layers of stars (2,400 in the design, extended for wide and tall screens), muted true colours, nebula in
 brand tones, Night vignette `radial-gradient(120% 92% at 50% 48%, transparent 56%, rgba(0,0,0,.42))`. Tilts with the
-pointer, drifts with scroll; never carries an image. Subjects: Orion with Tabit lit (home), the compass of stars with
+pointer, drifts with scroll; never carries an image.
+**One sky, the home's, behind every page (v1.15, Oscar 12 Nov: "IT SHOULD BE IDENTICAL").** The click-out pages show the
+home's sky exactly: the same stars (the same 2,400 and their wide and tall extensions, from the same seeds), the same
+count, positions, colours and tints, sizes and bloom, twinkle, drift and part round the pointer, drift up with the
+scroll (.05 of the scroll, wrapping), the navy washes behind the copy column and under the nav, the vignette and the film
+grain, laid out on the home stage's fit so a given window shows the same sky on every page. It is drawn by the home's
+own sky code, never by a picture or a page's own star field; a change to the sky is made once, on the home, and holds
+everywhere. The figures are separate from the sky and still belong to their page. Subjects: Orion with Tabit lit (home), the compass of stars with
 rim and needle ((Re)insurance), the ring and comet (Captives), the AI title formed from a star cloud (AI), the lock
 (Licence); About's subject is the dictionary entry. Paper-white points with the sky's glows (sanctioned). 55–60 % of
 stage height two-column, 40–45 % of width stacked; the compass rim is a horizon and runs off the bottom by design.
@@ -228,6 +238,12 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
 
 ## 10. Change log
 
+- 12 Nov 2026 — v1.15. Oscar on XR2.9.18: "the background for all the clickout pages is different to the home page.
+  IT SHOULD BE IDENTICAL. Same number of stars, moving stars, colour, hue everything." The click-out pages had a still,
+  tiled picture of stars drifting a third of the scroll; they now show the home's sky, drawn by the home's code (§7).
+  And: "I don't want the animated graphic to change. It can be on the first title page. Remove the other one which is
+  a copy from the home page"; the star at its centre "a bit bigger ... a tabit logo in the broken star style". Captives
+  keeps one figure, the orbits, beside the headline, with the Tabit knot in stars at its centre (§5 Lists).
 - 11 Nov 2026 — v1.14. Oscar on XR2.9.17, the orbit figure rising half-drawn and cut off at the bottom of the window:
   "Shouldn't be able to see this like this. When else do we allow that?" Only the home compass rim runs off an edge.
   New rule: a figure is seen whole or not at all (§7).
