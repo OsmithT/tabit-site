@@ -64,7 +64,7 @@ the site keeps its current values):
 | Night | `#04070F` | The one background; text on a brass button | Anything else |
 | Paper | `#FBF9F4` | All text; burger lines; star-path dots (the lockup keeps its own white — cardinal rule 2) | Backgrounds, fills |
 | Brass | `#A8823A` | Headline key word; primary button fill; current chapter; compass points/diamonds; link hover | Body text, borders, backgrounds behind text, decorative lines |
-| Dusk | `#B8C0D4` | EXPLORE cue; hairline chart lines in the sky; compass rim ticks; the hover state of a list term and its figure label, and the hovered orbit (v1.10) | Resting text > 13, anything that must be read at rest |
+| Dusk | `#B8C0D4` | EXPLORE cue; hairline chart lines in the sky; compass rim ticks; the hovered orbit (v1.10; hovered text is Brass from v1.13) | Resting text > 13, anything that must be read at rest |
 
 Tints (fixed opacities, no others): Paper 80 `rgba(251,249,244,.80)` compass descriptions · Paper 72 secondary small
 text (pronunciation, timeline labels) · Paper 60 legal line · Paper 38 secondary/nav button border · Paper 22 About
@@ -86,8 +86,8 @@ Manrope 300/400/500/600. No monospace; italics only for the dictionary entry's *
 | Step | Size / line | Weight | Tracking | Case | Used for |
 |---|---|---|---|---|---|
 | Display | 84 / 80 | 300 | −.035em | Sentence | Home headline only |
-| Headline | 64 / 66 | 600 | −.035em | Sentence | Chapter headlines, two lines, last word Brass |
-| Title | 40 / 44 | 600 | −.035em | Sentence | Compass point titles, "Tabit" in the dictionary entry, timeline years |
+| Headline | 64 / 66 | 600 | −.035em | Sentence | Chapter headlines, two lines, last word Brass; on click-out pages the page headline and each section opener ("Cells we offer", "Licensed, audited, aligned."), one per screen, last word Brass (v1.13) |
+| Title | 40 / 44 | 600 | −.035em | Sentence | Compass point titles, "Tabit" in the dictionary entry, timeline years (no longer section openers, v1.13) |
 | Body | 17 / 26 | 400 | 0 | Sentence | All running copy, compass descriptions, definition, menu links (17/24) |
 | Small | 13 / 20 | 400 | 0 | Sentence | Trust row, timeline labels, *noun*, Replay (600) |
 | Control | 14 / 18 | 600 | 0 | Sentence | Button labels |
@@ -164,8 +164,8 @@ Radius 2 everywhere; no other radius, no pill.
   (v1.9: a description must read as a different level from its term, by size and tint, not weight alone), columns 32
   apart, rows 16 apart, the grid 880 wide; stacked, one column with the term above its description and 20 between items.
   Where a list has a figure beside it (Captives cells, v1.10), nothing in the figure is named or picked out at rest, and
-  the scroll never picks an item (v1.12). A mouse over a term or its figure item turns the term Dusk, shows that item's
-  term beside it in the figure as a Small label in Dusk (only that one), lights its line in solid Dusk, its point and the
+  the scroll never picks an item (v1.12). A mouse over a term or its figure item turns the term Brass, shows that item's
+  term beside it in the figure as a Small label in Brass (only that one), lights its line in solid Dusk, its point and the
   term's middot Brass, .25 s ease, in the hover media query only, fading away when the mouse leaves.
 - People (About us): a grid of cards, four across (two stacked, one on phones), 32 × 40 apart, 1120 wide: a 4:5
   photo box (Paper 14 border, radius 2, nav wash fill, a Small "Photo n" label at Paper 60 until the photograph is
@@ -224,6 +224,9 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
 
 ## 10. Change log
 
+- 11 Nov 2026 — v1.13. Oscar on XR2.9.16: "Cells we offer is too small. It doesn't read like a title." Section openers
+  on click-out pages move from Title (40/44, v1.1) to Headline (64/66, last word Brass), one per screen. A hovered list
+  term and its figure label turn Brass (the link-hover job), not Dusk; the hovered ring stays Dusk (§3, §5 Lists).
 - 11 Nov 2026 — v1.12. Oscar on XR2.9.15: the highlighted orbit changes only with the cursor, never with the scroll,
   and only the highlighted cell shows its label ("otherwise it's too messy"). Nothing is named or picked out at rest;
   the hovered cell lights, with its name, and fades away when the mouse leaves (§5 Lists).
