@@ -52,8 +52,9 @@ the site keeps its current values):
 1. **Ground:** the site uses `#04070F`, darker than brand Night `#0B1433`.
 2. **Text:** the brand says Night text is Ivory `#F6F2EA` (headlines) and Night body text is Dusk `#B8C0D4`; the site
    sets all text in Paper `#FBF9F4`, which the brand reserves for print. (XR2.9 moved the engine from Ivory to Paper.)
-3. **Light blue:** the palette has no baby blue. The closest is Dusk `#B8C0D4`; the XR2.9.5 structure boards used a
-   stand-in `#8EA9D9`, which is not a brand colour and is replaced by Dusk if the blue is adopted.
+3. **Accent and Dusk (ruled by Oscar, 11 Nov):** Brass stays the one accent. Dusk `#B8C0D4` is simply another brand
+   colour the site may use (lines, structure, quieter text), not an accent. The XR2.9.5 boards' stand-in `#8EA9D9` is
+   not a brand colour; Dusk takes its place.
 
 **Current site tokens:**
 
@@ -217,6 +218,7 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
 
 ## 10. Change log
 
+- 11 Nov 2026 — v1.8.1. Oscar: Brass stays the accent; Dusk is a brand colour to use freely, not a new accent.
 - 11 Nov 2026 — v1.8. The Brand Book 2027 palette (ten colours, as sent by Oscar) recorded in §2 as the only colours the
   site may use; three differences from the live site listed for decision (ground, text colour, light blue).
 - 11 Nov 2026 — v1.7 (XR2.9.7). Home floor 0.8 → 0.62: at 0.8 any window under 576 px tall cut the bottom of the page
