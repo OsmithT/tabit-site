@@ -72,7 +72,7 @@ timeline hairline · Paper 14 structural hairlines (trust row, legal line) and m
 edge (under decision) · Dusk 45 Replay border.
 
 Washes (legibility only): nav bar `rgba(8,13,30,.50)` + 14 px blur; burger panel and Skip `rgba(4,7,15,.92)` + 14 px
-blur; behind the copy column a horizontal `rgba(8,13,30)` .50 → 0 to 860 units; top 160 units `rgba(8,13,30,.30 → 0)`;
+blur; behind the copy column a horizontal `rgba(8,13,30)` .50 → .22 at 55 % → 0 to 860 units (fading as the page stacks); top 160 units `rgba(8,13,30,.30 → 0)`;
 Replay `rgba(4,7,15,.35)`.
 
 Contrast: Paper/Night 18.9:1; Paper 60/Night 9.8:1; Dusk/Night 11.4:1; Night/Brass 6.3:1.
@@ -199,7 +199,10 @@ count, positions, colours and tints, sizes and bloom, twinkle, drift and part ro
 scroll (.05 of the scroll, wrapping), the navy washes behind the copy column and under the nav, the vignette and the film
 grain, laid out on the home stage's fit so a given window shows the same sky on every page. It is drawn by the home's
 own sky code, never by a picture or a page's own star field; a change to the sky is made once, on the home, and holds
-everywhere. The figures are separate from the sky and still belong to their page. Subjects: Orion with Tabit lit (home), the compass of stars with
+everywhere. The sky's values (star colours and tints, sizes, bloom, twinkle, depths, pointer drift and part, the
+wrap, the washes, the vignette, the grain's opacity, blend, tile and steps) are the home engine's own, listed here by
+reference: `framer/alpha1/TabitSite.js`, makeScrollSky with option set 37 and x251, and its grain layer. They change
+only there. The figures are separate from the sky and still belong to their page. Subjects: Orion with Tabit lit (home), the compass of stars with
 rim and needle ((Re)insurance), the ring and comet (Captives), the AI title formed from a star cloud (AI), the lock
 (Licence); About's subject is the dictionary entry. Paper-white points with the sky's glows (sanctioned). 55–60 % of
 stage height two-column, 40–45 % of width stacked; the compass rim is a horizon and runs off the bottom by design.
@@ -243,7 +246,8 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
   tiled picture of stars drifting a third of the scroll; they now show the home's sky, drawn by the home's code (§7).
   And: "I don't want the animated graphic to change. It can be on the first title page. Remove the other one which is
   a copy from the home page"; the star at its centre "a bit bigger ... a tabit logo in the broken star style". Captives
-  keeps one figure, the orbits, beside the headline, with the Tabit knot in stars at its centre (§5 Lists).
+  keeps one figure, the orbits, beside the headline, with the Tabit knot in stars at its centre (§5 Lists). The navy
+  wash behind the copy column corrected to the home's actual three stops (§2).
 - 11 Nov 2026 — v1.14. Oscar on XR2.9.17, the orbit figure rising half-drawn and cut off at the bottom of the window:
   "Shouldn't be able to see this like this. When else do we allow that?" Only the home compass rim runs off an edge.
   New rule: a figure is seen whole or not at all (§7).
