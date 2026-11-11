@@ -15,6 +15,10 @@ The code behind the Tabit Insurance website prototype in Framer.
   - `pages/reinsurance.js`, `captives.js`, `aboutus.js`, `contact.js`: the click-out pages as `{ css, html }` strings,
     with the burger header. `TabitPage.tsx` renders one of them (its `page` control picks which).
   - `TabitHomeStyles.js`: global CSS the home component injects once.
+- `framer/alpha1/pages/press.js`, `press-header.js`, `article-*.js`, `contact-top.js`, `legal.js` (Ashleigh, XR2.8):
+  Press and media, the article page and its template, and the top/bottom parts of /press and /contact for pages
+  built partly in Framer. `components/TabitArticle.tsx` is the CMS article page; `cms/` holds the import files and
+  `cms/SETUP.md`, the Framer setup for the CMS and the Contact form. `images/` holds the team photos and the star sky.
 - `engine/tabit-b.js`, `engine/tabit-a.js`: the earlier Beta 3.0 engines (options B and A), kept for reference.
 
 Design decisions and every version are logged in the "Tabit website — decisions" Claude doc; the boards themselves live

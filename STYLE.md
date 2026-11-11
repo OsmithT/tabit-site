@@ -1,4 +1,4 @@
-# Tabit website — style code (v1.16, 12 Nov 2026)
+# Tabit website — style code (v1.17, 12 Nov 2026)
 
 The values behind every visual decision on the site, taken from the home page as shipped (XR2.8.2) and the brand
 guidelines. `DESIGN.md` holds the cardinal rules (what never ships); this file holds the values. Where a page and this
@@ -248,6 +248,15 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
 
 ## 10. Change log
 
+- 12 Nov 2026 — v1.17 (Ashleigh, XR2.8: About us, Press, articles). Three exceptions to this code, by Ashleigh's
+  decision, for Oscar to confirm or reverse: (1) People: ten people sit five across on two-column screens (two even
+  rows) instead of four (§5 People), which would leave two alone on a third row. (2) The article page headline is all
+  Brass instead of one Brass key word (§3, §2 Brass); articles keep their published titles, which have no key word.
+  (3) The click-out pages' sky is a star tile drawn with the home engine's own recipe (images/tabit-sky-tile.jpg,
+  ~11,000 stars a screen, as home) instead of the sparser SVG field (~300 a screen), so the pages match the home sky
+  (§7). New on the click-out pages, within the code: Press and media (term/description list, §5 Lists) and the
+  article page (Headline, Small meta line, Body 600 standfirst and sub-head, Body, Small references, secondary
+  button). Setup for the CMS and the Contact form in framer/alpha1/cms/SETUP.md.
 - 12 Nov 2026 — v1.16. Oscar on the live home (XR2.9.7 engine), from Safari at 1907 × 906 and 1981 × 1130 and an
   ultrawide recording: the brass ring off the logo on the splash, letters cut at the left edge, "all of the height
   alignment is completely off", "why is the spacing between the columns not consistent", the logo's break-up broken.
