@@ -159,8 +159,9 @@ Radius 2 everywhere; no other radius, no pill.
   phones), Small label 6 above, 12 between fields, two short fields may share a row 12 apart, focus ring 2 px Brass
   offset 3, placeholder text Paper 38, dropdown options Paper on Night; submit is a primary button; no
   placeholder-as-label.
-- Lists (click-out pages): a term/description grid — term column 240 at Body 600, description Body, columns 32 apart,
-  rows 16 apart, the grid 880 wide; stacked, one column with the term above its description and 20 between items.
+- Lists (click-out pages): a term/description grid — term column 240 at Body 600 Paper, description Small at Paper 72
+  (v1.9: a description must read as a different level from its term, by size and tint, not weight alone), columns 32
+  apart, rows 16 apart, the grid 880 wide; stacked, one column with the term above its description and 20 between items.
 - People (About us): a grid of cards, four across (two stacked, one on phones), 32 × 40 apart, 1120 wide: a 4:5
   photo box (Paper 14 border, radius 2, nav wash fill, a Small "Photo n" label at Paper 60 until the photograph is
   in), name Body 600 (16 above), title Body at Paper 72, a Small "LinkedIn" text link, bio Body (12 above). The
@@ -218,6 +219,9 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
 
 ## 10. Change log
 
+- 11 Nov 2026 — v1.9. Oscar on the Captives list (XR2.9.12): "the information text size should be distinct and obvious
+  from the titles". List descriptions drop from Body to Small at Paper 72 under Body 600 Paper terms (§5 Lists).
+  Open: sub-heads over paragraphs (Body 600 over Body) have the same likeness and await his review.
 - 11 Nov 2026 — v1.8.1. Oscar: Brass stays the accent; Dusk is a brand colour to use freely, not a new accent.
 - 11 Nov 2026 — v1.8. The Brand Book 2027 palette (ten colours, as sent by Oscar) recorded in §2 as the only colours the
   site may use; three differences from the live site listed for decision (ground, text colour, light blue).
