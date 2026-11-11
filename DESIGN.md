@@ -7,7 +7,7 @@ failure is flagged for Oscar's decision rather than blocking on its own. Owner o
 
 ## Cardinal (set by Oscar and Stephen)
 
-1. **Colour.** Text is Paper `#FBF9F4`. The only gold is Brass `#A8823A`. Night ground `#04070F`. Dusk `#B8C0D4` for
+1. **Colour.** Only the ten Brand Book 2027 colours (STYLE.md §2). Text is Paper `#FBF9F4`. The only gold is Brass `#A8823A`. Night ground `#04070F`. Dusk `#B8C0D4` for
    hairline chart lines and small labels only. No other hues on UI; the sky's stars and nebula are the sole exception.
 2. **The logo is never altered.** The Tabit knot and wordmark paths, their proportions and their white are fixed.
    They may move, scale and fade; nothing is redrawn, recoloured or re-spaced.
