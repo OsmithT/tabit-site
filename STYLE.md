@@ -1,4 +1,4 @@
-# Tabit website — style code (v1.27, 12 Nov 2026)
+# Tabit website — style code (v1.28, 12 Nov 2026)
 
 The values behind every visual decision on the site, taken from the home page as shipped (XR2.8.2) and the brand
 guidelines. `DESIGN.md` holds the cardinal rules (what never ships); this file holds the values. Where a page and this
@@ -299,6 +299,13 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
 
 ## 10. Change log
 
+- 12 Nov 2026 — v1.28 (XR2.10). Oscar, on Ashleigh's XR2.8 star tile for the click-out pages (v1.17 exception 3): the live
+  home sky first. The tile is gone from every click-out page and from the article component; each page is clear and the
+  home engine draws its own sky in a fixed layer behind it (TabitSite.js mountTabitSky, sky-only mode), on the home stage's
+  fit: the same stars from the same seeds, twinkle, drift and part round the pointer, drift up with the scroll (.05 of the
+  page's scroll in home units, from Home's stop), the washes, the vignette and the grain (§7, as v1.15 required). Pages
+  built partly in Framer (/press, /contact) get the same sky behind their Framer parts. Exception 3 of v1.17 is withdrawn;
+  exceptions 1 and 2 stand for Oscar.
 - 12 Nov 2026 — v1.27. Oscar on XR2.9.31 B and D: "okay, can we try one version which is empty in the center like in
   30E." XR2.9.31E (§5 Lists): a third candidate for the Captives centre, empty until the knot's stars come in off the
   disk's inner edge as the disk lands. Under decision with B and D. No new colour, type or spacing value.
@@ -352,7 +359,7 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
   decision, for Oscar to confirm or reverse: (1) People: ten people sit five across on two-column screens (two even
   rows) instead of four (§5 People), which would leave two alone on a third row. (2) The article page headline is all
   Brass instead of one Brass key word (§3, §2 Brass); articles keep their published titles, which have no key word.
-  (3) The click-out pages' sky is a star tile drawn with the home engine's own recipe (images/tabit-sky-tile.jpg,
+  (3) [withdrawn in v1.28: the pages show the home's live sky] The click-out pages' sky is a star tile drawn with the home engine's own recipe (images/tabit-sky-tile.jpg,
   ~11,000 stars a screen, as home) instead of the sparser SVG field (~300 a screen), so the pages match the home sky
   (§7). New on the click-out pages, within the code: Press and media (term/description list, §5 Lists) and the
   article page (Headline, Small meta line, Body 600 standfirst and sub-head, Body, Small references, secondary

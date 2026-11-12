@@ -1,3 +1,7 @@
+// Tabit XR2.10 (12 Nov 2026): the click-out pages' sky is the home's own. runTabit(host, null, { ...options, sky: true }) draws only the home
+// sky (makeScrollSky's skyLayer and washes, the vignette and the grain, on the home stage's fit TABIT_FIT) into a fixed layer, and
+// mountTabitSky(element, options) puts one such layer behind a page for TabitPage.tsx and TabitArticle.tsx. The home draws its sky
+// through the same skyLayer() and washes() (extracted unchanged from the diagrams scene and the headless draw). Search XR2.10.
 // Tabit XR2.9.20 (12 Nov 2026): every window shape. Fixed: the brass ring, Orion's lines and the grid sitting below the logo on a window taller than the
 // 720-unit design (the overlay was offset twice); the copy cut at the left edge in Safari on wide windows (the page clip is now a screen-wide box);
 // each page's copy pushed up under the nav (the layout pass cleared its vertical centring); the logo's knots and the AI page's figure cut by fixed-size
@@ -1892,6 +1896,16 @@ function makeScrollSky(root, IDEA, LOGO, OPT) {
     return [MPX.mx + (ux * cs - uy * sn) * nr, MPX.my + (ux * sn + uy * cs) * nr];
   }
   var GRAV = { x: -999, y: -999, on: 0, sx: -999, sy: -999, s: 0 };   // AS12.7: the mouse, as a small field of gravity
+  // XR2.10: the home sky itself (stars, twinkle, drift against the mouse, parting round it, drift up with the scroll), drawn by
+  // the diagrams scene on the home and alone behind the click-out pages, so a change made here holds on every page
+  function skyLayer() {
+    if (TB_SHARP) {   // XR2.2.6: the sky drifts a little against the mouse (nearer stars more) and parts round the pointer
+      var pon = GRAV.on && GRAV.x > -900; MPX.x = lp(MPX.x, pon ? (GRAV.x - 640) / 640 : 0, .035); MPX.y = lp(MPX.y, pon ? (GRAV.y - 360) / 360 : 0, .035); MPX.k = lp(MPX.k, pon ? 1 : 0, .05);
+      if (pon) { MPX.mx = MPX.mx < -900 ? GRAV.x : lp(MPX.mx, GRAV.x, .2); MPX.my = MPX.my < -900 ? GRAV.y : lp(MPX.my, GRAV.y, .2); }
+      var dr7 = TB_DRIFT ? Math.max(0, TB_SKYS - TABIT_HAND) * .05 : 0;
+      drawSky(-MPX.x * 22, -MPX.y * 14 - dr7, .72, TB_DRIFT ? function (x, y, s) { y = ((y + 160) % 1040 + 1040) % 1040 - 160; return MPX.k > .01 ? mlens(x, y, s) : [x, y]; } : MPX.k > .01 ? mlens : null);
+    } else drawSky(0, 0, .55);
+  }
   function inCopy(x, y, hold) {   // is this point under the text? (labels keep clear of it)
     if (hold <= .3) return false;
     if (!HL) return x > 740 && x < 1220 && y > 230 && y < 420;
@@ -2281,12 +2295,7 @@ function makeScrollSky(root, IDEA, LOGO, OPT) {
     return {
       warm: warmShape, side: 'right', shell: { chapters: SHELL_ORDER, map: 'page' },
       draw: function (u, near, hold) {
-        if (TB_SHARP) {   // XR2.2.6: the sky drifts a little against the mouse (nearer stars more) and parts round the pointer
-          var pon = GRAV.on && GRAV.x > -900; MPX.x = lp(MPX.x, pon ? (GRAV.x - 640) / 640 : 0, .035); MPX.y = lp(MPX.y, pon ? (GRAV.y - 360) / 360 : 0, .035); MPX.k = lp(MPX.k, pon ? 1 : 0, .05);
-          if (pon) { MPX.mx = MPX.mx < -900 ? GRAV.x : lp(MPX.mx, GRAV.x, .2); MPX.my = MPX.my < -900 ? GRAV.y : lp(MPX.my, GRAV.y, .2); }
-          var dr7 = TB_DRIFT ? Math.max(0, TB_SKYS - TABIT_HAND) * .05 : 0;
-          drawSky(-MPX.x * 22, -MPX.y * 14 - dr7, .72, TB_DRIFT ? function (x, y, s) { y = ((y + 160) % 1040 + 1040) % 1040 - 160; return MPX.k > .01 ? mlens(x, y, s) : [x, y]; } : MPX.k > .01 ? mlens : null);
-        } else drawSky(0, 0, .55);
+        skyLayer();   // XR2.10: the sky itself, shared with the click-out pages (skyLayer, below inCopy)
         var k = Math.floor(u), f = u - k;
         var oA = TABIT_OPT >= 13 ? 1 - sg(io(sg(TB_Y, 20, 360)), .05, .85) : u < .02 ? 1 : 1 - sg(u, 0, .4);   // X1.13: Orion fades as it enlarges
         if (oA > 0) {
@@ -2775,23 +2784,31 @@ function makeScrollSky(root, IDEA, LOGO, OPT) {
   if (SC.chapters) CH = SC.chapters;
   if (HL && SC.shell) CH = SC.shell.chapters;
   buildNav();
+  function frameStart() {
+    if (TABIT_OX !== OXS) { OXS = TABIT_OX; WT = W + 2 * OXS; cv.width = Math.round(WT * dpr); }   // the window was resized
+    if (TABIT_OY !== OYS) { OYS = TABIT_OY; HT = H + 2 * OYS; cv.height = Math.round(HT * dpr); }
+    if (OPT.focusFn) FOCUSX = OPT.focusFn();
+    c.setTransform(1, 0, 0, 1, 0, 0); c.globalAlpha = 1; c.globalCompositeOperation = 'source-over'; c.fillStyle = NIGHT; c.fillRect(0, 0, cv.width, cv.height);
+    c.setTransform(dpr, 0, 0, dpr, OXS * dpr, OYS * dpr);   // the 1280 design, centred on the screen
+  }
+  function washes(u, r) {
+    // legibility, as on F2.0: a light navy shade behind the copy column and under the nav
+    var sa = sg(u, .05, .3);
+    if (sa > 0) { var lw = CL ? c.createLinearGradient(W + OXS, 0, 420, 0) : c.createLinearGradient(-OXS, 0, 860 - OXS, 0); lw.addColorStop(0, rgba('8,13,30', .5 * sa)); lw.addColorStop(.55, rgba('8,13,30', .22 * sa)); lw.addColorStop(1, rgba('8,13,30', 0)); c.globalAlpha = 1 - TABIT_ST; c.fillStyle = lw; c.fillRect(-OXS, -OYS, WT, HT); c.globalAlpha = 1; }   // XR2.8.2: the left wash fades as the copy centres
+    var tg = c.createLinearGradient(0, -OYS, 0, 160 - OYS); tg.addColorStop(0, rgba('8,13,30', .3 * sg(r, .5, 1))); tg.addColorStop(1, rgba('8,13,30', 0)); c.fillStyle = tg; c.fillRect(-OXS, -OYS, WT, 160);
+  }
   if (HL) return {
     pointer: function (x, y, on) { GRAV.x = x; GRAV.y = y; GRAV.on = on ? 1 : 0; },
+    // XR2.10: the sky alone, as on the home at a page (washes full on), for the click-out pages
+    sky: function (t) { T = t; frameStart(); skyLayer(); washes(1, 1); },
     // t: seconds; u: 0..1 across the shell's five pages (Home, AI, Capital, Life & PPLI, Barbados); r: the hand-off, 0..1
     draw: function (t, u, r) {
       T = t; var sh = SC.shell, NS = CH.length - 1, su = sh.map === 'handoff' ? r + 4 * u : NS * u;
       var near = Math.round(su), hold = 1 - sg(Math.abs(su - near), .06, .24);
-      if (TABIT_OX !== OXS) { OXS = TABIT_OX; WT = W + 2 * OXS; cv.width = Math.round(WT * dpr); }   // the window was resized
-      if (TABIT_OY !== OYS) { OYS = TABIT_OY; HT = H + 2 * OYS; cv.height = Math.round(HT * dpr); }
-      if (OPT.focusFn) FOCUSX = OPT.focusFn();
-      c.setTransform(1, 0, 0, 1, 0, 0); c.globalAlpha = 1; c.globalCompositeOperation = 'source-over'; c.fillStyle = NIGHT; c.fillRect(0, 0, cv.width, cv.height);
-      c.setTransform(dpr, 0, 0, dpr, OXS * dpr, OYS * dpr);   // the 1280 design, centred on the screen
+      frameStart();
       SHELLR = r; SHELLU = u; meterTxt = '';
       SC.draw(su, near, hold);
-      // legibility, as on F2.0: a light navy shade behind the copy column and under the nav
-      var sa = sg(u, .05, .3);
-      if (sa > 0) { var lw = CL ? c.createLinearGradient(W + OXS, 0, 420, 0) : c.createLinearGradient(-OXS, 0, 860 - OXS, 0); lw.addColorStop(0, rgba('8,13,30', .5 * sa)); lw.addColorStop(.55, rgba('8,13,30', .22 * sa)); lw.addColorStop(1, rgba('8,13,30', 0)); c.globalAlpha = 1 - TABIT_ST; c.fillStyle = lw; c.fillRect(-OXS, -OYS, WT, HT); c.globalAlpha = 1; }   // XR2.8.2: the left wash fades as the copy centres
-      var tg = c.createLinearGradient(0, -OYS, 0, 160 - OYS); tg.addColorStop(0, rgba('8,13,30', .3 * sg(r, .5, 1))); tg.addColorStop(1, rgba('8,13,30', 0)); c.fillStyle = tg; c.fillRect(-OXS, -OYS, WT, 160);
+      washes(u, r);
       var mA = .8 * sg(r, .7, 1) * (1 - sg(u, .85, .97)) * (sh.map === 'page' ? sg(su, .3, .8) : 1);   // off on page 5, where the address line sits
       if (meterTxt && SC.meter && mA > .01) { c.font = '600 11px Manrope, system-ui, sans-serif'; c.textBaseline = 'alphabetic'; c.fillStyle = rgba(DUSK, mA); c.fillText(meterTxt.toUpperCase().split('').join(String.fromCharCode(8202)), 124, 694 + OYS); }
     }
@@ -2854,6 +2871,39 @@ function makeScene(cv, V0) {
 function tabitDom() {
   return { extras: [], lock: document.querySelector('[data-tabit-lockup]'), mark: document.querySelector('[data-tabit-mark]'), letters: Array.prototype.slice.call(document.querySelectorAll('[data-tabit-letter]')), lineA: document.querySelector('[data-tabit-line="A"]'), lineB: document.querySelector('[data-tabit-line="B"]'), headA: document.querySelector('[data-tabit-head="A"]'), headB: document.querySelector('[data-tabit-head="B"]'), masks: Array.prototype.slice.call(document.querySelectorAll('[data-tabit-mask]')) };
 }
+
+// XR2.10: the click-out pages' sky. With init.sky the engine draws only the home's own sky (the same stars from the same
+// seeds, twinkle, drift against the mouse and parting round it, drift up with the scroll, the washes, the vignette and the
+// grain) into the given host, a fixed layer behind a click-out page, laid out on the home stage's fit (TABIT_FIT), so a
+// given window shows the same sky on every page. No hero, no intro, no copy: nothing else of the home runs.
+if (init && init.sky) return (function () {
+  var cvS = host.querySelector('canvas[data-tabit-scene]'), vigS = host.querySelector('[data-tabit-vig]'), grS = host.querySelector('.tabit-grain');
+  grS = grS ? grS.parentNode : null;
+  host.innerHTML = '<style>' + (TB_NOGRAIN ? '.tabit-grain{display:none!important}' : '') + TABIT_STYLE + '</style>';
+  var stg = realDoc.createElement('div');
+  stg.style.cssText = 'position: absolute; left: 0; top: 0; overflow: hidden; pointer-events: none; transform-origin: 0 0; background: #04070F';
+  host.appendChild(stg); stg.appendChild(cvS); if (vigS) stg.appendChild(vigS); if (grS) stg.appendChild(grS);
+  cvS.style.opacity = '1';
+  var k0 = 1, vw = -1, vh = -1, PS = { x: -999, y: -999, on: false }, offS = [], skyS = null, rafS = 0;
+  function fitS() {
+    vw = window.innerWidth; vh = window.innerHeight; var F = TABIT_FIT(vw, vh); k0 = F.s;
+    stg.style.width = F.w + 'px'; stg.style.height = F.h + 'px'; stg.style.transform = 'scale(' + F.s + ')';
+    stg.__w = F.w; stg.__h = F.h; tabitLayout(stg, init.k || 1);
+  }
+  function onS(el, ev, fn, opt) { el.addEventListener(ev, fn, opt); offS.push(function () { el.removeEventListener(ev, fn, opt); }); }
+  onS(window, 'pointermove', function (e) { PS.x = e.clientX / k0 - TABIT_OX; PS.y = e.clientY / k0 - TABIT_OY; PS.on = true; }, { passive: true });
+  onS(realDoc.documentElement, 'pointerleave', function () { PS.on = false; });   // realDoc: inside the engine, document is the host-scoped shim
+  fitS();
+  skyS = makeScrollSky(cvS, SS_IDEA, { mark: TABIT_DATA.mark }, { headless: true, side: SS_SIDE, focus: SS_FOCUS });
+  function tickS(now) {
+    rafS = requestAnimationFrame(tickS);
+    if (window.innerWidth !== vw || window.innerHeight !== vh) fitS();
+    TB_SKYS = TABIT_HAND + Math.max(0, window.scrollY || window.pageYOffset || 0) / k0;   // the page's scroll, in the home's units, from Home's stop
+    skyS.pointer(PS.x, PS.y, PS.on); skyS.sky(now / 1000);
+  }
+  rafS = requestAnimationFrame(tickS);
+  return { dispose: function () { cancelAnimationFrame(rafS); offS.forEach(function (f) { f(); }); if (stg.__ro) { stg.__ro.disconnect(); stg.__ro = null; } host.innerHTML = ''; } };
+})();
 
 // ---- the page logic (ported from the canvas board's component): intro clock, virtual scroll, input, snapping
 var self = {};
@@ -2955,7 +3005,43 @@ return {
 
 }
 
+// XR2.10: the home stage's fit (TabitHome.tsx's numbers): the scale follows the window's width, 1 unit = 1 px from 960 to 1152 px
+// wide and at most 1.25 from 1440; a shorter window may tighten it only to .62; the stage runs to the window's edges, at least 720 tall
+function TABIT_FIT(vw, vh) {
+  var sw = vw >= 1152 ? Math.min(1.25, vw / 1152) : Math.min(1, vw / 960), s = Math.min(sw, Math.max(vh / 720, .62));
+  return { s: s, w: Math.round(Math.min(4096, vw / s)), h: Math.round(Math.max(720, vh / s)) };
+}
+// XR2.10: one sky per document behind the click-out pages. Each TabitPage or TabitArticle on a page takes a share and releases
+// it when it goes; the last to go removes the sky. The sky is a fixed layer under the page (z-index -1), so the page's own
+// grounds (body, the page frame, the components) are made clear while it is up and restored afterwards.
+var TB_SKYL = { n: 0, el: null, inst: null, undo: [] };
+function mountTabitSky(from, opts) {
+  TB_SKYL.n++;
+  if (!TB_SKYL.el) {
+    var el = document.createElement('div'); el.setAttribute('data-tabit-sky', '1'); el.setAttribute('aria-hidden', 'true');
+    el.style.cssText = 'position: fixed; left: 0; top: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; overflow: hidden; background: #04070F';
+    document.body.insertBefore(el, document.body.firstChild); TB_SKYL.el = el;
+    var de = document.documentElement; TB_SKYL.undo.push([de, de.style.background]); de.style.background = '#04070F';
+    try { TB_SKYL.inst = runTabit(el, null, Object.assign({}, opts || {}, { sky: true })); } catch (err) { if (window.console) console.error('Tabit sky failed', err); }
+  }
+  for (var a = from && from.parentElement; a && a !== document.documentElement; a = a.parentElement) {   // clear the grounds between the page and the sky
+    if (a.__tbClear) continue; var bg = getComputedStyle(a).backgroundColor;
+    if (bg && bg !== 'transparent' && !/rgba\(.*,\s*0\)$/.test(bg)) { a.__tbClear = 1; TB_SKYL.undo.push([a, a.style.background]); a.style.background = 'transparent'; }
+  }
+  var done = false;
+  return function release() {
+    if (done) return; done = true; TB_SKYL.n--;
+    requestAnimationFrame(function () {   // a page change mounts the next page's share before this frame ends
+      if (TB_SKYL.n > 0 || !TB_SKYL.el) return;
+      try { if (TB_SKYL.inst) TB_SKYL.inst.dispose(); } catch (err) {}
+      if (TB_SKYL.el.parentNode) TB_SKYL.el.parentNode.removeChild(TB_SKYL.el);
+      TB_SKYL.undo.forEach(function (u) { u[0].style.background = u[1]; if (u[0].__tbClear) u[0].__tbClear = 0; }); TB_SKYL.undo = [];
+      TB_SKYL.el = TB_SKYL.inst = null;
+    });
+  };
+}
+
 window.runTabit = runTabit; window.TABIT_FONTS = TABIT_FONTS;
 
 
-export { runTabit, TABIT_FONTS }
+export { runTabit, TABIT_FONTS, TABIT_FIT, mountTabitSky }

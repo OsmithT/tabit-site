@@ -25,7 +25,7 @@ Pull the commit into Framer as usual, pinned to its hash. These files are for th
 | `pages/press.js` | The Press page as designed, with the current 11 items. The visual reference for Step 5. |
 | `cms/articles.csv` | Import file for the Articles collection: one article. |
 | `cms/press.csv` | Import file for the Press collection: all 11 items. |
-| `images/tabit-sky-tile.jpg` | The star sky, for the background of pages built partly in Framer. |
+| `images/tabit-sky-tile.jpg` | Not used since XR2.10: every click-out page shows the home's own live sky, which TabitPage and TabitArticle put behind the whole page (Framer-built parts included). |
 
 The pull only updates code. The collections, pages and field connections below are set up once in Framer by hand.
 
@@ -101,7 +101,7 @@ If a field maps wrongly, delete the items, fix the mapping and import again.
 Framer only fills a list from the CMS through its own Collection List, so this page is code at the top and bottom
 with a native list in between.
 
-1. Add a page at **/press**. Background: Night `#04070F` with `images/tabit-sky-tile.jpg` as a tiled image, 1280 wide.
+1. Add a page at **/press**. Background: Night `#04070F`, no image (XR2.10: the TabitPage components on the page put the home's live sky behind it, the Collection List included).
 2. **Top:** TabitPage, page **Press: header**.
 3. **Middle:** a **Collection List** from **Press**, sorted by **Date, newest first**, no limit. One item, built to
    these values (px at a 1280-wide window; scale with the page as the other pages do):
