@@ -65,7 +65,7 @@ failure is flagged for Oscar's decision rather than blocking on its own. Owner o
 - The load-time intro (0 – 7.2 s), time-driven by design.
 - The star-path chapter labels — navigation, not kickers.
 
-Under decision (flag, do not block, until Oscar rules): what stands at the centre of the Captives disk now the planet is gone: the two XR2.9.31 boards, B a star cluster and D a lit globe, both made of the knot's own Paper star points and both opening into the knot (Oscar, 12 Nov: "I like option B or D"; STYLE.md §5 sets out both until he chooses); whether XR2.9.22's star disk may turn faster than the cells at rest, as its reference does (built at the cells' 3 degrees a second, the extra whirl on the scroll); the film-grain loop and the EXPLORE cue pulse (cardinal 4 as
+Under decision (flag, do not block, until Oscar rules): what stands at the centre of the Captives disk now the planet is gone: the three XR2.9.31 boards, B a star cluster, D a lit globe and E an empty centre, all ending in the knot drawn in its own Paper star points (Oscar, 12 Nov: "I like option B or D", then "can we try one version which is empty in the center like in 30E"; STYLE.md §5 sets out all three until he chooses); whether XR2.9.22's star disk may turn faster than the cells at rest, as its reference does (built at the cells' 3 degrees a second, the extra whirl on the scroll); the film-grain loop and the EXPLORE cue pulse (cardinal 4 as
 worded); the hairline above the Home proof row and the 1 px Dusk 14 edge under the nav bar; `Replay` and the
 coordinates as on-screen chrome; the splash having no primary action; the About legal line at 11 px; on the click-out
 pages, the hero headline and button repeated at the foot (as on the approved XR2.4 pages), the (Re)insurance hero

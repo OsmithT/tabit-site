@@ -1,4 +1,4 @@
-# Tabit website — style code (v1.26, 12 Nov 2026)
+# Tabit website — style code (v1.27, 12 Nov 2026)
 
 The values behind every visual decision on the site, taken from the home page as shipped (XR2.8.2) and the brand
 guidelines. `DESIGN.md` holds the cardinal rules (what never ships); this file holds the values. Where a page and this
@@ -179,12 +179,15 @@ Radius 2 everywhere; no other radius, no pill.
   stacked, under the hero copy, 560 wide (phones the full width). From v1.20 (Oscar, 12 Nov, from the reference he
   chose) it is a disk of stars about a centre, the SCC. There is no planet (v1.26, Oscar on XR2.9.29: "remove the
   planet from the center it just doesn't look good at all"; from v1.20 to v1.25 a Dusk sphere shaded with Tabit Navy
-  stood there). The centre is made of the Tabit knot's own 309 Paper star points, and it is one of two, under decision
-  on XR2.9.31 (Oscar: "I like option B or D"). B, the cluster: the stars as a star cluster, far more of them near its
+  stood there). The centre is made of the Tabit knot's own 309 Paper star points, and it is one of three, under decision
+  on XR2.9.31 (Oscar: "I like option B or D", then "can we try one version which is empty in the center like in 30E"). B, the cluster: the stars as a star cluster, far more of them near its
   core (16 figure units) than at its edge (54), of several sizes, most small; it turns with the disk, and the scroll
   stirs it, each star on an orbit of its own. D, the globe: the stars evenly over a sphere of radius 40, lit from the
   upper left (the stars facing the light brighter and larger, the dimmest at a fifth of full strength), only its near side drawn,
-  turning with the disk on the disk's axis; the far side of the disk passes behind it. Either one opens into the Tabit
+  turning with the disk on the disk's axis; the far side of the disk passes behind it. E, empty (v1.27): nothing stands
+  at the centre while the disk turns, and as the disk lands the knot's stars come in off the disk's inner edge (34 to
+  42 from the centre), each from its own bearing, brightening as it comes and running 40 degrees along the edge on its
+  way. B and D open into the Tabit
   knot drawn in Paper star points, as the About figure draws it, which is the finished figure's centre (v1.21, as
   v1.19: "what I want as the Tabit logo in the center"), gradually: from just before the disk lands to 90 % of the
   scroll's stretch ("a bit more gradual"). Each star starts where its place in the knot is nearest, so the opening is
@@ -296,6 +299,9 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
 
 ## 10. Change log
 
+- 12 Nov 2026 — v1.27. Oscar on XR2.9.31 B and D: "okay, can we try one version which is empty in the center like in
+  30E." XR2.9.31E (§5 Lists): a third candidate for the Captives centre, empty until the knot's stars come in off the
+  disk's inner edge as the disk lands. Under decision with B and D. No new colour, type or spacing value.
 - 12 Nov 2026 — v1.26. Oscar on XR2.9.29: "remove the planet from the center it just doesn't look good at all. Give me
   4 different options", and on the XR2.9.30 options: "Remove the tabit insurance scc logo at the bottom of the hero
   for sure. I like option B or D. Can you take those two options and really make them look like final products."
