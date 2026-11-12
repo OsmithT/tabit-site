@@ -86,7 +86,7 @@ function runTabit(host, THREE, init) {
   // XR3.0: the phone's rules (the root carries tb-phone when the stage is a phone's, see tabitLayout). The sizes are the style code's own:
   // Body 17/26, Small 13/20, Control 14/18 on a 44-tall button; the chapter headline is the Title step, 40/44, as the click-out pages set theirs
   // on a phone; the Home headline 46/52 and the compass point and dictionary titles 30/34 are the phone's two steps of their own (STYLE.md v1.32)
-  var TB_PHCSS = "[data-tabit-root]{-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}[data-tabit-root] a,[data-tabit-root] button,[data-tabit-root] summary{touch-action:manipulation;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}.tb-menu-contact{display:none!important}.tb-phone [data-tabit-sec],.tb-phone [data-tabit-col]{text-align:left}.tb-phone [data-tabit-col]{height:auto!important;min-height:0!important}.tb-phone [data-tabit-col]>div[style*='top: 0px']{position:static!important;width:auto!important}.tb-phone [data-tabit-col]>span[style*='bottom: 78px']{position:static!important;width:auto!important}.tb-phone [data-tabit-col] h1{font-size:46px!important;line-height:52px!important}.tb-phone [data-tabit-col] span[style*='margin-top: 30px']{margin-top:24px!important}.tb-phone [data-tabit-col] [style*='flex-wrap: wrap']{row-gap:0!important}.tb-phone [data-tabit-col] [style*='flex-wrap: wrap']>span:nth-child(4){display:none}.tb-phone [data-tabit-col] [style*='flex-wrap: wrap']>span:nth-child(5){flex-basis:100%}.tb-phone [data-tabit-sec]>div:first-child{padding:0!important;border:0!important}.tb-phone [data-tabit-sec] [style*='font-size: 44px']{font-size:40px!important;line-height:44px!important;text-wrap:balance}.tb-phone [data-tabit-sec] [style*='font-size: 15px; line-height: 24px']{font-size:17px!important;line-height:26px!important}.tb-phone [data-tabit-sec] [data-tabit-in][style*='margin-top: 18px']{margin-top:24px!important}.tb-phone [data-tabit-sec='2'] [data-tabit-in][data-tb-ln][style]{margin-top:0!important}.tb-phone .tb-explore,.tb-phone .tb-talk{font-size:14px!important;line-height:18px!important;padding:13px 24px!important;letter-spacing:0!important}.tb-phone [data-tabit-sec='3']{top:2248px!important}.tb-phone [data-tabit-sec='5']{top:3688px!important}.tb-phone [data-tabit-sec='5']>div:first-child{height:auto!important}.tb-phone [data-tabit-sec='5']>div:first-child>div{position:static!important;width:auto!important}.tb-phone [data-tabit-sec='5'] [style*='font-size: 64px']{font-size:40px!important;line-height:44px!important}.tb-phone [data-tb-about-seq]{margin-top:40px}.tb-phone [data-tb-about-seq] [style*='font-size: 40px']{font-size:30px!important;line-height:34px!important}.tb-phone [data-tb-about-seq] [style*='gap: 52px']{gap:0!important;margin-top:28px!important}.tb-phone [data-tb-about-seq] [style*='gap: 52px']>div{flex:1 1 0!important;white-space:normal!important;padding-right:8px}.tb-phone [data-tabit-sec='5'] [data-tabit-in='5']{position:static!important;width:auto!important;margin:var(--tb-ph-lg,40px) 0 0!important}.tb-phone .tb-clab{width:342px!important}.tb-phone .tb-clt{font-size:30px!important;line-height:34px!important}.tb-phone .tb-clab .ld{max-width:310px!important;min-height:78px}.tb-phone .tb-clb{font-size:46px!important;line-height:46px!important}.tb-phone [data-tabit-nav]{left:13px!important;right:13px!important}.tb-phone [data-tabit-navitem='1']{display:none!important}.tb-phone .tb-menu summary{min-width:44px;justify-content:center;padding:0}.tb-phone .tb-menu-contact{display:block!important}.tb-phone .tb-menu-nav{left:3px;width:358px;box-sizing:border-box}.tb-phone .tb-menu-nav a{padding:10px 0}.tb-phone .tabit-replay,.tb-phone [data-tabit-coords],.tb-phone .tb-bow,.tb-phone [data-tabit-dots]{display:none!important}.tb-phone [data-tabit-skip]{right:16px!important;top:22px!important;height:44px!important}";
+  var TB_PHCSS = "[data-tabit-root].tb-phone{-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%;touch-action:pan-x pinch-zoom}.tb-phone a,.tb-phone button,.tb-phone summary{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}.tb-phone .tb-menu summary:active,.tb-phone .tabit-skip:active{transform:translateY(1px)}.tb-phone .tb-menu-nav a:active{color:var(--tb-gold,#A8823A)}.tb-menu-contact{display:none!important}.tb-phone [data-tabit-sec],.tb-phone [data-tabit-col]{text-align:left}.tb-phone [data-tabit-col]{height:auto!important;min-height:0!important}.tb-phone [data-tabit-col]>div[style*='top: 0px']{position:static!important;width:auto!important}.tb-phone [data-tabit-col]>span[style*='bottom: 78px']{position:static!important;width:auto!important}.tb-phone [data-tabit-col] h1{font-size:46px!important;line-height:52px!important}.tb-phone [data-tabit-col] span[style*='margin-top: 30px']{margin-top:24px!important}.tb-phone [data-tabit-col] [style*='flex-wrap: wrap']{row-gap:0!important}.tb-phone [data-tabit-col] [style*='flex-wrap: wrap']>span:nth-child(4){display:none}.tb-phone [data-tabit-col] [style*='flex-wrap: wrap']>span:nth-child(5){flex-basis:100%}.tb-phone [data-tabit-sec]>div:first-child{padding:0!important;border:0!important}.tb-phone [data-tabit-sec] [style*='font-size: 44px']{font-size:40px!important;line-height:44px!important;text-wrap:balance}.tb-phone [data-tabit-sec] [style*='font-size: 15px; line-height: 24px']{font-size:17px!important;line-height:26px!important}.tb-phone [data-tabit-sec] [data-tabit-in][style*='margin-top: 18px']{margin-top:24px!important}.tb-phone [data-tabit-sec='2'] [data-tabit-in][data-tb-ln][style]{margin-top:0!important}.tb-phone .tb-explore,.tb-phone .tb-talk{font-size:14px!important;line-height:18px!important;padding:13px 24px!important;letter-spacing:0!important}.tb-phone .tb-explore{padding:12px 23px!important}.tb-phone [data-tabit-sec='2'] .tb-explore,.tb-phone [data-tabit-sec='5'] .tb-talk{padding:12px 23px!important}.tb-phone .tb-talk,.tb-phone .tb-explore,.tb-phone .tb-menu summary{position:relative}.tb-phone .tb-talk::after,.tb-phone .tb-explore::after,.tb-phone .tb-menu summary::after{content:'';position:absolute;inset:-4px}.tb-phone [data-tabit-sec='3']{top:2248px!important}.tb-phone [data-tabit-sec='5']{top:3688px!important}.tb-phone [data-tabit-sec='5']>div:first-child{height:auto!important}.tb-phone [data-tabit-sec='5']>div:first-child>div{position:static!important;width:auto!important}.tb-phone [data-tabit-sec='5'] [style*='font-size: 64px']{font-size:40px!important;line-height:44px!important}.tb-phone [data-tb-about-seq]{margin-top:40px}.tb-phone [data-tb-about-seq] [style*='font-size: 40px']{font-size:30px!important;line-height:34px!important}.tb-phone [data-tb-about-seq] [style*='gap: 52px']{gap:0!important;margin-top:28px!important}.tb-phone [data-tb-about-seq] [style*='gap: 52px']>div{flex:1 1 0!important;white-space:normal!important;padding-right:8px}.tb-phone [data-tabit-sec='5'] [data-tabit-in='5']{position:static!important;width:auto!important;margin:var(--tb-ph-lg,40px) 0 0!important}.tb-phone .tb-clab{width:342px!important}.tb-phone .tb-clt{font-size:30px!important;line-height:34px!important}.tb-phone .tb-clab .ld{max-width:310px!important;min-height:78px}.tb-phone .tb-clb{font-size:46px!important;line-height:46px!important}.tb-phone [data-tabit-nav]{left:13px!important;right:13px!important}.tb-phone [data-tabit-navitem='1']{display:none!important}.tb-phone .tb-menu summary{min-width:44px;justify-content:center;padding:0}.tb-phone .tb-menu-contact{display:block!important}.tb-phone .tb-menu-nav{left:3px;width:358px;box-sizing:border-box;background:#04070F;-webkit-backdrop-filter:none;backdrop-filter:none}.tb-phone .tb-menu-nav a{padding:10px 0}.tb-phone .tabit-replay,.tb-phone [data-tabit-coords],.tb-phone .tb-bow,.tb-phone [data-tabit-dots]{display:none!important}.tb-phone [data-tabit-skip]{right:16px!important;top:22px!important;height:44px!important}";
   function TB_V7DOM(host) {
     var CLIP = 'display: block; overflow: hidden; padding: 0 8px 14px; margin: 0 -8px -14px';
     var home = host.querySelector('[data-tabit-rise="2"]');
@@ -538,31 +538,33 @@ function tbPhoneLayout(root, W, H, OY) {
   function hh(el) { return el ? el.offsetHeight : 0; }
   var CT = TB_PH_CT, col = q('[data-tabit-col]'), sec = [null, 1, 2, 3, 4, 5].map(function (k) { return k ? q('[data-tabit-sec="' + k + '"]') : null; });
   var box = sec.map(function (e) { return e ? e.firstElementChild : null; });
-  // AI: the figure and the large AI stand at the top, under the nav, and the copy follows. The figure takes the room the copy leaves, between 150 and 232 tall
-  var h3 = hh(box[3]), figH = Math.max(150, Math.min(232, H - 88 - 16 - 32 - h3 - 24)), aiS = figH / 314;
-  if (sec[3]) sec[3].style.paddingTop = Math.round(88 + 16 + figH + 32 - CT) + 'px';
-  var CB = [CT + hh(col), CT + hh(box[1]), CT + hh(box[2]), 88 + 16 + figH + 32 + h3, CT + hh(box[4])];   // where each chapter's copy ends
+  // AI: the figure and the large AI stand at the top, 24 under the nav, and the copy follows 32 under them. The figure takes the room the copy leaves, between 150 and 232 tall
+  // every height is read first, then the styles are written (one layout pass, not one per write)
+  var h3 = hh(box[3]), h0 = hh(col), h1 = hh(box[1]), h2 = hh(box[2]), h4 = hh(box[4]), labs = root.querySelectorAll('.tb-clab'), labH = 0;
+  Array.prototype.forEach.call(labs, function (e) { labH = Math.max(labH, e.offsetHeight); }); if (!labH) labH = 120;
+  var figH = Math.max(150, Math.min(232, H - 88 - 24 - 32 - h3 - 24)), aiS = figH / 314;
+  if (sec[3]) sec[3].style.paddingTop = Math.round(88 + 24 + figH + 32 - CT) + 'px';
+  var CB = [CT + h0, CT + h1, CT + h2, 88 + 24 + figH + 32 + h3, CT + h4];   // where each chapter's copy ends
   var L = { w: W, h: H, cb: CB, ov: [0, 1, 2, 3, 4, 5].map(function (k) { return k < 5 ? Math.max(0, CB[k] + 24 - H) : 0; }) };   // ov: how far a page's copy runs under the fold
   // Home: Orion under the copy, its legs cut by the bottom edge. The drawing is 359 x 554 about (342, 384) and is drawn at .48 s about (cx, cy + 70)
   var oS = .565, oTop = Math.max(CB[0] + 24, H - 245);
   var oV = Math.max(0, Math.min(1, (H - oTop - 100) / 40));   // with under 100 of it in view Orion is left out: its club's tip alone at the foot of a short screen reads as a fault
   L.home = { cx: 640, cy: oTop + 277 * oS - 70 - OY, s: oS / .48, ax: 640, ay: Math.min(oTop + 90, H - 40) - OY, a: oV * oV * (3 - 2 * oV) };
   // (Re)insurance: the compass is centred under the screen, 343 in radius (wider than the screen), so its top arc runs edge to edge; the point's title stands above it
-  var labs = root.querySelectorAll('.tb-clab'), labH = 0; Array.prototype.forEach.call(labs, function (e) { labH = Math.max(labH, e.offsetHeight); }); if (!labH) labH = 120;
   var RP = 343, RT = Math.max(CB[1] + 32 + labH + .153 * RP + 44, H - 227);
   L.mintaka = { cx: 640, cy: RT + RP - OY, s: 1, rp: RP, ax: 640, ay: Math.min(RT + 36, H - 30) - OY };
   // Captives: the orbit, 337 wide and 206 tall at full size, centred on the screen; its centre is (40, 26) from the drawing's own. On a short
   // screen it draws in (to no less than .6) so it is seen whole (DESIGN.md: a figure is seen whole or not at all)
   var cS = Math.max(.6, Math.min(1, (H - CB[2] - 24 - 20) / 206)), C2 = Math.max(CB[2] + 24 + 103 * cS, H - 204);
   L.alnilam = { cx: 640 - 40 * cS, cy: C2 - 26 * cS - OY, s: cS, ax: 640, ay: C2 - OY };
-  L.ai = { cx: 640, cy: 88 + 16 + figH / 2 - OY, s: aiS, cap: 213 * aiS };
+  L.ai = { cx: 640, cy: 88 + 24 + figH / 2 - OY, s: aiS, cap: 213 * aiS };
   // License: the padlock (240 x 347, its centre 6 under the drawing's) in the room under the copy, between .42 and .75 of its size, whole
   var lS = Math.max(.42, Math.min(.75, (H - CB[4] - 24 - 24) / 347)), lTop = Math.max(CB[4] + 24, H - 24 - 347 * lS);
   L.licence = { cx: 640, cy: lTop + 167 * lS - OY, s: lS };
   L.contact = { cx: 640, cy: H + 80 - OY, s: .5 };   // About us has no figure
   // About us runs on under the fold: the scroll carries on until its last line is 24 above the bottom edge; on a screen it fits, the legal line stands at the foot
   var lg = sec[5] ? sec[5].querySelector('[data-tabit-in="5"]') : null, xq = 0;
-  if (sec[5]) { sec[5].style.setProperty('--tb-ph-lg', '40px'); var b5 = CT + hh(sec[5]); if (b5 + 24 < H) sec[5].style.setProperty('--tb-ph-lg', Math.round(40 + H - 24 - b5) + 'px'); else xq = Math.round(b5 + 24 - H); }
+  if (sec[5]) { sec[5].style.setProperty('--tb-ph-lg', '40px'); var b5 = CT + hh(sec[5]), ov5 = b5 + 24 - H; if (ov5 <= 24) sec[5].style.setProperty('--tb-ph-lg', Math.round(40 - ov5) + 'px'); else xq = Math.round(ov5); }   // short of the foot: the legal line drops to it; over by 24 or less: its gap closes (40 to no less than 16) rather than leave its last line on the edge; more: the scroll carries on
   TABIT_PHL = L; TABIT_XQ = xq;
 }
 function makeTabitHero(glCanvas, ovCanvas, DATA, DOM) {
@@ -865,7 +867,7 @@ function makeTabitHero(glCanvas, ovCanvas, DATA, DOM) {
     var cy = FX.camY * z / FPX;
     cam.position.set(x, cy, z); cam.lookAt(x, cy, z - 1000);
     PV = phoneView(t);
-    if (PV) cam.setViewOffset(W, H, W / 2 - PV.cx / PV.z, H / 2 - PV.cy / PV.z, W / PV.z, H / PV.z); else if (cam.view) cam.clearViewOffset();
+    if (PV) cam.setViewOffset(W, H, W / 2 - PV.cx / PV.z, H / 2 - PV.cy / PV.z, W / PV.z, H / PV.z); else if (cam.view && cam.view.enabled) cam.clearViewOffset();
     cam.updateProjectionMatrix(); cam.updateMatrixWorld();
   }
   (function precompile() {   // XR2.9.1: every program is compiled here, while the screen is still black, not when an object first appears
@@ -922,7 +924,7 @@ function makeTabitHero(glCanvas, ovCanvas, DATA, DOM) {
 
     for (var si = 0; si < scene.children.length; si++) { var so = scene.children[si]; if (so.isSprite) so.visible = so.material.opacity > .002; }   // XR2.7.2: nothing is drawn for a sprite you cannot see
     renderer.render(scene, cam);
-    if (PV) cam.clearViewOffset();   // XR3.0: the drawing over the sky is worked out in the stage's own units and takes the phone's view as one transform (drawOverlay)
+    if (PV) { cam.clearViewOffset(); cam.updateProjectionMatrix(); }   // XR3.0: the drawing over the sky is worked out in the stage's own units and takes the phone's view as one transform (drawOverlay)
     drawOverlay(t, focus);
     if (DOM) drawDom(t);
   }
@@ -1061,8 +1063,8 @@ function makeTabitHero(glCanvas, ovCanvas, DATA, DOM) {
   var LEN = {};
   function drawDom(t) {
     if (DOM.lock) { if (PV0 && TABIT_PH) { var lL = parseFloat(DOM.lock.style.left), lT = parseFloat(DOM.lock.style.top), qz = PV0.z; FX.pvA = PV0.cx - OX - lL + qz * (lL - 640); FX.pvB = PV0.cy - OY - lT + qz * (lT - 360); FX.pvZ = qz;
-        DOM.lock.style.transformOrigin = '0 0'; DOM.lock.style.transform = 'translate(' + FX.pvA.toFixed(2) + 'px,' + FX.pvB.toFixed(2) + 'px) scale(' + qz.toFixed(4) + ') translateX(' + (SHIFT * (1 - shiftK)).toFixed(2) + 'px)'; }
-      else { if (FX.pvZ != null) { FX.pvZ = null; DOM.lock.style.transformOrigin = ''; } DOM.lock.style.transform = 'translateX(' + (SHIFT * (1 - shiftK)).toFixed(2) + 'px)'; } }
+        if (!DOM.lock.__pvO) { DOM.lock.__pvO = 1; DOM.lock.style.transformOrigin = '0 0'; } DOM.lock.style.transform = 'translate(' + FX.pvA.toFixed(2) + 'px,' + FX.pvB.toFixed(2) + 'px) scale(' + qz.toFixed(4) + ') translateX(' + (SHIFT * (1 - shiftK)).toFixed(2) + 'px)'; }
+      else { if (FX.pvZ != null) { FX.pvZ = null; DOM.lock.__pvO = 0; DOM.lock.style.transformOrigin = ''; } DOM.lock.style.transform = 'translateX(' + (SHIFT * (1 - shiftK)).toFixed(2) + 'px)'; } }
     // a fine line leaves Tabit both ways round the endless loop, then the mark resolves over it
     var pr = eIOS(seg(t, TL.draw0, TL.draw1)), lineA = 1 - eIOS(seg(t, TL.settle0, TL.settle1));
     ['A', 'B'].forEach(function (k) {
@@ -1630,8 +1632,9 @@ function makeHandoff(hero, root, V) {
   // up and curls into the top-left corner, where the knots settle and the real logo fades in evenly as they land.
   var FL3 = false;
   function fly3Update(p, t) {
-    if (RM || TABIT_PH) { lock.style.opacity = ''; lock.style.webkitMaskImage = lock.style.maskImage = ''; dock(io5(sg(p, .04, .78)), 'centre'); if (homeBtn) homeBtn.style.display = p > .9 ? 'block' : 'none';
-      if (FL2) { FL2.c.setTransform(1, 0, 0, 1, 0, 0); FL2.c.clearRect(0, 0, FL2.cv.width, FL2.cv.height); } return; }   // XR3.0: a phone: the lockup itself glides up into the bar and shrinks to its docked size, on the scroll (and the docked logo still takes you back to the top)
+    if (RM || TABIT_PH) { var hb9 = p > .9 ? 'block' : 'none'; dock(io5(sg(p, .04, .78)), 'centre'); if (homeBtn && homeBtn.style.display !== hb9) homeBtn.style.display = hb9;
+      if (!lock.__ph9) { lock.__ph9 = 1; lock.style.opacity = ''; lock.style.webkitMaskImage = lock.style.maskImage = ''; if (FL2) { FL2.c.setTransform(1, 0, 0, 1, 0, 0); FL2.c.clearRect(0, 0, FL2.cv.width, FL2.cv.height); } } return; }
+    lock.__ph9 = 0;   // XR3.0: a phone: the lockup itself glides up into the bar and shrinks to its docked size, on the scroll (and the docked logo still takes you back to the top)
     if (!FL2) fly2Init();
     if (!FL3) { var cxL = parseFloat(lock.getAttribute('width')) / 2, cyL = parseFloat(lock.getAttribute('height')) / 2;
       FL2.P.forEach(function (o) { o.b = .035 + o.r * .03; o.f0 = .24 + o.r2 * .12; o.arr = o.f0 + .26 + o.r * .08; o.ox = o.lx - cxL; o.oy = o.ly - cyL;
@@ -1696,7 +1699,7 @@ function makeHandoff(hero, root, V) {
     if (wm) wm.style.opacity = 0; if (cols) cols.style.opacity = 0; idx.forEach(function (el) { el.style.opacity = 0; });
     if (scroller) scroller.style.transform = 'none';
     if (scene) { var db0 = q('[data-tabit-dots]'); if (db0) db0.style.opacity = 0; scene.draw(0, 0); logoParts.forEach(function (el) { if (el) el.style.fill = ''; }); if (vig) vig.style.opacity = 1; secs.forEach(function (el) { el.style.opacity = 0; }); }
-    lock.style.transformOrigin = ''; root.style.cursor = 'none';
+    lock.style.transformOrigin = ''; lock.__pvO = 0; root.style.cursor = 'none';
     if (FLY) { FLY.c.clearRect(0, 0, 1280, 720); lock.style.opacity = ''; lock.style.transform = ''; }
     if (homeBtn) homeBtn.style.display = 'none';
     if (FL2) { FL2.c.setTransform(1, 0, 0, 1, 0, 0); FL2.c.clearRect(0, 0, FL2.cv.width, FL2.cv.height); lock.style.webkitMaskImage = lock.style.maskImage = ''; lock.style.transform = ''; lock.style.opacity = ''; }
@@ -2483,6 +2486,7 @@ function makeScrollSky(root, IDEA, LOGO, OPT) {
         function ori13(q) { var h = oriHome(q); return [lp(h[0], BX + (ORI[q][0] - 505) * 2.285, tE13), lp(h[1], 64 + (ORI[q][1] - 210) * 2.285, tE13)]; }
         if (TB13) { exB = tS13; BPTS = BPTS.map(function (Pb, n) { var h = ori13(BOWK[n]); return [lp(h[0], Pb[0], tS13), lp(h[1], Pb[1], tS13)]; }); }
         // X1.13 runs on the scroll itself: page K, and F, how far through the gap to the next page (0 to 1)
+        var ANC13 = [];   // XR3.0: each figure's anchor, worked out once a frame (it was built afresh for every star)
         var K13 = Math.min(5, Math.floor(TB_Y / 720)), F13 = K13 >= 5 ? 0 : TB_Y / 720 - K13;
         var Q13 = K13 === 0 ? [.58, .64, .64, .8, .8, .97] : [.1, .34, .34, .58, .58, .9];   // shrink (or, leaving Home, appear), run, grow
         var M13 = io(sg(F13, Q13[2], Q13[3]));
@@ -2523,7 +2527,8 @@ function makeScrollSky(root, IDEA, LOGO, OPT) {
           if (m > 0 || s1 >= 1) return [lp(P0[0], P1[0], m) + ox, lp(P0[1], P1[1], m) + oy, .5 * vis, 1];
           return [lp(Ca[0], P0[0], s1) + lp(a[0] - Ca[0], oAx, s1), lp(Ca[1], P0[1], s1) + lp(a[1] - Ca[1], oAy, s1), lp(1, .5, s1), s1];
         }
-        function anc13(kk) { if (TABIT_PH && TABIT_PHL && CH[kk].k !== 'ai') { var gp = TABIT_PHL[CH[kk].k]; if (gp) return [gp.ax != null ? gp.ax : gp.cx, (gp.ay != null ? gp.ay : gp.cy) + gy9(kk)]; } if (TB_AIL && CH[kk].k === 'ai') return [TB_AIFX(), TABIT_AIC != null ? TABIT_AIC : TABIT_SUBJ.cy]; if (TB_RV && TB_RE && CH[kk].k === 'mintaka') return [cl(TB_RE.cx, 140 - OXS, 1140 + OXS), cl(TB_RE.cy, 140, 600)]; return [GS.cx, 360]; }
+        function anc13(kk) { return ANC13[kk] || (ANC13[kk] = anc13x(kk)); }
+        function anc13x(kk) { if (TABIT_PH && TABIT_PHL && CH[kk].k !== 'ai') { var gp = TABIT_PHL[CH[kk].k]; if (gp) return [gp.ax != null ? gp.ax : gp.cx, (gp.ay != null ? gp.ay : gp.cy) + gy9(kk)]; } if (TB_AIL && CH[kk].k === 'ai') return [TB_AIFX(), TABIT_AIC != null ? TABIT_AIC : TABIT_SUBJ.cy]; if (TB_RV && TB_RE && CH[kk].k === 'mintaka') return [cl(TB_RE.cx, 140 - OXS, 1140 + OXS), cl(TB_RE.cy, 140, 600)]; return [GS.cx, 360]; }
         function bl13(kk) { if (TB_RV && TB_RE && CH[kk].k === 'mintaka') return Math.min(.03, 12 / (2 * 196 * TB_GS() * TB_RE.sc)); return .03; }
         function bowPos(o, j, ff) {
           var a = shapeAt(k, j), b = shapeAt(Math.min(k + 1, CH.length - 1), j);
@@ -3041,13 +3046,14 @@ on(root, 'keydown', function (e) {
 // XR3.0: on a phone the page follows the finger one for one (it ran 1.6 times the finger and trailed a third of a second behind it), and when the
 // finger lifts it glides on from the speed it had. The glide is the scroll's own ease (S closes on St at 3 a second), so carrying St on by the
 // speed x a third of a second leaves the page moving exactly as fast as the finger was: no jump, no stop.
-var ty = null, tv = 0, tt = 0;
-on(root, 'touchstart', function (e) { ty = e.touches[0].clientY; tv = 0; tt = performance.now(); self.touch = TABIT_PH; if (TABIT_PH) self.St = self.S; }, { passive: true });
+var ty = null, tv = 0, tt = 0, tl = 0, tk = 1, tacc = 0;
+on(root, 'touchstart', function (e) { ty = e.touches[0].clientY; tv = 0; tacc = 0; tt = tl = performance.now(); self.touch = TABIT_PH; if (TABIT_PH) { self.St = self.S; tk = TABIT_H / (root.getBoundingClientRect().height || TABIT_H); } }, { passive: true });
 on(root, 'touchmove', function (e) { if (ty == null) return; var y = e.touches[0].clientY; e.preventDefault();
   if (!TABIT_PH) { self.input((ty - y) * 1.6); ty = y; return; }
-  var r = root.getBoundingClientRect(), d = (ty - y) * TABIT_H / (r.height || TABIT_H), now = performance.now(), dtm = Math.max(1, now - tt);
-  tv = tv * .7 + (d / dtm) * .3; tt = now; ty = y; self.input(d); }, { passive: false });
-function touchEnd() { if (self.touch && self.t >= TABIT_END && performance.now() - tt < 80 && Math.abs(tv) > .05) self.input(Math.max(-1400, Math.min(1400, tv * 333))); self.touch = false; ty = null; }
+  var d = (ty - y) * tk, now = performance.now(); ty = y; tl = now; tacc += d;
+  if (now - tt >= 8) { tv = tv * .6 + (tacc / (now - tt)) * .4; tacc = 0; tt = now; }   // the finger's speed over at least 8 ms (events that arrive together would otherwise read as a burst)
+  self.input(d); }, { passive: false });
+function touchEnd() { if (self.touch && self.t >= TABIT_END && performance.now() - tl < 80 && Math.abs(tv) > .05) self.input(Math.max(-1400, Math.min(1400, tv * 333))); self.touch = false; ty = null; }
 on(root, 'touchend', touchEnd, { passive: true }); on(root, 'touchcancel', touchEnd, { passive: true });
 on(root, 'pointermove', function (e) {
   if (!self.hero) return; var r = root.getBoundingClientRect();
@@ -3124,7 +3130,7 @@ return {
 // XR2.10: the home stage's fit (TabitHome.tsx's numbers): the scale follows the window's width, 1 unit = 1 px from 960 to 1152 px
 // wide and at most 1.25 from 1440; a shorter window may tighten it only to .62; the stage runs to the window's edges, at least 720 tall
 function TABIT_FIT(vw, vh) {
-  if (vw < 600) { var sp = vw / 390; return { s: sp, w: 390, h: Math.round(vh / sp) }; }   // XR3.0: a phone: the home's phone stage (390 units wide), so the stars are the size they are on the home, not 40 % of it
+  if (vw < 600) { var sp = Math.min(vw / 390, 430 / 390); return { s: sp, w: Math.round(vw / sp), h: Math.round(vh / sp) }; }   // XR3.0: a phone: the home's phone stage (390 units wide), so the stars are the size they are on the home, not 40 % of it
   var sw = vw >= 1152 ? Math.min(1.25, vw / 1152) : Math.min(1, vw / 960), s = Math.min(sw, Math.max(vh / 720, .62));
   return { s: s, w: Math.round(Math.min(4096, vw / s)), h: Math.round(Math.max(720, vh / s)) };
 }

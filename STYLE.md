@@ -11,7 +11,8 @@ never its height, as apple.com does.** On the click-out pages 1 unit is never le
 any width (it rises with the width to 1.25 px at 1440); two columns need both 1.6:1 and 1024 px, otherwise the page
 stacks. On the home, 1 unit = 1 px from 960 to 1152 px wide, rising to at most 1.25 px; from 600 to 960 px the 960-unit stage
 scales down; under 600 px (a phone, v1.32) the home has a stage of its own, 390 units wide, 1 unit = the width ÷ 390
-(1 px on a 390 px phone), as tall as the part of the screen in view, and its own composition (§4, Phones). On the
+(1 px on a 390 px phone; at most 1.1 px, a 430 px phone: wider than that the stage grows wider instead of the type
+larger), as tall as the part of the screen in view, and its own composition (§4, Phones). On the
 home (a pinned scene that cannot scroll), a window shorter than the stage tightens the size so the whole page stays
 in view, but never below 0.62 (windows under 446 px tall, which no one browses in); below that the bottom is cropped. The click-out pages ignore the height entirely and scroll; their content sits in a centred
 1440-unit column, and wider screens get night either side. The home's sky and stage always run to the window's edges
@@ -105,8 +106,8 @@ Small 13/20, Control 14/18, Label 11/16 as above):
 | Headline | 40 / 44 | 600 | −.035em | Chapter headlines (the Title step's values, as the click-out pages have set their headline on a phone since v1.3); balanced over its lines |
 | Title | 30 / 34 | 600 | −.035em | Compass point titles, "Tabit" in the dictionary entry, timeline years (40 would stand level with the chapter headline, and three years at 40 do not fit the width) |
 
-The compass point's outlined letter is 46 on a phone (84 elsewhere). The measure on a phone is 342 units, about 40
-characters of Body.
+The compass point's outlined letter is 46 / 46 on a phone (84 / 84 elsewhere). The measure on a phone is 342 units,
+about 40 characters of Body.
 
 Measure 45–75 characters (column 640, text ≤ 610). Two-column copy left-aligned; stacked centred. Headlines ≤ 2 lines
 at every width (change the words, not the size); the Home Display headline alone runs to three (v1.29: with "(re)" in
@@ -157,20 +158,23 @@ body 24, body → button 28 to 30, as elsewhere. Each chapter is its copy and, i
 placed from the copy's measured height and the screen's, so the composition holds from a phone with the browser's bars
 showing (about 390 × 660) to a tall one:
 Home — Orion under the copy, 203 wide, its top 24 under the trust row or 245 above the foot of the screen, whichever is
-lower, its legs cut by the bottom edge; with under 100 of it in view it is left out.
+lower, its legs cut by the bottom edge; with under 100 of it in view it is left out (it comes in over the next 40).
 (Re)insurance — the compass centred under the screen, 343 in radius, so its top arc runs edge to edge as a horizon; its
 top is 227 above the foot (lower on a short screen, where the title must clear the copy by 32); the point's title and
 description stand centred above it, 342 wide, the description within 310 and three lines deep so every title sits at
 one height.
 Captives — the orbit centred, 337 wide, its centre 204 above the foot or 24 + its half-height under the copy, drawing in
 to no less than .6 on a short screen so it is whole.
-AI — the figure and the large AI stand at the top, 16 under the nav (they fall from the logo), 150 to 232 tall by the
+AI — the figure and the large AI stand at the top, 24 under the nav (they fall from the logo), 150 to 232 tall by the
 room, and the copy starts 32 under them; where the copy then runs under the fold it is read by scrolling on, the figure
 leaving with its page.
 License — the padlock in the room under the copy, .42 to .75 of its size, whole, 24 clear of the copy and the foot.
 About us — one column: copy, buttons, the dictionary entry 40 under them (timeline in three equal columns, labels
-wrapping), the legal line 40 under that, or at the foot of the screen where there is room; it runs on under the fold and
-the scroll carries on until its last line is 24 above the foot.
+wrapping, 8 clear of the next), the legal line 40 under that, or at the foot of the screen where there is room; where
+it misses the foot by 24 or less its gap closes (to no less than 16) so its last line is not left on the edge; beyond
+that it runs on under the fold and the scroll carries on until its last line is 24 above the foot.
+Chapters stand 720 units apart on the scroll, as everywhere. The Home trust row sets its first two facts on one line
+and the third under it (no middot at a line's end).
 The bar is the burger (its lines on the copy's left edge) and the lockup, centred, 140 wide; Contact us is the menu's
 last link, on every page. No chapter path, Replay or coordinates on a phone. The landing opens close on Orion's shield
 and Tabit's star and draws back to the whole lockup, 326 wide (§6).
@@ -183,7 +187,11 @@ Radius 2 everywhere; no other radius, no pill.
   lockup centred (docked at y 44, proportions fixed), one secondary button "Contact us" right at nav size. On a phone
   (v1.32) the bar carries no Contact us button: it is the last link in the menu, on the home and on every click-out
   page; the home's burger stands 13 from the edge in a 44 × 44 target, so its lines start on the copy's edge (24), and
-  the menu panel runs 16 from each edge with its links 10 above and below (44 tall).
+  the menu panel runs 16 from each edge with its links 10 above and below (44 tall), and is solid Night with no blur
+  (it opens over the copy there), on the home and on the click-out pages. A bordered button's padding is 12 × 23 on a
+  phone, so with its 1-unit border it is 44 tall like a filled one. A control's tap area reaches 4 beyond its edge
+  (buttons, the burger), so it stays 44 px on a phone narrower than 390. Skip intro stands 16 from the right and 22
+  from the top, 44 tall. The burger, the menu's links and Skip intro answer a press (down 1; a link turns Brass).
 - Home link (every page but home): right of the burger, 20 apart — the word "Home" alone at the nav size
   (13/500/.02em), 44 tall; hover Brass, .25 s; presses down 1; 4 units of side padding, as the burger has. No mark
   before the word (v1.25, Oscar on XR2.9.28: "remove the logo next to the 'home' on the top left. Should just say
@@ -270,12 +278,13 @@ Radius 2 everywhere; no other radius, no pill.
 **Phones (v1.32).** The opening sequence is the same sequence seen through a phone's view: it opens at 1.55 × on
 Orion's shield and Tabit's star (the star 88 from the left, so its name reads beside it), centres on the star at 1.2 ×
 as the ring opens and the knot is drawn (the star's name leaving first), and draws back as TABIT is spelt until the
-lockup stands across the screen 326 wide, Orion beside it as on a wide screen; sky, drawing and lockup share the one
-view. On the scroll the lockup glides into the bar and shrinks to its docked 140 (no star flight on a phone). The page
+lockup stands across the screen 326 wide (32 from each edge), Orion beside it as on a wide screen; the view's centre
+is .47 of the way down the screen; sky, drawing and lockup share the one view. On the scroll the lockup glides into the bar and shrinks to its docked 140 (no star flight on a phone). The page
 follows the finger one for one and, when the finger lifts, glides on from the speed it had (the scroll's own ease, a
 third of a second). A figure that stands under its copy (Captives, License) travels with its page, arriving and
 leaving; between pages the figure's stars still gather into one ball that runs to the next figure's place. A page's
-copy fades from 120 past its place (later where it runs under the fold), over 180. Skip intro is 44 tall. Hover states
+copy fades from 120 past its place (where it runs under the fold, from 60 past the point its last line is in view),
+over 180. Skip intro is 44 tall. Hover states
 belong to a mouse alone, on every page (`@media (hover: hover) and (pointer: fine)`).
 
 Scroll and pointer only; the opening sequence (0–7.2 s, replayable, skippable) is the one timed exception; grain loop

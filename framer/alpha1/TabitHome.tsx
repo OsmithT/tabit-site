@@ -14,7 +14,7 @@ const THREE_URL = "https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js
 const FONT_URL =
     "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@300;400;500;600&display=swap"
 const OPTIONS = { k: 1, opt: 37, x23: true, x2313: true, x2310: true, x237: true, x234: true, noMark: true, x251: true }
-const H = 720, WMIN = 960, WMAX = 4096, SMIN = 0.62, SMAX = 1.25, PHONE_W = 390
+const H = 720, WMIN = 960, WMAX = 4096, SMIN = 0.62, SMAX = 1.25, PHONE_W = 390, PHONE_SMAX = 430 / 390
 
 function once(id: string, make: () => HTMLElement) {
     if (!document.getElementById(id)) { const el = make(); el.id = id; document.head.appendChild(el) }
@@ -41,6 +41,7 @@ export default function TabitHome(props: { style?: any }) {
         once("tabit-home-css", () => Object.assign(document.createElement("style"), { textContent: TABIT_HOME_CSS }))
         let inst: any = null, alive = true
         loadThree().then((THREE) => { if (alive && host.current) inst = runTabit(host.current, THREE, OPTIONS) })
+        const de = document.documentElement, ob = de.style.overscrollBehavior
         const fit = () => {
             if (!wrap.current || !stage.current) return
             const r = wrap.current.getBoundingClientRect()
@@ -49,16 +50,17 @@ export default function TabitHome(props: { style?: any }) {
             // growing to at most 1.25 at 1440 and above); a shorter window may tighten it only down to SMIN, and below that the page
             // keeps its size and the bottom is cropped. A very wide window gets night either side; a big monitor no longer blows everything up.
             // XR3.0: a phone (narrower than 600 px) gets a stage of its own, 390 units wide, one unit to a pixel on a 390 px phone and in
-            // proportion on wider and narrower ones; the engine lays that stage out for a phone (TABIT_PH). Before, a phone was given the
+            // proportion on narrower ones and up to 430 px (1.1 px a unit); wider than that the stage grows wider instead of the type larger; the engine lays that stage out for a phone (TABIT_PH). Before, a phone was given the
             // 960-unit stage shrunk to fit, which left every word and button at about 40 % of its size.
             // On a phone the stage is as tall as the part of the page in view: the frame Framer gives the home can be the browser's tallest
             // viewport (its bars hidden), and the home never scrolls the document, so the bars never hide and the frame's foot would stay under them.
             const phone = r.width < 600
             const vis = phone ? Math.max(320, Math.min(r.height, window.innerHeight - Math.max(0, r.top))) : r.height
-            const sw = phone ? r.width / PHONE_W : r.width >= 1152 ? Math.min(SMAX, r.width / 1152) : Math.min(1, r.width / WMIN)
+            const sw = phone ? Math.min(r.width / PHONE_W, PHONE_SMAX) : r.width >= 1152 ? Math.min(SMAX, r.width / 1152) : Math.min(1, r.width / WMIN)
             const s = phone ? sw : Math.min(sw, Math.max(r.height / H, SMIN))
-            const w = phone ? PHONE_W : Math.min(WMAX, r.width / s)
+            const w = phone ? r.width / s : Math.min(WMAX, r.width / s)
             const h = phone ? vis / s : Math.max(H, r.height / s)   // squarer than 4:3 the stage grows taller and the engine stacks (DESIGN.md rule 8)
+            de.style.overscrollBehavior = phone ? "none" : ob   // XR3.0: on a phone the home takes the scroll itself, so the page behind it must not rubber-band or pull to refresh under the finger
             const st = stage.current.style
             st.width = Math.round(w) + "px"
             st.height = Math.round(h) + "px"
@@ -66,10 +68,7 @@ export default function TabitHome(props: { style?: any }) {
         }
         const ro = new ResizeObserver(fit); if (wrap.current) ro.observe(wrap.current); fit()
         window.addEventListener("resize", fit)   // a phone's bars showing or hiding change the height in view without changing the frame
-        // XR3.0: the home is a pinned scene that takes the scroll itself, so the page behind it must not rubber-band or pull to refresh under the finger
-        const de = document.documentElement, ob = de.style.overscrollBehavior
-        de.style.overscrollBehavior = "none"
-        once("tabit-theme", () => Object.assign(document.createElement("meta"), { name: "theme-color", content: "#04070F" }))   // the browser's bars take the night's colour
+        if (window.innerWidth < 600) once("tabit-theme", () => Object.assign(document.createElement("meta"), { name: "theme-color", content: "#04070F" }))   // a phone's browser bars take the night's colour
         return () => { alive = false; ro.disconnect(); window.removeEventListener("resize", fit); de.style.overscrollBehavior = ob; try { inst && inst.dispose() } catch (e) {} }
     }, [])
 
