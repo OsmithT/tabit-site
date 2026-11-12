@@ -261,8 +261,8 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
 
 - 12 Nov 2026 — v1.18. Oscar on XR2.9.19: "there needs to be some sort of change as we scroll down the page … it just
   stays stationary"; then two ways to try: one orbit beside the headline whose cells separate into the eight orbits,
-  drawing them (XR2.9.20), and a 3D disk of stars that flattens into the orbits as you scroll, the Tabit knot then
-  appearing (XR2.9.21, from a reference component). §6 now sets the rules for a figure that changes with the scroll.
+  drawing them (XR2.9.21), and a 3D disk of stars that flattens into the orbits as you scroll, the Tabit knot then
+  appearing (XR2.9.22, from a reference component). §6 now sets the rules for a figure that changes with the scroll.
   Which of the two the page keeps is Oscar's call; the disk turning faster than the cells at rest (as the reference
   does) awaits his ruling under DESIGN rule 4.
 - 12 Nov 2026 — v1.17 (Ashleigh, XR2.8: About us, Press, articles). Three exceptions to this code, by Ashleigh's
