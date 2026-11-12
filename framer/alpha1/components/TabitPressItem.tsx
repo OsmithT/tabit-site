@@ -11,7 +11,8 @@ import { addPropertyControls, ControlType } from "framer"
 const CSS =
     ".tb9{--u:clamp(1px, 100vw / 1152, 1.25px);position:relative;color:#FBF9F4;font-family:Manrope,system-ui,sans-serif;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}" +
     ".tb9 *{box-sizing:border-box}" +
-    ".tb9-pi{max-width:calc(1440*var(--u));margin:0 auto;padding:0 calc(80*var(--u)) calc(16*var(--u))}" +
+    ".tb9-pi{max-width:calc(1440*var(--u));margin:0 auto;padding:calc(16*var(--u)) calc(80*var(--u)) 0}" +   // 16 between rows, none after the last (the legal line brings its own 96)
+
     ".tb9-pi.tb9-first{padding-top:calc(96*var(--u))}" +
     ".tb9-pi .tb9-list{width:calc(880*var(--u));max-width:100%;margin:0;padding:0;display:grid;grid-template-columns:calc(240*var(--u)) minmax(0,1fr);column-gap:calc(32*var(--u))}" +
     ".tb9-pi dt,.tb9-pi dd{margin:0;min-width:0}" +
@@ -23,7 +24,7 @@ const CSS =
     ".tb9-plink:active{color:#A8823A}" +
     ".tb9-plink:focus-visible{outline:2px solid #A8823A;outline-offset:3px}" +
     "@media (hover:hover) and (pointer:fine){.tb9-plink:hover{color:#A8823A}}" +
-    "@media (max-aspect-ratio:1599/1000),(max-width:1023.98px){.tb9-pi{text-align:center;padding-bottom:calc(20*var(--u))}.tb9-pi .tb9-list{grid-template-columns:1fr;margin:0 auto}}" +
+    "@media (max-aspect-ratio:1599/1000),(max-width:1023.98px){.tb9-pi{text-align:center;padding-top:0;padding-bottom:calc(20*var(--u))}.tb9-pi.tb9-first{padding-top:calc(96*var(--u))}.tb9-pi .tb9-list{grid-template-columns:1fr;margin:0 auto}}" +
     "@media (max-width:600px){.tb9-pi{padding-left:16px;padding-right:16px}.tb9-pi .tb9-list{width:100%}}"
 
 const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
