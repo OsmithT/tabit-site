@@ -183,7 +183,7 @@ Radius 2 everywhere; no other radius, no pill.
   on XR2.9.31 (Oscar: "I like option B or D"). B, the cluster: the stars as a star cluster, far more of them near its
   core (16 figure units) than at its edge (54), of several sizes, most small; it turns with the disk, and the scroll
   stirs it, each star on an orbit of its own. D, the globe: the stars evenly over a sphere of radius 40, lit from the
-  upper left (the stars facing the light brighter and larger, Paper 20 at the least), only its near side drawn,
+  upper left (the stars facing the light brighter and larger, the dimmest at a fifth of full strength), only its near side drawn,
   turning with the disk on the disk's axis; the far side of the disk passes behind it. Either one opens into the Tabit
   knot drawn in Paper star points, as the About figure draws it, which is the finished figure's centre (v1.21, as
   v1.19: "what I want as the Tabit logo in the center"), gradually: from just before the disk lands to 90 % of the
@@ -191,7 +191,7 @@ Radius 2 everywhere; no other radius, no pill.
   one movement: the cluster opens outwards, its core to the knot's middle, its stars winding 40 degrees into place;
   the globe opens across, from the upper left to the lower right, each star level with its place. The knot is only
   ever shown whole and unaltered. No name stands under the figure (v1.26: "Remove the tabit insurance scc logo at the
-  bottom of the hero for sure"). The disk is 1,400 Paper star points, starting 34 from the centre
+  bottom of the hero for sure"); the figure's box ends 20 figure units under the outer ring's lowest point. The disk is 1,400 Paper star points, starting 34 from the centre
   and densest there, seen in depth: the far side passes behind the centre, the near side in front. Each star in the
   disk carries a streak along its path (up to 9 degrees times its pace, the inner stars faster; longer while the scroll
   whirls the disk; never longer than 60 figure units); the canvas is cleared every frame, so nothing a star has drawn
@@ -301,7 +301,8 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
   for sure. I like option B or D. Can you take those two options and really make them look like final products."
   XR2.9.31 B and D (§5 Lists, §2): the planet is gone, and with it Dusk as a fill and the Tabit Navy 38 and 80 tints;
   the centre is the knot's own stars as a cluster (B) or a lit globe (D), under decision; the name under the figure
-  is gone and the figure's box is the shorter for it (12 figure units under the outer ring, were 34).
+  is gone and the figure's box is the shorter for it: it ends 20 figure units under the outer ring's lowest point (8
+  of padding and 12 for that ring's own name), where it ended 42.
 - 12 Nov 2026 — v1.25. Oscar on XR2.9.28: "I'm happy with the design of this page now. Finally remove the logo next
   to the 'home' on the top left. Should just say home." XR2.9.29 (§5 Home link): the word alone, at every width; the
   knot before it is gone, and with it the knot's 72 % rest strength and 8 gap. The lockup is untouched. The nav is
