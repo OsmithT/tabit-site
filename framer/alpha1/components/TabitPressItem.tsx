@@ -26,8 +26,12 @@ const CSS =
     "@media (max-aspect-ratio:1599/1000),(max-width:1023.98px){.tb9-pi{text-align:center;padding-bottom:calc(20*var(--u))}.tb9-pi .tb9-list{grid-template-columns:1fr;margin:0 auto}}" +
     "@media (max-width:600px){.tb9-pi{padding-left:16px;padding-right:16px}.tb9-pi .tb9-list{width:100%}}"
 
+const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+// a CMS date arrives as an ISO date; written as on the reference pages, "4 Sep 2025" (Intl's en-GB short month gives "Sept")
+const fmtDate = (v: any) => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(v || "")); return m ? +m[3] + " " + MON[+m[2] - 1] + " " + m[1] : String(v || "") }
+
 export default function TabitPressItem(props: { outlet: string; headline: string; type: string; date: string; link: string; newTab: boolean; first: boolean; style?: any }) {
-    const meta = [props.type, props.date].filter(Boolean).join(" · ")
+    const meta = [props.type, fmtDate(props.date)].filter(Boolean).join(" · ")
     const ext = props.newTab ? { target: "_blank", rel: "noopener" } : {}
     return (
         <div className="tb9" style={{ ...props.style, width: "100%" }}>
@@ -50,7 +54,7 @@ addPropertyControls(TabitPressItem, {
     outlet: { type: ControlType.String, title: "Outlet" },
     headline: { type: ControlType.String, title: "Headline" },
     type: { type: ControlType.String, title: "Type" },
-    date: { type: ControlType.String, title: "Date", placeholder: "13 Aug 2026" },
+    date: { type: ControlType.String, title: "Date", placeholder: "2026-08-13 or 13 Aug 2026" },
     link: { type: ControlType.Link, title: "Link" },
     newTab: { type: ControlType.Boolean, title: "New tab" },
     first: { type: ControlType.Boolean, title: "First" },

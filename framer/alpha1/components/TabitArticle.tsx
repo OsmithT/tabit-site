@@ -17,6 +17,10 @@ const POST = "</main><footer class=\"tb9-legal\"><div><p>Tabit Insurance SCC is 
 const ARTICLE = "<article class=\"tb9-art\"><h1 class=\"tb9-h tb9-key\">{{TITLE}}</h1><p class=\"tb9-s tb9-sub tb9-meta\">{{META}}</p><p class=\"tb9-b6\">{{STANDFIRST}}</p>{{BODY}}{{REFS}}<div class=\"tb9-row\"><a class=\"tb9-btn2\" href=\"/press\">← Press and media</a></div></article>"
 const esc = (s: string) => String(s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;")
 
+const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+// a CMS date arrives as an ISO date; written as on the reference pages, "4 Sep 2025" (Intl's en-GB short month gives "Sept")
+const fmtDate = (v: any) => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(v || "")); return m ? +m[3] + " " + MON[+m[2] - 1] + " " + m[1] : String(v || "") }
+
 export default function TabitArticle(props: { title: string; date: string; author: string; standfirst: string; body: string; references: string; style?: any }) {
     const ref = useRef<HTMLDivElement>(null)
     const onCanvas = RenderTarget.current() === RenderTarget.canvas
@@ -32,7 +36,7 @@ export default function TabitArticle(props: { title: string; date: string; autho
         const k = l.lastIndexOf(" | "), text = k > 0 ? l.slice(0, k) : l, url = k > 0 ? l.slice(k + 3).trim() : ""
         return "<li>" + esc(text) + (url ? " <a class=\"tb9-plink\" href=\"" + esc(url) + "\" target=\"_blank\" rel=\"noopener\">" + esc(url) + "</a>" : "") + "</li>"
     }).join("")
-    const meta = [props.date, props.author].filter(Boolean).map(esc).join(" · ")
+    const meta = [fmtDate(props.date), props.author].filter(Boolean).map(esc).join(" · ")
     const html = PRE + ARTICLE
         .replace("{{TITLE}}", esc(props.title))
         .replace("{{META}}", meta)
