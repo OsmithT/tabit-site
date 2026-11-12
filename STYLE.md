@@ -194,6 +194,17 @@ dictionary entry; scroll-positioned in chapters). Hover colour .25 s ease (coord
 values are functions of position (reversible); pointer effects decay ~.5 s. Reduced motion keeps opacity/colour, stops
 grain and cue, stops the tilt, stars no longer travel between figures. Budget 8 ms at 120 Hz; governor locks 60 then
 ×.75/×.55 resolution; `?diag`, `?nograin`; target dropped < 5 %, JS < 4 ms on an M1 Mac.
+**A figure that changes as you scroll (v1.18, Oscar 12 Nov: "something needs to happen").** On a click-out page a
+figure may change from one state beside the headline to its finished state beside the content it explains, driven by
+the scroll and reversed by it. The stretch: two columns, from the top of the page until the next heading is half way up
+the window (at least 240 px); stacked, from the scroll at which the figure is first whole over a third of the window
+height (at least 200 px), measured on the last layout's window height. Each part of the change is eased with a
+smoothstep over its own share of the stretch, and every part is complete by about nine tenths of it, so the end of the
+stretch holds the finished figure; the figure follows the scroll at about a fifth of the remaining distance a 60 Hz
+frame (≈ .2 s), the same at any frame rate. Reduced motion shows the finished figure. Anything that turns on its own
+keeps the figure's sanctioned slow pace (the Captives cells, 3 degrees a second); a faster whirl belongs to the scroll.
+The figure's own choreography (which parts move, their shares of the stretch, a disk's depth and tilt) is the figure's
+own geometry, like its orbits, and is set down in its board's generator.
 
 ## 7. Sky and subjects
 
@@ -248,6 +259,12 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
 
 ## 10. Change log
 
+- 12 Nov 2026 — v1.18. Oscar on XR2.9.19: "there needs to be some sort of change as we scroll down the page … it just
+  stays stationary"; then two ways to try: one orbit beside the headline whose cells separate into the eight orbits,
+  drawing them (XR2.9.20), and a 3D disk of stars that flattens into the orbits as you scroll, the Tabit knot then
+  appearing (XR2.9.21, from a reference component). §6 now sets the rules for a figure that changes with the scroll.
+  Which of the two the page keeps is Oscar's call; the disk turning faster than the cells at rest (as the reference
+  does) awaits his ruling under DESIGN rule 4.
 - 12 Nov 2026 — v1.17 (Ashleigh, XR2.8: About us, Press, articles). Three exceptions to this code, by Ashleigh's
   decision, for Oscar to confirm or reverse: (1) People: ten people sit five across on two-column screens (two even
   rows) instead of four (§5 People), which would leave two alone on a third row. (2) The article page headline is all
