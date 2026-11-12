@@ -177,8 +177,9 @@ Radius 2 everywhere; no other radius, no pill.
   figure is the page's one figure (v1.15): beside the headline, held there while the list passes (two columns);
   stacked, under the hero copy, 560 wide (phones the full width). From v1.20 (Oscar, 12 Nov, from the reference he
   chose) it is a planet in a disk of stars. The planet, the SCC, is a sphere in Dusk ("Make the center our blue"),
-  radius 34 figure units, shaded with Night .30 to .50 towards the limb and with no Paper light on it, so it reads as
-  the blue it is (v1.21); it is there while the disk settles, then opens outwards into the Tabit knot drawn in Paper
+  radius 34 figure units, with no Paper light on it, shaded from Dusk where the light falls into Tabit Navy
+  (`#09154A`, the brand's deep blue; .38 half way, .80 at the limb), so that it reads as blue (v1.22: Dusk is a pale,
+  silvery blue, and shaded with Night the sphere read as silver); it is there while the disk settles, then opens outwards into the Tabit knot drawn in Paper
   star points, as the About figure draws it, which is the finished figure's centre (v1.21, as v1.19: "what I want as
   the Tabit logo in the center"), gradually: over 45 % to 90 % of the scroll's stretch ("a bit more gradual"). The SCC's name sits under the system in Small at Paper 72. The disk is 1,400 Paper star points, starting at the planet's surface
   and densest there, seen in depth: the far side passes behind the planet, the near side in front. Each star in the
@@ -187,7 +188,9 @@ Radius 2 everywhere; no other radius, no pill.
   is left behind. With the scroll (§6) the disk settles flat into eight rings of stars, one a cell, on Dusk 14 orbit
   lines, the streaks shortening to points; the rings stay, turning with the figure's slow clock. The first orbit is
   118 figure units from the centre and each orbit 34 beyond the last, the disk in depth reaching 380 (v1.21: the room
-  is between the rings, not round the centre). A cell's name of more than one line runs down from its ring on the
+  is between the rings, not round the centre). The list runs from the shortest name to the longest, so the short names
+  sit on the inner rings, beside the knot, and the long ones on the outer (v1.22; the order of the cells carries no
+  meaning). A cell's name of more than one line runs down from its ring on the
   inner four rings and up to it on the outer four, clear of the knot and of the SCC's name. A mouse over a cell (its list item, its ring or its name) turns that ring's stars Brass, a third
   larger, with the cell's name on the ring in Brass Small; the line stays as it is (v1.21: "I don't want a golden
   line"). The figure's column runs to 24 from the page edge and the rings to 8 inside it; beside the list, once
@@ -274,6 +277,10 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
 
 ## 10. Change log
 
+- 12 Nov 2026 — v1.22. Oscar on XR2.9.25: "The planet still isn't the dusk blue its silver ... Why don't you move the
+  long cell names to the bottom and the short ones on the inner rings. It doesn't matter what order they are in on the
+  left." XR2.9.26 (§5 Lists): the planet's shading is Tabit Navy, not Night, the one use of that brand colour on the
+  site; the Captives list runs shortest name first.
 - 12 Nov 2026 — v1.21. Oscar on XR2.9.24: "The planet in the middle when you're scrolling down, that can stay … what
   I want as the Tabit logo in the center … make the gap a little bigger between every single one … I don't want a
   golden line. I just want … the little star dots, to go golden … I thought the planet in the middle was meant to be
