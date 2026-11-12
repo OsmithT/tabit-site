@@ -87,7 +87,7 @@ Manrope 300/400/500/600. No monospace; italics only for the dictionary entry's *
 
 | Step | Size / line | Weight | Tracking | Case | Used for |
 |---|---|---|---|---|---|
-| Display | 84 / 80 | 600 | −.035em | Sentence | Home headline only: "Bespoke / (re)insurance / solutions.", three lines, the last in Brass (v1.29). 600 from v1.30 (it was 300; Oscar: "its a title and should be bold"), as every other title. Two columns, each line's first letter stands on the copy's left edge: the lines hang −.048em, −.119em and −.024em, because a B, a bracket and an s start 5, 11 and 3 units inside their own edge at this size and the body copy's letters 1 (v1.30: "Text wrong alignment"); stacked, the lines are centred and do not hang |
+| Display | 84 / 86 | 600 | −.035em | Sentence | Home headline only: "Bespoke / (re)insurance / solutions.", three lines, the last in Brass (v1.29). 600 from v1.30 (it was 300; Oscar: "its a title and should be bold"), as every other title. Two columns, each line's first letter stands on the copy's left edge: the lines hang −.048em, −.119em and −.024em, because a B, a bracket and an s start 5, 11 and 3 units inside their own edge at this size and the body copy's letters 1 (v1.30: "Text wrong alignment"); stacked, the lines are centred and do not hang (the hang belongs to the left alignment and switches with it). The line is 86 from v1.30 (it was 80): at 600 the p of "Bespoke" ran into the dot of the i under it (a p reaches 21 below its line, an i-dot 62 above its own); 86 leaves 3 clear and is the Headline's own ratio (64 / 66) |
 | Headline | 64 / 66 | 600 | −.035em | Sentence | Chapter headlines, two lines, last word Brass; on click-out pages the page headline and each section opener ("Cells we offer", "Licensed, audited, aligned."), one per screen, last word Brass (v1.13) |
 | Title | 40 / 44 | 600 | −.035em | Sentence | Compass point titles, "Tabit" in the dictionary entry, timeline years (no longer section openers, v1.13) |
 | Body | 17 / 26 | 400 | 0 | Sentence | All running copy, compass descriptions, definition, menu links (17/24) |
@@ -130,7 +130,7 @@ Margins and rhythm: nav contents 40 from the edges; Replay 24; coordinates 64; E
 body → button 30 (home 28); body → trust row 26 above the hairline, 18 below; dictionary blocks 14; sub-head →
 content 14; a hero with no body copy keeps the button its 30 under the headline (Captives, v1.30); timeline 46 (28 stacked); buttons in a row 12 apart; list items 12 apart; sections 96 apart on the
 click-out pages, whose hero copy starts 176 from the top (88 nav + 88) and whose footer ends 40 above the bottom.
-Positions on multiples of 2. The Home copy starts 30 under the nav bar (v1.29; 64 while the headline was two lines), headline → body 34
+Positions on multiples of 2. The Home copy starts 12 under the nav bar's line (v1.30; 30 in v1.29, 64 while the headline was two lines; on Home that line is not drawn, so the headline stands about 50 clear of the logo), headline → body 34
 and body → button 28 as before; stacked, the Home trust row sits 88 above the foot of the copy block (was 130) and Orion 44 to 56
 lower than it did, so the taller copy clears both.
 
@@ -304,6 +304,9 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
   bold." (1) Display is 600, not 300 (§3): the Home headline has the weight of every other title; no new weight. (2) Two
   columns, each line of the Home headline hangs so its first letter's ink stands on the copy's left edge (§3); before,
   "(re)insurance" stood 6 units to the right of "Bespoke" and "solutions.", and all three to the right of the body copy.
+  (3) Display's line is 86, not 80 (§3): bold, the p of "Bespoke" met the dot of the i under it (found at the gate). The
+  18 units the three lines gain are taken above them: the Home copy starts 12 under the nav bar's line, not 30 (§4);
+  everything under the headline stands where it stood.
   Copy taken off the click-out pages the same evening (Oscar: "the why tabit section on the reinsurance page should be
   removed", and in the copy chat: what repeats, or was already ruled out, comes off with nothing in its place): the
   (Re)insurance page has no "Why Tabit"; the Captives hero has no paragraph, so its button sits its own 30 under the
