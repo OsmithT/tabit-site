@@ -36,7 +36,7 @@ export default function TabitPressItem(props: { outlet: string; headline: string
     const ext = props.newTab ? { target: "_blank", rel: "noopener" } : {}
     return (
         <div className="tb9" style={{ ...props.style, width: "100%" }}>
-            <style>{CSS}</style>
+            <style dangerouslySetInnerHTML={{ __html: CSS }} />
             <div className={"tb9-pi" + (props.first ? " tb9-first" : "")}>
                 <dl className="tb9-list">
                     <dt className="tb9-b6">{props.outlet}</dt>

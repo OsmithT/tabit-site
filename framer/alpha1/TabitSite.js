@@ -3046,7 +3046,7 @@ function mountTabitSky(from, opts) {
   };
 }
 
-window.runTabit = runTabit; window.TABIT_FONTS = TABIT_FONTS;
+if (typeof window !== 'undefined') { window.runTabit = runTabit; window.TABIT_FONTS = TABIT_FONTS; }   // XR2.11: only in a browser. Since XR2.10 the click-out pages import this file (for the sky), and on Framer's server this line threw, so no page was rendered there: the HTML Framer serves held none of the page's copy
 
 
 export { runTabit, TABIT_FONTS, TABIT_FIT, mountTabitSky }

@@ -45,7 +45,7 @@ export default function TabitArticle(props: { title: string; date: string; autho
         .replace("{{REFS}}", () => refs ? "<p class=\"tb9-b6\">References</p><ul class=\"tb9-refs\">" + refs + "</ul>" : "") + POST
     return (
         <div ref={ref} className="tb-page" style={{ ...props.style, width: "100%", background: onCanvas ? "#04070F" : "transparent" }}>
-            <style>{CSS}</style>
+            <style dangerouslySetInnerHTML={{ __html: CSS }} />
             <div dangerouslySetInnerHTML={{ __html: html }} />
         </div>
     )

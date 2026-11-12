@@ -51,7 +51,7 @@ export default function TabitPage(props: { page: string; style?: any }) {
     }, [onCanvas, p])
     return (
         <div ref={ref} className="tb-page" style={{ ...props.style, width: "100%", background: onCanvas ? "#04070F" : "transparent" }}>
-            <style>{p.css}</style>
+            <style dangerouslySetInnerHTML={{ __html: p.css }} />{/* XR2.11: as written, not as text: on the server React turns a ">" in a style's text into "&gt;", which breaks every child selector until the page wakes up */}
             <div dangerouslySetInnerHTML={{ __html: p.html }} />
         </div>
     )
