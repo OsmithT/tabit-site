@@ -8,7 +8,7 @@ failure is flagged for Oscar's decision rather than blocking on its own. Owner o
 ## Cardinal (set by Oscar and Stephen)
 
 1. **Colour.** Only the ten Brand Book 2027 colours (STYLE.md §2). Text is Paper `#FBF9F4`. The only gold is Brass `#A8823A`. Night ground `#04070F`. Dusk `#B8C0D4` for
-   hairline chart lines, small labels and the Captives figure's planet (Oscar, 12 Nov 2026: "Make the center our blue"; the planet is shaded with the brand's Tabit Navy `#09154A` so that it reads as blue, its one use) only. No other hues on UI; the sky's stars and nebula are the sole exception.
+   hairline chart lines and small labels only (the Captives figure's Dusk planet, shaded with Tabit Navy, 12 Nov 2026, was removed the same day: Oscar, "remove the planet from the center"). No other hues on UI; the sky's stars and nebula are the sole exception.
 2. **The logo is never altered.** The Tabit knot and wordmark paths, their proportions and their white are fixed.
    They may move, scale and fade; nothing is redrawn, recoloured or re-spaced.
 3. **No kicker or eyebrow labels** above headings (no small tracked caps saying what the section is). Chapter names on
@@ -65,7 +65,7 @@ failure is flagged for Oscar's decision rather than blocking on its own. Owner o
 - The load-time intro (0 – 7.2 s), time-driven by design.
 - The star-path chapter labels — navigation, not kickers.
 
-Under decision (flag, do not block, until Oscar rules): what stands at the centre of the Captives disk now the planet is gone (Oscar, 12 Nov: "remove the planet from the center"), the five XR2.9.30 boards (A the knot from the start, B a ball of the knot's stars, C one bright star, D a globe of stars, E empty), all in Paper star points with no Dusk body and no Tabit Navy, STYLE.md §5 still describing the planet until he chooses; whether XR2.9.22's star disk may turn faster than the cells at rest, as its reference does (built at the cells' 3 degrees a second, the extra whirl on the scroll); the film-grain loop and the EXPLORE cue pulse (cardinal 4 as
+Under decision (flag, do not block, until Oscar rules): what stands at the centre of the Captives disk now the planet is gone: the two XR2.9.31 boards, B a star cluster and D a lit globe, both made of the knot's own Paper star points and both opening into the knot (Oscar, 12 Nov: "I like option B or D"; STYLE.md §5 sets out both until he chooses); whether XR2.9.22's star disk may turn faster than the cells at rest, as its reference does (built at the cells' 3 degrees a second, the extra whirl on the scroll); the film-grain loop and the EXPLORE cue pulse (cardinal 4 as
 worded); the hairline above the Home proof row and the 1 px Dusk 14 edge under the nav bar; `Replay` and the
 coordinates as on-screen chrome; the splash having no primary action; the About legal line at 11 px; on the click-out
 pages, the hero headline and button repeated at the foot (as on the approved XR2.4 pages), the (Re)insurance hero

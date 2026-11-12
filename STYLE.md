@@ -1,4 +1,4 @@
-# Tabit website — style code (v1.25, 12 Nov 2026)
+# Tabit website — style code (v1.26, 12 Nov 2026)
 
 The values behind every visual decision on the site, taken from the home page as shipped (XR2.8.2) and the brand
 guidelines. `DESIGN.md` holds the cardinal rules (what never ships); this file holds the values. Where a page and this
@@ -64,12 +64,12 @@ the site keeps its current values):
 | Night | `#04070F` | The one background; text on a brass button | Anything else |
 | Paper | `#FBF9F4` | All text; burger lines; star-path dots (the lockup keeps its own white — cardinal rule 2) | Backgrounds, fills |
 | Brass | `#A8823A` | Headline key word; primary button fill; current chapter; compass points/diamonds; link hover | Body text, borders, backgrounds behind text, decorative lines |
-| Dusk | `#B8C0D4` | EXPLORE cue; hairline chart lines in the sky; compass rim ticks; the Captives planet's fill (v1.20; the hovered ring is Brass from v1.20, hovered text from v1.13) | Resting text > 13, anything that must be read at rest |
+| Dusk | `#B8C0D4` | EXPLORE cue; hairline chart lines in the sky; compass rim ticks; the Captives orbit lines at 14 (the hovered ring is Brass from v1.20, hovered text from v1.13; from v1.20 to v1.25 also the Captives planet's fill, gone in v1.26) | Resting text > 13, anything that must be read at rest |
 
 Tints (fixed opacities, no others): Paper 80 `rgba(251,249,244,.80)` compass descriptions · Paper 72 secondary small
 text (pronunciation, timeline labels) · Paper 60 legal line · Paper 38 secondary/nav button border · Paper 22 About
 timeline hairline · Paper 14 structural hairlines (trust row, legal line) and menu panel border · Dusk 14 nav bottom
-edge (under decision) · Dusk 45 Replay border · Tabit Navy 38 and 80, the Captives planet's shading only (v1.22).
+edge (under decision) · Dusk 45 Replay border. (Tabit Navy 38 and 80, the Captives planet's shading, v1.22, left the site with the planet in v1.26.)
 
 Washes (legibility only): nav bar `rgba(8,13,30,.50)` + 14 px blur; burger panel and Skip `rgba(4,7,15,.92)` + 14 px
 blur; behind the copy column a horizontal `rgba(8,13,30)` .50 → .22 at 55 % → 0 to 860 units (fading as the page stacks); top 160 units `rgba(8,13,30,.30 → 0)`;
@@ -177,13 +177,22 @@ Radius 2 everywhere; no other radius, no pill.
   term's middot Brass, .25 s ease, in the hover media query only, fading away when the mouse leaves. On Captives the
   figure is the page's one figure (v1.15): beside the headline, held there while the list passes (two columns);
   stacked, under the hero copy, 560 wide (phones the full width). From v1.20 (Oscar, 12 Nov, from the reference he
-  chose) it is a planet in a disk of stars. The planet, the SCC, is a sphere in Dusk ("Make the center our blue"),
-  radius 34 figure units, with no Paper light on it, shaded from Dusk where the light falls into Tabit Navy
-  (`#09154A`, the brand's deep blue; .38 half way, .80 at the limb), so that it reads as blue (v1.22: Dusk is a pale,
-  silvery blue, and shaded with Night the sphere read as silver); it is there while the disk settles, then opens outwards into the Tabit knot drawn in Paper
-  star points, as the About figure draws it, which is the finished figure's centre (v1.21, as v1.19: "what I want as
-  the Tabit logo in the center"), gradually: from just before the disk lands to 90 % of the scroll's stretch ("a bit more gradual"). The SCC's name sits under the system in Small at Paper 72. The disk is 1,400 Paper star points, starting at the planet's surface
-  and densest there, seen in depth: the far side passes behind the planet, the near side in front. Each star in the
+  chose) it is a disk of stars about a centre, the SCC. There is no planet (v1.26, Oscar on XR2.9.29: "remove the
+  planet from the center it just doesn't look good at all"; from v1.20 to v1.25 a Dusk sphere shaded with Tabit Navy
+  stood there). The centre is made of the Tabit knot's own 309 Paper star points, and it is one of two, under decision
+  on XR2.9.31 (Oscar: "I like option B or D"). B, the cluster: the stars as a star cluster, far more of them near its
+  core (16 figure units) than at its edge (54), of several sizes, most small; it turns with the disk, and the scroll
+  stirs it, each star on an orbit of its own. D, the globe: the stars evenly over a sphere of radius 40, lit from the
+  upper left (the stars facing the light brighter and larger, Paper 20 at the least), only its near side drawn,
+  turning with the disk on the disk's axis; the far side of the disk passes behind it. Either one opens into the Tabit
+  knot drawn in Paper star points, as the About figure draws it, which is the finished figure's centre (v1.21, as
+  v1.19: "what I want as the Tabit logo in the center"), gradually: from just before the disk lands to 90 % of the
+  scroll's stretch ("a bit more gradual"). Each star starts where its place in the knot is nearest, so the opening is
+  one movement: the cluster opens outwards, its core to the knot's middle, its stars winding 40 degrees into place;
+  the globe opens across, from the upper left to the lower right, each star level with its place. The knot is only
+  ever shown whole and unaltered. No name stands under the figure (v1.26: "Remove the tabit insurance scc logo at the
+  bottom of the hero for sure"). The disk is 1,400 Paper star points, starting 34 from the centre
+  and densest there, seen in depth: the far side passes behind the centre, the near side in front. Each star in the
   disk carries a streak along its path (up to 9 degrees times its pace, the inner stars faster; longer while the scroll
   whirls the disk; never longer than 60 figure units); the canvas is cleared every frame, so nothing a star has drawn
   is left behind. The scroll whirls the disk as it settles: a star half way out turns 180 degrees in all, the inner
@@ -193,7 +202,7 @@ Radius 2 everywhere; no other radius, no pill.
   is between the rings, not round the centre). The list runs from the shortest name to the longest, so the short names
   sit on the inner rings, beside the knot, and the long ones on the outer (v1.22; the order of the cells carries no
   meaning). A cell's name of more than one line runs down from its ring on the
-  inner four rings and up to it on the outer four, clear of the knot and of the SCC's name. A mouse over a cell (its list item, its ring or its name) turns that ring's stars Brass, a third
+  inner four rings and up to it on the outer four, clear of the knot. A mouse over a cell (its list item, its ring or its name) turns that ring's stars Brass, a third
   larger, with the cell's name on the ring in Brass Small; the line stays as it is (v1.21: "I don't want a golden
   line"). The figure's column runs to 24 from the page edge and the rings to 8 inside it; beside the list the
   figure is larger, reaching towards the list and stopping 24 short of it. It grows to that size while the disk
@@ -287,6 +296,12 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
 
 ## 10. Change log
 
+- 12 Nov 2026 — v1.26. Oscar on XR2.9.29: "remove the planet from the center it just doesn't look good at all. Give me
+  4 different options", and on the XR2.9.30 options: "Remove the tabit insurance scc logo at the bottom of the hero
+  for sure. I like option B or D. Can you take those two options and really make them look like final products."
+  XR2.9.31 B and D (§5 Lists, §2): the planet is gone, and with it Dusk as a fill and the Tabit Navy 38 and 80 tints;
+  the centre is the knot's own stars as a cluster (B) or a lit globe (D), under decision; the name under the figure
+  is gone and the figure's box is the shorter for it (12 figure units under the outer ring, were 34).
 - 12 Nov 2026 — v1.25. Oscar on XR2.9.28: "I'm happy with the design of this page now. Finally remove the logo next
   to the 'home' on the top left. Should just say home." XR2.9.29 (§5 Home link): the word alone, at every width; the
   knot before it is gone, and with it the knot's 72 % rest strength and 8 gap. The lockup is untouched. The nav is
