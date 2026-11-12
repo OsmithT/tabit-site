@@ -176,7 +176,14 @@ Radius 2 everywhere; no other radius, no pill.
   term's middot Brass, .25 s ease, in the hover media query only, fading away when the mouse leaves. On Captives the
   orbit figure is the page's one figure (v1.15): beside the headline, held there while the list passes (two columns);
   stacked, under the hero copy. Its centre, the SCC, is the Tabit knot drawn in Paper star points, as the About figure
-  draws it, still while the cells turn; the SCC's name sits under it in Small at Paper 72.
+  draws it, still while the cells turn; the SCC's name sits under it in Small at Paper 72. Beside the headline the
+  figure starts as a disk of Paper stars seen in depth and settles into the orbits with the scroll (v1.19, §6): each
+  orbit's stars run round into its cell, inner orbit first, and the cell comes up as they arrive. Until the knot
+  opens, the centre is a planet: a Paper disc, radius 24 figure units, with the cells' glow (the same stops, at .55,
+  out to 2.6 times its radius); the far side of the disk passes behind it and the near stars cross it as Night points
+  at .9; it then opens outwards into the knot's stars. A moving star draws a trail, a taper back to where it was a
+  moment before (it follows at .14 of the gap a 60 Hz frame, the same at any frame rate, and is never longer than 60
+  figure units); the canvas is cleared every frame, so nothing a star has drawn is left behind.
 - People (About us): a grid of cards, four across (two stacked, one on phones), 32 × 40 apart, 1120 wide: a 4:5
   photo box (Paper 14 border, radius 2, nav wash fill, a Small "Photo n" label at Paper 60 until the photograph is
   in), name Body 600 (16 above), title Body at Paper 72, a Small "LinkedIn" text link, bio Body (12 above). The
@@ -259,6 +266,11 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
 
 ## 10. Change log
 
+- 12 Nov 2026 — v1.19. Oscar on XR2.9.22: "The 2.9.22 is cool, lets work on that. We need to work on the fade and also
+  need a planet in the middle of the rotation. Also when you scroll back up the background has the rings faded in the
+  background which needs fixing." XR2.9.23: the ghost rings were the old trails, made by fading the last frame, which
+  never quite reaches nothing; trails are now drawn per star on a cleared canvas. The planet at the centre and the
+  stars collecting into their cells are set down in §5 Lists (the Captives figure).
 - 12 Nov 2026 — v1.18. Oscar on XR2.9.19: "there needs to be some sort of change as we scroll down the page … it just
   stays stationary"; then two ways to try: one orbit beside the headline whose cells separate into the eight orbits,
   drawing them (XR2.9.21), and a 3D disk of stars that flattens into the orbits as you scroll, the Tabit knot then
