@@ -12,6 +12,8 @@ import * as legal from "./pages/legal.js"
 import * as articleBitcoin from "./pages/article_why_insurers_fear_bitcoin.js"
 import * as articleTemplate from "./pages/article_template.js"
 
+// XR2.11 (Oscar, 12 Nov): a page module may carry its own script (Captives: its figure, board XR2.9.31E). It is a function body run with
+// the page's element once the page's fonts are in, and it returns its own teardown; scroll- and pointer-driven (see the module).
 // XR2.10: page files are named with underscores, as Framer names code files (press_header.js, not press-header.js).
 // XR2.10 (Oscar, 12 Nov: "IT SHOULD BE IDENTICAL"): every click-out page shows the home's own live sky, drawn by the home engine in a
 // fixed layer behind the page (mountTabitSky in TabitSite.js), never a picture or a page's own star field. One sky per document.
@@ -32,8 +34,21 @@ export default function TabitPage(props: { page: string; style?: any }) {
             const l = document.createElement("link"); l.id = "tabit-fonts-pages"; l.rel = "stylesheet"; l.href = FONT_URL; document.head.appendChild(l)
         }
         if (onCanvas || !ref.current) return
-        return mountTabitSky(ref.current, SKY_OPTIONS)   // the home's live sky behind the page; released when the page goes
-    }, [onCanvas])
+        const release = mountTabitSky(ref.current, SKY_OPTIONS)   // the home's live sky behind the page; released when the page goes
+        let off: any = null, gone = false
+        if (p.js) {   // XR2.11: the page's own script, after its fonts so names measure true (it runs regardless if they fail)
+            const go = () => {
+                if (gone || !ref.current) return
+                try { off = new Function("root", p.js as string)(ref.current) } catch (e) { if (window.console) console.error("Tabit page script failed", e) }
+            }
+            const f = (document as any).fonts, link = document.getElementById("tabit-fonts-pages") as HTMLLinkElement | null
+            // the faces are known only once the fonts' stylesheet is in; a late face re-measures anyway (the script listens for it)
+            const sheet = new Promise<void>((res) => { if (!link || link.sheet) res(); else { link.addEventListener("load", () => res(), { once: true }); link.addEventListener("error", () => res(), { once: true }); window.setTimeout(res, 3000) } })   // a stylesheet that never answers must not hold the page's script back for good
+            if (f && f.load) sheet.then(() => Promise.all([f.load("600 17px Manrope"), f.load("400 17px Manrope"), f.load("400 13px Manrope")])).catch(() => {}).then(go)
+            else go()
+        }
+        return () => { gone = true; try { if (off) off() } catch (e) {} release() }
+    }, [onCanvas, p])
     return (
         <div ref={ref} className="tb-page" style={{ ...props.style, width: "100%", background: onCanvas ? "#04070F" : "transparent" }}>
             <style>{p.css}</style>
