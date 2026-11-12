@@ -31,7 +31,9 @@ failure is flagged for Oscar's decision rather than blocking on its own. Owner o
    deleted unless asked. The decisions doc is updated with every row.
 8. **Layout follows the space available, not the device.** Two columns at ≥ 1.6:1; stacked (copy centred top, subject
    centred below, chapter path thinned to the right edge) at ≤ 4:3; positions interpolate between. The sky always
-   fills the screen — never letterboxed. Phones get their own composition. **Sizes follow the width, never the
+   fills the screen — never letterboxed. Phones (under 600 px wide) get their own composition, built in XR3.0 (13 Nov
+   2026; STYLE.md §4 "Phones"): a 390-unit stage, copy left-aligned at its own size, each chapter's figure in the room
+   its copy leaves, no chapter path. **Sizes follow the width, never the
    height (Oscar, 11 Nov — as apple.com):** text and the nav keep their size on a short or very wide window, which
    crops (home) or scrolls (pages) instead of shrinking; see STYLE.md "Sizing".
 9. **GitHub is the source of truth for Framer.** Every Framer change is a commit in `framer/alpha1/` first, pulled in
@@ -68,7 +70,9 @@ failure is flagged for Oscar's decision rather than blocking on its own. Owner o
 - The load-time intro (0 – 7.2 s), time-driven by design.
 - The star-path chapter labels — navigation, not kickers.
 
-Under decision (flag, do not block, until Oscar rules): whether XR2.9.22's star disk may turn faster than the cells at rest, as its reference does (built at the cells' 3 degrees a second, the extra whirl on the scroll); the film-grain loop and the EXPLORE cue pulse (cardinal 4 as
+Under decision (flag, do not block, until Oscar rules): on a phone, Orion on Home cut by the foot of a tall screen
+(as on the phone design Oscar chose) and left out on a short one, against "whole or not at all"; the click-out pages'
+copy still centred on a phone while the home's is left-aligned; whether XR2.9.22's star disk may turn faster than the cells at rest, as its reference does (built at the cells' 3 degrees a second, the extra whirl on the scroll); the film-grain loop and the EXPLORE cue pulse (cardinal 4 as
 worded); the hairline above the Home proof row and the 1 px Dusk 14 edge under the nav bar; `Replay` and the
 coordinates as on-screen chrome; the splash having no primary action; the About legal line at 11 px; on the click-out
 pages, the (Re)insurance hero
@@ -77,7 +81,8 @@ keeping copy left / compass right (the home chapter has them swapped), and wheth
 ## How the gate runs
 
 After any change to a board or to `framer/alpha1/`: render the changed surfaces at 1440×810, 1440×900, 1776×1286,
-1200×1200, 900×1200 and 390×844; run the reviewers (one per lens: cardinal rules, **style code (`STYLE.md`: every
+1200×1200, 900×1200 and 390×844, and a phone surface also at 390×664 (a phone with its browser bars showing, which is
+what a visitor has); run the reviewers (one per lens: cardinal rules, **style code (`STYLE.md`: every
 colour, size, weight, tracking, radius, spacing and component value used must be one listed there)**,
 design-taste/impeccable, break-ui + mobile-native, animation-performance); every finding names the rule, the surface
 and size, the evidence (screenshot or `file:line`) and the fix. Cardinal FAIL or a style-code value not in `STYLE.md`

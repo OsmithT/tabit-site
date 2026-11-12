@@ -12,6 +12,9 @@ The code behind the Tabit Insurance website prototype in Framer.
   - `TabitHome.tsx`: the Framer code component on the `/` page. Loads three.js, calls `runTabit`, and scales the
     720-unit-tall design to the component's height, letting the width run to the edges (960–1940 design units), so the
     page fills laptops and ultrawides alike.
+    On a phone (under 600 px wide, XR3.0) it gives the engine a stage of its own, 390 units wide and as tall as the
+    part of the screen in view, and the engine composes the home for a phone (`tbPhoneLayout` and `TB_PHCSS` in
+    `TabitSite.js`; STYLE.md §4 "Phones"). Nothing changes at 600 px and wider.
   - `pages/reinsurance.js`, `captives.js`, `aboutus.js`, `contact.js`: the click-out pages as `{ css, html, js }` strings,
     with the burger header. `TabitPage.tsx` renders one of them (its `page` control picks which), puts the home's live
     sky behind it, and, where the module has a `js` (Captives: its figure, board XR2.9.31E), runs it with the page's

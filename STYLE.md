@@ -1,4 +1,4 @@
-# Tabit website — style code (v1.31, 13 Nov 2026)
+# Tabit website — style code (v1.32, 13 Nov 2026)
 
 The values behind every visual decision on the site, taken from the home page as shipped (XR2.8.2) and the brand
 guidelines. `DESIGN.md` holds the cardinal rules (what never ships); this file holds the values. Where a page and this
@@ -9,8 +9,9 @@ style code"; keep the two identical.
 All numbers are design units on the 1280 × 720 stage. **Sizing (v1.4, Oscar 11 Nov): sizes follow the window's width,
 never its height, as apple.com does.** On the click-out pages 1 unit is never less than 1 px at
 any width (it rises with the width to 1.25 px at 1440); two columns need both 1.6:1 and 1024 px, otherwise the page
-stacks. On the home, 1 unit = 1 px from 960 to 1152 px wide, rising to at most 1.25 px; below 960 px the 960-unit stage
-scales down (the home's phone composition is still to come). On the
+stacks. On the home, 1 unit = 1 px from 960 to 1152 px wide, rising to at most 1.25 px; from 600 to 960 px the 960-unit stage
+scales down; under 600 px (a phone, v1.32) the home has a stage of its own, 390 units wide, 1 unit = the width ÷ 390
+(1 px on a 390 px phone), as tall as the part of the screen in view, and its own composition (§4, Phones). On the
 home (a pinned scene that cannot scroll), a window shorter than the stage tightens the size so the whole page stays
 in view, but never below 0.62 (windows under 446 px tall, which no one browses in); below that the bottom is cropped. The click-out pages ignore the height entirely and scroll; their content sits in a centred
 1440-unit column, and wider screens get night either side. The home's sky and stage always run to the window's edges
@@ -95,6 +96,18 @@ Manrope 300/400/500/600. No monospace; italics only for the dictionary entry's *
 | Control | 14 / 18 | 600 | 0 | Sentence | Button labels |
 | Label | 11 / 16 | 600 | .20em | UPPER | Star-path chapter names, compass letters, EXPLORE cue (.26em), coordinates (400, .14em) |
 
+**Phones (v1.32).** The scale holds on a phone; three steps are set for its width, and nothing else changes (Body 17/26,
+Small 13/20, Control 14/18, Label 11/16 as above):
+
+| Step on a phone | Size / line | Weight | Tracking | Used for |
+|---|---|---|---|---|
+| Display | 46 / 52 | 600 | −.035em | Home headline, three lines, hanging as in two columns (it is left-aligned); 84 does not fit 342 units, and 46 is the largest at which "(re)insurance" does with room |
+| Headline | 40 / 44 | 600 | −.035em | Chapter headlines (the Title step's values, as the click-out pages have set their headline on a phone since v1.3); balanced over its lines |
+| Title | 30 / 34 | 600 | −.035em | Compass point titles, "Tabit" in the dictionary entry, timeline years (40 would stand level with the chapter headline, and three years at 40 do not fit the width) |
+
+The compass point's outlined letter is 46 on a phone (84 elsewhere). The measure on a phone is 342 units, about 40
+characters of Body.
+
 Measure 45–75 characters (column 640, text ≤ 610). Two-column copy left-aligned; stacked centred. Headlines ≤ 2 lines
 at every width (change the words, not the size); the Home Display headline alone runs to three (v1.29: with "(re)" in
 it, two lines met Orion). One Headline per screen; sub-heads are Body 600 on their own line —
@@ -137,14 +150,40 @@ box now carries 4 more under its last line, so the gap reads the same) and body 
 row sits 78 above the foot of the copy block (v1.31; 84 before), 27 under the button and 18 above Replay at 16:9; stacked
 it sits 88 above the foot (was 130) and Orion 44 to 56 lower than it did, so the taller copy clears both.
 
-Phones (< 600 px): not yet composed — same values, stacked, 16-unit margins, chapter path as a bottom bar.
+**Phones (< 600 px, v1.32; Oscar, 13 Nov, on the phone designs: "left aligned is better", "Remove the contact us button
+on mobile and put it into the burger", the landing "should zoom into C").** The home's phone stage is 390 units wide.
+Copy is left-aligned, 24 from each edge (342 wide), and starts 16 under the nav bar (y 104) on every chapter; headline →
+body 24, body → button 28 to 30, as elsewhere. Each chapter is its copy and, in the room the copy leaves, its figure,
+placed from the copy's measured height and the screen's, so the composition holds from a phone with the browser's bars
+showing (about 390 × 660) to a tall one:
+Home — Orion under the copy, 203 wide, its top 24 under the trust row or 245 above the foot of the screen, whichever is
+lower, its legs cut by the bottom edge; with under 100 of it in view it is left out.
+(Re)insurance — the compass centred under the screen, 343 in radius, so its top arc runs edge to edge as a horizon; its
+top is 227 above the foot (lower on a short screen, where the title must clear the copy by 32); the point's title and
+description stand centred above it, 342 wide, the description within 310 and three lines deep so every title sits at
+one height.
+Captives — the orbit centred, 337 wide, its centre 204 above the foot or 24 + its half-height under the copy, drawing in
+to no less than .6 on a short screen so it is whole.
+AI — the figure and the large AI stand at the top, 16 under the nav (they fall from the logo), 150 to 232 tall by the
+room, and the copy starts 32 under them; where the copy then runs under the fold it is read by scrolling on, the figure
+leaving with its page.
+License — the padlock in the room under the copy, .42 to .75 of its size, whole, 24 clear of the copy and the foot.
+About us — one column: copy, buttons, the dictionary entry 40 under them (timeline in three equal columns, labels
+wrapping), the legal line 40 under that, or at the foot of the screen where there is room; it runs on under the fold and
+the scroll carries on until its last line is 24 above the foot.
+The bar is the burger (its lines on the copy's left edge) and the lockup, centred, 140 wide; Contact us is the menu's
+last link, on every page. No chapter path, Replay or coordinates on a phone. The landing opens close on Orion's shield
+and Tabit's star and draws back to the whole lockup, 326 wide (§6).
 
 ## 5. Components
 
 Radius 2 everywhere; no other radius, no pill.
 
 - Nav bar: 88 tall, contents inset 40, Night wash + 14 px blur, bottom edge Dusk 14 (under decision). Burger left,
-  lockup centred (docked at y 44, proportions fixed), one secondary button "Contact us" right at nav size.
+  lockup centred (docked at y 44, proportions fixed), one secondary button "Contact us" right at nav size. On a phone
+  (v1.32) the bar carries no Contact us button: it is the last link in the menu, on the home and on every click-out
+  page; the home's burger stands 13 from the edge in a 44 × 44 target, so its lines start on the copy's edge (24), and
+  the menu panel runs 16 from each edge with its links 10 above and below (44 tall).
 - Home link (every page but home): right of the burger, 20 apart — the word "Home" alone at the nav size
   (13/500/.02em), 44 tall; hover Brass, .25 s; presses down 1; 4 units of side padding, as the burger has. No mark
   before the word (v1.25, Oscar on XR2.9.28: "remove the logo next to the 'home' on the top left. Should just say
@@ -228,6 +267,17 @@ Radius 2 everywhere; no other radius, no pill.
 
 ## 6. Motion
 
+**Phones (v1.32).** The opening sequence is the same sequence seen through a phone's view: it opens at 1.55 × on
+Orion's shield and Tabit's star (the star 88 from the left, so its name reads beside it), centres on the star at 1.2 ×
+as the ring opens and the knot is drawn (the star's name leaving first), and draws back as TABIT is spelt until the
+lockup stands across the screen 326 wide, Orion beside it as on a wide screen; sky, drawing and lockup share the one
+view. On the scroll the lockup glides into the bar and shrinks to its docked 140 (no star flight on a phone). The page
+follows the finger one for one and, when the finger lifts, glides on from the speed it had (the scroll's own ease, a
+third of a second). A figure that stands under its copy (Captives, License) travels with its page, arriving and
+leaving; between pages the figure's stars still gather into one ball that runs to the next figure's place. A page's
+copy fades from 120 past its place (later where it runs under the fold), over 180. Skip intro is 44 tall. Hover states
+belong to a mouse alone, on every page (`@media (hover: hover) and (pointer: fine)`).
+
 Scroll and pointer only; the opening sequence (0–7.2 s, replayable, skippable) is the one timed exception; grain loop
 and EXPLORE pulse under decision. Only `transform`/`opacity` on DOM; never `transition: all`, layout properties,
 filters > 14 px, animated blur. Copy lines slide up 110 % behind a clip and fade (.07 s per line, .36 s stagger in the
@@ -302,6 +352,19 @@ outside the hover/fine media query, tappables without `:active`, inputs < 16 px 
 phones · unapproved words, placeholder people or text · overwriting a board, a Framer edit without a commit.
 
 ## 10. Change log
+
+- 13 Nov 2026 — v1.32 (XR3.0, on the `phone` branch; not yet live). The home's phone composition, from the designs Oscar
+  chose on 13 Nov ("It should zoom into C", "Remove the contact us button on mobile and put it into the burger",
+  "Captives is much better", "left aligned is better. Let's go do the build"), after he found the live site unusable on
+  a phone (every word at about 40 % of its size: a phone was given the 960-unit stage shrunk to fit). Added: the phone
+  stage (390 units), §3's three phone steps (Display 46/52, Headline 40/44 as the click-out pages already had, Title
+  30/34; the compass letter 46), §4's Phones paragraph (left-aligned copy 24 from the edges; each figure placed from the
+  copy's height and the screen's; About us running on under the fold), §5's phone bar (no Contact us button; it is in
+  the menu on every page; 44-tall menu links), §6's phone motion (the landing's view, one-for-one touch with a glide,
+  figures travelling with their page, hover for a mouse alone). Body, Small, Control and Label are the code's own on a
+  phone (the designs had drawn Body at 16/24 and the button at 15/20; the code's 17/26 and 14/18 stand, as on the
+  click-out pages). For Oscar to rule: Orion on Home is cut by the foot of a tall phone's screen and left out on a short
+  one (DESIGN.md's house rule is "whole or not at all"); the click-out pages still centre their copy on a phone.
 
 - 13 Nov 2026 — v1.31 (XR2.11.2, live). Oscar on the live Home headline: "its the line spacing of the title i'm worried
   about", and on the offer of smaller letters with more room: "I don't want the letters smaller just push the spacing."

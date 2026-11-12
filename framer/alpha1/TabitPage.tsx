@@ -33,6 +33,9 @@ export default function TabitPage(props: { page: string; style?: any }) {
         if (!document.getElementById("tabit-fonts-pages")) {
             const l = document.createElement("link"); l.id = "tabit-fonts-pages"; l.rel = "stylesheet"; l.href = FONT_URL; document.head.appendChild(l)
         }
+        if (!document.getElementById("tabit-theme")) {   // XR3.0: a phone's browser bars take the night's colour
+            const m = document.createElement("meta"); m.id = "tabit-theme"; m.name = "theme-color"; m.content = "#04070F"; document.head.appendChild(m)
+        }
         if (onCanvas || !ref.current) return
         const release = mountTabitSky(ref.current, SKY_OPTIONS)   // the home's live sky behind the page; released when the page goes
         let off: any = null, gone = false
