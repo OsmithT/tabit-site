@@ -64,7 +64,7 @@ the site keeps its current values):
 | Night | `#04070F` | The one background; text on a brass button | Anything else |
 | Paper | `#FBF9F4` | All text; burger lines; star-path dots (the lockup keeps its own white — cardinal rule 2) | Backgrounds, fills |
 | Brass | `#A8823A` | Headline key word; primary button fill; current chapter; compass points/diamonds; link hover | Body text, borders, backgrounds behind text, decorative lines |
-| Dusk | `#B8C0D4` | EXPLORE cue; hairline chart lines in the sky; compass rim ticks; the hovered orbit (v1.10; hovered text is Brass from v1.13) | Resting text > 13, anything that must be read at rest |
+| Dusk | `#B8C0D4` | EXPLORE cue; hairline chart lines in the sky; compass rim ticks; the Captives planet's fill (v1.20; the hovered ring is Brass from v1.20, hovered text from v1.13) | Resting text > 13, anything that must be read at rest |
 
 Tints (fixed opacities, no others): Paper 80 `rgba(251,249,244,.80)` compass descriptions · Paper 72 secondary small
 text (pronunciation, timeline labels) · Paper 60 legal line · Paper 38 secondary/nav button border · Paper 22 About
@@ -174,16 +174,19 @@ Radius 2 everywhere; no other radius, no pill.
   the scroll never picks an item (v1.12). A mouse over a term or its figure item turns the term Brass, shows that item's
   term beside it in the figure as a Small label in Brass (only that one), lights its line in solid Dusk, its point and the
   term's middot Brass, .25 s ease, in the hover media query only, fading away when the mouse leaves. On Captives the
-  orbit figure is the page's one figure (v1.15): beside the headline, held there while the list passes (two columns);
-  stacked, under the hero copy. Its centre, the SCC, is the Tabit knot drawn in Paper star points, as the About figure
-  draws it, still while the cells turn; the SCC's name sits under it in Small at Paper 72. Beside the headline the
-  figure starts as a disk of Paper stars seen in depth and settles into the orbits with the scroll (v1.19, §6): each
-  orbit's stars run round into its cell, inner orbit first, and the cell comes up as they arrive. Until the knot
-  opens, the centre is a planet: a Paper disc, radius 24 figure units, with the cells' glow (the same stops, at .55,
-  out to 2.6 times its radius); the far side of the disk passes behind it and the near stars cross it as Night points
-  at .9; it then opens outwards into the knot's stars. A moving star draws a trail, a taper back to where it was a
-  moment before (it follows at .14 of the gap a 60 Hz frame, the same at any frame rate, and is never longer than 60
-  figure units); the canvas is cleared every frame, so nothing a star has drawn is left behind.
+  figure is the page's one figure (v1.15): beside the headline, held there while the list passes (two columns);
+  stacked, under the hero copy, 560 wide (phones the full width). From v1.20 (Oscar, 12 Nov, from the reference he
+  chose) it is a planet in a disk of stars. The planet, the SCC, is a sphere in Dusk ("Make the center our blue"),
+  radius 34 figure units, lit with Paper 22 from the upper left and shaded with Night .30 to .50 at the limb; its name
+  sits under the system in Small at Paper 72. The disk is 1,400 Paper star points, starting at the planet's surface
+  and densest there, seen in depth: the far side passes behind the planet, the near side in front. Each star in the
+  disk carries a streak along its path (up to 9 degrees times its pace, the inner stars faster; longer while the scroll
+  whirls the disk; never longer than 60 figure units); the canvas is cleared every frame, so nothing a star has drawn
+  is left behind. With the scroll (§6) the disk settles flat into eight rings of stars, one a cell, on Dusk 14 orbit
+  lines, the streaks shortening to points; the rings stay, turning with the figure's slow clock. A mouse over a cell
+  (its list item, its ring or its name) turns that ring Brass, stars and line, with the cell's name on the ring in
+  Brass Small. The figure's column runs to 24 from the page edge and the rings to 8 inside it; beside the list, once
+  the hero copy has scrolled clear, the figure grows towards the list, stopping 24 short of it.
 - People (About us): a grid of cards, four across (two stacked, one on phones), 32 × 40 apart, 1120 wide: a 4:5
   photo box (Paper 14 border, radius 2, nav wash fill, a Small "Photo n" label at Paper 60 until the photograph is
   in), name Body 600 (16 above), title Body at Paper 72, a Small "LinkedIn" text link, bio Body (12 above). The
@@ -266,6 +269,12 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
 
 ## 10. Change log
 
+- 12 Nov 2026 — v1.20. Oscar on XR2.9.23, with captures of the reference: "Why does the planet look so much better on
+  here. Also you could keep the orbit looking like this and highlight it with the brass colour based on which we are
+  looking at? Also the rings could be slightly larger so it fill more of the page" and "Make the center our blue".
+  XR2.9.24 (§5 Lists): the planet is a shaded Dusk sphere in a streaked disk that starts at its surface; the finished
+  figure keeps its eight rings of stars (the cell points and the knot at the centre are gone); the ring under the
+  mouse is Brass; the figure is larger and grows towards the list. Dusk gains one use, the planet's fill (§2).
 - 12 Nov 2026 — v1.19. Oscar on XR2.9.22: "The 2.9.22 is cool, lets work on that. We need to work on the fade and also
   need a planet in the middle of the rotation. Also when you scroll back up the background has the rings faded in the
   background which needs fixing." XR2.9.23: the ghost rings were the old trails, made by fading the last frame, which
