@@ -69,7 +69,7 @@ the site keeps its current values):
 Tints (fixed opacities, no others): Paper 80 `rgba(251,249,244,.80)` compass descriptions · Paper 72 secondary small
 text (pronunciation, timeline labels) · Paper 60 legal line · Paper 38 secondary/nav button border · Paper 22 About
 timeline hairline · Paper 14 structural hairlines (trust row, legal line) and menu panel border · Dusk 14 nav bottom
-edge (under decision) · Dusk 45 Replay border.
+edge (under decision) · Dusk 45 Replay border · Tabit Navy 38 and 80, the Captives planet's shading only (v1.22).
 
 Washes (legibility only): nav bar `rgba(8,13,30,.50)` + 14 px blur; burger panel and Skip `rgba(4,7,15,.92)` + 14 px
 blur; behind the copy column a horizontal `rgba(8,13,30)` .50 → .22 at 55 % → 0 to 860 units (fading as the page stacks); top 160 units `rgba(8,13,30,.30 → 0)`;
