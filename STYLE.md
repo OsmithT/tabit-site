@@ -1,4 +1,4 @@
-# Tabit website — style code (v1.28, 12 Nov 2026)
+# Tabit website — style code (v1.29, 12 Nov 2026)
 
 The values behind every visual decision on the site, taken from the home page as shipped (XR2.8.2) and the brand
 guidelines. `DESIGN.md` holds the cardinal rules (what never ships); this file holds the values. Where a page and this
@@ -70,6 +70,8 @@ Tints (fixed opacities, no others): Paper 80 `rgba(251,249,244,.80)` compass des
 text (pronunciation, timeline labels) · Paper 60 legal line · Paper 38 secondary/nav button border · Paper 22 About
 timeline hairline · Paper 14 structural hairlines (trust row, legal line) and menu panel border · Dusk 14 nav bottom
 edge (under decision) · Dusk 45 Replay border. (Tabit Navy 38 and 80, the Captives planet's shading, v1.22, left the site with the planet in v1.26.)
+A colour changing in a listed transition (.25 s, in CSS or on a canvas: a link, a button, the Captives ring under the
+mouse going from Paper to Brass) passes through the blends between its two listed colours; no blend is ever held at rest.
 
 Washes (legibility only): nav bar `rgba(8,13,30,.50)` + 14 px blur; burger panel and Skip `rgba(4,7,15,.92)` + 14 px
 blur; behind the copy column a horizontal `rgba(8,13,30)` .50 → .22 at 55 % → 0 to 860 units (fading as the page stacks); top 160 units `rgba(8,13,30,.30 → 0)`;
@@ -85,7 +87,7 @@ Manrope 300/400/500/600. No monospace; italics only for the dictionary entry's *
 
 | Step | Size / line | Weight | Tracking | Case | Used for |
 |---|---|---|---|---|---|
-| Display | 84 / 80 | 300 | −.035em | Sentence | Home headline only |
+| Display | 84 / 80 | 300 | −.035em | Sentence | Home headline only: "Bespoke / (re)insurance / solutions.", three lines, the last in Brass (v1.29) |
 | Headline | 64 / 66 | 600 | −.035em | Sentence | Chapter headlines, two lines, last word Brass; on click-out pages the page headline and each section opener ("Cells we offer", "Licensed, audited, aligned."), one per screen, last word Brass (v1.13) |
 | Title | 40 / 44 | 600 | −.035em | Sentence | Compass point titles, "Tabit" in the dictionary entry, timeline years (no longer section openers, v1.13) |
 | Body | 17 / 26 | 400 | 0 | Sentence | All running copy, compass descriptions, definition, menu links (17/24) |
@@ -94,7 +96,8 @@ Manrope 300/400/500/600. No monospace; italics only for the dictionary entry's *
 | Label | 11 / 16 | 600 | .20em | UPPER | Star-path chapter names, compass letters, EXPLORE cue (.26em), coordinates (400, .14em) |
 
 Measure 45–75 characters (column 640, text ≤ 610). Two-column copy left-aligned; stacked centred. Headlines ≤ 2 lines
-at every width (change the words, not the size). One Headline per screen; sub-heads are Body 600 on their own line —
+at every width (change the words, not the size); the Home Display headline alone runs to three (v1.29: with "(re)" in
+it, two lines met Orion). One Headline per screen; sub-heads are Body 600 on their own line —
 no new size, no kicker, no number. One brass key word per headline; never in body copy.
 
 Deviations to correct (XR2.9): click-out pages use clamp(52–104)/1.02/300, 30/36/300, 22/28/500, 20/26/500, 19/30,
@@ -127,7 +130,9 @@ Margins and rhythm: nav contents 40 from the edges; Replay 24; coordinates 64; E
 body → button 30 (home 28); body → trust row 26 above the hairline, 18 below; dictionary blocks 14; sub-head →
 content 14; timeline 46 (28 stacked); buttons in a row 12 apart; list items 12 apart; sections 96 apart on the
 click-out pages, whose hero copy starts 176 from the top (88 nav + 88) and whose footer ends 40 above the bottom.
-Positions on multiples of 2.
+Positions on multiples of 2. The Home copy starts 30 under the nav bar (v1.29; 64 while the headline was two lines), headline → body 34
+and body → button 28 as before; stacked, the Home trust row sits 88 above the foot of the copy block (was 130) and Orion 44 to 56
+lower than it did, so the taller copy clears both.
 
 Phones (< 600 px): not yet composed — same values, stacked, 16-unit margins, chapter path as a bottom bar.
 
@@ -154,8 +159,9 @@ Radius 2 everywhere; no other radius, no pill.
   decision as the one hairline above text.
 - Chapter path: faint polyline at the right edge joining five Paper stars (11 × 8.6 in a 28 hit area), current one
   glowing; Label to the left on hover/focus with the chapter letter in Brass. Navigation, not kickers.
-- Compass labels ((Re)insurance): Title + Body at Paper 80, centred above the rim, 520 wide; the point letter drawn 84
-  outlined 1.2 px Brass 62 % between the Brass diamond and the rim.
+- Compass labels ((Re)insurance): Title + Body at Paper 80, centred above the rim, 520 wide; the description sets on
+  two even lines inside 470 (v1.29), so every point's title sits at one height and a full line keeps the 24 clear of the
+  copy beside it (§4); the point letter drawn 84 outlined 1.2 px Brass 62 % between the Brass diamond and the rim.
 - Dictionary entry (About): "Tabit" Title Brass, pronunciation Body Paper 72, *noun* Small italic; definition Body;
   timeline: Paper 22 hairline, 7 × 7 diamonds, years Title, labels Small Paper 72, columns 52 apart. Two-column at
   x 560, 420 wide; stacked under the copy, 470 wide.
@@ -171,7 +177,9 @@ Radius 2 everywhere; no other radius, no pill.
 - Lists (click-out pages): a term/description grid — term column 240 at Body 600 Paper, description Small at Paper 72
   (v1.9: a description must read as a different level from its term, by size and tint, not weight alone), columns 32
   apart, rows 16 apart, the grid 880 wide; stacked, one column with the term above its description and 20 between items.
-  Where a list has a figure beside it (Captives cells, v1.10), nothing in the figure is named or picked out at rest, and
+  Where a list has a figure beside it (Captives cells, v1.10), the list is one column, 520 wide: each term above its
+  description, 20 between items, the term's middot 12 to its left at Paper 38 (on the board since XR2.9.11; set down here in
+  v1.29). Nothing in the figure is named or picked out at rest, and
   the scroll never picks an item (v1.12). A mouse over a term or its figure item turns the term Brass, shows that item's
   term beside it in the figure as a Small label in Brass (only that one), lights its line in solid Dusk, its point and the
   term's middot Brass, .25 s ease, in the hover media query only, fading away when the mouse leaves. On Captives the
@@ -179,34 +187,27 @@ Radius 2 everywhere; no other radius, no pill.
   stacked, under the hero copy, 560 wide (phones the full width). From v1.20 (Oscar, 12 Nov, from the reference he
   chose) it is a disk of stars about a centre, the SCC. There is no planet (v1.26, Oscar on XR2.9.29: "remove the
   planet from the center it just doesn't look good at all"; from v1.20 to v1.25 a Dusk sphere shaded with Tabit Navy
-  stood there). The centre is made of the Tabit knot's own 309 Paper star points, and it is one of three, under decision
-  on XR2.9.31 (Oscar: "I like option B or D", then "can we try one version which is empty in the center like in 30E"). B, the cluster: the stars as a star cluster, far more of them near its
-  core (16 figure units) than at its edge (54), of several sizes, most small; it turns with the disk, and the scroll
-  stirs it, each star on an orbit of its own. D, the globe: the stars evenly over a sphere of radius 40, lit from the
-  upper left (the stars facing the light brighter and larger, the dimmest at a fifth of full strength), only its near side drawn,
-  turning with the disk on the disk's axis; the far side of the disk passes behind it. E, empty (v1.27): nothing stands
-  at the centre while the disk turns, and as the disk lands the knot's stars come in off the disk's inner edge (34 to
-  42 from the centre), each from its own bearing, brightening as it comes and running 40 degrees along the edge on its
-  way. B and D open into the Tabit
-  knot drawn in Paper star points, as the About figure draws it, which is the finished figure's centre (v1.21, as
-  v1.19: "what I want as the Tabit logo in the center"), gradually: from just before the disk lands to 90 % of the
-  scroll's stretch ("a bit more gradual"). Each star starts where its place in the knot is nearest, so the opening is
-  one movement: the cluster opens outwards, its core to the knot's middle, its stars winding 40 degrees into place;
-  the globe opens across, from the upper left to the lower right, each star level with its place. The knot is only
+  stood there). The centre is empty (v1.29, Oscar, 12 Nov: "We are using version 31E"; a star cluster and a lit globe,
+  XR2.9.31 B and D, were the other two candidates): nothing stands at the centre while the disk turns, and as the disk
+  lands the Tabit knot's own 309 Paper star points come in off the disk's inner edge (34 to 42 from the centre), each
+  from its own bearing, brightening as it comes and running 40 degrees along the edge on its way, the knot's inner
+  stars first. They form the Tabit knot drawn in Paper star points, as the About figure draws it, which is the
+  finished figure's centre (v1.21, as v1.19: "what I want as the Tabit logo in the center"), gradually: from just
+  before the disk lands to 90 % of the scroll's stretch ("a bit more gradual"). The knot is only
   ever shown whole and unaltered. No name stands under the figure (v1.26: "Remove the tabit insurance scc logo at the
   bottom of the hero for sure"); the figure's box ends 20 figure units under the outer ring's lowest point. The disk is 1,400 Paper star points, starting 34 from the centre
   and densest there, seen in depth: the far side passes behind the centre, the near side in front. Each star in the
   disk carries a streak along its path (up to 9 degrees times its pace, the inner stars faster; longer while the scroll
   whirls the disk; never longer than 60 figure units); the canvas is cleared every frame, so nothing a star has drawn
   is left behind. The scroll whirls the disk as it settles: a star half way out turns 180 degrees in all, the inner
-  stars further, easing out as the disk lands (v1.24: 300 was "too quick"). With the scroll (§6) the disk settles flat into eight rings of stars, one a cell, on Dusk 14 orbit
+  stars further, easing out as the disk lands (v1.24: 300 was "too quick"). With the scroll (§6) the disk settles flat into rings of stars, one a cell (nine, v1.29; eight until then), on Dusk 14 orbit
   lines, the streaks shortening to points; the rings stay, turning with the figure's slow clock. The first orbit is
   118 figure units from the centre and each orbit 34 beyond the last, the disk in depth reaching 380 (v1.21: the room
-  is between the rings, not round the centre). The list runs from the shortest name to the longest, so the short names
+  is between the rings, not round the centre); the figure is fitted to its outer ring, so a ninth ring made every ring a little smaller, not closer. The list runs from the shortest name to the longest, so the short names
   sit on the inner rings, beside the knot, and the long ones on the outer (v1.22; the order of the cells carries no
   meaning). A cell's name of more than one line runs down from its ring on the
-  inner four rings and up to it on the outer four, clear of the knot. A mouse over a cell (its list item, its ring or its name) turns that ring's stars Brass, a third
-  larger, with the cell's name on the ring in Brass Small; the line stays as it is (v1.21: "I don't want a golden
+  inner half of the rings and up to it on the outer half, clear of the knot. A mouse over a cell (its list item, its ring or its name) turns that ring's stars Brass, about a
+  third larger (35 %), with the cell's name on the ring in Brass Small, edged 4 px in Night, the sky's own ground, so the stars do not cross it; the line stays as it is (v1.21: "I don't want a golden
   line"). The figure's column runs to 24 from the page edge and the rings to 8 inside it; beside the list the
   figure is larger, reaching towards the list and stopping 24 short of it. It grows to that size while the disk
   whirls and flattens, and lands flat already at it: nothing changes size once the disk has landed (v1.23: "the spin
@@ -299,6 +300,19 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
 
 ## 10. Change log
 
+- 12 Nov 2026 — v1.29 (XR2.11, the merge pushed to GitHub: "We are using version 31E and merging the other changes.
+  Along with the website copy changes"). (1) The Captives centre is decided: empty, XR2.9.31E (§5 Lists); the list has
+  nine cells, so the figure has nine rings. (2) The Home headline is "Bespoke (re)insurance solutions." on three lines
+  (§3; DESIGN.md exceptions): the copy starts 30 under the nav bar (was 64) so the button keeps clear of the trust row;
+  stacked, the trust row sits 88 above the foot of the copy block (was 130) and Orion 44 to 56 lower (§4). (3) The
+  (Re)insurance click-out page is brought to the code as Captives was: its two section openers are Headlines with a
+  Brass key word (v1.13) and its lists' descriptions are Small at Paper 72 (v1.9). (4) The click-out pages no longer
+  repeat the hero headline at the foot; the button stays. (5) Site copy is in American English (DESIGN.md rule 6).
+  (6) Set down from the Captives boards as they stand, at the gate's asking: the cells list's own values, the 4 px Night
+  edge on a ring's name, and that a colour in transition passes through the blends of its two listed colours (§2, §5).
+  (7) A compass description sets on two even lines inside 470 (§5 Compass labels): the shorter descriptions of 12 Nov
+  ran as one line the full 520, to 6 px from the copy beside the compass at 1.6:1, and left the titles at two heights.
+  No new colour, type size or radius.
 - 12 Nov 2026 — v1.28 (XR2.10). Oscar, on Ashleigh's XR2.8 star tile for the click-out pages (v1.17 exception 3): the live
   home sky first. The tile is gone from every click-out page and from the article component; each page is clear and the
   home engine draws its own sky in a fixed layer behind it (TabitSite.js mountTabitSky, sky-only mode), on the home stage's

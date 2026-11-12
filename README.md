@@ -12,8 +12,12 @@ The code behind the Tabit Insurance website prototype in Framer.
   - `TabitHome.tsx`: the Framer code component on the `/` page. Loads three.js, calls `runTabit`, and scales the
     720-unit-tall design to the component's height, letting the width run to the edges (960–1940 design units), so the
     page fills laptops and ultrawides alike.
-  - `pages/reinsurance.js`, `captives.js`, `aboutus.js`, `contact.js`: the click-out pages as `{ css, html }` strings,
-    with the burger header. `TabitPage.tsx` renders one of them (its `page` control picks which).
+  - `pages/reinsurance.js`, `captives.js`, `aboutus.js`, `contact.js`: the click-out pages as `{ css, html, js }` strings,
+    with the burger header. `TabitPage.tsx` renders one of them (its `page` control picks which), puts the home's live
+    sky behind it, and, where the module has a `js` (Captives: its figure, board XR2.9.31E), runs it with the page's
+    element once the fonts are in and calls the teardown it returns when the page goes.
+  - `tools/captives_figure.js`: the Captives figure's script, readable. `pages/captives.js` holds the same text as its
+    `js` string; change this file, then write it into the module (`js = JSON.stringify(source)`), never the string by hand.
   - `TabitHomeStyles.js`: global CSS the home component injects once.
 - `framer/alpha1/pages/press.js`, `press_header.js`, `article_*.js`, `contact_top.js` (underscores: Framer's file names), `legal.js` (Ashleigh, XR2.8):
   Press and media, the article page and its template, and the top/bottom parts of /press and /contact for pages

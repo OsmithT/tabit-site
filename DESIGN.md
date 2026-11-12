@@ -24,7 +24,8 @@ failure is flagged for Oscar's decision rather than blocking on its own. Owner o
 5. **No pictures behind pages** unless Oscar asks for one. The night sky is the only background, and it is the home's
    sky on every page, identical in every respect (Oscar, 12 Nov 2026; STYLE.md §7).
 6. **Only approved site copy.** The words on the site are the words already approved on the XR2.5.7 boards (and
-   Ashleigh's XR2.4 pages). Nothing from internal documents (the 1-pager, decks, Notion) goes on the site without
+   Ashleigh's XR2.4 pages), as amended by the list Oscar agreed on 11 and 12 Nov 2026 (decisions log, XR2.11). Site
+   copy is in American English (license, capitalized, collateralized, favor, judgment). Nothing from internal documents (the 1-pager, decks, Notion) goes on the site without
    Oscar saying so. Each fact appears once.
 7. **Every change is a new board** on the current Beta canvas; earlier boards are never overwritten; assets are never
    deleted unless asked. The decisions doc is updated with every row.
@@ -61,14 +62,16 @@ failure is flagged for Oscar's decision rather than blocking on its own. Owner o
   brand's signature device, although the rubrics say "no accent in headings".
 - The three-line Captives statement "Your risk. / Your premium. / Your reward." — approved copy set as three lines on
   purpose.
+- The three-line Home headline "Bespoke / (re)insurance / solutions." (12 Nov 2026) — Oscar's words; on two lines
+  "Bespoke (re)insurance" ran into Orion.
 - The star glows, flares and the nebula — they are the subject, not UI decoration.
 - The load-time intro (0 – 7.2 s), time-driven by design.
 - The star-path chapter labels — navigation, not kickers.
 
-Under decision (flag, do not block, until Oscar rules): what stands at the centre of the Captives disk now the planet is gone: the three XR2.9.31 boards, B a star cluster, D a lit globe and E an empty centre, all ending in the knot drawn in its own Paper star points (Oscar, 12 Nov: "I like option B or D", then "can we try one version which is empty in the center like in 30E"; STYLE.md §5 sets out all three until he chooses); whether XR2.9.22's star disk may turn faster than the cells at rest, as its reference does (built at the cells' 3 degrees a second, the extra whirl on the scroll); the film-grain loop and the EXPLORE cue pulse (cardinal 4 as
+Under decision (flag, do not block, until Oscar rules): whether XR2.9.22's star disk may turn faster than the cells at rest, as its reference does (built at the cells' 3 degrees a second, the extra whirl on the scroll); the film-grain loop and the EXPLORE cue pulse (cardinal 4 as
 worded); the hairline above the Home proof row and the 1 px Dusk 14 edge under the nav bar; `Replay` and the
 coordinates as on-screen chrome; the splash having no primary action; the About legal line at 11 px; on the click-out
-pages, the hero headline and button repeated at the foot (as on the approved XR2.4 pages), the (Re)insurance hero
+pages, the (Re)insurance hero
 keeping copy left / compass right (the home chapter has them swapped), and whether the pages carry the chapter path.
 
 ## How the gate runs
