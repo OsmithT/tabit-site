@@ -6,12 +6,13 @@ import * as captives from "./pages/captives.js"
 import * as aboutus from "./pages/aboutus.js"
 import * as contact from "./pages/contact.js"
 import * as press from "./pages/press.js"
-import * as pressHeader from "./pages/press-header.js"
-import * as contactTop from "./pages/contact-top.js"
+import * as pressHeader from "./pages/press_header.js"
+import * as contactTop from "./pages/contact_top.js"
 import * as legal from "./pages/legal.js"
-import * as articleBitcoin from "./pages/article-why-insurers-fear-bitcoin.js"
-import * as articleTemplate from "./pages/article-template.js"
+import * as articleBitcoin from "./pages/article_why_insurers_fear_bitcoin.js"
+import * as articleTemplate from "./pages/article_template.js"
 
+// XR2.10: page files are named with underscores, as Framer names code files (press_header.js, not press-header.js).
 // XR2.10 (Oscar, 12 Nov: "IT SHOULD BE IDENTICAL"): every click-out page shows the home's own live sky, drawn by the home engine in a
 // fixed layer behind the page (mountTabitSky in TabitSite.js), never a picture or a page's own star field. One sky per document.
 // Ashleigh11.11 (XR2.8): adds Press, Press: header, Contact: top, Legal line and the two article pages (see cms/SETUP.md).

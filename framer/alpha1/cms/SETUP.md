@@ -93,7 +93,7 @@ If a field maps wrongly, delete the items, fix the mapping and import again.
    | References | References |
 
 4. Page settings: title = **SEO Title**, description = **SEO Description**.
-5. Preview the Bitcoin article. It should match `pages/article-why-insurers-fear-bitcoin.js`: Brass headline, date and
+5. Preview the Bitcoin article. It should match `pages/article_why_insurers_fear_bitcoin.js`: Brass headline, date and
    byline, bold standfirst, nine paragraphs, eight references, "← Press and media" at the foot.
 
 ## Step 5: build the /press page

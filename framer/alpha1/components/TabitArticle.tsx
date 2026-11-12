@@ -5,7 +5,7 @@ import { mountTabitSky } from "./TabitSite.js"
 // XR2.10 (Oscar, 12 Nov): the sky behind the article is the home's own live sky (mountTabitSky in TabitSite.js), never a picture.
 // Ashleigh11.11 (XR2.8): the Tabit article page for the Framer CMS. Put it on the Articles collection's detail page
 // (/press/:slug), full width, height "fit content", and connect each property to its CMS field (cms/SETUP.md).
-// It draws the header (Press current), the sky, the article and the legal line, as pages/article-why-insurers-fear-bitcoin.js.
+// It draws the header (Press current), the sky, the article and the legal line, as pages/article_why_insurers_fear_bitcoin.js.
 // Body: paragraphs separated by an empty line. References: one per line, "Citation | https://link" (link optional).
 // @framerSupportedLayoutWidth any
 // @framerSupportedLayoutHeight auto
