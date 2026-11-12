@@ -1,4 +1,4 @@
-# Tabit website — style code (v1.17, 12 Nov 2026)
+# Tabit website — style code (v1.23, 12 Nov 2026)
 
 The values behind every visual decision on the site, taken from the home page as shipped (XR2.8.2) and the brand
 guidelines. `DESIGN.md` holds the cardinal rules (what never ships); this file holds the values. Where a page and this
@@ -181,7 +181,7 @@ Radius 2 everywhere; no other radius, no pill.
   (`#09154A`, the brand's deep blue; .38 half way, .80 at the limb), so that it reads as blue (v1.22: Dusk is a pale,
   silvery blue, and shaded with Night the sphere read as silver); it is there while the disk settles, then opens outwards into the Tabit knot drawn in Paper
   star points, as the About figure draws it, which is the finished figure's centre (v1.21, as v1.19: "what I want as
-  the Tabit logo in the center"), gradually: over 45 % to 90 % of the scroll's stretch ("a bit more gradual"). The SCC's name sits under the system in Small at Paper 72. The disk is 1,400 Paper star points, starting at the planet's surface
+  the Tabit logo in the center"), gradually: from just before the disk lands to 90 % of the scroll's stretch ("a bit more gradual"). The SCC's name sits under the system in Small at Paper 72. The disk is 1,400 Paper star points, starting at the planet's surface
   and densest there, seen in depth: the far side passes behind the planet, the near side in front. Each star in the
   disk carries a streak along its path (up to 9 degrees times its pace, the inner stars faster; longer while the scroll
   whirls the disk; never longer than 60 figure units); the canvas is cleared every frame, so nothing a star has drawn
@@ -193,8 +193,14 @@ Radius 2 everywhere; no other radius, no pill.
   meaning). A cell's name of more than one line runs down from its ring on the
   inner four rings and up to it on the outer four, clear of the knot and of the SCC's name. A mouse over a cell (its list item, its ring or its name) turns that ring's stars Brass, a third
   larger, with the cell's name on the ring in Brass Small; the line stays as it is (v1.21: "I don't want a golden
-  line"). The figure's column runs to 24 from the page edge and the rings to 8 inside it; beside the list, once
-  the hero copy has scrolled clear, the figure grows towards the list, stopping 24 short of it.
+  line"). The figure's column runs to 24 from the page edge and the rings to 8 inside it; beside the list the
+  figure is larger, reaching towards the list and stopping 24 short of it. It grows to that size while the disk
+  whirls and flattens, and lands flat already at it: nothing changes size once the disk has landed (v1.23: "the spin
+  should hide that resize"). When it grows is set from the page: the figure is held while the hero copy rises past
+  it, and it takes the room as the copy leaves it, never nearer than 12 to any line of the copy; the disk lands
+  between 50 % and 70 % of the scroll's stretch, at the earliest point that stays clear, and if the copy is still in
+  the way at 70 % the figure grows only as far as stays clear. Scrolling back up it gives the room back at once.
+  Under reduced motion, and where a browser cannot hold the figure in place, it keeps its column size.
 - People (About us): a grid of cards, four across (two stacked, one on phones), 32 × 40 apart, 1120 wide: a 4:5
   photo box (Paper 14 border, radius 2, nav wash fill, a Small "Photo n" label at Paper 60 until the photograph is
   in), name Body 600 (16 above), title Body at Paper 72, a Small "LinkedIn" text link, bio Body (12 above). The
@@ -219,7 +225,9 @@ the window (at least 240 px); stacked, from the scroll at which the figure is fi
 height (at least 200 px), measured on the last layout's window height. Each part of the change is eased with a
 smoothstep over its own share of the stretch, and every part is complete by about nine tenths of it, so the end of the
 stretch holds the finished figure; the figure follows the scroll at about a fifth of the remaining distance a 60 Hz
-frame (≈ .2 s), the same at any frame rate. Reduced motion shows the finished figure. Anything that turns on its own
+frame (≈ .2 s), the same at any frame rate. If the finished figure is a different size, the change of size is part of
+the change, never a step after it: the figure arrives at its finished form and its finished size together (v1.23).
+Reduced motion shows the finished figure. Anything that turns on its own
 keeps the figure's sanctioned slow pace (the Captives cells, 3 degrees a second); a faster whirl belongs to the scroll.
 The figure's own choreography (which parts move, their shares of the stretch, a disk's depth and tilt) is the figure's
 own geometry, like its orbits, and is set down in its board's generator.
@@ -277,6 +285,12 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
 
 ## 10. Change log
 
+- 12 Nov 2026 — v1.23. Oscar on XR2.9.26: "There is a resize jump as we scroll down the page ... the spin should hide
+  that resize. It shouldn't be a resize after the animation is set. So it should spin up to the correct size."
+  XR2.9.27 (§5 Lists): the Captives figure grows while the disk whirls and flattens and lands at its final size (it
+  had grown after landing); it stays 12 clear of every line of the hero copy; under reduced motion it keeps one size
+  (at full size from the start it had overlapped the paragraph); the rings of stars are centred on their orbit lines at
+  every size. No new colour, type or spacing value.
 - 12 Nov 2026 — v1.22. Oscar on XR2.9.25: "The planet still isn't the dusk blue its silver ... Why don't you move the
   long cell names to the bottom and the short ones on the inner rings. It doesn't matter what order they are in on the
   left." XR2.9.26 (§5 Lists): the planet's shading is Tabit Navy, not Night, the one use of that brand colour on the
