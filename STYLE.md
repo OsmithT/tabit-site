@@ -1,4 +1,4 @@
-# Tabit website — style code (v1.24, 12 Nov 2026)
+# Tabit website — style code (v1.25, 12 Nov 2026)
 
 The values behind every visual decision on the site, taken from the home page as shipped (XR2.8.2) and the brand
 guidelines. `DESIGN.md` holds the cardinal rules (what never ships); this file holds the values. Where a page and this
@@ -137,11 +137,12 @@ Radius 2 everywhere; no other radius, no pill.
 
 - Nav bar: 88 tall, contents inset 40, Night wash + 14 px blur, bottom edge Dusk 14 (under decision). Burger left,
   lockup centred (docked at y 44, proportions fixed), one secondary button "Contact us" right at nav size.
-- Home link (every page but home): right of the burger, 20 apart — the Tabit knot at 11 × 8.6 (home's own chapter-path
-  stop, Paper at 72 %, unaltered) then "Home" at the nav size (13/500/.02em), 8 between, 44 tall; hover Brass with the
-  knot at full strength, .25 s; presses down 1; 4 units of side padding, as the burger has. On phones the word drops
-  and the knot stays (14 × 11 in a 44 tap target, labelled "Home", 8 from the burger), and the lockup is 100 wide
-  with its height following (never squashed). Burger and Home link are at least 44 × 44 px at every size. The idea 9 breadcrumb reduced to its essence: the star you came from, one tap back.
+- Home link (every page but home): right of the burger, 20 apart — the word "Home" alone at the nav size
+  (13/500/.02em), 44 tall; hover Brass, .25 s; presses down 1; 4 units of side padding, as the burger has. No mark
+  before the word (v1.25, Oscar on XR2.9.28: "remove the logo next to the 'home' on the top left. Should just say
+  home"; until then the Tabit knot at 11 × 8.6 stood before it, and on phones stood in for it). On phones it is the
+  same word in a 44 tap target with no side padding, 8 from the burger, and the lockup is 100 wide with its height
+  following (never squashed). Burger and Home link are at least 44 × 44 px at every size.
 - Burger: 44 × 30 hit area, two Paper lines 22 × 1.5, 10.5 apart, no word. Open → cross, .25 s. Panel 280 wide, 60
   under the nav line, padding 16/28/18, `rgba(4,7,15,.92)` + 14 px blur, border Paper 14, radius 2; links Body 17/24,
   9 above/below, no dividers; hover and current page Brass; focus ring 2 px Brass offset 3.
@@ -286,6 +287,10 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
 
 ## 10. Change log
 
+- 12 Nov 2026 — v1.25. Oscar on XR2.9.28: "I'm happy with the design of this page now. Finally remove the logo next
+  to the 'home' on the top left. Should just say home." XR2.9.29 (§5 Home link): the word alone, at every width; the
+  knot before it is gone, and with it the knot's 72 % rest strength and 8 gap. The lockup is untouched. The nav is
+  shared, so this holds for every click-out page.
 - 12 Nov 2026 — v1.24. Oscar on XR2.9.27: "slow down the rotation a little when you scroll. Maybe by 40% its too
   quick." XR2.9.28 (§5 Lists): the scroll's whirl of the Captives disk is 180 degrees over its settling, down from
   300 (the value was in the board's generator only; it is now listed here). The figure's own slow turn is unchanged.
