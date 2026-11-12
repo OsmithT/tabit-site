@@ -160,7 +160,7 @@ Radius 2 everywhere; no other radius, no pill.
 - Chapter path: faint polyline at the right edge joining five Paper stars (11 × 8.6 in a 28 hit area), current one
   glowing; Label to the left on hover/focus with the chapter letter in Brass. Navigation, not kickers.
 - Compass labels ((Re)insurance): Title + Body at Paper 80, centred above the rim, 520 wide; the description sets on
-  two even lines inside 470 (v1.29), so every point's title sits at one height and a full line keeps the 24 clear of the
+  two even lines inside 420 (v1.29), so every point's title sits at one height and a full line keeps the 24 clear of the
   copy beside it (§4); the point letter drawn 84 outlined 1.2 px Brass 62 % between the Brass diamond and the rim.
 - Dictionary entry (About): "Tabit" Title Brass, pronunciation Body Paper 72, *noun* Small italic; definition Body;
   timeline: Paper 22 hairline, 7 × 7 diamonds, years Title, labels Small Paper 72, columns 52 apart. Two-column at
@@ -310,8 +310,9 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
   repeat the hero headline at the foot; the button stays. (5) Site copy is in American English (DESIGN.md rule 6).
   (6) Set down from the Captives boards as they stand, at the gate's asking: the cells list's own values, the 4 px Night
   edge on a ring's name, and that a colour in transition passes through the blends of its two listed colours (§2, §5).
-  (7) A compass description sets on two even lines inside 470 (§5 Compass labels): the shorter descriptions of 12 Nov
-  ran as one line the full 520, to 6 px from the copy beside the compass at 1.6:1, and left the titles at two heights.
+  (7) A compass description sets on two even lines inside 420 (§5 Compass labels): the shorter descriptions of 12 Nov
+  ran as one line the full 520, to 6 px from the copy beside the compass at 1.6:1, and left the titles at two heights
+  (420, not 470 as first pushed: with D&O out of Casualty, Oscar, 12 Nov, that line is 463 wide and would have set as one).
   No new colour, type size or radius.
 - 12 Nov 2026 — v1.28 (XR2.10). Oscar, on Ashleigh's XR2.8 star tile for the click-out pages (v1.17 exception 3): the live
   home sky first. The tile is gone from every click-out page and from the article component; each page is clear and the

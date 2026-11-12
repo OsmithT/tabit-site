@@ -247,7 +247,7 @@ function runTabit(host, THREE, init) {
       var DIRS = ['N', 'E', 'S', 'W'], ANG = [0, 90, 180, 270];
       var IT = [{ t: 'Property', d: 'Per-risk and catastrophe cover, including high-excess structures.' },
         { t: 'Financial lines', d: 'Directors’ and officers’, professional and crime cover, plus credit and transactional liability.' },
-        { t: 'Casualty', d: 'General and excess liability, errors and omissions, D&amp;O and cyber.' },
+        { t: 'Casualty', d: 'General and excess liability, errors and omissions and cyber.' },
         { t: 'Retrocession', d: 'Capacity for traditional and collateralized reinsurers, with a preference for excess of loss.' }];
       var INTRO = 'Providing capacity in traditional and new markets alike. We commit our own capital, assess each risk on its merits and build for the long term with brokers and cedants.';
       var S1 = SECS.filter(function (S) { return S.k === 1; })[0]; if (!S1) return;
@@ -267,7 +267,7 @@ function runTabit(host, THREE, init) {
       function nearq(q, i) { return c01(1 - Math.abs(q - i)); }
       function dirv(a) { var r = a * Math.PI / 180; return [Math.sin(r), -Math.cos(r)]; }
       var labs = [], stubs = [], extra = {};
-      if (V === 2) labs = IT.map(function (_, i) { var e = lab(i, TB_V7 ? 520 : 440, TB_V7 ? 64 : 46); e.querySelector('.ld').style.fontSize = TB_V7 ? '17px' : '15px'; e.querySelector('.ld').style.lineHeight = TB_V7 ? '26px' : '24px'; if (TB_V7) { e.children[1].style.fontWeight = '300'; e.children[1].style.letterSpacing = '-.03em'; var ld = e.querySelector('.ld'); ld.style.maxWidth = '470px'; ld.style.marginLeft = ld.style.marginRight = 'auto'; ld.style.setProperty('text-wrap', 'balance'); }   // XR2.11: a description sets on two even lines inside 470, so every point's title sits at one height and a full line keeps 24 clear of the copy beside it (the shorter descriptions of 12 Nov ran as one line to 6 px from it at 1.6:1)
+      if (V === 2) labs = IT.map(function (_, i) { var e = lab(i, TB_V7 ? 520 : 440, TB_V7 ? 64 : 46); e.querySelector('.ld').style.fontSize = TB_V7 ? '17px' : '15px'; e.querySelector('.ld').style.lineHeight = TB_V7 ? '26px' : '24px'; if (TB_V7) { e.children[1].style.fontWeight = '300'; e.children[1].style.letterSpacing = '-.03em'; var ld = e.querySelector('.ld'); ld.style.maxWidth = '420px'; ld.style.marginLeft = ld.style.marginRight = 'auto'; ld.style.setProperty('text-wrap', 'balance'); }   // XR2.11: a description sets on two even lines inside 420 (the shortest is 463 wide on one line, the longest 697), so every point's title sits at one height and a line keeps well clear of the copy beside it (the shorter descriptions of 12 Nov ran as one line to 6 px from it at 1.6:1)
         if (init && init.x237) { var t7 = e.children[1]; t7.style.fontSize = '40px'; t7.style.lineHeight = '44px'; t7.style.fontWeight = '600'; t7.style.letterSpacing = '-.035em'; t7.style.marginTop = '0'; }   // XR2.3.7: the compass titles in the headline's own style (semi-bold, tight), one step down the scale
         if (TB_BIG) { e.firstChild.style.display = 'none';   // XR2.2.3: the big letter replaces the small one
           var bg = realDoc.createElement('div'); bg.style.cssText = TB_X3 ? 'position:absolute;left:50%;top:100%;transform:translate(-50%,50px);font-size:84px;line-height:84px;font-weight:600;letter-spacing:0;color:transparent;-webkit-text-stroke:1.2px rgba(168,130,58,.62);pointer-events:none'   // XR2.3: below the title, in the gap between the gold diamond and the compass
