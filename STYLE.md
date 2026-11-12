@@ -180,14 +180,15 @@ Radius 2 everywhere; no other radius, no pill.
   radius 34 figure units, shaded with Night .30 to .50 towards the limb and with no Paper light on it, so it reads as
   the blue it is (v1.21); it is there while the disk settles, then opens outwards into the Tabit knot drawn in Paper
   star points, as the About figure draws it, which is the finished figure's centre (v1.21, as v1.19: "what I want as
-  the Tabit logo in the center"). The SCC's name sits under the system in Small at Paper 72. The disk is 1,400 Paper star points, starting at the planet's surface
+  the Tabit logo in the center"), gradually: over 45 % to 90 % of the scroll's stretch ("a bit more gradual"). The SCC's name sits under the system in Small at Paper 72. The disk is 1,400 Paper star points, starting at the planet's surface
   and densest there, seen in depth: the far side passes behind the planet, the near side in front. Each star in the
   disk carries a streak along its path (up to 9 degrees times its pace, the inner stars faster; longer while the scroll
   whirls the disk; never longer than 60 figure units); the canvas is cleared every frame, so nothing a star has drawn
   is left behind. With the scroll (§6) the disk settles flat into eight rings of stars, one a cell, on Dusk 14 orbit
   lines, the streaks shortening to points; the rings stay, turning with the figure's slow clock. The first orbit is
-  118 figure units from the centre and each orbit 34 beyond the last (v1.21: the room is between the rings, not round
-  the centre). A mouse over a cell (its list item, its ring or its name) turns that ring's stars Brass, a third
+  118 figure units from the centre and each orbit 34 beyond the last, the disk in depth reaching 380 (v1.21: the room
+  is between the rings, not round the centre). A cell's name of more than one line runs down from its ring on the
+  inner four rings and up to it on the outer four, clear of the knot and of the SCC's name. A mouse over a cell (its list item, its ring or its name) turns that ring's stars Brass, a third
   larger, with the cell's name on the ring in Brass Small; the line stays as it is (v1.21: "I don't want a golden
   line"). The figure's column runs to 24 from the page edge and the rings to 8 inside it; beside the list, once
   the hero copy has scrolled clear, the figure grows towards the list, stopping 24 short of it.
