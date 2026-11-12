@@ -2897,7 +2897,7 @@ if (init && init.sky) return (function () {
   skyS = makeScrollSky(cvS, SS_IDEA, { mark: TABIT_DATA.mark }, { headless: true, side: SS_SIDE, focus: SS_FOCUS });
   function tickS(now) {
     rafS = requestAnimationFrame(tickS);
-    if (window.innerWidth !== vw || window.innerHeight !== vh) fitS();
+    if (window.innerWidth !== vw || Math.abs(window.innerHeight - vh) > 120) fitS();   // a phone's toolbar showing and hiding as it scrolls does not refit the sky
     TB_SKYS = TABIT_HAND + Math.max(0, window.scrollY || window.pageYOffset || 0) / k0;   // the page's scroll, in the home's units, from Home's stop
     skyS.pointer(PS.x, PS.y, PS.on); skyS.sky(now / 1000);
   }
@@ -3019,7 +3019,7 @@ function mountTabitSky(from, opts) {
   TB_SKYL.n++;
   if (!TB_SKYL.el) {
     var el = document.createElement('div'); el.setAttribute('data-tabit-sky', '1'); el.setAttribute('aria-hidden', 'true');
-    el.style.cssText = 'position: fixed; left: 0; top: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; overflow: hidden; background: #04070F';
+    el.style.cssText = 'position: fixed; left: 0; top: 0; right: 0; bottom: 0; z-index: -1; pointer-events: none; overflow: hidden; background: #04070F';
     document.body.insertBefore(el, document.body.firstChild); TB_SKYL.el = el;
     var de = document.documentElement; TB_SKYL.undo.push([de, de.style.background]); de.style.background = '#04070F';
     try { TB_SKYL.inst = runTabit(el, null, Object.assign({}, opts || {}, { sky: true })); } catch (err) { if (window.console) console.error('Tabit sky failed', err); }

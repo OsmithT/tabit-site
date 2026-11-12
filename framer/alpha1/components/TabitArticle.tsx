@@ -38,11 +38,11 @@ export default function TabitArticle(props: { title: string; date: string; autho
     }).join("")
     const meta = [fmtDate(props.date), props.author].filter(Boolean).map(esc).join(" · ")
     const html = PRE + ARTICLE
-        .replace("{{TITLE}}", esc(props.title))
-        .replace("{{META}}", meta)
-        .replace("{{STANDFIRST}}", esc(props.standfirst))
-        .replace("{{BODY}}", body)
-        .replace("{{REFS}}", refs ? "<p class=\"tb9-b6\">References</p><ul class=\"tb9-refs\">" + refs + "</ul>" : "") + POST
+        .replace("{{TITLE}}", () => esc(props.title))
+        .replace("{{META}}", () => meta)
+        .replace("{{STANDFIRST}}", () => esc(props.standfirst))
+        .replace("{{BODY}}", () => body)
+        .replace("{{REFS}}", () => refs ? "<p class=\"tb9-b6\">References</p><ul class=\"tb9-refs\">" + refs + "</ul>" : "") + POST
     return (
         <div ref={ref} className="tb-page" style={{ ...props.style, width: "100%", background: onCanvas ? "#04070F" : "transparent" }}>
             <style>{CSS}</style>
