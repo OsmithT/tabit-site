@@ -177,15 +177,19 @@ Radius 2 everywhere; no other radius, no pill.
   figure is the page's one figure (v1.15): beside the headline, held there while the list passes (two columns);
   stacked, under the hero copy, 560 wide (phones the full width). From v1.20 (Oscar, 12 Nov, from the reference he
   chose) it is a planet in a disk of stars. The planet, the SCC, is a sphere in Dusk ("Make the center our blue"),
-  radius 34 figure units, lit with Paper 22 from the upper left and shaded with Night .30 to .50 at the limb; its name
-  sits under the system in Small at Paper 72. The disk is 1,400 Paper star points, starting at the planet's surface
+  radius 34 figure units, shaded with Night .30 to .50 towards the limb and with no Paper light on it, so it reads as
+  the blue it is (v1.21); it is there while the disk settles, then opens outwards into the Tabit knot drawn in Paper
+  star points, as the About figure draws it, which is the finished figure's centre (v1.21, as v1.19: "what I want as
+  the Tabit logo in the center"). The SCC's name sits under the system in Small at Paper 72. The disk is 1,400 Paper star points, starting at the planet's surface
   and densest there, seen in depth: the far side passes behind the planet, the near side in front. Each star in the
   disk carries a streak along its path (up to 9 degrees times its pace, the inner stars faster; longer while the scroll
   whirls the disk; never longer than 60 figure units); the canvas is cleared every frame, so nothing a star has drawn
   is left behind. With the scroll (§6) the disk settles flat into eight rings of stars, one a cell, on Dusk 14 orbit
-  lines, the streaks shortening to points; the rings stay, turning with the figure's slow clock. A mouse over a cell
-  (its list item, its ring or its name) turns that ring Brass, stars and line, with the cell's name on the ring in
-  Brass Small. The figure's column runs to 24 from the page edge and the rings to 8 inside it; beside the list, once
+  lines, the streaks shortening to points; the rings stay, turning with the figure's slow clock. The first orbit is
+  118 figure units from the centre and each orbit 34 beyond the last (v1.21: the room is between the rings, not round
+  the centre). A mouse over a cell (its list item, its ring or its name) turns that ring's stars Brass, a third
+  larger, with the cell's name on the ring in Brass Small; the line stays as it is (v1.21: "I don't want a golden
+  line"). The figure's column runs to 24 from the page edge and the rings to 8 inside it; beside the list, once
   the hero copy has scrolled clear, the figure grows towards the list, stopping 24 short of it.
 - People (About us): a grid of cards, four across (two stacked, one on phones), 32 × 40 apart, 1120 wide: a 4:5
   photo box (Paper 14 border, radius 2, nav wash fill, a Small "Photo n" label at Paper 60 until the photograph is
@@ -269,6 +273,11 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
 
 ## 10. Change log
 
+- 12 Nov 2026 — v1.21. Oscar on XR2.9.24: "The planet in the middle when you're scrolling down, that can stay … what
+  I want as the Tabit logo in the center … make the gap a little bigger between every single one … I don't want a
+  golden line. I just want … the little star dots, to go golden … I thought the planet in the middle was meant to be
+  the dusk blue." XR2.9.25 (§5 Lists): the planet opens into the Tabit knot again; orbits 118 + 34 a step (were 150 +
+  26); a hover turns only the ring's stars Brass; the planet loses its Paper light.
 - 12 Nov 2026 — v1.20. Oscar on XR2.9.23, with captures of the reference: "Why does the planet look so much better on
   here. Also you could keep the orbit looking like this and highlight it with the brass colour based on which we are
   looking at? Also the rings could be slightly larger so it fill more of the page" and "Make the center our blue".
