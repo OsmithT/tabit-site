@@ -1,4 +1,4 @@
-# Tabit website — style code (v1.23, 12 Nov 2026)
+# Tabit website — style code (v1.24, 12 Nov 2026)
 
 The values behind every visual decision on the site, taken from the home page as shipped (XR2.8.2) and the brand
 guidelines. `DESIGN.md` holds the cardinal rules (what never ships); this file holds the values. Where a page and this
@@ -185,7 +185,8 @@ Radius 2 everywhere; no other radius, no pill.
   and densest there, seen in depth: the far side passes behind the planet, the near side in front. Each star in the
   disk carries a streak along its path (up to 9 degrees times its pace, the inner stars faster; longer while the scroll
   whirls the disk; never longer than 60 figure units); the canvas is cleared every frame, so nothing a star has drawn
-  is left behind. With the scroll (§6) the disk settles flat into eight rings of stars, one a cell, on Dusk 14 orbit
+  is left behind. The scroll whirls the disk as it settles: a star half way out turns 180 degrees in all, the inner
+  stars further, easing out as the disk lands (v1.24: 300 was "too quick"). With the scroll (§6) the disk settles flat into eight rings of stars, one a cell, on Dusk 14 orbit
   lines, the streaks shortening to points; the rings stay, turning with the figure's slow clock. The first orbit is
   118 figure units from the centre and each orbit 34 beyond the last, the disk in depth reaching 380 (v1.21: the room
   is between the rings, not round the centre). The list runs from the shortest name to the longest, so the short names
@@ -285,6 +286,9 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
 
 ## 10. Change log
 
+- 12 Nov 2026 — v1.24. Oscar on XR2.9.27: "slow down the rotation a little when you scroll. Maybe by 40% its too
+  quick." XR2.9.28 (§5 Lists): the scroll's whirl of the Captives disk is 180 degrees over its settling, down from
+  300 (the value was in the board's generator only; it is now listed here). The figure's own slow turn is unchanged.
 - 12 Nov 2026 — v1.23. Oscar on XR2.9.26: "There is a resize jump as we scroll down the page ... the spin should hide
   that resize. It shouldn't be a resize after the animation is set. So it should spin up to the correct size."
   XR2.9.27 (§5 Lists): the Captives figure grows while the disk whirls and flattens and lands at its final size (it
