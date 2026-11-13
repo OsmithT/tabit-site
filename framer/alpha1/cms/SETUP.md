@@ -1,4 +1,4 @@
-# Press, articles and the Contact form: Framer setup (XR2.8)
+# Press, articles, the Contact form and the policy pages: Framer setup (XR2.8, XR3.3)
 
 Ashleigh, 11 Nov 2026. This is the same text as the Claude doc "Press & media CMS: setup notes for Framer"; it is
 copied here so it sits next to the code.
@@ -25,6 +25,8 @@ Pull the commit into Framer as usual, pinned to its hash. These files are for th
 | `pages/press.js` | The Press page as designed, with the current 11 items. The visual reference for Step 5. |
 | `cms/articles.csv` | Import file for the Articles collection: one article. |
 | `cms/press.csv` | Import file for the Press collection: all 11 items. |
+| `pages/privacy_policy.js`, `pages/terms_conditions.js` | XR3.3: the two policy pages (Privacy Policy and Terms & Conditions, below). |
+| `pages/contact_top.js` | XR3.3: the header and left column of the two-column Contact page (Contact form, below). |
 | `images/tabit-sky-tile.jpg` | Not used since XR2.10: every click-out page shows the home's own live sky, which TabitPage and TabitArticle put behind the whole page (Framer-built parts included). |
 
 The pull only updates code. The collections, pages and field connections below are set up once in Framer by hand.
@@ -140,6 +142,7 @@ No dividers, boxes, labels or numbers between items (STYLE.md §5, §9).
 - [ ] The article matches the static page, and "← Press and media" returns to /press
 - [ ] The old /articles/... address redirects
 - [ ] Checked at laptop width and on a phone
+- [ ] /privacy-policy and /terms-conditions open from every page's footer
 - [ ] Publish
 
 ## Contact form: make it send
@@ -147,19 +150,30 @@ No dividers, boxes, labels or numbers between items (STYLE.md §5, §9).
 The coded form in `pages/contact.js` sends nothing: it has no action, so Send reloads the page. It is replaced by a
 Framer Form that emails each message to **info@tabitinsurance.com**.
 
-1. **Top:** TabitPage, page **Contact: top** (header, "Let's talk.", intro, Email, Office, "Write to us").
-2. **Middle:** a Framer **Form**, 640 wide, left edge 80, 14 below "Write to us".
-3. **Bottom:** TabitPage, page **Legal line**, 96 below the form.
+**XR3.3 (Ashleigh, 13 Nov): the page is two columns.** "Let's talk.", the intro, then Email and Office on the left; the
+form beside them on the right, its top level with the headline. `pages/contact.js` is the whole page as designed (the
+visual reference); `pages/contact_top.js` ("Contact: top") is now the header and the left column only.
 
-| Label | Input | Name | Required | Placeholder or options |
-| --- | --- | --- | --- | --- |
-| Full name | Text | name | Yes | Your name |
-| Email address | Email | email | Yes | you@company.com |
-| Company | Text | company | No | Company name |
-| Area of interest | Select | area | Yes | Choose one; (Re)insurance; Captives; Digital assets; Something else |
-| How can we help? | Text area, 5 rows | message | Yes | Tell us what you're working on |
+1. **Two columns (window at least 1.6:1 and 1024 wide):** a horizontal Stack, full width, content no wider than 1800
+   (1440 units at 1.25 px), padding 0 80 0 0 (px at a 1280-wide window; scale with the page as the other pages do),
+   gap 96, top-aligned, two equal columns.
+   - **Left:** TabitPage, page **Contact: top**, width fill, height fit content. It brings its own 80 on the left and
+     176 at the top.
+   - **Right:** the Framer **Form**, width fill, 176 from the top of the Stack (so its first label is level with the
+     headline).
+2. **Stacked (narrower or squarer windows; a Framer breakpoint for Tablet and Phone):** the Stack turns vertical: Contact:
+   top, then the Form 56 below it, at most 640 wide, centred (Phone: full width, 24 from the edges; left-aligned).
+3. **Bottom:** TabitPage, page **Legal line**, 96 below the taller column.
 
-Full name and Email address share a row, 12 apart; the rest are full width.
+| Label | Input | Name | Required | Placeholder or options | Place |
+| --- | --- | --- | --- | --- | --- |
+| Full name | Text | name | Yes | Your name | row 1, left |
+| Email address | Email | email | Yes | you@company.com | row 1, right |
+| Company | Text | company | No | Company name | row 2, left |
+| Area of interest | Select | area | Yes | Choose one; (Re)insurance; Captives; Digital assets; Something else | row 2, right |
+| How can we help? | Text area, 4 rows | message | Yes | Tell us what you're working on | full width |
+
+Each row's two fields are 12 apart; the rows 12 apart. On a phone every field is full width, one under the other.
 
 | Part | Value (STYLE.md §5 Forms) |
 | --- | --- |
@@ -175,7 +189,29 @@ Full name and Email address share a row, 12 apart; the rest are full width.
 - **Error:** fields stay filled; "Something went wrong. Please try again, or email info@tabitinsurance.com."
 - Turn on Framer's spam protection if offered.
 - Test: a message arrives with all five fields; empty required fields stop Send; the thank-you line shows; it works
-  on a phone without zooming.
+  on a phone without zooming; the two columns line up at laptop width as `pages/contact.js` does.
+
+## Privacy Policy and Terms & Conditions (XR3.3)
+
+Two new pages, at the same addresses as on tabitinsurance.com today, so existing links keep working:
+
+1. Add a page at **/privacy-policy**: TabitPage, page **Privacy Policy**, full width, height fit content. Page title
+   "Privacy Policy | Tabit Insurance"; description "How Tabit Insurance collects, uses and protects information
+   from tabitinsurance.com."
+2. Add a page at **/terms-conditions**: TabitPage, page **Terms & Conditions**. Title "Terms & Conditions | Tabit
+   Insurance"; description "Terms of use for tabitinsurance.com."
+3. Background of both: Night `#04070F`, no image (TabitPage puts the home's live sky behind them).
+
+The text is the live site's word for word (Privacy: only the office address is the current one, The Grove; Terms:
+"is regulated"). Privacy keeps its "Last updated: April 6, 2026".
+
+## The footer (XR3.3)
+
+Every page's footer, the Legal line component and the article page now carry the live site's footer: the full
+regulatory text, "© 2026 Tabit - All Rights Reserved." and Contact Us · Privacy Policy · Terms & Conditions
+(/contact, /privacy-policy, /terms-conditions). Nothing to set up: it comes with the pull. The home's footer is drawn
+by TabitHome and rises at the end of the last chapter (About us). Check after publishing: the three links work from
+every page, including Press, Contact and an article, whose footers come from the Legal line or TabitArticle.
 
 ## Adding items later
 

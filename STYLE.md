@@ -1,4 +1,4 @@
-# Tabit website — style code (v1.33, 13 Nov 2026)
+# Tabit website — style code (v1.34, 13 Nov 2026)
 
 The values behind every visual decision on the site, taken from the home page as shipped (XR2.8.2) and the brand
 guidelines. `DESIGN.md` holds the cardinal rules (what never ships); this file holds the values. Where a page and this
@@ -375,6 +375,21 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
 
 ## 10. Change log
 
+- 13 Nov 2026 — v1.34 (Ashleigh, XR3.3, canvas "Tabit site – Ashleigh's boards (XR2.7–XR3.3)"). Wording agreed with Davin
+  (Home, (Re)insurance, Captives, About us; copy only). The site footer, on every page and the home: the live site's full
+  regulatory text, "© 2026 Tabit - All Rights Reserved." and Contact Us · Privacy Policy · Terms & Conditions, all at the
+  legal line's values (§5: Small 11/17 Paper 60, Paper 14 hairline above, links Paper 60 turning Brass on hover); no
+  address (Contact's Office has it). On the home it rises over the foot of the stage, scroll-driven and reversible, once
+  the last chapter is reached (§6), on the nav bar's wash (§2: `rgba(8,13,30,.50)` + 14 px blur, Paper 14 hairline above) so it
+  reads over the sky; the engine's own legal line under About is gone. New pages, within the code: Privacy Policy and
+  Terms & Conditions (Headline, Small meta, Body 600 sub-heads, Body, Brass-dot lists). Two exceptions, by Ashleigh's
+  decision, for Oscar to confirm or reverse: (4) Reading pages (the articles and the two policies) set their text in a
+  760 column centred on the page instead of 640 on the left (§3 measure, §4): long text in a 640 column on the left left
+  half the page empty; at 760 Body runs about 85 characters a line, past the 75 of §3. (5) Contact is two columns: the
+  headline, intro and Email/Office (a term/description list under a Paper 14 hairline, terms 96 wide) on the left, the
+  form on the right, its top level with the headline, 96 between the columns (§4); the form is shorter (Company and Area
+  of interest share a row; the message box 4 lines). Stacked, the details come first, then the form. Framer setup for
+  the new Contact layout and the two policy pages: framer/alpha1/cms/SETUP.md.
 - 13 Nov 2026 — v1.33 (XR3.1.4). Phones: Body 15 / 23 on every page (was 17 / 26); a figure stands at least 40 under
   its copy (was 24); the home's sky runs under the browser's status bar and toolbar (the home is laid in the document,
   100 above and 140 below the part in view, the document held scrolled 100 down; the nav bar's glass runs up under the
