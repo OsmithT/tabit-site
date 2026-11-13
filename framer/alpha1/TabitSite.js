@@ -457,11 +457,13 @@ var TABIT_PHL = null;   // XR3.0: the phone composition: where each chapter's fi
 var TABIT_XQ = 0;       // XR3.0: extra scroll after the last chapter, when About us is taller than the phone's screen
 var TB_PH_CT = 104;     // XR3.0: on a phone the copy starts 16 under the nav bar
 var TABIT_PHB = 0;   /* XR3.1: on a phone, the part of the stage under the browser's bar (units): the sky runs to the foot of the screen, the layout stops above it */
-function tbDpr(cap) { var d = window.devicePixelRatio || 1; if (TABIT_PH) return Math.min(3, d * Math.max(1, (window.innerWidth || TABIT_W) / TABIT_W)); return Math.min(d * TABIT_K, cap); }   /* XR3.1: a phone's sky is drawn at the screen's own pixel density (up to 3), times the stage's scale, so its stars are sharp points */
+var TABIT_ROOT = null;
+function tbDpr(cap) { var d = window.devicePixelRatio || 1; if (TABIT_PH) { var r = TABIT_ROOT && TABIT_ROOT.getBoundingClientRect(), sc = r && r.width ? r.width / TABIT_W : 1; return Math.min(3, d * Math.max(1, sc)); } return Math.min(d * TABIT_K, cap); }   /* XR3.1: a phone's sky is drawn at the screen's own pixel density (up to 3), times the stage's own scale (read from the stage, not the window: in a preview the phone stage is a column in a wide window) */
 function tbG(k) { return TABIT_PH && TABIT_PHL && TABIT_PHL[k] ? TABIT_PHL[k] : TABIT_SUBJ; }   // a chapter's figure: on a phone each has its own place and size
 var TABIT_ST = 0, TABIT_H = 720, TABIT_OY = 0, TABIT_LIFT = 0, TABIT_HF = 0, TABIT_AIC = null;   // XR2.8: stack factor (0 two columns at >=1.6:1, 1 stacked at <=4:3), stage height, vertical offset
 function tbLerp(a, b, t) { return a + (b - a) * t; }
 function tabitLayout(root, k) {
+  TABIT_ROOT = root;
   if (!root) return false;
   if (k) TABIT_K = k;
   if (!root.__ro && window.ResizeObserver) { root.__ro = new ResizeObserver(function () { root.__w = root.clientWidth; root.__h = root.clientHeight; }); root.__ro.observe(root); }
@@ -581,7 +583,7 @@ function makeTabitHero(glCanvas, ovCanvas, DATA, DOM) {
   // Tabit hero, Night mode (Brand Book 2027). The sky, the flare and the knot's stars are WebGL;
   // the logo itself is the flat white lockup in the DOM, exactly as drawn.
   var T3 = THREE;
-  var W = TABIT_W, H = TABIT_H, OX = TABIT_OX, OY = TABIT_OY, dpr = tbDpr(2);   // W follows the screen; OX centres the 1280 design in it
+  var W = TABIT_W, H = TABIT_H, OX = TABIT_OX, OY = TABIT_OY, dpr = tbDpr(2), dpr0 = dpr;   // W follows the screen; OX centres the 1280 design in it
   var C_NIGHT = 0x04070F, BRASS = '168,130,58', DUSK = '184,192,212', IVORY = '251,249,244';
   var renderer = new T3.WebGLRenderer({ canvas: glCanvas, antialias: false, preserveDrawingBuffer: !!DATA.preserve });   // XR2.7.2: MSAA does nothing for point sprites and additive quads
   renderer.setPixelRatio(dpr); renderer.setSize(W, H, false);
@@ -758,6 +760,18 @@ function makeTabitHero(glCanvas, ovCanvas, DATA, DOM) {
       for (var side = 0; side < 2; side++) for (var q = 0; q < nx; q++) {
         var z = lerp(L.z0, L.z1, rnd()), xr = SHIFT * ZF / FPX, sx = side ? 1500 + rnd() * ext : -220 - rnd() * ext;
         var p = placeAt(sx, -160 + rnd() * 1040, z, ZF, xr);
+        addStar(p[0], p[1], p[2], Math.pow(rnd(), L.pw) * L.amp, L.dim);
+      }
+    });
+    seed = seedK;
+  })();
+  if (TABIT_PH) (function () {   // XR3.1: a phone's view draws back to about half size to show the whole lockup, and so sees far above and below the 1280 x 720 sky: the same sky carried up and down to cover it (own random sequence, so the sky that was there is unchanged)
+    var seedK = seed; seed = 9151;
+    LAYERS.forEach(function (L) {
+      var nb = Math.round(L.n * 1480 * 400 / (1720 * 1040));
+      for (var side = 0; side < 2; side++) for (var q = 0; q < nb; q++) {
+        var z = lerp(L.z0, L.z1, rnd()), xr = SHIFT * ZF / FPX, sy = side ? 880 + rnd() * 400 : -160 - rnd() * 400;
+        var p = placeAt(-100 + rnd() * 1480, sy, z, ZF, xr);
         addStar(p[0], p[1], p[2], Math.pow(rnd(), L.pw) * L.amp, L.dim);
       }
     });
@@ -1111,7 +1125,7 @@ function makeTabitHero(glCanvas, ovCanvas, DATA, DOM) {
   return {
     render: render,
     setDpr: function (d) {   // XR2.7.2: the governor lowers the sky's pixel ratio when frames are being dropped
-      d = Math.max(TABIT_PH ? Math.min(2, dpr) : .75, Math.min(TABIT_PH ? 3 : 2, d));   /* XR3.1: on a phone never below 2 (a blurred sky reads as a fault there) */ if (Math.abs(d - dpr) < .01) return dpr; dpr = d;
+      d = Math.max(TABIT_PH ? Math.min(2, dpr0 * .7) : .75, Math.min(TABIT_PH ? 3 : 2, d));   /* XR3.1: on a phone the governor may take a 3x sky to 2x, a 2x sky to 1.4x, and no further (a blurred sky reads as a fault there) */ if (Math.abs(d - dpr) < .01) return dpr; dpr = d;
       renderer.setPixelRatio(dpr); renderer.setSize(W, H, false); ovCanvas.width = Math.round(W * dpr); ovCanvas.height = Math.round(H * dpr); starMat.uniforms.uPR.value = dpr; return dpr;
     },
     getDpr: function () { return dpr; },

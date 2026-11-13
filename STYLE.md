@@ -284,8 +284,9 @@ tracking), stands 26 under the ring (2.4–3.0 s). Then, as before (v1.32), the 
 the name keeping under the ring until it goes (4.1–4.6 s), the logo forms, and the view draws back as TABIT is spelt until
 the lockup stands across the screen 326 wide (32 from each edge); the splash rests there with Explore. On the scroll the
 lockup glides into the bar and shrinks to its docked 140 (no star flight on a phone). The phone's sky is drawn at the
-screen's own pixel density (up to 3 ×; the frame governor never takes it below 2 ×) and runs to the foot of the screen,
-under a browser bar that floats over the page; the page is laid out above that bar. The page
+screen's own pixel density times the stage's scale (up to 3 ×; the frame governor may take 3 × to 2 ×, 2 × to 1.4 ×, no
+further); it is carried 400 above and below the 1280 × 720 sky, so the drawn-back splash is starred to the screen's top
+and foot; and it runs under a browser bar that floats over the page, the page laid out above that bar. The page
 follows the finger one for one and, when the finger lifts, glides on from the speed it had (the scroll's own ease, a
 third of a second). A figure that stands under its copy (Captives, License) travels with its page, arriving and
 leaving; between pages the figure's stars still gather into one ball that runs to the next figure's place. A page's
