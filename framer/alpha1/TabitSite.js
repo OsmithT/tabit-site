@@ -164,7 +164,7 @@ function runTabit(host, THREE, init) {
     function blk(d, css, html) { return '<div data-tabit-ik="5" data-tabit-in="' + d + '" style="opacity: 0; ' + (css || '') + '">' + html + '</div>'; }
     function step(y, lab, n, gold) { var c1 = gold ? BR : IV, c2 = gold ? BR : SUB; return '<div class="tbq tbq-s' + n + '" style="flex: 0 0 auto; position: relative; padding-top: 26px; white-space: nowrap"><span style="position: absolute; left: 0; top: -4px; width: 7px; height: 7px; background: ' + c1 + '; transform: rotate(45deg)"></span><div style="font-size: 40px; line-height: 44px; font-weight: 600; letter-spacing: -.035em; color: ' + c1 + '">' + y + '</div><div style="margin-top: 6px; font-size: 13px; line-height: 20px; color: ' + c2 + '">' + lab + '</div></div>'; }
     var legal = s5.querySelector('[data-tabit-in="5"]'), lh = '';
-    if (legal) { legal.style.top = '512px'; legal.innerHTML = legal.textContent + '<br>The Grove, 21 Pine Road, Belleville, St. Michael, Barbados'; lh = legal.outerHTML; }
+    if (legal) { legal.style.top = '512px'; lh = ''; }   // Ashleigh13.11 (XR3.3): no legal line in About; the site footer (TabitHome.tsx) carries it
     s5.innerHTML = '<div style="position: relative; height: 520px">'
       + '<div style="position: absolute; left: 0; top: 40px; width: 470px">'
       + blk(1, '', '<div style="font-size: 64px; line-height: 66px; font-weight: 600; letter-spacing: -.035em; color: ' + IV + '">Named to <span style="color: ' + BR + '">endure.</span></div>')

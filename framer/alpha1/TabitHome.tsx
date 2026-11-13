@@ -20,6 +20,11 @@ const H = 720, WMIN = 960, WMAX = 4096, SMIN = 0.62, SMAX = 1.25, PHONE_W = 390,
 // so on a phone the home is laid in the document itself, PH_TOP above and PH_BOT below the part in view, and the document is held
 // scrolled PH_TOP down: the bars show the sky. The engine lays the page out in the part in view (TABIT_PHT, TABIT_PHB).
 const PH_TOP = 100, PH_BOT = 140
+// Ashleigh13.11 (XR3.3): the site footer (as pages/legal.js: the full regulatory text, © 2026, Contact Us · Privacy Policy · Terms & Conditions)
+// rises over the foot of the stage when you keep scrolling past the last chapter, and goes back down as you scroll back. Scroll-driven and
+// reversible; the engine is not changed: the wheel and touch are taken at the stage only while the footer is moving or once the page is at its end.
+const FOOT_HTML = "<div style=\"max-width: 920px\"><p style=\"margin: 0\">Tabit Insurance SCC (“Tabit”) is regulated and licensed in Barbados by the Financial Services Commission of Barbados. Tabit is not regulated or licensed outside of Barbados and deals only through appropriately licensed insurance brokers. To ensure compliance regarding our insurance support of companies domiciled in jurisdictions outside of Barbados, any request for insurance coverage must be submitted through our appropriate broking channels. The publication and delivery of information herein is not intended as a direct solicitation for the purchase of insurance coverage.</p><p style=\"margin: 8px 0 0\"><span>© 2026 Tabit - All Rights Reserved.</span><span aria-hidden=\"true\" style=\"margin: 0 10px\">·</span><a href=\"/contact\">Contact Us</a><span aria-hidden=\"true\" style=\"margin: 0 10px\">·</span><a href=\"/privacy-policy\">Privacy Policy</a><span aria-hidden=\"true\" style=\"margin: 0 10px\">·</span><a href=\"/terms-conditions\">Terms &amp; Conditions</a></p></div>"
+const FOOT_CSS = "[data-tb-foot] a{color:inherit;text-decoration:none;transition:color .25s ease}[data-tb-foot] a:active{color:#A8823A}@media (hover:hover) and (pointer:fine){[data-tb-foot] a:hover{color:#A8823A}}[data-tb-foot] a:focus-visible{outline:2px solid #A8823A;outline-offset:3px}"
 
 function once(id: string, make: () => HTMLElement) {
     if (!document.getElementById(id)) { const el = make(); el.id = id; document.head.appendChild(el) }
@@ -44,6 +49,7 @@ export default function TabitHome(props: { style?: any }) {
     useEffect(() => {
         once("tabit-fonts", () => Object.assign(document.createElement("link"), { rel: "stylesheet", href: FONT_URL }))
         once("tabit-home-css", () => Object.assign(document.createElement("style"), { textContent: TABIT_HOME_CSS }))
+        once("tabit-home-foot-css", () => Object.assign(document.createElement("style"), { textContent: FOOT_CSS }))
         let inst: any = null, alive = true
         loadThree().then((THREE) => { if (alive && host.current) inst = runTabit(host.current, THREE, OPTIONS) })
         const de = document.documentElement, ob = de.style.overscrollBehavior, body = document.body, bmh = body.style.minHeight
@@ -80,19 +86,49 @@ export default function TabitHome(props: { style?: any }) {
             st.width = Math.round(w) + "px"
             st.height = Math.round(h) + "px"
             st.transform = `translate(-50%, 0) scale(${s})`
+            const ft = foot()   // Ashleigh13.11 (XR3.3): on a phone the footer sits at the foot of the part in view, above PH_BOT
+            if (ft) { ft.style.bottom = phone ? Math.round(PH_BOT / s) + "px" : "0px"; ft.style.padding = phone ? "18px 16px 22px" : "22px 80px 26px" }
             hold()
+        }
+        // Ashleigh13.11 (XR3.3): the footer's rise, 0 (hidden below the stage) to 1 (in view), driven by the wheel or the finger
+        let footF = 0, touchY: number | null = null
+        const foot = () => S0 && (S0.querySelector("[data-tb-foot]") as HTMLElement | null)
+        const atEnd = () => {   // the engine's page has scrolled to its last chapter (its scroller's translate has reached data-h - 720)
+            const sc = S0 && (S0.querySelector("[data-tabit-scroll]") as HTMLElement | null); if (!sc) return false
+            const m = /translateY\((-?[\d.]+)px\)/.exec(sc.style.transform || ""), y = m ? parseFloat(m[1]) : 0
+            return -y >= parseFloat(sc.getAttribute("data-h") || "720") - 720 - 4
+        }
+        const setFoot = (v: number) => {
+            footF = Math.max(0, Math.min(1, v)); if (footF < 0.001) footF = 0
+            const f = foot(); if (f) f.style.transform = "translateY(" + ((1 - footF) * 100).toFixed(2) + "%)"
+        }
+        const footStep = (d: number, e: Event) => {
+            if (footF > 0 || (d > 0 && atEnd())) {
+                if (footF === 0 && d < 0) return
+                e.stopPropagation(); if (e.cancelable) e.preventDefault()
+                setFoot(footF + d)
+            }
+        }
+        const onWheel = (e: WheelEvent) => footStep(e.deltaY / 300, e)
+        const onTouchStart = (e: TouchEvent) => { touchY = e.touches[0].clientY }
+        const onTouchMove = (e: TouchEvent) => { if (touchY == null) return; const y = e.touches[0].clientY, d = (touchY - y) / 200; touchY = y; footStep(d, e) }
+        if (S0) {
+            S0.addEventListener("wheel", onWheel, { capture: true, passive: false })
+            S0.addEventListener("touchstart", onTouchStart, { capture: true, passive: true })
+            S0.addEventListener("touchmove", onTouchMove, { capture: true, passive: false })
         }
         const ro = new ResizeObserver(fit); if (wrap.current) ro.observe(wrap.current); fit()
         window.addEventListener("resize", fit)   // a phone's bars showing or hiding change the height in view without changing the frame
         window.addEventListener("scroll", onScroll, { passive: true })
         if (window.innerWidth < 600) once("tabit-theme", () => Object.assign(document.createElement("meta"), { name: "theme-color", content: "#04070F" }))   // a phone's browser bars take the night's colour
-        return () => { alive = false; ro.disconnect(); window.removeEventListener("resize", fit); window.removeEventListener("scroll", onScroll); if (snap) cancelAnimationFrame(snap); de.style.overscrollBehavior = ob; body.style.minHeight = bmh; if (S0 && S0.parentNode === body) body.removeChild(S0); try { inst && inst.dispose() } catch (e) {} }
+        return () => { alive = false; if (S0) { S0.removeEventListener("wheel", onWheel, true); S0.removeEventListener("touchstart", onTouchStart, true); S0.removeEventListener("touchmove", onTouchMove, true) }; ro.disconnect(); window.removeEventListener("resize", fit); window.removeEventListener("scroll", onScroll); if (snap) cancelAnimationFrame(snap); de.style.overscrollBehavior = ob; body.style.minHeight = bmh; if (S0 && S0.parentNode === body) body.removeChild(S0); try { inst && inst.dispose() } catch (e) {} }
     }, [])
 
     return (
         <div ref={wrap} style={{ ...props.style, position: "relative", width: "100%", height: "100%", minHeight: 400, background: "#04070F", overflow: "hidden" }}>
             <div ref={stage} style={{ position: "absolute", left: "50%", top: 0, width: 1280, height: H, overflow: "hidden", background: "#04070F", fontFamily: "Manrope, system-ui, sans-serif", color: "#FBF9F4", transform: "translate(-50%, 0)", transformOrigin: "top center" }}>
                 <div ref={host} style={{ position: "absolute", inset: 0 }} />
+                <footer data-tb-foot="1" aria-label="Legal" dangerouslySetInnerHTML={{ __html: FOOT_HTML }} style={{ position: "absolute", left: 0, right: 0, bottom: 0, zIndex: 40, transform: "translateY(100%)", background: "rgba(8,13,30,.5)", WebkitBackdropFilter: "blur(14px)", backdropFilter: "blur(14px)", borderTop: "1px solid rgba(251,249,244,.14)", padding: "22px 80px 26px", fontFamily: "Manrope, system-ui, sans-serif", fontSize: 11, lineHeight: "17px", color: "rgba(251,249,244,.60)" }} />
             </div>
         </div>
     )
