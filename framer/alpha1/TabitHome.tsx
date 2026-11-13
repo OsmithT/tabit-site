@@ -59,7 +59,9 @@ export default function TabitHome(props: { style?: any }) {
             const sw = phone ? Math.min(r.width / PHONE_W, PHONE_SMAX) : r.width >= 1152 ? Math.min(SMAX, r.width / 1152) : Math.min(1, r.width / WMIN)
             const s = phone ? sw : Math.min(sw, Math.max(r.height / H, SMIN))
             const w = phone ? r.width / s : Math.min(WMAX, r.width / s)
-            const h = phone ? vis / s : Math.max(H, r.height / s)   // squarer than 4:3 the stage grows taller and the engine stacks (DESIGN.md rule 8)
+            const h = phone ? r.height / s : Math.max(H, r.height / s)
+            // XR3.1: on a phone the stage (and so the sky) runs to the frame's foot, under a browser bar that floats over the page; the engine is told how much of it lies under the bar (TABIT_PHB), and lays the page out above it
+            ;(window as any).__TABIT_PHB = phone ? Math.max(0, (r.height - vis) / s) : 0   // squarer than 4:3 the stage grows taller and the engine stacks (DESIGN.md rule 8)
             de.style.overscrollBehavior = phone ? "none" : ob   // XR3.0: on a phone the home takes the scroll itself, so the page behind it must not rubber-band or pull to refresh under the finger
             const st = stage.current.style
             st.width = Math.round(w) + "px"
