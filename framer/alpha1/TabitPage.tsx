@@ -11,7 +11,10 @@ import * as contactTop from "./pages/contact_top.js"
 import * as legal from "./pages/legal.js"
 import * as articleBitcoin from "./pages/article_why_insurers_fear_bitcoin.js"
 import * as articleTemplate from "./pages/article_template.js"
+import * as privacyPolicy from "./pages/privacy_policy.js"
+import * as termsConditions from "./pages/terms_conditions.js"
 
+// Ashleigh13.11 (XR3.3): adds Privacy Policy and Terms & Conditions (pages/privacy_policy.js, pages/terms_conditions.js).
 // XR2.11 (Oscar, 12 Nov): a page module may carry its own script (Captives: its figure, board XR2.9.31E). It is a function body run with
 // the page's element once the page's fonts are in, and it returns its own teardown; scroll- and pointer-driven (see the module).
 // XR2.10: page files are named with underscores, as Framer names code files (press_header.js, not press-header.js).
@@ -21,7 +24,7 @@ import * as articleTemplate from "./pages/article_template.js"
 // Tabit XR2.9.2 click-out pages, restyled to STYLE.md (the approved XR2.4 copy). Put one on each page, full width, height "fit content".
 // @framerSupportedLayoutWidth any
 // @framerSupportedLayoutHeight auto
-const PAGES: Record<string, { css: string; html: string; js?: string }> = { reinsurance, captives, aboutus, contact, press, pressHeader, contactTop, legal, articleBitcoin, articleTemplate }
+const PAGES: Record<string, { css: string; html: string; js?: string }> = { reinsurance, captives, aboutus, contact, press, pressHeader, contactTop, legal, articleBitcoin, articleTemplate, privacyPolicy, termsConditions }
 const SKY_OPTIONS = { k: 1, opt: 37, x23: true, x2313: true, x2310: true, x237: true, x234: true, noMark: true, x251: true }   // TabitHome.tsx's options
 const FONT_URL = "https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&display=swap"
 
@@ -62,5 +65,5 @@ export default function TabitPage(props: { page: string; style?: any }) {
 
 TabitPage.defaultProps = { page: "reinsurance" }
 addPropertyControls(TabitPage, {
-    page: { type: ControlType.Enum, title: "Page", options: ["reinsurance", "captives", "aboutus", "contact", "press", "pressHeader", "contactTop", "legal", "articleBitcoin", "articleTemplate"], optionTitles: ["(Re)insurance", "Captives", "About us", "Contact", "Press", "Press: header", "Contact: top", "Legal line", "Article: Bitcoin vs private credit", "Article template"] },
+    page: { type: ControlType.Enum, title: "Page", options: ["reinsurance", "captives", "aboutus", "contact", "press", "pressHeader", "contactTop", "legal", "articleBitcoin", "articleTemplate", "privacyPolicy", "termsConditions"], optionTitles: ["(Re)insurance", "Captives", "About us", "Contact", "Press", "Press: header", "Contact: top", "Legal line", "Article: Bitcoin vs private credit", "Article template", "Privacy Policy", "Terms & Conditions"] },
 })
