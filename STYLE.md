@@ -176,7 +176,8 @@ that it runs on under the fold and the scroll carries on until its last line is 
 Chapters stand 720 units apart on the scroll, as everywhere. The Home trust row sets its first two facts on one line
 and the third under it (no middot at a line's end).
 The bar is the burger (its lines on the copy's left edge) and the lockup, centred, 140 wide; Contact us is the menu's
-last link, on every page. No chapter path, Replay or coordinates on a phone. The landing opens close on Orion's shield
+last link, on every page. The click-out pages are left-aligned on a phone too, 24 from each edge (their figures
+centred). No chapter path, Replay or coordinates on a phone. The landing opens close on Orion's shield
 and Tabit's star and draws back to the whole lockup, 326 wide (§6).
 
 ## 5. Components
@@ -373,7 +374,9 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
   figures travelling with their page, hover for a mouse alone). Body, Small, Control and Label are the code's own on a
   phone (the designs had drawn Body at 16/24 and the button at 15/20; the code's 17/26 and 14/18 stand, as on the
   click-out pages). For Oscar to rule: Orion on Home is cut by the foot of a tall phone's screen and left out on a short
-  one (DESIGN.md's house rule is "whole or not at all"); the click-out pages still centre their copy on a phone.
+  one (DESIGN.md's house rule is "whole or not at all"; Oscar, 13 Nov: "I don't know what orion looks like until I see
+  it so publish"). The click-out pages are left-aligned on a phone too, 24 from the edges like the home (Oscar, 13 Nov:
+  "All click out should be left aligned yes"); their figures stay centred. Published 13 Nov.
 
 - 13 Nov 2026 — v1.31 (XR2.11.2, live). Oscar on the live Home headline: "its the line spacing of the title i'm worried
   about", and on the offer of smaller letters with more room: "I don't want the letters smaller just push the spacing."

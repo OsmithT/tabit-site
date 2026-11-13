@@ -71,8 +71,8 @@ failure is flagged for Oscar's decision rather than blocking on its own. Owner o
 - The star-path chapter labels — navigation, not kickers.
 
 Under decision (flag, do not block, until Oscar rules): on a phone, Orion on Home cut by the foot of a tall screen
-(as on the phone design Oscar chose) and left out on a short one, against "whole or not at all"; the click-out pages'
-copy still centred on a phone while the home's is left-aligned; whether XR2.9.22's star disk may turn faster than the cells at rest, as its reference does (built at the cells' 3 degrees a second, the extra whirl on the scroll); the film-grain loop and the EXPLORE cue pulse (cardinal 4 as
+(as on the phone design Oscar chose) and left out on a short one, against "whole or not at all" (Oscar wants to see it
+live first); whether XR2.9.22's star disk may turn faster than the cells at rest, as its reference does (built at the cells' 3 degrees a second, the extra whirl on the scroll); the film-grain loop and the EXPLORE cue pulse (cardinal 4 as
 worded); the hairline above the Home proof row and the 1 px Dusk 14 edge under the nav bar; `Replay` and the
 coordinates as on-screen chrome; the splash having no primary action; the About legal line at 11 px; on the click-out
 pages, the (Re)insurance hero
