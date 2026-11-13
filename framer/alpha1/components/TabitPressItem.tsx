@@ -25,7 +25,7 @@ const CSS =
     ".tb9-plink:focus-visible{outline:2px solid #A8823A;outline-offset:3px}" +
     "@media (hover:hover) and (pointer:fine){.tb9-plink:hover{color:#A8823A}}" +
     "@media (max-aspect-ratio:1599/1000),(max-width:1023.98px){.tb9-pi{text-align:center;padding-top:0;padding-bottom:calc(20*var(--u))}.tb9-pi.tb9-first{padding-top:calc(96*var(--u))}.tb9-pi .tb9-list{grid-template-columns:1fr;margin:0 auto}}" +
-    "@media (max-width:600px){.tb9-pi{padding-left:24px;padding-right:24px;text-align:left}.tb9-pi .tb9-list{width:100%;margin:0}}"   // XR3.0: left-aligned on a phone, 24 from the edges, like every page
+    "@media (max-width:600px){.tb9-pi{padding-left:24px;padding-right:24px;text-align:left}.tb9-pi .tb9-list{width:100%;margin:0}.tb9-b,.tb9-b6{font-size:15px;line-height:23px}}"   // XR3.0: left-aligned on a phone, 24 from the edges, like every page
 
 const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 // a CMS date arrives as an ISO date; written as on the reference pages, "4 Sep 2025" (Intl's en-GB short month gives "Sept")

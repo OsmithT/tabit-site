@@ -97,17 +97,19 @@ Manrope 300/400/500/600. No monospace; italics only for the dictionary entry's *
 | Control | 14 / 18 | 600 | 0 | Sentence | Button labels |
 | Label | 11 / 16 | 600 | .20em | UPPER | Star-path chapter names, compass letters, EXPLORE cue (.26em), coordinates (400, .14em) |
 
-**Phones (v1.32).** The scale holds on a phone; three steps are set for its width, and nothing else changes (Body 17/26,
-Small 13/20, Control 14/18, Label 11/16 as above):
+**Phones (v1.33).** The scale holds on a phone; four steps are set for its width, and nothing else changes (Small 13/20,
+Control 14/18, Label 11/16 as above):
 
 | Step on a phone | Size / line | Weight | Tracking | Used for |
 |---|---|---|---|---|
 | Display | 46 / 52 | 600 | −.035em | Home headline, three lines, hanging as in two columns (it is left-aligned); 84 does not fit 342 units, and 46 is the largest at which "(re)insurance" does with room |
 | Headline | 40 / 44 | 600 | −.035em | Chapter headlines (the Title step's values, as the click-out pages have set their headline on a phone since v1.3); balanced over its lines |
 | Title | 30 / 34 | 600 | −.035em | Compass point titles, "Tabit" in the dictionary entry, timeline years (40 would stand level with the chapter headline, and three years at 40 do not fit the width) |
+| Body | 15 / 23 | 400 | 0 | All running copy on a phone, the home's and the click-out pages' (v1.33, Oscar, 13 Nov, on his phone: "The body text on the phone is too big … maybe by even two sizes"; it was 17 / 26). Sub-heads Body 600 at the same size. Form fields stay 16 (a phone's browser zooms into a field set smaller) |
 
 The compass point's outlined letter is 46 / 46 on a phone (84 / 84 elsewhere). The measure on a phone is 342 units,
-about 40 characters of Body.
+about 45 characters of Body. A chapter's figure stands at least 40 under its copy on a phone (v1.33; it was 24: Oscar,
+"too close to the button. Give a little more padding").
 
 Measure 45–75 characters (column 640, text ≤ 610). Two-column copy left-aligned; stacked centred. Headlines ≤ 2 lines
 at every width (change the words, not the size); the Home Display headline alone runs to three (v1.29: with "(re)" in
@@ -373,6 +375,10 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
 
 ## 10. Change log
 
+- 13 Nov 2026 — v1.33 (XR3.1.4). Phones: Body 15 / 23 on every page (was 17 / 26); a figure stands at least 40 under
+  its copy (was 24); the home's sky runs under the browser's status bar and toolbar (the home is laid in the document,
+  100 above and 140 below the part in view, the document held scrolled 100 down; the nav bar's glass runs up under the
+  status bar).
 - 13 Nov 2026 — v1.33 (XR3.1). Phones: the intro opens on the sky alone (no grid, coordinates or Orion's lines) and zooms
   slowly in on Tabit's star as it comes up, the brass ring goes once round it with its name under it; then the knot, the
   spelt name, the draw-back and the splash as in v1.32 (Oscar, after a first cut that went straight to the home: "where's
