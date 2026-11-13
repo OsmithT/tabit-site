@@ -456,7 +456,7 @@ var TABIT_PH = false;   // XR3.0: a phone (the stage is narrower than 600 units:
 var TABIT_PHL = null;   // XR3.0: the phone composition: where each chapter's figure stands on this screen (tbPhoneLayout)
 var TABIT_XQ = 0;       // XR3.0: extra scroll after the last chapter, when About us is taller than the phone's screen
 var TB_PH_CT = 104;     // XR3.0: on a phone the copy starts 16 under the nav bar
-var TABIT_PHB = 0;   /* XR3.1: on a phone, the part of the stage under the browser's bar (units): the sky runs to the foot of the screen, the layout stops above it */
+var TABIT_PHB = 0, TB_PHSKY = 360, TB_PHGL = 170;   /* XR3.1: how far (units, nearest stars) a phone's sky travels up as the splash scrolls away */   /* XR3.1: on a phone, the part of the stage under the browser's bar (units): the sky runs to the foot of the screen, the layout stops above it */
 var TABIT_ROOT = null;
 function tbDpr(cap) { var d = window.devicePixelRatio || 1; if (TABIT_PH) { var r = TABIT_ROOT && TABIT_ROOT.getBoundingClientRect(), sc = r && r.width ? r.width / TABIT_W : 1; return Math.min(3, d * Math.max(1, sc)); } return Math.min(d * TABIT_K, cap); }   /* XR3.1: a phone's sky is drawn at the screen's own pixel density (up to 3), times the stage's own scale (read from the stage, not the window: in a preview the phone stage is a column in a wide window) */
 function tbG(k) { return TABIT_PH && TABIT_PHL && TABIT_PHL[k] ? TABIT_PHL[k] : TABIT_SUBJ; }   // a chapter's figure: on a phone each has its own place and size
@@ -769,8 +769,8 @@ function makeTabitHero(glCanvas, ovCanvas, DATA, DOM) {
     var seedK = seed; seed = 9151;
     LAYERS.forEach(function (L) {
       var nb = Math.round(L.n * 1480 * 400 / (1720 * 1040));
-      for (var side = 0; side < 2; side++) for (var q = 0; q < nb; q++) {
-        var z = lerp(L.z0, L.z1, rnd()), xr = SHIFT * ZF / FPX, sy = side ? 880 + rnd() * 400 : -160 - rnd() * 400;
+      for (var side = 0; side < 2; side++) for (var q = 0; q < (side ? nb * 1.8 : nb); q++) {   // the band below runs further: the sky slides up as the splash scrolls away (F.phy)
+        var z = lerp(L.z0, L.z1, rnd()), xr = SHIFT * ZF / FPX, sy = side ? 880 + rnd() * 720 : -160 - rnd() * 400;
         var p = placeAt(-100 + rnd() * 1480, sy, z, ZF, xr);
         addStar(p[0], p[1], p[2], Math.pow(rnd(), L.pw) * L.amp, L.dim);
       }
@@ -880,7 +880,7 @@ function makeTabitHero(glCanvas, ovCanvas, DATA, DOM) {
     var a = eIOS(seg(t, 0, 3.9)), b = eIOS(seg(t, 4.6, 5.5)), zC = Math.min(.567, (W - 64) / 603.5);
     var z = lerp(lerp(.92, 1.2, a), zC, b), cx = W / 2 - b * SHIFT * (1 - eIOS(seg(t, TL.word0 - .1, TL.word0 + 1.25))) * z, cy = Math.round((H - TABIT_PHB) * .47), k = FX.phk || 0;   // XR3.1: a slow zoom in on Tabit's star (which stands at the design's centre) as it comes up and the ring goes round it; then, as in XR3.0, the view draws back and stands on the lockup's own centre before the third letter is spelt, so no letter is ever cut by the screen's edge; the sky goes on sliding behind it
     PV0 = { z: z, cx: cx, cy: cy };
-    return { z: lerp(z, 1, k), cx: lerp(cx, W / 2, k), cy: lerp(cy, H / 2, k) };
+    return { z: lerp(z, 1, k), cx: lerp(cx, W / 2, k), cy: lerp(cy, H / 2, k) + (FX.phy || 0) };
   }
   function camera(t) {
     var p = eIOS(seg(t, 0, 3.9));
@@ -925,6 +925,7 @@ function makeTabitHero(glCanvas, ovCanvas, DATA, DOM) {
     Object.keys(ori).forEach(function (k) {
       var o = ori[k], a = oriA * (.62 + .38 * focus);
       if (SHIELD[k]) a *= 1 - eIOS(seg(t, TL.shield0, TL.shield1));
+      if (TABIT_PH && k !== 'pi3') a = 0;   // XR3.1: a phone's intro has no Orion: its stars' glows are not drawn (Oscar: "ditch the Orion guy ... Just zoom in on the star")
       if (k === 'pi3') a = oriA * (1 - eIOS(seg(t, 2.6, 3.0)));
       var tw = k === 'pi3' ? 1 : twinkle(o, t);
       o.sp.material.opacity = clamp(a * (.36 + .26 * Math.pow(o.b, .3)) * tw * FX.ori, 0, 1);   // base kept low so the twinkle never clips
@@ -1022,10 +1023,11 @@ function makeTabitHero(glCanvas, ovCanvas, DATA, DOM) {
     var PHI = TABIT_PH, dA = eIOS(seg(t, .4, 1.4)), shieldOut = 1 - eIOS(seg(t, TL.shield0, TL.shield1)), knotIn = eIOS(seg(t, TL.draw0 - .2, TL.draw0 + .6));
     if (dA > 0) Object.keys(ori).forEach(function (k) {
       if (k === 'pi3' && t > TL.settle1) return;
+      if (PHI && k !== 'pi3') return;   // XR3.1: no Orion on a phone's intro
       var o = ori[k], s = S[k], c = o.col, pop = 0;   // B10: no brightness pop on Orion's stars as the figure is drawn (this was the early flash)
       var tw2 = k === 'pi3' ? 1 : twinkle(o, t);
       var rr = (k === 'pi3' ? 2.8 : Math.max(1.1, Math.min(2.2, 3.1 - .5 * o.mag)) * (.85 + .15 * tw2)) * (1 + .9 * pop);
-      ox.fillStyle = 'rgba(' + (c[0] * 255 | 0) + ',' + (c[1] * 255 | 0) + ',' + (c[2] * 255 | 0) + ',' + clamp(dA * (SHIELD[k] ? shieldOut : 1) * (k === 'pi3' ? (PHI ? eIOS(seg(t, .8, 1.8)) : 1) * (1 - seg(t, TL.settle0, TL.settle1)) : 1) * (.4 + .2 * focus + .4 * pop) * tw2 * FX.ori, 0, 1).toFixed(3) + ')';
+      ox.fillStyle = 'rgba(' + (c[0] * 255 | 0) + ',' + (c[1] * 255 | 0) + ',' + (c[2] * 255 | 0) + ',' + clamp(dA * (SHIELD[k] ? shieldOut : 1) * (k === 'pi3' ? (PHI ? eIOS(seg(t, .8, 1.8)) / (.4 + .2 * focus) * .95 : 1) * (1 - seg(t, TL.settle0, TL.settle1)) : 1) * (.4 + .2 * focus + .4 * pop) * tw2 * FX.ori, 0, 1).toFixed(3) + ')';
       ox.beginPath(); ox.arc(s[0], s[1], rr, 0, 6.2832); ox.fill();
     });
     var lA = PHI ? 0 : seg(t, TL.lines0, TL.lines0 + .2) * (1 - .3 * eIOS(seg(t, 4.4, 5.2))) * (1 - eIOS(seg(t, TL.word0, TL.word0 + 1.12))) * FX.ori;   // A16: the tracing fades as TABIT is spelt
@@ -1721,7 +1723,7 @@ function makeHandoff(hero, root, V) {
     if (navBg) navBg.style.opacity = sg(y, 10, 120).toFixed(3);
   }
   function reset() {
-    var F = hero.fx; F.oriName = 1; F.sky = 1; F.ori = 1; F.grid = 0; F.snap = 0; F.gridLine = 1; F.push = 0; F.camY = 0; F.lens = 1; F.phk = 0; F.hLine = 1; F.colsOnly = 0;
+    var F = hero.fx; F.oriName = 1; F.sky = 1; F.ori = 1; F.grid = 0; F.snap = 0; F.gridLine = 1; F.push = 0; F.camY = 0; F.lens = 1; F.phk = 0; F.phy = 0; F.hLine = 1; F.colsOnly = 0;
     if (night) night.style.transform = 'none';
     if (page) { page.style.clipPath = 'none'; page.style.pointerEvents = 'none'; }
     if (V === 'c4' || V === 'c5') { if (page) page.style.visibility = V === 'c5' ? 'visible' : 'hidden'; }
@@ -1751,7 +1753,7 @@ function makeHandoff(hero, root, V) {
       return; }
     touched = true;
     var p = cl(S / TABIT_HAND, 0, 1), y = cl(S - TABIT_HAND, 0, QMAX + TABIT_XQ);
-    root.style.cursor = p > .12 ? 'default' : 'none'; F.lens = p > .12 ? 0 : 1; F.phk = io(sg(p, 0, .3));
+    root.style.cursor = p > .12 ? 'default' : 'none'; F.lens = p > .12 ? 0 : 1; F.phk = TABIT_PH ? 0 : io(sg(p, 0, .3));   // XR3.1: on a phone the splash's view holds: the whole sky moves up with the scroll instead (F.camY, and the site's sky's drift), from the first touch
     if (page) page.style.pointerEvents = p > .6 ? 'auto' : 'none';
     if (scroller) scroller.style.transform = 'translateY(' + (-y).toFixed(1) + 'px)';
 
@@ -1800,6 +1802,7 @@ function makeHandoff(hero, root, V) {
     } else if (V === 'd2' || V === 'd3' || V === 'd4' || V === 'd5' || V === 'd6' || V === 'd7' || V === 'd8' || V === 'd9' || V === 'd10' || V === 'd11' || V === 'd12' || V === 'd13' || (V === 'd14' || /^dd/.test(V) || /^d[abc][1-6]$/.test(V) || V === 'db3' || V === 'dc3' || V === 'dc4' || V === 'dc5' || V === 'dc6' || V === 'dc7' || V === 'dc8' || V === 'dc9' || V === 'dc10' || V === 'dc11' || V === 'dc12' || V === 'dc13' || V === 'dc14' || V === 'dc15' || V === 'dc16' || V === 'dc17')) {      // D2: D1 with finesse: a calmer glide to centre, nav opening out from the logo, lines rising from their baselines, cards met as you scroll
       F.sky = lp(1, .8, E(p, 0, .7)); if ((V === 'd14' || /^dd/.test(V) || /^d[abc][1-6]$/.test(V) || V === 'db3' || V === 'dc3' || V === 'dc4' || V === 'dc5' || V === 'dc6' || V === 'dc7' || V === 'dc8' || V === 'dc9' || V === 'dc10' || V === 'dc11' || V === 'dc12' || V === 'dc13' || V === 'dc14' || V === 'dc15' || V === 'dc16' || V === 'dc17')) F.oriName = 1 - E(p, 0, .3);   // D14: the drawing stays, its label goes as the hand-off begins
       F.ori = (V === 'd13' || (V === 'd14' || /^dd/.test(V) || /^d[abc][1-6]$/.test(V) || V === 'db3' || V === 'dc3' || V === 'dc4' || V === 'dc5' || V === 'dc6' || V === 'dc7' || V === 'dc8' || V === 'dc9' || V === 'dc10' || V === 'dc11' || V === 'dc12' || V === 'dc13' || V === 'dc14' || V === 'dc15' || V === 'dc16' || V === 'dc17')) ? 1 : lp(1, (V === 'd11' || V === 'd12') ? 0 : V === 'd10' ? .07 : .2, E(p, 0, .5)); F.camY = -(70 * E(p, 0, 1) + .32 * y);
+      if (TABIT_PH) F.phy = -TB_PHGL * (1 - Math.pow(1 - p, 2));   // XR3.1: and the splash's own (3D) sky slides up with it, as one
       var dk = io5(sg(p, .04, .78)); if (V === 'dc17') fly3Update(p, t); else if (V === 'dc16') fly2Update(p, t); else if (V === 'dc15' || V === 'dc16' || V === 'dc17') flyUpdate(p, t); else dock(dk, V === 'dc14' || V === 'dc15' || V === 'dc16' || V === 'dc17' ? 'left' : 'centre', 40);   // D.C.2.2: the logo docks left in the nav; D.C.2.2.1: it flies there as stars
       if (nav) { nav.style.opacity = p > .3 ? '1' : '0'; nav.style.transform = 'none'; }
       if (navBg) navBg.style.opacity = sg(y, 10, 120).toFixed(3);
@@ -1859,7 +1862,8 @@ function makeHandoff(hero, root, V) {
       if (scroller) scroller.style.transform = 'translateY(' + (-yc).toFixed(1) + 'px)';
     }
     var r = scene.draw(t, u, cl(S / TABIT_HAND, 0, 1)), ph = r.ph, day = r.day;
-    F.sky *= 1 - .8 * sg(ph, .15, .8); F.ori *= (V === 'd13' || (V === 'd14' || /^dd/.test(V) || /^d[abc][1-6]$/.test(V) || V === 'db3' || V === 'dc3' || V === 'dc4' || V === 'dc5' || V === 'dc6' || V === 'dc7' || V === 'dc8' || V === 'dc9' || V === 'dc10' || V === 'dc11' || V === 'dc12' || V === 'dc13' || V === 'dc14' || V === 'dc15' || V === 'dc16' || V === 'dc17')) ? 1 - sg(ph, .2, .62) : 1 - sg(u, 0, .1);   // D13: the constellation stays with the night and goes with the dawn, like the stars
+    F.sky *= 1 - .8 * sg(ph, .15, .8);
+    if (TABIT_PH) F.sky = lp(1, F.sky, sg(S / TABIT_HAND, .5, 1));   // XR3.1: on a phone the splash's sky stays whole as it slides away, and gives way to the site's sky only over the second half of the scroll (dimmed from the first touch, it read as the stars going out) F.ori *= (V === 'd13' || (V === 'd14' || /^dd/.test(V) || /^d[abc][1-6]$/.test(V) || V === 'db3' || V === 'dc3' || V === 'dc4' || V === 'dc5' || V === 'dc6' || V === 'dc7' || V === 'dc8' || V === 'dc9' || V === 'dc10' || V === 'dc11' || V === 'dc12' || V === 'dc13' || V === 'dc14' || V === 'dc15' || V === 'dc16' || V === 'dc17')) ? 1 - sg(ph, .2, .62) : 1 - sg(u, 0, .1);   // D13: the constellation stays with the night and goes with the dawn, like the stars
     var ink = mixHex('#FFFFFF', '#09154A', day);
     logoParts.forEach(function (el) { if (el) el.style.fill = ink; });
     aiUpdate(S, yc - 720 * TABIT_AI_SHIFT, ink);   // AI is page 4: its title animation runs two pages later than it did on page 2
@@ -2041,7 +2045,7 @@ function makeScrollSky(root, IDEA, LOGO, OPT) {
     if (TB_SHARP) {   // XR2.2.6: the sky drifts a little against the mouse (nearer stars more) and parts round the pointer
       var pon = GRAV.on && GRAV.x > -900; MPX.x = lp(MPX.x, pon ? (GRAV.x - 640) / 640 : 0, .035); MPX.y = lp(MPX.y, pon ? (GRAV.y - 360) / 360 : 0, .035); MPX.k = lp(MPX.k, pon ? 1 : 0, .05);
       if (pon) { MPX.mx = MPX.mx < -900 ? GRAV.x : lp(MPX.mx, GRAV.x, .2); MPX.my = MPX.my < -900 ? GRAV.y : lp(MPX.my, GRAV.y, .2); }
-      var dr7 = TB_DRIFT ? Math.max(0, TB_SKYS - TABIT_HAND) * .05 : 0;
+      var dr7 = TB_DRIFT ? (TABIT_PH ? TB_PHSKY * (1 - Math.pow(1 - Math.min(1, Math.max(0, TB_SKYS) / TABIT_HAND), 2)) : 0) + Math.max(0, TB_SKYS - TABIT_HAND) * .05 : 0;   // XR3.1: on a phone the sky moves from the first touch of the scroll off the splash (Oscar: "none of the stars move at all until the Tabit logo's got to the top"); the splash's sky is this one, drawn once when the splash comes to rest, so until now it stood still until the drift began at Home
       drawSky(-MPX.x * 22, -MPX.y * 14 - dr7, .72, TB_DRIFT ? function (x, y, s) { y = ((y + 160) % 1040 + 1040) % 1040 - 160; return MPX.k > .01 ? mlens(x, y, s) : [x, y]; } : MPX.k > .01 ? mlens : null);
     } else drawSky(0, 0, .55);
   }
@@ -2440,8 +2444,9 @@ function makeScrollSky(root, IDEA, LOGO, OPT) {
         skyLayer();   // XR2.10: the sky itself, shared with the click-out pages (skyLayer, below inCopy)
         var k = Math.floor(u), f = u - k;
         var oA = TABIT_PH ? (1 - sg(TB_Y, 20, 170)) * (TABIT_PHL ? TABIT_PHL.home.a : 1) : TABIT_OPT >= 13 ? 1 - sg(io(sg(TB_Y, 20, 360)), .05, .85) : u < .02 ? 1 : 1 - sg(u, 0, .4);   // XR3.0: on a phone Orion stays where it is and is gone before the next page's words reach it   // X1.13: Orion fades as it enlarges
+        if (TABIT_PH) oA *= sg(SHELLR, .72, 1);   // XR3.1: on a phone Orion comes in on the Home page itself, once the logo is in the bar: it never crosses the splash
         if (oA > 0) {
-          if (HL) { var oe = io(sg(SHELLR, .3, .9)), OG = tbG('home'), osc = .8 * OG.s * tbLerp(1, tbLerp(.6, .8, TABIT_HF), TABIT_ST);   // Orion's figure spans x 163 to 522 and y 107 to 661: centre (342, 384)
+          if (HL) { var oe = TABIT_PH ? 1 : io(sg(SHELLR, .3, .9)), OG = tbG('home'), osc = .8 * OG.s * tbLerp(1, tbLerp(.6, .8, TABIT_HF), TABIT_ST);   // Orion's figure spans x 163 to 522 and y 107 to 661: centre (342, 384)
             drawOrion(oA, function (q) { if (TABIT_OPT >= 12 && /^(o11|omi2|pi[1-6])$/.test(q)) return null; var x = ORI[q][0], y = ORI[q][1], hx = lp(x, OG.cx + (x - 342) * osc, oe), hy = lp(y, OG.cy + tbLerp(44, tbLerp(70, 116, TABIT_HF), TABIT_ST) + (y - 384) * osc, oe); if (TABIT_OPT >= 13 && !TABIT_PH) { var te = io(sg(TB_Y, 20, 360)); return [lp(hx, 1280 + OXS - 106 + (x - 505) * 2.285, te), lp(hy, 64 + (y - 210) * 2.285, te)]; }   // X1.13: the whole drawing enlarges, centred on its bow
             return [hx, hy]; }); }
           else drawOrion(oA);
@@ -3127,7 +3132,7 @@ self.tick = function () {
   if (self.last0) { G.gaps.push(now - self.last0); if (G.gaps.length >= 72) {
     var sorted = G.gaps.slice().sort(function (a, b) { return a - b; }), ref = sorted[Math.floor(sorted.length * .2)]; G.hz = ref < 10 ? 120 : 60;
     var budget = (G.hz === 120 && G.lvl >= 1 ? 2 : 1) * (1000 / G.hz) * 1.45, dropped = G.gaps.filter(function (x) { return x > budget; }).length / G.gaps.length;
-    if (dropped > .12 && G.lvl < 3 && self.t < TABIT_END + 2 && !window.__TABIT_NOGOV) {
+    if (dropped > .12 && G.lvl < 3 && self.t < TABIT_END + 2 && !window.__TABIT_NOGOV && !(TABIT_PH && self.t < 1.6)) {   // XR3.1: on a phone the first frames (the page still loading) do not count
       G.lvl++; if (G.hz !== 120 && G.lvl === 1) G.lvl = 2;   // nothing to halve on a 60 Hz display: go straight to the pixel ratio
       if (G.lvl >= 2 && self.hero && self.hero.setDpr) { if (!G.base) G.base = self.hero.getDpr(); self.hero.setDpr(G.base * (G.lvl === 2 ? .75 : .55)); }
       if (window.console && (init.debug || window.__TABIT_DEBUG)) console.log('tabit governor: level ' + G.lvl + ' (' + Math.round(dropped * 100) + '% dropped at ' + G.hz + ' Hz)');

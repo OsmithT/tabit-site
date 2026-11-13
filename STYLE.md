@@ -276,17 +276,21 @@ Radius 2 everywhere; no other radius, no pill.
 
 ## 6. Motion
 
-**Phones (v1.33).** The opening sequence on a phone opens on the sky alone: no chart grid, coordinates, or Orion's lines
-and names (Orion comes in on the Home page). The view zooms slowly in, .92 × to 1.2 × over 3.9 s, on Tabit's star, .47 of
-the way down the screen above any browser bar; the star comes up out of the stars (0.8–1.8 s); the brass ring, 18 in
-radius, 1 px, goes once round it clockwise from the top (1.6–2.6 s), and its name, TABIT in brass (13 px, 600, 3 px
-tracking), stands 26 under the ring (2.4–3.0 s). Then, as before (v1.32), the ring opens round the knot as it is drawn,
-the name keeping under the ring until it goes (4.1–4.6 s), the logo forms, and the view draws back as TABIT is spelt until
-the lockup stands across the screen 326 wide (32 from each edge); the splash rests there with Explore. On the scroll the
-lockup glides into the bar and shrinks to its docked 140 (no star flight on a phone). The phone's sky is drawn at the
-screen's own pixel density times the stage's scale (up to 3 ×; the frame governor may take 3 × to 2 ×, 2 × to 1.4 ×, no
-further); it is carried 400 above and below the 1280 × 720 sky, so the drawn-back splash is starred to the screen's top
-and foot; and it runs under a browser bar that floats over the page, the page laid out above that bar. The page
+**Phones (v1.33).** The opening sequence on a phone opens on the sky alone: no chart grid or coordinates, and no Orion —
+neither its lines, its names nor its stars' glows (Oscar: "ditch the Orion guy ... Just zoom in on the star"); Orion comes in
+on the Home page, once the logo is in the bar, in its Home place (it never crosses the splash). The view zooms slowly in,
+.92 × to 1.2 × over 3.9 s, on Tabit's star, .47 of the way down the screen above any browser bar; the star comes up out of
+the stars (0.8–1.8 s); the brass ring, 18 in radius, 1 px, goes once round it clockwise from the top (1.6–2.6 s), and its
+name, TABIT in brass (13 px, 600, 3 px tracking), stands 26 under the ring (2.4–3.0 s). Then, as before (v1.32), the ring
+opens round the knot as it is drawn, the name keeping under the ring until it goes (4.1–4.6 s), the logo forms, and the
+view draws back as TABIT is spelt until the lockup stands across the screen 326 wide (32 from each edge); the splash rests
+there with Explore. On the scroll the lockup glides into the bar and shrinks to its docked 140 (no star flight on a phone),
+and the sky moves from the first touch: the splash's sky slides up 170 px over the scroll, as one, fastest at its start,
+and stays whole until halfway, then gives way to the site's sky, whose nearest stars drift up 360 over the same scroll
+(farther ones less). The phone's sky is drawn at the screen's own pixel density times the stage's scale (up to 3 ×; the
+frame governor ignores the first 1.6 s, while the page loads, and may take 3 × to 2 ×, 2 × to 1.4 ×, no further); it is
+carried 400 above and 720 below the 1280 × 720 sky, so the drawn-back splash is starred to the screen's top and foot; and
+it runs under a browser bar that floats over the page, the page laid out above that bar. The page
 follows the finger one for one and, when the finger lifts, glides on from the speed it had (the scroll's own ease, a
 third of a second). A figure that stands under its copy (Captives, License) travels with its page, arriving and
 leaving; between pages the figure's stars still gather into one ball that runs to the next figure's place. A page's
@@ -373,7 +377,9 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
   slowly in on Tabit's star as it comes up, the brass ring goes once round it with its name under it; then the knot, the
   spelt name, the draw-back and the splash as in v1.32 (Oscar, after a first cut that went straight to the home: "where's
   the circle around the Tabit logo and then the zoom out to the Tabit? That was good"). The phone's sky is sharp (drawn
-  at the screen's pixel density) and runs under the browser's bar. §6 Phones rewritten.
+  at the screen's pixel density) and runs under the browser's bar. Then (Oscar: "none of the stars move at all until the
+  Tabit logo's got to the top"; "ditch the Orion guy"): no Orion in the phone's intro; it comes in on Home once the logo
+  is docked; the sky moves up from the first touch of the scroll off the splash. §6 Phones rewritten.
 - 13 Nov 2026 — v1.32 (XR3.0, on the `phone` branch; not yet live). The home's phone composition, from the designs Oscar
   chose on 13 Nov ("It should zoom into C", "Remove the contact us button on mobile and put it into the burger",
   "Captives is much better", "left aligned is better. Let's go do the build"), after he found the live site unusable on
