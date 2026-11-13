@@ -22,9 +22,12 @@ The code behind the Tabit Insurance website prototype in Framer.
   - `tools/captives_figure.js`: the Captives figure's script, readable. `pages/captives.js` holds the same text as its
     `js` string; change this file, then write it into the module (`js = JSON.stringify(source)`), never the string by hand.
   - `TabitHomeStyles.js`: global CSS the home component injects once.
-  - `site-head.html`: the site-wide Custom Code snippet in Framer (End of <head>, all pages) that makes phones lay the
-    page out at their own width. Framer writes `width=1200` because the pages have only a Desktop breakpoint; without
-    this snippet a phone renders the desktop design shrunk to a third and the phone layout never runs.
+  - Framer pages and phones: every page in Framer has Desktop, Tablet (810–1199 px) and Phone (up to 809 px)
+    breakpoints (XR3.0, 13 Nov 2026). Keep them. A page with only a Desktop breakpoint makes Framer write
+    `<meta name="viewport" content="width=1200">`, and Framer enforces it at runtime (a head snippet cannot override
+    it): a phone then lays the page out 1,200 px wide and the phone layout never runs. The Tablet and Phone
+    breakpoints inherit the Desktop one; the only override is Contact's form on Phone (full width, 13 px side padding
+    so the fields line up with the copy at 24, and Full name / Email stacked).
 - `framer/alpha1/pages/press.js`, `press_header.js`, `article_*.js`, `contact_top.js` (underscores: Framer's file names), `legal.js` (Ashleigh, XR2.8):
   Press and media, the article page and its template, and the top/bottom parts of /press and /contact for pages
   built partly in Framer. `components/TabitArticle.tsx` is the CMS article page; `cms/` holds the import files and
