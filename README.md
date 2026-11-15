@@ -19,6 +19,8 @@ The code behind the Tabit Insurance website prototype in Framer.
     (`window.__TABIT_NAT`: `y()`, `to()`, `max()`; `natOn` in `TabitSite.js`). On a phone nothing of ours listens
     to the wheel, the finger or the keys: do not add a listener there that can stop the scroll (a non-passive
     `touchmove` or `wheel`), it makes the browser wait for it on every move of the finger. STYLE.md §6.
+    Its working numbers, which are not style values: the track sits at z-index 1 over Framer's page; the page is
+    taken as 7,000 units long until the engine says (`PH_S0`); a view is never taken as shorter than 320 px.
     Nothing changes at 600 px and wider.
   - `pages/reinsurance.js`, `captives.js`, `aboutus.js`, `contact.js`: the click-out pages as `{ css, html, js }` strings,
     with the burger header. `TabitPage.tsx` renders one of them (its `page` control picks which), puts the home's live

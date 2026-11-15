@@ -3117,7 +3117,8 @@ function bindInput(nat) {
 function touchEnd() { if (self.touch && self.t >= TABIT_END && performance.now() - tl < 80 && Math.abs(tv) > .05) self.input(Math.max(-1400, Math.min(1400, tv * 333))); self.touch = false; ty = null; }
   onIn('touchend', touchEnd, { passive: true }); onIn('touchcancel', touchEnd, { passive: true });
 }
-bindInput(false); self.natB = false;
+var nb0 = !!window.__TABIT_NAT;   // XR3.4: the host has said, before the first frame, that this is a phone's page: no listener that can stop the scroll is ever bound there
+bindInput(nb0); self.natB = nb0; if (nb0) { root.classList.add('tb-nat'); self.nat0 = true; self.natMax = -1; }
 on(root, 'pointermove', function (e) {
   if (!self.hero) return; var r = root.getBoundingClientRect();
   self.hero.pointer(((e.clientX - r.left) / r.width) * 2 - 1, ((e.clientY - r.top) / r.height) * 2 - 1);
@@ -3156,7 +3157,7 @@ self.tick = function () {
     if (ny !== self.natY) { self.natY = ny; self.lastIn = now; }
     if (self.t < TABIT_END) { if (ny > 24) self.ff = true; self.St = 0; self.natC = true; }   // scrolling during the intro fast-forwards it; the page is caught up with when it ends
     else { self.St = Math.max(0, Math.min(smax, ny));
-      if (!self.fing && now - (self.lastIn || 0) > 160) {   // the page has come to rest with no finger on it
+      if (!self.fing && now - (self.lastIn || 0) > 240) {   // the page has come to rest with no finger on it (240 ms, the wait the compass's hold has always had)
         var tg = null, yn = self.St - TABIT_HAND - 720;
         if (ny < -1) tg = 0;   // above the splash (the sky that stands under the status bar was pulled into view): back to the splash
         else if (TB_PIN && yn > 1 && yn < TB_PIN - 1) { var ln = Math.round(yn / TB_STEPPX) * TB_STEPPX; if (Math.abs(ln - yn) > 1.5) tg = TABIT_HAND + 720 + ln; }   // between two of the compass's lines: on to the nearer one, as before

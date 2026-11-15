@@ -31,7 +31,8 @@ const PH_TOP = 100, PH_BOT = 140, PH_RISE = 240, PH_S0 = 7000   // PH_S0: the pa
 // rises over the foot of the stage when you keep scrolling past the last chapter, and goes back down as you scroll back. Scroll-driven and
 // reversible; the engine is not changed: the wheel and touch are taken at the stage only while the footer is moving or once the page is at its end.
 const FOOT_HTML = "<div style=\"max-width: 920px\"><p style=\"margin: 0\">Tabit Insurance SCC (“Tabit”) is regulated and licensed in Barbados by the Financial Services Commission of Barbados. Tabit is not regulated or licensed outside of Barbados and deals only through appropriately licensed insurance brokers. To ensure compliance regarding our insurance support of companies domiciled in jurisdictions outside of Barbados, any request for insurance coverage must be submitted through our appropriate broking channels. The publication and delivery of information herein is not intended as a direct solicitation for the purchase of insurance coverage.</p><p style=\"margin: 8px 0 0\"><span>© 2026 Tabit - All Rights Reserved.</span><span aria-hidden=\"true\" style=\"margin: 0 10px\">·</span><a href=\"/contact\">Contact Us</a><span aria-hidden=\"true\" style=\"margin: 0 10px\">·</span><a href=\"/privacy-policy\">Privacy Policy</a><span aria-hidden=\"true\" style=\"margin: 0 10px\">·</span><a href=\"/terms-conditions\">Terms &amp; Conditions</a></p></div>"
-const FOOT_CSS = "[data-tb-foot] a{color:inherit;text-decoration:none;transition:color .25s ease}[data-tb-foot] a:active{color:#A8823A}@media (hover:hover) and (pointer:fine){[data-tb-foot] a:hover{color:#A8823A}}[data-tb-foot] a:focus-visible{outline:2px solid #A8823A;outline-offset:3px}"
+// XR3.4: no grey flash when the footer is tapped on a phone, and its links take a tap at once (the footer is not inside the engine's root, which sets both for the rest of the page)
+const FOOT_CSS = "[data-tb-foot]{-webkit-tap-highlight-color:transparent}[data-tb-foot] a{color:inherit;text-decoration:none;transition:color .25s ease;touch-action:manipulation}[data-tb-foot] a:active{color:#A8823A}@media (hover:hover) and (pointer:fine){[data-tb-foot] a:hover{color:#A8823A}}[data-tb-foot] a:focus-visible{outline:2px solid #A8823A;outline-offset:3px}"
 
 function once(id: string, make: () => HTMLElement) {
     if (!document.getElementById(id)) { const el = make(); el.id = id; document.head.appendChild(el) }
@@ -63,7 +64,7 @@ export default function TabitHome(props: { style?: any }) {
         const S0 = stage.current   // held here: React clears the ref before this effect's clean-up runs, and on a phone the stage is in the document's body
         // XR3.4: a phone. track: as tall as the page is long; pin: the pinned window the stage is in; ps: px to a unit; smax: the engine's page length (units)
         let clip: HTMLDivElement | null = null, track: HTMLDivElement | null = null, pin: HTMLDivElement | null = null, pSv: HTMLDivElement | null = null, pLv: HTMLDivElement | null = null
-        let ps = 1, smax = PH_S0, pinH = 0, lvh = 0, docH = 0
+        let ps = 1, smax = PH_S0, pinH = 0, lvh = 0, docH = 0, fitKey = ""
         const canClip = typeof CSS !== "undefined" && !!CSS.supports && CSS.supports("overflow", "clip")   // not before Safari 16: there the track ends with the page, and the stage slides up over the page's last PH_BOT or so
         const yEnd = () => PH_TOP + smax * ps   // the scroll at which the last chapter has ended and the footer starts to rise
         const size = () => { if (clip && track) { docH = Math.round(yEnd() + PH_RISE + lvh); clip.style.height = docH + "px"; body.style.minHeight = docH + "px"; track.style.height = Math.round(docH + (canClip ? pinH : 0)) + "px" } }
@@ -89,6 +90,7 @@ export default function TabitHome(props: { style?: any }) {
             if (clip) clip.remove(); if (pSv) pSv.remove(); if (pLv) pLv.remove()
             clip = track = pin = pSv = pLv = null
             if ((window as any).__TABIT_NAT === nat) delete (window as any).__TABIT_NAT
+            delete (window as any).__TABIT_PHT; delete (window as any).__TABIT_PHB
             body.style.minHeight = bmh; setFoot(0)
         }
         const fit = () => {
@@ -109,6 +111,10 @@ export default function TabitHome(props: { style?: any }) {
             // a phone: the smallest and the tallest the view gets (the browser's bars showing, and tucked away). Read from CSS's own units, so
             // the bars coming and going as the page scrolls change nothing here; a browser without them gives the window's height for both.
             const ih = Math.max(320, window.innerHeight), sv = phone ? Math.max(320, (pSv && pSv.offsetHeight) || ih) : 0, lv = phone ? Math.max(sv, (pLv && pLv.offsetHeight) || ih) : 0
+            // nothing to do when nothing it depends on has changed: a phone fires resize each time its bars show or hide
+            const key = [phone, r.width, phone ? 0 : r.height, sv, lv].join("|")
+            if (key === fitKey) { onScroll(); return }
+            fitKey = key
             ps = s; lvh = lv; pinH = phone ? PH_TOP + lv + PH_BOT : 0
             const w = phone ? r.width / s : Math.min(WMAX, r.width / s)
             const h = phone ? pinH / s : Math.max(H, r.height / s)   // squarer than 4:3 the stage grows taller and the engine stacks (DESIGN.md rule 8)
@@ -125,7 +131,8 @@ export default function TabitHome(props: { style?: any }) {
         }
         // Ashleigh13.11 (XR3.3): the footer's rise, 0 (hidden below the stage) to 1 (in view), driven by the wheel or the finger
         let footF = 0, touchY: number | null = null
-        const foot = () => S0 && (S0.querySelector("[data-tb-foot]") as HTMLElement | null)
+        let footEl: HTMLElement | null | undefined
+        const foot = () => footEl !== undefined ? footEl : (footEl = S0 ? (S0.querySelector("[data-tb-foot]") as HTMLElement | null) : null)   // looked up once: it is asked for as the page scrolls
         const atEnd = () => {   // the engine's page has scrolled to its last chapter (its scroller's translate has reached data-h - 720)
             const sc = S0 && (S0.querySelector("[data-tabit-scroll]") as HTMLElement | null); if (!sc) return false
             const m = /translateY\((-?[\d.]+)px\)/.exec(sc.style.transform || ""), y = m ? parseFloat(m[1]) : 0

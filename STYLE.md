@@ -12,8 +12,8 @@ any width (it rises with the width to 1.25 px at 1440); two columns need both 1.
 stacks. On the home, 1 unit = 1 px from 960 to 1152 px wide, rising to at most 1.25 px; from 600 to 960 px the 960-unit stage
 scales down; under 600 px (a phone, v1.32) the home has a stage of its own, 390 units wide, 1 unit = the width ÷ 390
 (1 px on a 390 px phone; at most 1.1 px, a 430 px phone: wider than that the stage grows wider instead of the type
-larger), as tall as the part of the screen in view, and its own composition (§4, Phones). On the
-home (a pinned scene that cannot scroll), a window shorter than the stage tightens the size so the whole page stays
+larger), and its own composition (§4, Phones); a phone's home is a real page that scrolls (§6, v1.35). On the
+home wider than a phone (a pinned scene that cannot scroll), a window shorter than the stage tightens the size so the whole page stays
 in view, but never below 0.62 (windows under 446 px tall, which no one browses in); below that the bottom is cropped. The click-out pages ignore the height entirely and scroll; their content sits in a centred
 1440-unit column, and wider screens get night either side. The home's sky and stage always run to the window's edges
 (up to 4096 units wide); only the 1280-unit content box stays centred. Nothing ever shrinks to fit a short or very wide window.
@@ -296,14 +296,17 @@ carried 400 above and 720 below the 1280 × 720 sky, so the drawn-back splash is
 **A phone's home is a real page that scrolls (v1.35, XR3.4).** The scrolling, its momentum, the rubber band at the
 ends and the browser's bars are the browser's own, as on any page; nothing of ours takes the wheel, the finger or the
 keys. The stage is pinned in view and the animation reads the page's scroll, one unit to a pixel at 390 wide, with no
-ease of its own (it only eases to catch up when the intro ends on a page already scrolled). The pinned stage stands 100 px
+ease of its own (it only eases to catch up, closing at 7 a second, when the intro ends on a page already scrolled). The pinned stage stands 100 px
 above the top of the view and runs 140 px below the tallest the view gets, so the sky is drawn under the status bar and
 the toolbar; the page is laid out in the smallest view (the bars showing), so nothing moves when they tuck away. The
 page rests 100 px down, at the splash: pulled above that, it comes back when let go. In the compass's hold it settles on
-the nearer line when it comes to rest between two, as before. The footer (v1.34) rises over the last 240 px of the page
-and is up at its end; its glass runs to the stage's foot, under the toolbar. Scrolling during the intro fast-forwards
-it, as before; a page that is already scrolled when the home comes up (the browser brings you back to your place) starts
-there, without the intro. A figure that stands under its copy (Captives, License) travels with its page, arriving and
+the nearer line when it comes to rest between two, as before. Both wait until the page has stood still for 240 ms with
+no finger on it (the compass's wait, as before), and both move the page with the browser's own smooth scroll, as do the
+home's own links on a phone (Explore, the logo): the browser's curve, not ours. The footer (v1.34) rises over what is
+left of the page after the last chapter, 240 px with the browser's bars tucked away and more by the bars' height while
+they show, and is up at the page's end; its glass runs to the stage's foot, under the toolbar. Scrolling more than 24 px
+during the intro fast-forwards it, as before; a page that is already scrolled more than 24 px when the home comes up (the
+browser brings you back to your place) starts there, without the intro. A figure that stands under its copy (Captives, License) travels with its page, arriving and
 leaving; between pages the figure's stars still gather into one ball that runs to the next figure's place. A page's
 copy fades from 120 past its place (where it runs under the fold, from 60 past the point its last line is in view),
 over 180. Skip intro is 44 tall. Hover states
