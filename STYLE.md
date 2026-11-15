@@ -1,4 +1,4 @@
-# Tabit website — style code (v1.34, 13 Nov 2026)
+# Tabit website — style code (v1.35, 15 Nov 2026)
 
 The values behind every visual decision on the site, taken from the home page as shipped (XR2.8.2) and the brand
 guidelines. `DESIGN.md` holds the cardinal rules (what never ships); this file holds the values. Where a page and this
@@ -291,10 +291,19 @@ and the sky moves from the first touch: the splash's sky slides up 170 px over t
 and stays whole until halfway, then gives way to the site's sky, whose nearest stars drift up 360 over the same scroll
 (farther ones less). The phone's sky is drawn at the screen's own pixel density times the stage's scale (up to 3 ×; the
 frame governor ignores the first 1.6 s, while the page loads, and may take 3 × to 2 ×, 2 × to 1.4 ×, no further); it is
-carried 400 above and 720 below the 1280 × 720 sky, so the drawn-back splash is starred to the screen's top and foot; and
-it runs under a browser bar that floats over the page, the page laid out above that bar. The page
-follows the finger one for one and, when the finger lifts, glides on from the speed it had (the scroll's own ease, a
-third of a second). A figure that stands under its copy (Captives, License) travels with its page, arriving and
+carried 400 above and 720 below the 1280 × 720 sky, so the drawn-back splash is starred to the screen's top and foot.
+
+**A phone's home is a real page that scrolls (v1.35, XR3.4).** The scrolling, its momentum, the rubber band at the
+ends and the browser's bars are the browser's own, as on any page; nothing of ours takes the wheel, the finger or the
+keys. The stage is pinned in view and the animation reads the page's scroll, one unit to a pixel at 390 wide, with no
+ease of its own (it only eases to catch up when the intro ends on a page already scrolled). The pinned stage stands 100 px
+above the top of the view and runs 140 px below the tallest the view gets, so the sky is drawn under the status bar and
+the toolbar; the page is laid out in the smallest view (the bars showing), so nothing moves when they tuck away. The
+page rests 100 px down, at the splash: pulled above that, it comes back when let go. In the compass's hold it settles on
+the nearer line when it comes to rest between two, as before. The footer (v1.34) rises over the last 240 px of the page
+and is up at its end; its glass runs to the stage's foot, under the toolbar. Scrolling during the intro fast-forwards
+it, as before; a page that is already scrolled when the home comes up (the browser brings you back to your place) starts
+there, without the intro. A figure that stands under its copy (Captives, License) travels with its page, arriving and
 leaving; between pages the figure's stars still gather into one ball that runs to the next figure's place. A page's
 copy fades from 120 past its place (where it runs under the fold, from 60 past the point its last line is in view),
 over 180. Skip intro is 44 tall. Hover states
@@ -375,6 +384,10 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
 
 ## 10. Change log
 
+- 15 Nov 2026 — v1.35 (XR3.4). A phone's home is a real page that scrolls: the browser's own scrolling, momentum and
+  bars, the stage pinned and the animation read from the page's scroll (§6). It replaces the page moved by our own touch
+  code (v1.32) and v1.33's page held scrolled 100 down, which was never published. Oscar, 15 Nov: "Is this not going to
+  cause constant compatibility errors and complexity down the line? ... Do the rebuild". Nothing changes at 600 px and wider.
 - 13 Nov 2026 — v1.34 (Ashleigh, XR3.3, canvas "Tabit site – Ashleigh's boards (XR2.7–XR3.3)"). Wording agreed with Davin
   (Home, (Re)insurance, Captives, About us; copy only). The site footer, on every page and the home: the live site's full
   regulatory text, "© 2026 Tabit - All Rights Reserved." and Contact Us · Privacy Policy · Terms & Conditions, all at the

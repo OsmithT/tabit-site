@@ -1,3 +1,7 @@
+// Tabit XR3.4 (15 Nov 2026, Oscar: "Is this not going to cause constant compatibility errors and complexity down the line? ... Do the rebuild"): on a phone the
+// home is a real page that scrolls. The host (TabitHome.tsx) pins the stage in a tall document and hands the engine the document's own scroll
+// (window.__TABIT_NAT); the engine takes no wheel, touch or key of its own there, so the browser's scrolling, its momentum and its bars work as on any page.
+// Wider than a phone nothing changes. Search XR3.4 and natOn.
 // Tabit XR3.1 (13 Nov 2026, Oscar: "slowly zoom in. The Tabit star will appear out of the stars and the yellow circle will go around it and it will say Tabit";
 // then "where's the circle around the Tabit logo and then the zoom out to the Tabit? That was good"): on a phone the intro opens on the sky alone (no grid,
 // coordinates or Orion's lines: Orion comes in on the Home page), zooms slowly in on Tabit's star as it comes up, the brass ring goes once round it with its
@@ -93,7 +97,7 @@ function runTabit(host, THREE, init) {
   // XR3.0: the phone's rules (the root carries tb-phone when the stage is a phone's, see tabitLayout). The sizes are the style code's own:
   // Body 17/26, Small 13/20, Control 14/18 on a 44-tall button; the chapter headline is the Title step, 40/44, as the click-out pages set theirs
   // on a phone; the Home headline 46/52 and the compass point and dictionary titles 30/34 are the phone's two steps of their own (STYLE.md v1.32)
-  var TB_PHCSS = "[data-tabit-root].tb-phone{-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%;touch-action:pan-x pinch-zoom}.tb-phone a,.tb-phone button,.tb-phone summary{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}.tb-phone .tb-menu summary:active,.tb-phone .tabit-skip:active{transform:translateY(1px)}.tb-phone .tb-menu-nav a:active{color:var(--tb-gold,#A8823A)}.tb-menu-contact{display:none!important}.tb-phone [data-tabit-sec],.tb-phone [data-tabit-col]{text-align:left}.tb-phone [data-tabit-col]{height:auto!important;min-height:0!important}.tb-phone [data-tabit-col]>div[style*='top: 0px']{position:static!important;width:auto!important}.tb-phone [data-tabit-col]>span[style*='bottom: 78px']{position:static!important;width:auto!important}.tb-phone [data-tabit-col] h1{font-size:46px!important;line-height:52px!important}.tb-phone [data-tabit-col] span[style*='margin-top: 30px']{margin-top:24px!important}.tb-phone [data-tabit-col] [style*='flex-wrap: wrap']{row-gap:0!important}.tb-phone [data-tabit-col] [style*='flex-wrap: wrap']>span:nth-child(4){display:none}.tb-phone [data-tabit-col] [style*='flex-wrap: wrap']>span:nth-child(5){flex-basis:100%}.tb-phone [data-tabit-sec]>div:first-child{padding:0!important;border:0!important}.tb-phone [data-tabit-sec] [style*='font-size: 44px']{font-size:40px!important;line-height:44px!important;text-wrap:balance}.tb-phone [data-tabit-sec] [style*='font-size: 15px; line-height: 24px'],.tb-phone [data-tabit-sec] [style*='font-size: 17px; line-height: 26px'],.tb-phone [data-tabit-col] [style*='font-size: 17px; line-height: 26px']{font-size:15px!important;line-height:23px!important}.tb-phone [data-tabit-sec] [data-tabit-in][style*='margin-top: 18px']{margin-top:24px!important}.tb-phone [data-tabit-sec='2'] [data-tabit-in][data-tb-ln][style]{margin-top:0!important}.tb-phone .tb-explore,.tb-phone .tb-talk{font-size:14px!important;line-height:18px!important;padding:13px 24px!important;letter-spacing:0!important}.tb-phone .tb-explore{padding:12px 23px!important}.tb-phone [data-tabit-sec='2'] .tb-explore,.tb-phone [data-tabit-sec='5'] .tb-talk{padding:12px 23px!important}.tb-phone .tb-talk,.tb-phone .tb-explore,.tb-phone .tb-menu summary{position:relative}.tb-phone .tb-talk::after,.tb-phone .tb-explore::after,.tb-phone .tb-menu summary::after{content:'';position:absolute;inset:-4px}.tb-phone [data-tabit-sec='3']{top:2248px!important}.tb-phone [data-tabit-sec='5']{top:3688px!important}.tb-phone [data-tabit-sec='5']>div:first-child{height:auto!important}.tb-phone [data-tabit-sec='5']>div:first-child>div{position:static!important;width:auto!important}.tb-phone [data-tabit-sec='5'] [style*='font-size: 64px']{font-size:40px!important;line-height:44px!important}.tb-phone [data-tb-about-seq]{margin-top:40px}.tb-phone [data-tb-about-seq] [style*='font-size: 40px']{font-size:30px!important;line-height:34px!important}.tb-phone [data-tb-about-seq] [style*='gap: 52px']{gap:0!important;margin-top:28px!important}.tb-phone [data-tb-about-seq] [style*='gap: 52px']>div{flex:1 1 0!important;white-space:normal!important;padding-right:8px}.tb-phone [data-tabit-sec='5'] [data-tabit-in='5']{position:static!important;width:auto!important;margin:var(--tb-ph-lg,40px) 0 0!important}.tb-phone .tb-clab{width:342px!important}.tb-phone .tb-clt{font-size:30px!important;line-height:34px!important}.tb-phone .tb-clab .ld{max-width:310px!important;min-height:78px}.tb-phone .tb-clb{font-size:46px!important;line-height:46px!important}.tb-phone [data-tabit-nav]{left:13px!important;right:13px!important}.tb-phone [data-tabit-navitem='1']{display:none!important}.tb-phone .tb-menu summary{min-width:44px;justify-content:center;padding:0}.tb-phone .tb-menu-contact{display:block!important}.tb-phone .tb-menu-nav{left:3px;width:358px;box-sizing:border-box;background:#04070F;-webkit-backdrop-filter:none;backdrop-filter:none}.tb-phone .tb-menu-nav a{padding:10px 0}.tb-phone .tabit-replay,.tb-phone [data-tabit-coords],.tb-phone .tb-bow,.tb-phone [data-tabit-dots]{display:none!important}.tb-phone [data-tabit-skip]{right:16px!important;top:calc(22px + var(--tb-pht,0px))!important;height:44px!important}.tb-phone [data-tabit-navlayer]{top:var(--tb-pht,0px)!important}.tb-phone [data-tabit-navbg]{top:calc(-1 * var(--tb-pht,0px))!important;height:calc(88px + var(--tb-pht,0px))!important}";
+  var TB_PHCSS = "[data-tabit-root].tb-phone{-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%;touch-action:pan-x pinch-zoom}[data-tabit-root].tb-phone.tb-nat{touch-action:manipulation}.tb-phone a,.tb-phone button,.tb-phone summary{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}.tb-phone .tb-menu summary:active,.tb-phone .tabit-skip:active{transform:translateY(1px)}.tb-phone .tb-menu-nav a:active{color:var(--tb-gold,#A8823A)}.tb-menu-contact{display:none!important}.tb-phone [data-tabit-sec],.tb-phone [data-tabit-col]{text-align:left}.tb-phone [data-tabit-col]{height:auto!important;min-height:0!important}.tb-phone [data-tabit-col]>div[style*='top: 0px']{position:static!important;width:auto!important}.tb-phone [data-tabit-col]>span[style*='bottom: 78px']{position:static!important;width:auto!important}.tb-phone [data-tabit-col] h1{font-size:46px!important;line-height:52px!important}.tb-phone [data-tabit-col] span[style*='margin-top: 30px']{margin-top:24px!important}.tb-phone [data-tabit-col] [style*='flex-wrap: wrap']{row-gap:0!important}.tb-phone [data-tabit-col] [style*='flex-wrap: wrap']>span:nth-child(4){display:none}.tb-phone [data-tabit-col] [style*='flex-wrap: wrap']>span:nth-child(5){flex-basis:100%}.tb-phone [data-tabit-sec]>div:first-child{padding:0!important;border:0!important}.tb-phone [data-tabit-sec] [style*='font-size: 44px']{font-size:40px!important;line-height:44px!important;text-wrap:balance}.tb-phone [data-tabit-sec] [style*='font-size: 15px; line-height: 24px'],.tb-phone [data-tabit-sec] [style*='font-size: 17px; line-height: 26px'],.tb-phone [data-tabit-col] [style*='font-size: 17px; line-height: 26px']{font-size:15px!important;line-height:23px!important}.tb-phone [data-tabit-sec] [data-tabit-in][style*='margin-top: 18px']{margin-top:24px!important}.tb-phone [data-tabit-sec='2'] [data-tabit-in][data-tb-ln][style]{margin-top:0!important}.tb-phone .tb-explore,.tb-phone .tb-talk{font-size:14px!important;line-height:18px!important;padding:13px 24px!important;letter-spacing:0!important}.tb-phone .tb-explore{padding:12px 23px!important}.tb-phone [data-tabit-sec='2'] .tb-explore,.tb-phone [data-tabit-sec='5'] .tb-talk{padding:12px 23px!important}.tb-phone .tb-talk,.tb-phone .tb-explore,.tb-phone .tb-menu summary{position:relative}.tb-phone .tb-talk::after,.tb-phone .tb-explore::after,.tb-phone .tb-menu summary::after{content:'';position:absolute;inset:-4px}.tb-phone [data-tabit-sec='3']{top:2248px!important}.tb-phone [data-tabit-sec='5']{top:3688px!important}.tb-phone [data-tabit-sec='5']>div:first-child{height:auto!important}.tb-phone [data-tabit-sec='5']>div:first-child>div{position:static!important;width:auto!important}.tb-phone [data-tabit-sec='5'] [style*='font-size: 64px']{font-size:40px!important;line-height:44px!important}.tb-phone [data-tb-about-seq]{margin-top:40px}.tb-phone [data-tb-about-seq] [style*='font-size: 40px']{font-size:30px!important;line-height:34px!important}.tb-phone [data-tb-about-seq] [style*='gap: 52px']{gap:0!important;margin-top:28px!important}.tb-phone [data-tb-about-seq] [style*='gap: 52px']>div{flex:1 1 0!important;white-space:normal!important;padding-right:8px}.tb-phone [data-tabit-sec='5'] [data-tabit-in='5']{position:static!important;width:auto!important;margin:var(--tb-ph-lg,40px) 0 0!important}.tb-phone .tb-clab{width:342px!important}.tb-phone .tb-clt{font-size:30px!important;line-height:34px!important}.tb-phone .tb-clab .ld{max-width:310px!important;min-height:78px}.tb-phone .tb-clb{font-size:46px!important;line-height:46px!important}.tb-phone [data-tabit-nav]{left:13px!important;right:13px!important}.tb-phone [data-tabit-navitem='1']{display:none!important}.tb-phone .tb-menu summary{min-width:44px;justify-content:center;padding:0}.tb-phone .tb-menu-contact{display:block!important}.tb-phone .tb-menu-nav{left:3px;width:358px;box-sizing:border-box;background:#04070F;-webkit-backdrop-filter:none;backdrop-filter:none}.tb-phone .tb-menu-nav a{padding:10px 0}.tb-phone .tabit-replay,.tb-phone [data-tabit-coords],.tb-phone .tb-bow,.tb-phone [data-tabit-dots]{display:none!important}.tb-phone [data-tabit-skip]{right:16px!important;top:calc(22px + var(--tb-pht,0px))!important;height:44px!important}.tb-phone [data-tabit-navlayer]{top:var(--tb-pht,0px)!important}.tb-phone [data-tabit-navbg]{top:calc(-1 * var(--tb-pht,0px))!important;height:calc(88px + var(--tb-pht,0px))!important}";
   function TB_V7DOM(host) {
     var CLIP = 'display: block; overflow: hidden; padding: 0 8px 14px; margin: 0 -8px -14px';
     var home = host.querySelector('[data-tabit-rise="2"]');
@@ -488,7 +492,7 @@ function tabitLayout(root, k) {
   var pgc = root.querySelector('[data-tabit-pageclip]'), OXC = Math.max(0, Math.ceil((W - 1280) / 2));
   if (pgc) { pgc.style.top = (-LIFT) + 'px'; pgc.style.bottom = (-(H - 720 - OY)) + 'px'; pgc.style.left = pgc.style.right = (-OXC) + 'px'; if (pgc.firstElementChild) pgc.firstElementChild.style.left = OXC + 'px'; }   // XR2.8.2: the page clip runs from the lifted copy to the bottom of the screen. XR2.9.20: and from edge to edge of the screen; the clip is a box of its own, as wide as the window, because Safari clips a box on both axes when asked for one (it cut the copy at the 1280 stage's left edge on windows wider than about 1850 px)
   var cueB = root.querySelector('[data-tabit-cue]'); if (cueB) cueB.style.bottom = (34 - OY + PHB) + 'px';
-  var homeB = root.querySelector('[data-tabit-home]'); if (homeB) homeB.style.top = (16 - OY) + 'px';
+  var homeB = root.querySelector('[data-tabit-home]'); if (homeB) homeB.style.top = (16 - OY + PHT) + 'px';   // XR3.4: with the nav bar, below the part of a phone's stage that stands under the status bar (the logo's tap target was left 100 above the screen)
   root.classList.toggle('tb-stack', ST > .5 && !PH); root.classList.toggle('tb-phone', PH);   // XR3.0: a phone is not the stacked page shrunk: it has its own rules (TB_PHCSS), left-aligned
   var OX = (W - 1280) / 2, C0 = TABIT_C0; TABIT_W = W; TABIT_OX = OX;
   var n = Math.max(0, (1280 - W) / 320);
@@ -3071,13 +3075,22 @@ self.input = function (d) {
 };
 var root = host.querySelector('[data-tabit-root]'), offs = [];
 function on(el, ev, fn, opt) { if (!el) return; el.addEventListener(ev, fn, opt); offs.push(function () { el.removeEventListener(ev, fn, opt); }); }
-on(root, 'wheel', function (e) { e.preventDefault(); self.input(e.deltaMode === 1 ? e.deltaY * 32 : e.deltaY); }, { passive: false });
+// XR3.4: on a phone the host may hand the engine the document's own scroll: window.__TABIT_NAT = { y(): how far the page is scrolled, in the home's units, from
+// the splash (below 0 above it); to(S, smooth): scroll the page there; max(S): the engine tells the host how long the page is }. While it is there the engine
+// reads its place from the page (self.St = y()) and listens to no wheel, touch or key itself: a listener that may stop the browser's scroll makes the
+// browser wait for it on every move of the finger.
+function natOn() { return TABIT_PH && window.__TABIT_NAT ? window.__TABIT_NAT : null; }
+self.go = function (S) { var N = natOn(); if (N) N.to(S, true); else self.St = S; self.lastIn = performance.now(); };   // a link inside the home: the page scrolls there itself
+var inOff = [];
+function onIn(ev, fn, opt) { root.addEventListener(ev, fn, opt); inOff.push(function () { root.removeEventListener(ev, fn, opt); }); }
+offs.push(function () { inOff.forEach(function (f) { f(); }); inOff = []; });
 on(root, 'pointerdown', function () { try { root.focus({ preventScroll: true }); } catch (err) {} });
 var hb = root.querySelector('[data-tabit-home]');
 on(hb, 'pointerenter', function () { if (self.hand && self.hand.hoverLogo) self.hand.hoverLogo(self.t); });
 on(hb, 'focus', function () { if (self.hand && self.hand.hoverLogo) self.hand.hoverLogo(self.t); });
-on(hb, 'click', function () { self.St = 0; self.lastIn = performance.now(); });
+on(hb, 'click', function () { self.go(0); });
 on(root, 'keydown', function (e) {
+  if (natOn()) return;   // XR3.4: the browser's own keys scroll the page
   var k = e.key; if (k === 'ArrowDown' || k === 'PageDown' || k === ' ') { e.preventDefault(); self.input(k === 'ArrowDown' ? 160 : 520); }
   else if (k === 'ArrowUp' || k === 'PageUp') { e.preventDefault(); self.input(k === 'ArrowUp' ? -160 : -520); }
   else if (k === 'Home') { self.St = 0; } else if (k === 'End') { self.input(99999); }
@@ -3087,14 +3100,24 @@ on(root, 'keydown', function (e) {
 // finger lifts it glides on from the speed it had. The glide is the scroll's own ease (S closes on St at 3 a second), so carrying St on by the
 // speed x a third of a second leaves the page moving exactly as fast as the finger was: no jump, no stop.
 var ty = null, tv = 0, tt = 0, tl = 0, tk = 1, tacc = 0;
-on(root, 'touchstart', function (e) { ty = e.touches[0].clientY; tv = 0; tacc = 0; tt = tl = performance.now(); self.touch = TABIT_PH; if (TABIT_PH) { self.St = self.S; tk = TABIT_H / (root.getBoundingClientRect().height || TABIT_H); } }, { passive: true });
-on(root, 'touchmove', function (e) { if (ty == null) return; var y = e.touches[0].clientY; e.preventDefault();
+function bindInput(nat) {
+  inOff.forEach(function (f) { f(); }); inOff = []; self.touch = false; self.fing = false;
+  if (nat) {   // XR3.4: only whether a finger is down, and only passively
+    onIn('touchstart', function () { self.fing = true; }, { passive: true });
+    onIn('touchend', function (e) { self.fing = e.touches.length > 0; }, { passive: true }); onIn('touchcancel', function (e) { self.fing = e.touches.length > 0; }, { passive: true });
+    return;
+  }
+  onIn('wheel', function (e) { e.preventDefault(); self.input(e.deltaMode === 1 ? e.deltaY * 32 : e.deltaY); }, { passive: false });
+  onIn('touchstart', function (e) { ty = e.touches[0].clientY; tv = 0; tacc = 0; tt = tl = performance.now(); self.touch = TABIT_PH; if (TABIT_PH) { self.St = self.S; tk = TABIT_H / (root.getBoundingClientRect().height || TABIT_H); } }, { passive: true });
+  onIn('touchmove', function (e) { if (ty == null) return; var y = e.touches[0].clientY; e.preventDefault();
   if (!TABIT_PH) { self.input((ty - y) * 1.6); ty = y; return; }
   var d = (ty - y) * tk, now = performance.now(); ty = y; tl = now; tacc += d;
   if (now - tt >= 8) { tv = tv * .6 + (tacc / (now - tt)) * .4; tacc = 0; tt = now; }   // the finger's speed over at least 8 ms (events that arrive together would otherwise read as a burst)
   self.input(d); }, { passive: false });
 function touchEnd() { if (self.touch && self.t >= TABIT_END && performance.now() - tl < 80 && Math.abs(tv) > .05) self.input(Math.max(-1400, Math.min(1400, tv * 333))); self.touch = false; ty = null; }
-on(root, 'touchend', touchEnd, { passive: true }); on(root, 'touchcancel', touchEnd, { passive: true });
+  onIn('touchend', touchEnd, { passive: true }); onIn('touchcancel', touchEnd, { passive: true });
+}
+bindInput(false); self.natB = false;
 on(root, 'pointermove', function (e) {
   if (!self.hero) return; var r = root.getBoundingClientRect();
   self.hero.pointer(((e.clientX - r.left) / r.width) * 2 - 1, ((e.clientY - r.top) / r.height) * 2 - 1);
@@ -3102,14 +3125,14 @@ on(root, 'pointermove', function (e) {
   if (self.hand && self.hand.ptr) self.hand.ptr(((e.clientX - r.left) / r.width * TABIT_W - TABIT_OX), (e.clientY - r.top) / r.height * TABIT_H - TABIT_OY);
 });
 on(root, 'pointerleave', function () { if (self.hand && self.hand.ptr) self.hand.ptr(-999, -999); if (self.hero) { self.hero.pointer(0, 0); if (self.hero.mouse) self.hero.mouse(-999, -999, false); } });
-Array.prototype.forEach.call(root.querySelectorAll('[data-tabit-ch]'), function (b) { on(b, 'click', function () { var k = +b.getAttribute('data-tabit-ch'); if (self.t < TABIT_END) self.t = TABIT_END; self.St = TABIT_OPT >= 34 ? TB_SK(k) : k === 0 ? TABIT_HAND : TABIT_HAND + 720 * k; self.lastIn = performance.now(); }); });
+Array.prototype.forEach.call(root.querySelectorAll('[data-tabit-ch]'), function (b) { on(b, 'click', function () { var k = +b.getAttribute('data-tabit-ch'); if (self.t < TABIT_END) self.t = TABIT_END; self.go(TABIT_OPT >= 34 ? TB_SK(k) : k === 0 ? TABIT_HAND : TABIT_HAND + 720 * k); }); });
 if (TABIT_OPT >= 34) {   // XR2.2.5: the coordinates take you to About us
-  var cEl = root.querySelector('[data-tabit-coords]'), goAbout = function () { if (self.t < TABIT_END) self.t = TABIT_END; self.St = TB_SK(5); self.lastIn = performance.now(); };
+  var cEl = root.querySelector('[data-tabit-coords]'), goAbout = function () { if (self.t < TABIT_END) self.t = TABIT_END; self.go(TB_SK(5)); };
   on(cEl, 'click', goAbout); on(cEl, 'keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goAbout(); } });
 }
-on(root.querySelector('[data-tabit-cue]'), 'click', function () { if (self.t < TABIT_END) { self.ff = true; return; } var qm = self.hand ? self.hand.qmax : 600; self.St = self.St < TABIT_HAND - 1 ? TABIT_HAND : TABIT_HAND + qm; });
+on(root.querySelector('[data-tabit-cue]'), 'click', function () { if (self.t < TABIT_END) { self.ff = true; return; } var qm = self.hand ? self.hand.qmax : 600; self.go(self.St < TABIT_HAND - 1 ? TABIT_HAND : TABIT_HAND + qm); });
 on(root.querySelector('[data-tabit-skip]'), 'click', function () { self.t = TABIT_END; self.ff = false; });
-on(root.querySelector('.tabit-replay'), 'click', function () { self.t = 0; self.S = 0; self.St = 0; self.ff = false; });
+on(root.querySelector('.tabit-replay'), 'click', function () { self.t = 0; self.S = 0; self.St = 0; self.ff = false; var N = natOn(); if (N) N.to(0, false); });
 self.tick = function () {
   var now = performance.now(), dt = Math.min(.05, (now - self.last) / 1000); self.last = now;
   tabitLayout(root);   // re-lays the site out when the width changes (a no-op otherwise)
@@ -3119,16 +3142,37 @@ self.tick = function () {
     try { tabitLayout(root, init.k || 1); if (self.hero) self.hero.dispose(); self.hero = makeTabitHero(gl, ov, TABIT_DATA, tabitDom()); self.boundGL = gl; self.hand = makeHandoff(self.hero, root, TABIT_VARIANT); }
     catch (err) { self.failed = true; if (window.console) console.error('Tabit hero failed', err); }
   }
+  // XR3.4: the page's own scroll, where the host gives it (a phone)
+  var N = natOn();
+  if (!!N !== self.natB) { self.natB = !!N; bindInput(!!N); root.classList.toggle('tb-nat', !!N); self.nat0 = !!N; self.natMax = -1; }
+  if (N) {
+    var smax = TABIT_HAND + (self.hand ? self.hand.qmax : 600) + TABIT_XQ;
+    if (smax !== self.natMax) { self.natMax = smax; N.max(smax); }
+    if (self.nat0) { self.nat0 = false;
+      if (self.t >= TABIT_END && self.S > 1) N.to(self.S, false);   // the engine was already somewhere (the window was narrowed to a phone's width): the page goes there
+      else if (self.t < 1 && N.y() > 24) { self.t = TABIT_END; self.S = Math.min(smax, N.y()); }   // the page was already scrolled when the home came up (the browser brought you back to your place): no intro, straight there
+      self.natY = N.y(); }
+    var ny = N.y();
+    if (ny !== self.natY) { self.natY = ny; self.lastIn = now; }
+    if (self.t < TABIT_END) { if (ny > 24) self.ff = true; self.St = 0; self.natC = true; }   // scrolling during the intro fast-forwards it; the page is caught up with when it ends
+    else { self.St = Math.max(0, Math.min(smax, ny));
+      if (!self.fing && now - (self.lastIn || 0) > 160) {   // the page has come to rest with no finger on it
+        var tg = null, yn = self.St - TABIT_HAND - 720;
+        if (ny < -1) tg = 0;   // above the splash (the sky that stands under the status bar was pulled into view): back to the splash
+        else if (TB_PIN && yn > 1 && yn < TB_PIN - 1) { var ln = Math.round(yn / TB_STEPPX) * TB_STEPPX; if (Math.abs(ln - yn) > 1.5) tg = TABIT_HAND + 720 + ln; }   // between two of the compass's lines: on to the nearer one, as before
+        if (tg != null) { N.to(tg, true); self.lastIn = now; } } }
+  }
   self.t += dt * (self.ff ? 7 : 1); if (self.t >= TABIT_END) self.ff = false;
   var skEl = host.querySelector('[data-tabit-skip]');   // Skip intro, shown only while the intro plays
   if (skEl) { var ska = Math.min(1, Math.max(0, (self.t - .6) / .5)) * Math.min(1, Math.max(0, (TABIT_END - .3 - self.t) / .4)); skEl.style.opacity = ska.toFixed(3); skEl.style.pointerEvents = ska > .1 ? 'auto' : 'none'; }
-  if (TABIT_SNAP && !TABIT_FLOW && self.t >= TABIT_END && now - (self.lastIn || 0) > 160) {   // settle onto the nearest chapter when the wheel goes quiet
+  if (!N && TABIT_SNAP && !TABIT_FLOW && self.t >= TABIT_END && now - (self.lastIn || 0) > 160) {   // settle onto the nearest chapter when the wheel goes quiet
     var near = TABIT_SNAP.reduce(function (a, b) { return Math.abs(b - self.St) < Math.abs(a - self.St) ? b : a; });
     if (Math.abs(near - self.St) < 300) self.St = near;
   }
-  if (TB_PIN && self.t >= TABIT_END && now - (self.lastIn || 0) > 240 && !self.touch) {   // XR2: while the page holds, settle on the nearest line when the wheel stops
+  if (!N && TB_PIN && self.t >= TABIT_END && now - (self.lastIn || 0) > 240 && !self.touch) {   // XR2: while the page holds, settle on the nearest line when the wheel stops
     var yy = self.St - TABIT_HAND - 720; if (yy > 1 && yy < TB_PIN - 1) self.St += (Math.round(yy / TB_STEPPX) * TB_STEPPX - yy) * Math.min(1, dt * 7); }
-  self.S += (self.St - self.S) * (1 - Math.exp(-dt * (self.touch ? 30 : TABIT_SNAP && !TABIT_FLOW ? 4.2 : TABIT_OPT >= 13 ? 3 : 5.5))); if (Math.abs(self.St - self.S) < .3) self.S = self.St;
+  if (N) { if (self.natC) { self.S += (self.St - self.S) * (1 - Math.exp(-dt * 7)); if (Math.abs(self.St - self.S) < 1) { self.S = self.St; self.natC = false; } } else self.S = self.St; }   // XR3.4: the engine stands exactly where the page is scrolled; it only eases when it has to catch up after the intro
+  else { self.S += (self.St - self.S) * (1 - Math.exp(-dt * (self.touch ? 30 : TABIT_SNAP && !TABIT_FLOW ? 4.2 : TABIT_OPT >= 13 ? 3 : 5.5))); if (Math.abs(self.St - self.S) < .3) self.S = self.St; }
   // XR2.7.2: frame governor. Watches the gaps between frames; when more than 12% of a window are dropped it steps the quality down:
   // level 1 renders every other frame on a 120 Hz display (a steady 60), levels 2 and 3 lower the sky's pixel ratio. Never steps back up.
   var G = self.gov || (self.gov = { gaps: [], lvl: 0, skip: false, hz: 60, base: 0 });
