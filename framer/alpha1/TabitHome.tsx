@@ -63,8 +63,10 @@ export default function TabitHome(props: { style?: any }) {
         const body = document.body, bmh = body.style.minHeight
         const S0 = stage.current   // held here: React clears the ref before this effect's clean-up runs, and on a phone the stage is in the document's body
         // XR3.4: a phone. track: as tall as the page is long; pin: the pinned window the stage is in; ps: px to a unit; smax: the engine's page length (units)
-        let clip: HTMLDivElement | null = null, track: HTMLDivElement | null = null, pin: HTMLDivElement | null = null, pSv: HTMLDivElement | null = null, pLv: HTMLDivElement | null = null
+        let clip: HTMLDivElement | null = null, track: HTMLDivElement | null = null, pin: HTMLDivElement | null = null, pSv: HTMLDivElement | null = null, pLv: HTMLDivElement | null = null, edge: HTMLDivElement | null = null
         let ps = 1, smax = PH_S0, pinH = 0, lvh = 0, docH = 0, fitKey = ""
+        let edgeN = 0
+        const edgeLast = typeof MutationObserver !== "undefined" ? new MutationObserver(() => { if (edge && body.lastElementChild !== edge && edgeN < 8) { edgeN++; body.appendChild(edge) } }) : null
         const canClip = typeof CSS !== "undefined" && !!CSS.supports && CSS.supports("overflow", "clip")   // not before Safari 16: there the track ends with the page, and the stage slides up over the page's last PH_BOT or so
         const yEnd = () => PH_TOP + smax * ps   // the scroll at which the last chapter has ended and the footer starts to rise
         const size = () => { if (clip && track) { docH = Math.round(yEnd() + PH_RISE + lvh); clip.style.height = docH + "px"; body.style.minHeight = docH + "px"; track.style.height = Math.round(docH + (canClip ? pinH : 0)) + "px" } }
@@ -82,13 +84,26 @@ export default function TabitHome(props: { style?: any }) {
             pin.style.cssText = "position:sticky;top:-" + PH_TOP + "px;width:100%;overflow:hidden;background:#04070F"
             track.appendChild(pin); pin.appendChild(S0!); clip.appendChild(track); body.appendChild(clip)
             pSv = probe("100svh"); pLv = probe("100lvh")
+            // XR3.5: Safari on iOS 26 lays a flat colour over the zone under its toolbar when the element it finds at the middle of the screen's
+            // bottom edge sits in a pinned box about as wide as the screen (WebKit: LocalFrameView::fixedContainerEdges). Framer's own badge
+            // holder is such a box, so the sky stopped at the toolbar. This marker is what Safari finds there instead: nothing to see or to
+            // tap, and too small to count, so the page (the stage runs PH_BOT below the screen) shows under the toolbar. The stage itself is
+            // not taken for such a box because the pin is taller than the screen: keep it so.
+            // The marker has to be the last thing in the body (it shares the highest z-index with Framer's holder, so the later one is on
+            // top): edgeLast puts it back there when something is added after it, eight times at most so two such things cannot chase
+            // each other. Its empty child is there on purpose: a box with no child and no background is one Safari looks through.
+            edge = document.createElement("div"); edge.setAttribute("data-tb-edge", "1"); edge.setAttribute("aria-hidden", "true")
+            edge.style.cssText = "position:fixed;left:calc(50% - 6px);bottom:0;width:12px;height:12px;z-index:2147483647;pointer-events:none"
+            edge.appendChild(document.createElement("span")); body.appendChild(edge)
+            edgeN = 0; if (edgeLast) edgeLast.observe(body, { childList: true })
             ;(window as any).__TABIT_NAT = nat
             footBind(false)
         }
         const leave = () => {
             if (wrap.current && S0) wrap.current.appendChild(S0)
-            if (clip) clip.remove(); if (pSv) pSv.remove(); if (pLv) pLv.remove()
-            clip = track = pin = pSv = pLv = null
+            if (edgeLast) edgeLast.disconnect()
+            if (clip) clip.remove(); if (pSv) pSv.remove(); if (pLv) pLv.remove(); if (edge) edge.remove()
+            clip = track = pin = pSv = pLv = edge = null
             if ((window as any).__TABIT_NAT === nat) delete (window as any).__TABIT_NAT
             delete (window as any).__TABIT_PHT; delete (window as any).__TABIT_PHB
             body.style.minHeight = bmh; setFoot(0)

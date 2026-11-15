@@ -22,6 +22,23 @@ The code behind the Tabit Insurance website prototype in Framer.
     Its working numbers, which are not style values: the track sits at z-index 1 over Framer's page; the page is
     taken as 7,000 units long until the engine says (`PH_S0`); a view is never taken as shorter than 320 px.
     Nothing changes at 600 px and wider.
+    Safari's bars (XR3.5). Safari on iOS 26 shows the page under its status bar and toolbar, but lays a flat colour
+    over a bar's zone when the element at the middle of that edge of the screen sits in a pinned box (`fixed` or
+    stuck `sticky`) at least nine-tenths as wide as the screen and no taller than 1.05 times the screen (WebKit,
+    `LocalFrameView::fixedContainerEdges`; its first look ignores `pointer-events`). Two things follow. The pin must stay
+    taller than the screen (it is: `PH_TOP` + 100lvh + `PH_BOT`), or the stage itself is taken for such a box. And
+    Framer's badge holder (`#__framer-badge-container`, full width along the
+    bottom) is such a box, so TabitHome puts a marker (`data-tb-edge`) in front of it at the bottom's middle:
+    nothing to see or tap, too small to count. Its working numbers, which are not style values: 12 px square (the
+    place Safari looks is 4 px in from the edge), set in by 6 px to sit on the middle, z-index 2147483647, the
+    highest there is and the same as the badge holder's (read from the live page, 16 Nov 2026: `fixed`, left 0,
+    right 0, bottom 0, 78 px tall, `pointer-events: none`, in the page's own HTML before anything of ours), so it
+    has to come after the holder in the body: `edgeLast` moves it back to the end when something is added after it
+    (eight times at most; if something else keeps taking the end, the marker gives up and the flat colour is back). It keeps one empty
+    child, because Safari looks through a box with no child and no background. Never put a full-width `fixed`
+    layer along the top or bottom of a phone's page without checking this, and never use a popover or a dialog for
+    the marker (their backdrop counts as a box). Not covered: a phone on its side and the click-out pages, where
+    Framer's holder still brings the flat colour.
   - `pages/reinsurance.js`, `captives.js`, `aboutus.js`, `contact.js`: the click-out pages as `{ css, html, js }` strings,
     with the burger header. `TabitPage.tsx` renders one of them (its `page` control picks which), puts the home's live
     sky behind it, and, where the module has a `js` (Captives: its figure, board XR2.9.31E), runs it with the page's

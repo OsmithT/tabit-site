@@ -1,4 +1,4 @@
-# Tabit website — style code (v1.35, 15 Nov 2026)
+# Tabit website — style code (v1.36, 16 Nov 2026)
 
 The values behind every visual decision on the site, taken from the home page as shipped (XR2.8.2) and the brand
 guidelines. `DESIGN.md` holds the cardinal rules (what never ships); this file holds the values. Where a page and this
@@ -298,7 +298,10 @@ ends and the browser's bars are the browser's own, as on any page; nothing of ou
 keys. The stage is pinned in view and the animation reads the page's scroll, one unit to a pixel at 390 wide, with no
 ease of its own (it only eases to catch up, closing at 7 a second, when the intro ends on a page already scrolled). The pinned stage stands 100 px
 above the top of the view and runs 140 px below the tallest the view gets, so the sky is drawn under the status bar and
-the toolbar; the page is laid out in the smallest view (the bars showing), so nothing moves when they tuck away. The
+the toolbar; the page is laid out in the smallest view (the bars showing), so nothing moves when they tuck away. Safari
+covers a bar's zone with a flat colour when it finds a full-width pinned layer at the middle of that edge, so nothing of
+ours is one (the pinned stage is taller than the screen, which Safari does not count), and a 12 px marker, with nothing
+to see or tap, stands at the middle of the bottom edge in front of Framer's badge holder, which is one (v1.36). The
 page rests 100 px down, at the splash: pulled above that, it comes back when let go. In the compass's hold it settles on
 the nearer line when it comes to rest between two, as before. Both wait until the page has stood still for 240 ms with
 no finger on it (the compass's wait, as before), and both move the page with the browser's own smooth scroll, as do the
@@ -387,6 +390,11 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
 
 ## 10. Change log
 
+- 16 Nov 2026 — v1.36 (XR3.5). The sky under Safari's toolbar on a phone. v1.35 put the sky under the status bar, but the
+  zone under the toolbar stayed a flat colour (Oscar, 16 Nov, from his phone: "Its live but not fixed the issue then").
+  The cause is in Safari's own source: it covers a bar's zone when the element at the middle of that edge is in a
+  full-width pinned layer, and the holder of the "Made in Framer" badge is one. A 12 px marker, with nothing to see or
+  tap, now stands in front of it there (§6). No value changes; nothing changes at 600 px and wider.
 - 15 Nov 2026 — v1.35 (XR3.4). A phone's home is a real page that scrolls: the browser's own scrolling, momentum and
   bars, the stage pinned and the animation read from the page's scroll (§6). It replaces the page moved by our own touch
   code (v1.32) and v1.33's page held scrolled 100 down, which was never published. Oscar, 15 Nov: "Is this not going to
