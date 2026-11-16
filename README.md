@@ -22,23 +22,37 @@ The code behind the Tabit Insurance website prototype in Framer.
     Its working numbers, which are not style values: the track sits at z-index 1 over Framer's page; the page is
     taken as 7,000 units long until the engine says (`PH_S0`); a view is never taken as shorter than 320 px.
     Nothing changes at 600 px and wider.
-    Safari's bars (XR3.5). Safari on iOS 26 shows the page under its status bar and toolbar, but lays a flat colour
-    over a bar's zone when the element at the middle of that edge of the screen sits in a pinned box (`fixed` or
-    stuck `sticky`) at least nine-tenths as wide as the screen and no taller than 1.05 times the screen (WebKit,
-    `LocalFrameView::fixedContainerEdges`; its first look ignores `pointer-events`). Two things follow. The pin must stay
-    taller than the screen (it is: `PH_TOP` + 100lvh + `PH_BOT`), or the stage itself is taken for such a box. And
-    Framer's badge holder (`#__framer-badge-container`, full width along the
-    bottom) is such a box, so TabitHome puts a marker (`data-tb-edge`) in front of it at the bottom's middle:
-    nothing to see or tap, too small to count. Its working numbers, which are not style values: 12 px square (the
-    place Safari looks is 4 px in from the edge), set in by 6 px to sit on the middle, z-index 2147483647, the
-    highest there is and the same as the badge holder's (read from the live page, 16 Nov 2026: `fixed`, left 0,
-    right 0, bottom 0, 78 px tall, `pointer-events: none`, in the page's own HTML before anything of ours), so it
-    has to come after the holder in the body: `edgeLast` moves it back to the end when something is added after it
-    (eight times at most; if something else keeps taking the end, the marker gives up and the flat colour is back). It keeps one empty
-    child, because Safari looks through a box with no child and no background. Never put a full-width `fixed`
-    layer along the top or bottom of a phone's page without checking this, and never use a popover or a dialog for
-    the marker (their backdrop counts as a box). Not covered: a phone on its side and the click-out pages, where
-    Framer's holder still brings the flat colour.
+    Safari's bars on a phone (XR3.5, XR3.6; `TABIT_PHONE`, `tabitEdge` and `mountTabitSky` in TabitSite.js). Safari on
+    iOS 26 shows a page under its status bar and its toolbar. Two rules, read from its own source (WebKit:
+    `LocalFrameView::fixedContainerEdges`, `WKWebView`'s colour extension views, `WKContentView`'s fixed clipping
+    view) and proven on a phone on the home:
+    1. It lays a flat colour over a bar's zone when the element at the middle of that edge of the screen sits in a
+       pinned box (`fixed`, or `sticky` and stuck) at least nine-tenths as wide as the screen and no taller than 1.05
+       times it (its first look ignores `pointer-events`). The click-out pages' nav bar and Framer's badge holder
+       (`#__framer-badge-container`: `fixed`, full width along the bottom, 78 px tall, `pointer-events: none`, z-index
+       2147483647, in the page's own HTML) are such boxes; the home's stage is not, because its pin is taller than the
+       screen (`PH_TOP` + 100lvh + `PH_BOT`): keep it so. `tabitEdge()` puts a marker (`data-tb-edge`) in front of them
+       at the middle of the top and of the bottom edge: nothing to see or tap, too small to count.
+    2. With no cover, whatever lies in a zone is drawn, pinned or not, as long as it is inside the page's own length.
+       So the home's stage and the click-out pages' sky run 100 px above the view and 140 below it (in the tallest
+       view, `lvh`: that is what lies under the bars), and the click-out pages' nav glass 100 px above it. All of it
+       follows the window's width (under 600 px), so a phone turned upright gets it. Above a page's top and below its end there is only the page's ground colour: the home rests 100 px
+       down, so its top never shows; a click-out page's ground takes the nav glass's colour (`#060A17`) while the page
+       is within 200 px of its top, and Night otherwise.
+    The markers' working numbers, which are not style values: 12 px square (Safari looks 4 px in from the edge), set
+    in by 6 px to sit on the middle, z-index 2147483647, the same as the badge holder's, so they have to come after
+    the holder in the body: they are moved back to the end when something is added after them (eight times at most;
+    if something else keeps taking the end they give up and the flat colour is back). There is one pair in a document,
+    shared by whoever asks (`tabitEdge()` hands out shares). Each keeps one empty child,
+    because Safari looks through a box with no child and no background. Never put a full-width `fixed` layer along
+    the top or bottom of a phone's page without checking this, and never use a popover or a dialog for a marker
+    (their backdrop counts as a box). Not covered: a phone on its side.
+    What a frame costs (XR3.6). Everything the home will need is made before its first frame (`prepare`), not at first
+    use. The hero's two canvases are not drawn, and are hidden, while the site's sky covers them (from three tenths
+    of the way into the hand-off); a canvas is cleared only when something was drawn on it; a frame builds no colour
+    strings or pairs for the sky. On a phone one full-screen canvas is drawn in a frame on most of the page (four
+    before). The pictures are the same: `pix.py`-style comparisons, old build against new with the clock frozen, are
+    the test for any such change. The intro plays once in a visit (`tabit-intro` in `sessionStorage`).
   - `pages/reinsurance.js`, `captives.js`, `aboutus.js`, `contact.js`: the click-out pages as `{ css, html, js }` strings,
     with the burger header. `TabitPage.tsx` renders one of them (its `page` control picks which), puts the home's live
     sky behind it, and, where the module has a `js` (Captives: its figure, board XR2.9.31E), runs it with the page's

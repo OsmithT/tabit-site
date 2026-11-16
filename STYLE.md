@@ -1,4 +1,4 @@
-# Tabit website — style code (v1.36, 16 Nov 2026)
+# Tabit website — style code (v1.37, 16 Nov 2026)
 
 The values behind every visual decision on the site, taken from the home page as shipped (XR2.8.2) and the brand
 guidelines. `DESIGN.md` holds the cardinal rules (what never ships); this file holds the values. Where a page and this
@@ -75,7 +75,9 @@ edge (under decision) · Dusk 45 Replay border. (Tabit Navy 38 and 80, the Capti
 A colour changing in a listed transition (.25 s, in CSS or on a canvas: a link, a button, the Captives ring under the
 mouse going from Paper to Brass) passes through the blends between its two listed colours; no blend is ever held at rest.
 
-Washes (legibility only): nav bar `rgba(8,13,30,.50)` + 14 px blur; burger panel and Skip `rgba(4,7,15,.92)` + 14 px
+Washes (legibility only): nav bar `rgba(8,13,30,.50)` + 14 px blur (and, on a phone's click-out page, the same wash over Night as
+one colour, `#060A17`, as the page's ground while it is within 200 px of its top: there Safari's status bar stands on
+the ground, not on the bar, v1.37, for Oscar to rule); burger panel and Skip `rgba(4,7,15,.92)` + 14 px
 blur; behind the copy column a horizontal `rgba(8,13,30)` .50 → .22 at 55 % → 0 to 860 units (fading as the page stacks); top 160 units `rgba(8,13,30,.30 → 0)`;
 Replay `rgba(4,7,15,.35)`.
 
@@ -299,9 +301,14 @@ keys. The stage is pinned in view and the animation reads the page's scroll, one
 ease of its own (it only eases to catch up, closing at 7 a second, when the intro ends on a page already scrolled). The pinned stage stands 100 px
 above the top of the view and runs 140 px below the tallest the view gets, so the sky is drawn under the status bar and
 the toolbar; the page is laid out in the smallest view (the bars showing), so nothing moves when they tuck away. Safari
-covers a bar's zone with a flat colour when it finds a full-width pinned layer at the middle of that edge, so nothing of
-ours is one (the pinned stage is taller than the screen, which Safari does not count), and a 12 px marker, with nothing
-to see or tap, stands at the middle of the bottom edge in front of Framer's badge holder, which is one (v1.36). The
+covers a bar's zone with a flat colour when it finds a full-width pinned layer at the middle of that edge. The pinned
+stage is not one (it is taller than the screen, which Safari does not count); Framer's badge holder and the click-out
+pages' nav bar are, so a 12 px marker, with nothing to see or tap, stands in front of them at the middle of the top and
+of the bottom edge (v1.36, v1.37). The click-out pages run under the bars the same way: their sky stands where the
+home's stage does (100 px above the view, 140 below it), their nav bar's glass runs 100 px above the view, and while a
+page is within 200 px of its top its ground is the nav glass over Night as one colour (#060A17), so the status bar
+stands on what reads as the bar. The intro plays once in a
+visit: coming back to Home, or loading it again, opens on the splash (v1.37). The
 page rests 100 px down, at the splash: pulled above that, it comes back when let go. In the compass's hold it settles on
 the nearer line when it comes to rest between two, as before. Both wait until the page has stood still for 240 ms with
 no finger on it (the compass's wait, as before), and both move the page with the browser's own smooth scroll, as do the
@@ -390,6 +397,13 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
 
 ## 10. Change log
 
+- 16 Nov 2026 — v1.37 (XR3.6). Oscar, 16 Nov, from a recording of his phone: "Do it on all the other pages"; "The hero
+  animation at the beginning is juttery and dropping frames. You're also playing it every time you click home ... It's
+  only played once"; "scrolling is not smooth ... Remove anything that adds lag while still producing the same output."
+  On a phone the click-out pages run under Safari's bars as the home does, and the intro plays once in a visit (§6).
+  One value is new: #060A17, the nav glass over Night as one colour, a click-out page's ground at its top on a phone.
+  The rest is the same pictures for less work (README, "What a frame costs"), and one fault put right: the lockup was
+  drawn out of place for a single frame each time a phone's page came back to the splash.
 - 16 Nov 2026 — v1.36 (XR3.5). The sky under Safari's toolbar on a phone. v1.35 put the sky under the status bar, but the
   zone under the toolbar stayed a flat colour (Oscar, 16 Nov, from his phone: "Its live but not fixed the issue then").
   The cause is in Safari's own source: it covers a bar's zone when the element at the middle of that edge is in a
