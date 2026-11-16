@@ -126,7 +126,7 @@ The code behind the Tabit Insurance website prototype in Framer.
     (Chromium) the intro measured 120 frames a second with none dropped. That is the reading; it is not proved until
     the readout shows it on his Safari. The engine cannot stop Framer's frame, so a first play of the intro waits for it
     (`self.hold` in `TabitSite.js`): in a browser without `requestIdleCallback` the clock stands at 0 until the page has
-    loaded, Framer's frame has loaded (400 ms is allowed for it to appear, 3 s for it to load), and no frame has come
+    loaded, Framer's frame has loaded (500 ms is allowed for it to appear, 3 s for it to load), and no frame has come
     late for 250 ms; never longer than 4 s from the engine's first frame; a press or a scroll down ends it, and so
     does anything that moves the clock. The governor does not count the wait. `?diag` now says when the page loaded,
     when Framer's frame was seen and loaded, how long the opening waited and how many frames came late meanwhile.
@@ -139,7 +139,7 @@ The code behind the Tabit Insurance website prototype in Framer.
     signed-in editor) is not waited for; a page whose own load takes most of the 4 s starts on time and may meet the
     frame. Framer's own site, on its own domain, pulls in the same loader but made no frame for an ordinary visitor in
     40 s (seen through the Claude browser pane, 16 Nov): on a real domain the frame may come only for owners and
-    collaborators, as Framer's help page says of the Edit button, and a visitor there then waits only the 400 ms.
+    collaborators, as Framer's help page says of the Edit button, and a visitor there then waits only the 500 ms.
     `?diag` on the real domain will say ("Framer editor frame none").
   - `pages/reinsurance.js`, `captives.js`, `aboutus.js`, `contact.js`: the click-out pages as `{ css, html, js }` strings,
     with the burger header. `TabitPage.tsx` renders one of them (its `page` control picks which), puts the home's live

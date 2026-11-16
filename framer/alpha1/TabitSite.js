@@ -2046,7 +2046,7 @@ var cEl = root.querySelector('[data-tabit-coords]'), goAbout = function () { if 
 on(cEl, 'click', goAbout); on(cEl, 'keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goAbout(); } });
 on(root.querySelector('[data-tabit-cue]'), 'click', function () { if (self.t < TABIT_END) { self.ff = true; return; } var qm = self.hand ? self.hand.qmax : 600; self.go(self.St < TABIT_HAND - 1 ? TABIT_HAND : TABIT_HAND + qm); });
 on(root.querySelector('[data-tabit-skip]'), 'click', function () { self.t = TABIT_END; self.ff = false; });
-on(root.querySelector('.tabit-replay'), 'click', function () { self.t = 0; self.S = 0; self.St = 0; self.ff = false; var N = natOn(); if (N) N.to(0, false); });
+on(root.querySelector('.tabit-replay'), 'click', function () { if (self.hold) self.hold.end = 1; self.t = 0; self.S = 0; self.St = 0; self.ff = false; var N = natOn(); if (N) N.to(0, false); });
 var skEl = host.querySelector('[data-tabit-skip]'), skA = null, seen = seen0;
 self.tick = function () {
   var now = performance.now(), gap = now - self.last, dt = Math.min(.05, gap / 1000); self.last = now;
@@ -2083,16 +2083,18 @@ self.tick = function () {
   var HD = self.hold;
   if (HD) {   // XR3.10: the opening waits for the page (see self.hold)
     if (!HD.t0) HD.t0 = now;   // the wait is timed from the first frame the engine runs (a tab opened in the background runs none until it is shown)
-    else { var hg = HD.g || (HD.g = []); hg.push(gap); if (hg.length > 9) hg.shift();
-      // a frame that came late: over 40 ms, and over two and a half times the second shortest gap of the last nine (the shortest while fewer than five are in hand):
-      // a low mark, so a run of long gaps does not come to count as usual, and not the very shortest, so a slow device with one quick frame is not kept waiting
-      if (gap > Math.max(40, 2.5 * hg.slice().sort(function (a, b) { return a - b; })[hg.length > 4 ? 1 : 0])) { HD.q = now; HD.n = (HD.n || 0) + 1; HD.mx = Math.max(HD.mx || 0, gap); } }
+    else { var hg = HD.g || (HD.g = []), hs = hg.slice().sort(function (a, b) { return a - b; });
+      // a frame that came late: over 40 ms after the one before, and over two and a half times the second shortest of the nine gaps before it (the shortest while
+      // fewer than five are in hand; 40 ms alone for the first): a low mark, so a run of long gaps does not come to count as usual, and not the very shortest,
+      // so a slow device with one quick frame is not kept waiting
+      if (gap > Math.max(40, hs.length ? 2.5 * hs[hs.length > 4 ? 1 : 0] : 0)) { HD.q = now; HD.n = (HD.n || 0) + 1; HD.mx = Math.max(HD.mx || 0, gap); }
+      hg.push(gap); if (hg.length > 9) hg.shift(); }
     if (!HD.ld && realDoc.readyState === 'complete') HD.ld = now;
     if (!HD.ef) { var ef0 = realDoc.getElementById('__framer-editorbar');
       if (ef0) { HD.ef = now; ef0.addEventListener('load', function () { HD.el = performance.now(); }, { once: true });
         // its page had arrived, or the page itself loaded over 3 s ago, before this engine first looked: its load event may have gone by (it is not sent twice), so a full second of steady frames stands in for it
         try { var nv0 = performance.getEntriesByType('navigation')[0]; if (performance.getEntriesByName(ef0.src).length || (nv0 && nv0.loadEventEnd && now - nv0.loadEventEnd > 3000)) HD.pre = now; } catch (e4) {} } }
-    var efOk = HD.ef ? HD.el || (HD.pre && now - Math.max(HD.q || 0, HD.pre) >= 1000) || now - HD.ef > 3000 : HD.ld && now - HD.ld >= 400;   // Framer's frame has loaded (3 s is the most it is given); or none has come in the 400 ms after the page's load (Framer's own delay is 300)
+    var efOk = HD.ef ? HD.el || (HD.pre && now - Math.max(HD.q || 0, HD.pre) >= 1000) || now - HD.ef > 3000 : HD.ld && now - HD.ld >= 500;   // Framer's frame has loaded (3 s is the most it is given); or none has come in the 500 ms after the page's load (Framer's own delay is 300)
     if (self.t > 0 || self.ff || HD.end || now - HD.t0 > 4000 || (HD.ld && efOk && now - Math.max(HD.q || 0, HD.el || 0, HD.ld) >= 250)) { HD.go = now; self.held = HD; self.hold = null; }
     else dt = 0;
   }

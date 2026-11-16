@@ -346,15 +346,16 @@ the page's own thread (WebKit's source), and on a first load the page stopped fo
 intro's first second (Oscar's `?diag` readout, 16 Nov), which is read as that frame starting up and is to be confirmed on
 his Safari. In a browser without `requestIdleCallback` (the test Framer's own loader makes; by WebKit's source they are
 the browsers that share the thread) the intro's clock stands at 0, the dark sky, until all of: the page has loaded;
-Framer's frame has loaded, or none has appeared in the 400 ms after the page's load (Framer's own delay is 300 ms); and no
-frame has come late for 250 ms. A late frame is one more than 40 ms, and more than 2.5 times the second shortest of the
-last nine gaps, after the one before. Framer's frame is given 3 s to load; where it was there before the engine first
-looked, 1 s of steady frames stands in for its load. The wait is never longer than 4 s from the engine's first frame. A
-press, a scroll down (wheel, touch or key), or anything that moves the clock (Skip, a chapter button) ends it; after a
-scroll the intro runs fast, as a scroll during the intro always has. Replay, a return to Home,
-reduced motion and a start time given by the host do not wait; nor does a browser that has `requestIdleCallback`
-(Chrome, Edge and Firefox on a computer), where the intro starts as before (checked in Chromium). The governor does not
-count frames during the wait. As before, the clock never moves on more than 0.05 s in one frame.
+Framer's frame has loaded, or none has appeared in the 500 ms after the page's load (Framer's own delay is 300 ms); and
+250 ms have gone by since the latest of the last late frame, Framer's frame loading and the page loading. A late frame
+is one that comes more than 40 ms after the one before, and more than 2.5 times the second shortest of the nine gaps
+before it. Framer's frame is given 3 s to load; where it was there before the engine first looked, 1 s without a late
+frame stands in for its load. The wait is never longer than 4 s from the engine's first frame. A press on the stage or
+on Replay, a scroll down (wheel, touch or key), or anything that moves the clock (Skip, a chapter button) ends it; after
+a scroll the intro runs fast, as a scroll during the intro always has. Replay, a return to Home, reduced motion and a
+start time given by the host do not wait; nor does a browser that has `requestIdleCallback` (Chrome, Edge and Firefox on
+a computer), where the intro starts as before (checked in Chromium). The governor does not count frames during the
+wait. As before, the clock never moves on more than 0.05 s in one frame.
 **A figure that changes as you scroll (v1.18, Oscar 12 Nov: "something needs to happen").** On a click-out page a
 figure may change from one state beside the headline to its finished state beside the content it explains, driven by
 the scroll and reversed by it. The stretch: two columns, from the top of the page until the next heading is half way up
@@ -425,12 +426,13 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
 - 16 Nov 2026 — v1.40 (XR3.10). Oscar, 16 Nov, from Safari's own `?diag` readout on his Mac: "both are still dropping
   frames at the initial load in ... No other website does this". §6 gains "The opening waits for the page": in a
   browser without `requestIdleCallback` a first play of the intro begins once the page has loaded, Framer's editor frame
-  has loaded (or none has appeared in 400 ms), and no frame has been late for 250 ms. Its values: 400 ms, 250 ms, a late
-  frame over 40 ms and 2.5 times the second shortest of the last nine gaps, 3 s for the frame to load, 1 s of steady
-  frames where the frame was already there, never longer than 4 s; and, written down for the first time, the 0.05 s the
-  clock may move in one frame. The cause is read from Framer's loader and WebKit's source and fits the readout's timing;
-  it is to be confirmed by the readout on his Safari. No color, type, layout or component value changes. XR3.9, the
-  same evening (the black hole on the mouse), changed no value in this code.
+  has loaded (or none has appeared in 500 ms), and 250 ms have gone by since the latest of the last late frame, the
+  frame loading and the page loading. Its values: 500 ms, 250 ms, a late frame over 40 ms and 2.5 times the second
+  shortest of the nine gaps before it, 3 s for the frame to load, 1 s without a late frame where the frame was already
+  there, never longer than 4 s; and, written down for the first time, the 0.05 s the clock may move in one frame. The
+  cause is read from Framer's loader and WebKit's source and fits the readout's timing; it is to be confirmed by the
+  readout on his Safari. No color, type, layout or component value changes. XR3.9, the same evening (the black hole on
+  the mouse), changed no value in this code.
 - 16 Nov 2026 — v1.39 (XR3.8). Oscar, 16 Nov, from a second recording of his phone: "This hasn't fixed the juttering
   issues for the phone ... The frames are also being dropped when you first load in on Safari. The second time when you
   click the replay button, it's fine." No value a visitor sees changes. On a phone every page declares one
