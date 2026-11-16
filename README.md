@@ -102,6 +102,16 @@ The code behind the Tabit Insurance website prototype in Framer.
     the splash logo's pieces are made in `prepare`, and the four weights of Manrope are asked for as soon as their
     stylesheet is in (a browser otherwise fetches a font when text first needs it). The test: that list, for a first
     play, must be empty.
+    The black hole stands on the mouse on any stage (XR3.9). The pointer is kept in the design's units (1280 x 720,
+    centred in the stage); the stars are bent, and Orion's glows placed, in the stage's own units, which begin OX to
+    the left of the design and OY above it. Two sums in `render` left OY out on one side. On a stage 720 tall that
+    is nothing. On a taller one (a window squarer than 16:9 at the home's size: Oscar's Safari window, 2056 x 1201,
+    gives a stage 961 tall) the stars bent round a point OY above the ring that marks the black hole, and each of
+    Orion's glows stood OY below its star through the intro: 120 units, 150 px, there. The ring, Orion's figure and
+    the grid have been right since XR2.9.20; these two sums were missed then. Measured at that window: the glows
+    stood 118 units below their stars and now stand on them; the stars bent round a point 152 px above the mouse
+    and now bend round the mouse (to the measure's own error, some 40 px). At 1440 x 810 and 1440 x 900, where
+    the stage is 720 tall, every pixel of the intro, the splash and the pages is as it was.
   - `pages/reinsurance.js`, `captives.js`, `aboutus.js`, `contact.js`: the click-out pages as `{ css, html, js }` strings,
     with the burger header. `TabitPage.tsx` renders one of them (its `page` control picks which), puts the home's live
     sky behind it, and, where the module has a `js` (Captives: its figure, board XR2.9.31E), runs it with the page's

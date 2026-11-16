@@ -1,3 +1,8 @@
+// Tabit XR3.9 (16 Nov 2026, Oscar: "the blackhole now doesn't match where the mouse is"). On a stage taller than 720 units (a window squarer than
+// 16:9 at the home's size: his Safari window gives a stage 961 tall, so 120 units, 150 px) the stars bent round a point that far ABOVE the ring
+// that marks the black hole, and each of Orion's glows stood that far BELOW its star through the intro. Both sums left the stage's vertical offset
+// (OY) out on one side; the ring, Orion's figure and the grid have had it since XR2.9.20. Two terms, in render(). Nothing else changes; a stage
+// 720 tall (OY 0) is drawn exactly as before. Search XR3.9.
 // Tabit XR3.8 (16 Nov 2026, Oscar, from a second recording of his phone: "This hasn't fixed the juttering issues for the phone ... The frames are also
 // being dropped when you first load in on Safari. The second time when you click the replay button, it's fine. So it's something about the initial
 // loading"). Two causes, the first found (in Safari's source, and it matches the recording), the second the likely one (what a first play does
@@ -780,7 +785,7 @@ function makeTabitHero(glCanvas, ovCanvas, DATA, DOM) {
     var lcx = TX + SHIFT * (1 - shiftK) - 106.3, overLogo = t > TL.grow0 && LENS.tx > lcx - 24 && LENS.tx < lcx + 600 + 24 && LENS.ty > 360 - 84 - 24 && LENS.ty < 360 + 84 + 24;
     if (FX.inkHit !== undefined) { overLogo = FX.inkHit === 1; if (overLogo) LENS.k = 0; }   // F2.6: the black hole ends the moment the pointer reaches the logo
     LENS.k += ((LENS.on && !overLogo && FX.lens > .5 && !TABIT_PH ? 1 : 0) - LENS.k) * .07; LENS.mx += (LENS.tx - LENS.mx) * .22; LENS.my += (LENS.ty - LENS.my) * .22;
-    starMat.uniforms.uLens.value.set(LENS.mx + OX, LENS.my, LENS.k);
+    starMat.uniforms.uLens.value.set(LENS.mx + OX, LENS.my + OY, LENS.k);   // XR3.9: in the stage's units both ways. The pointer is kept in the 1280 x 720 design's units (LENS.mx, LENS.my); the stars are bent in the stage's, which start OX to its left and OY above it. OY was left out, so on a stage taller than 720 the stars bent round a point OY above the ring
     var fadeIn = eIOS(seg(t, 0, 1.3)), focus = eIOS(seg(t, .9, 1.9)) * (1 - .45 * eIOS(seg(t, 3.0, 4.0)));
     var skyFocus = 1 - .45 * eIOS(seg(t, 3.0, 4.0));   // B10: the sky starts at its dimmed level (no overshoot), same later easing
     starMat.uniforms.uTime.value = t; starMat.uniforms.uFade.value = fadeIn * (1 - .35 * skyFocus) * FX.sky;
@@ -799,7 +804,7 @@ function makeTabitHero(glCanvas, ovCanvas, DATA, DOM) {
       o.sp.scale.setScalar(o.base * (k === 'pi3' ? 1 : 1.2 * (.82 + .18 * tw)));
       if (k !== 'pi3') { var cs2 = .06 * Math.sin(t * o.tw3 * .8 + o.ph); o.sp.material.color.setRGB(clamp(o.col0[0] * (1 + cs2), 0, 1), o.col0[1], clamp(o.col0[2] * (1 - cs2), 0, 1)); }
       if (k !== 'pi3') {   // bend the star's glow with the lens: project, lens in screen space, unproject at the same depth
-        v3.copy(o.v).project(cam); var ndz = v3.z, sp2 = lensPt((v3.x + 1) / 2 * W - OX, (1 - v3.y) / 2 * H);
+        v3.copy(o.v).project(cam); var ndz = v3.z, sp2 = lensPt((v3.x + 1) / 2 * W - OX, (1 - v3.y) / 2 * H - OY);   // XR3.9: into the design's units vertically too (toScreen's own sum). The next line puts OY back; without this one each glow stood OY below its star on a stage taller than 720
         o.sp.position.set((sp2[0] + OX) / W * 2 - 1, 1 - (sp2[1] + OY) / H * 2, ndz).unproject(cam);
       }
     });
