@@ -11,8 +11,7 @@ import { TABIT_HOME_CSS } from "./TabitHomeStyles.js"
 // @framerSupportedLayoutWidth any
 // @framerSupportedLayoutHeight any
 const THREE_URL = "https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"
-const FONT_URL =
-    "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@300;400;500;600&display=swap"
+const FONT_URL = "https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&display=swap"   // XR3.7: Manrope alone (Cormorant Garamond was still asked for; nothing on the site is set in it)
 const OPTIONS = { k: 1, opt: 37, x23: true, x2313: true, x2310: true, x237: true, x234: true, noMark: true, x251: true }
 const H = 720, WMIN = 960, WMAX = 4096, SMIN = 0.62, SMAX = 1.25, PHONE_W = 390, PHONE_SMAX = 430 / 390
 // XR3.4 (15 Nov 2026, Oscar: "Do the rebuild"): on a phone the home is a real page that scrolls. The stage is pinned (position: sticky) in a
@@ -137,8 +136,10 @@ export default function TabitHome(props: { style?: any }) {
         let footF = 0, touchY: number | null = null
         let footEl: HTMLElement | null | undefined
         const foot = () => footEl !== undefined ? footEl : (footEl = S0 ? (S0.querySelector("[data-tb-foot]") as HTMLElement | null) : null)   // looked up once: it is asked for as the page scrolls
+        let scEl: HTMLElement | null = null   // XR3.7: looked up once (it was looked up on every turn of the wheel)
         const atEnd = () => {   // the engine's page has scrolled to its last chapter (its scroller's translate has reached data-h - 720)
-            const sc = S0 && (S0.querySelector("[data-tabit-scroll]") as HTMLElement | null); if (!sc) return false
+            if (!scEl || !scEl.isConnected) scEl = S0 ? (S0.querySelector("[data-tabit-scroll]") as HTMLElement | null) : null
+            const sc = scEl; if (!sc) return false
             const m = /translateY\((-?[\d.]+)px\)/.exec(sc.style.transform || ""), y = m ? parseFloat(m[1]) : 0
             return -y >= parseFloat(sc.getAttribute("data-h") || "720") - 720 - 4
         }

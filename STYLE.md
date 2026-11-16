@@ -1,4 +1,4 @@
-# Tabit website — style code (v1.37, 16 Nov 2026)
+# Tabit website — style code (v1.38, 16 Nov 2026)
 
 The values behind every visual decision on the site, taken from the home page as shipped (XR2.8.2) and the brand
 guidelines. `DESIGN.md` holds the cardinal rules (what never ships); this file holds the values. Where a page and this
@@ -25,7 +25,7 @@ chapter) or the instruments (nav, button, chapter path, compass labels). No four
 photographs, illustrations or icons.
 
 1. One surface — Night is the only background; legibility by dimming the sky, never by a filled rectangle.
-2. Two type voices, one scale — Manrope everywhere (Cormorant Garamond loaded for the hero only); seven sizes.
+2. Two type voices, one scale — Manrope everywhere (Cormorant Garamond is no longer loaded: nothing is set in it, v1.38); seven sizes.
 3. One accent, one job — Brass marks the headline key word, the primary action, the current chapter, the compass
    points. Never a text background, border or decorative line.
 4. The subject sits still, the visitor moves — scroll- or pointer-driven motion only; the opening sequence excepted,
@@ -397,6 +397,13 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
 
 ## 10. Change log
 
+- 16 Nov 2026 — v1.38 (XR3.7). Oscar, 16 Nov: "Review every single line ... Every single line should be doing something.
+  Remove anything that isn't. Remove anything that adds lag while still producing the same output." No value a
+  visitor sees changes.
+  The home engine now holds only what the site runs, and work that changed nothing in a frame is gone (README, "The
+  engine holds only what the site runs"); the pictures are the same, frame for frame. One line of this code is put
+  right: Cormorant Garamond is no longer loaded (§1, principle 2), because nothing on the site is set in it. For Oscar
+  to rule if it is wanted back.
 - 16 Nov 2026 — v1.37 (XR3.6). Oscar, 16 Nov, from a recording of his phone: "Do it on all the other pages"; "The hero
   animation at the beginning is juttery and dropping frames. You're also playing it every time you click home ... It's
   only played once"; "scrolling is not smooth ... Remove anything that adds lag while still producing the same output."

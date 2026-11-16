@@ -1,3 +1,12 @@
+// Tabit XR3.7 (16 Nov 2026, Oscar: "go through the entire code base and review it to a professional standard. Review every single line ... Every single
+// line should be doing something. Remove anything that isn't. Remove anything that adds lag while still producing the same output"). This file held
+// every look the home has ever had, chosen by options at start; the site passes one set of options (TabitHome.tsx's OPTIONS; the click-out pages add
+// sky), so everything those options can never reach is gone: the earlier looks and hand-offs, eleven of the sky's twelve scenes, and what only they
+// used. Nothing was taken out on reading alone: a piece went only if it follows from the options that it cannot run AND it never ran in recorded
+// runs of the whole site (every size, phone and desktop, reduced motion, the click-out pages); every frame of the home was then compared with the
+// one before, pixel for pixel. What a tool cannot decide (values worked out and never read; the sky's stand-in interface, made at every load and
+// written to in every frame but never shown) was traced by hand. The last commit that holds the earlier looks is 94025f7. Per-frame work that
+// changed nothing is gone too: search XR3.7.
 // Tabit XR3.6 (16 Nov 2026, Oscar, from a recording of his phone: "The hero animation at the beginning is juttery and dropping frames. You're also playing
 // it every time you click home ... It's only played once ... scrolling is not smooth ... Remove anything that adds lag while still producing the same
 // output"; and of Safari's bars: "Do it on all the other pages"). The same pictures for less work: what was made at first use is made before the first
@@ -43,46 +52,33 @@ function TB_RGB(n,d){try{var v=getComputedStyle(document.documentElement).getPro
 var TB_VARC={};function TB_VAR(n,d){var c=TB_VARC[n],t=Date.now();if(c&&t-c.t<500)return c.v;var v=d;try{var r=parseFloat(getComputedStyle(document.documentElement).getPropertyValue(n));if(!isNaN(r))v=Math.max(0,Math.min(1,r));}catch(e){}TB_VARC[n]={v:v,t:t};return v;}
 var TABIT_STYLE = "[data-tabit-sec][data-tb-vc]::before{content:'';flex:var(--tb-vt,1) 0 0px}[data-tabit-sec][data-tb-vc]::after{content:'';flex:var(--tb-vb,1) 0 0px}.tb-stack [data-tabit-sec],.tb-stack [data-tabit-col]{text-align:center}.tb-stack [data-tabit-sec] [style*='display: flex'],.tb-stack [data-tabit-col] [style*='display: flex']{justify-content:center}.tb-stack [data-tabit-sec] [style*='display: inline-flex']{justify-content:center}.tb-stack [data-tabit-col] [style*='max-width: 610px']{margin-left:auto;margin-right:auto}.tb-stack [data-tabit-col]>span[style*='bottom: 78px']{left:calc(50% - 280px)!important;bottom:88px!important}.tb-stack [data-tabit-col]>div[style*='top: 0px']{top:-8px!important}.tb-stack [data-tabit-sec='5'] [data-tb-about-seq]{left:0!important;top:412px!important;width:470px!important}.tb-stack [data-tabit-sec] [style*='font-size: 15px; line-height: 24px']{font-size:17px!important;line-height:26px!important}.tb-stack [data-tb-about-seq] [style*='margin-top: 46px']{margin-top:28px!important}.tb-stack [data-tabit-sec='5'] [data-tb-about-seq] [style*='display: flex']{justify-content:center}.tb-menu{position:relative;pointer-events:auto}.tb-menu summary{list-style:none;display:flex;align-items:center;height:44px;padding:0 4px;cursor:pointer;color:var(--tabit-ink,#FBF9F4);font-size:13px;font-weight:500;letter-spacing:.02em;user-select:none}.tb-menu summary::-webkit-details-marker{display:none}.tb-menu summary:focus-visible{outline:2px solid #A8823A;outline-offset:3px}.tb-menu-ic{display:block;width:22px;height:12px;position:relative}.tb-menu-ic i{position:absolute;left:0;right:0;height:1.5px;background:var(--tabit-ink,#FBF9F4);transition:transform .25s cubic-bezier(.23,1,.32,1)}.tb-menu-ic i:first-child{top:0}.tb-menu-ic i:last-child{top:10.5px}.tb-menu[open] .tb-menu-ic i:first-child{transform:translateY(5.25px) rotate(45deg)}.tb-menu[open] .tb-menu-ic i:last-child{transform:translateY(-5.25px) rotate(-45deg)}.tb-menu-nav{position:absolute;left:-16px;top:60px;width:280px;padding:16px 28px 18px;background:rgba(4,7,15,.92);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid rgba(184,192,212,.14);border-radius:2px;display:flex;flex-direction:column;z-index:12}.tb-menu-nav a{display:block;padding:9px 0;font-size:17px;line-height:24px;font-weight:400;letter-spacing:-.01em;color:var(--tb-text,#FBF9F4);text-decoration:none;transition:color .25s ease}@media (hover:hover) and (pointer:fine){.tb-menu-nav a:hover{color:var(--tb-gold,#A8823A)}}.tb-menu-nav a[aria-current=\"page\"]{color:var(--tb-gold,#A8823A)}@media (prefers-reduced-motion: reduce){.tb-menu-ic i{transition:none}}\n\n@keyframes tabitGrain{0%{transform:translate(0,0)}25%{transform:translate(-40px,22px)}50%{transform:translate(18px,-36px)}75%{transform:translate(-22px,-14px)}100%{transform:translate(0,0)}}\n.tabit-grain{animation:tabitGrain .5s steps(4) infinite}\n@keyframes tabitCue{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}\n.tabit-cue-line{animation:tabitCue 2.2s cubic-bezier(.65,0,.35,1) infinite}\n.tabit-cue:focus-visible,.tabit-replay:focus-visible{outline:2px solid #A8823A;outline-offset:3px}\n.tabit-replay{transition:background .25s ease,border-color .25s ease}\n@media (hover:hover) and (pointer:fine){.tabit-replay:hover{background:rgba(251,249,244,.08);border-color:rgba(251,249,244,.75)}}\n.tabit-dot{position:absolute;width:28px;height:28px;border:0;padding:0;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center}\n.tabit-star{display:block;width:11px;height:8.6px;color:var(--tabit-ink2,#FBF9F4);transition:transform .35s ease,opacity .35s ease,filter .35s ease}\n.tabit-dotlabel{position:absolute;right:30px;top:50%;transform:translate(8px,-50%);opacity:0;white-space:nowrap;pointer-events:none;font-family:Manrope,system-ui,sans-serif;font-size:11px;font-weight:600;letter-spacing:.2em;color:var(--tabit-ink2,#FBF9F4);transition:opacity .3s ease,transform .3s ease}\n.tabit-dotlabel b{color:var(--tb-gold,#A8823A);font-weight:600;margin-right:8px}\n.tabit-dot:focus-visible .tabit-dotlabel{opacity:1;transform:translate(0,-50%)}@media (hover:hover) and (pointer:fine){.tabit-dot:hover .tabit-dotlabel{opacity:1;transform:translate(0,-50%)}}\n@media (hover:hover) and (pointer:fine){.tabit-dot:hover .tabit-star{filter:drop-shadow(0 0 5px rgba(251,249,244,.9))!important}}\n.tabit-dot:focus-visible,.tabit-home:focus-visible,.tabit-skip:focus-visible{outline:2px solid #A8823A;outline-offset:3px}\n.tabit-skip{transition:background .25s ease,border-color .25s ease,color .25s ease}\n@media (hover:hover) and (pointer:fine){.tabit-skip:hover{background:rgba(251,249,244,.08);border-color:rgba(251,249,244,.7);color:var(--tb-text,#FBF9F4)}}\n@media (prefers-reduced-motion: reduce){.tabit-grain,.tabit-cue-line{animation:none}}\n\n.tabit-plabel{position:absolute;left:30px;top:0;writing-mode:vertical-rl;transform:translateX(-50%);white-space:nowrap;pointer-events:none;font-family:Manrope,system-ui,sans-serif;font-size:12px;line-height:14px;font-weight:500;letter-spacing:.08em;color:var(--tabit-ink2,#FBF9F4);opacity:0}\n";
 var TABIT_MARKUP = "<div data-tabit-root=\"1\" tabindex=\"0\" style=\"width: 100%; height: 100%; position: relative; overflow: hidden; background: #04070F; cursor: none; outline: none; font-family: Manrope, system-ui, sans-serif\">\n<div data-tabit-night=\"1\" style=\"position: absolute; left: 0; top: 0; width: 100%; height: 720px; z-index: 2; background: #04070F\">\n<canvas data-tabit-gl=\"1\" role=\"img\" aria-label=\"Animated hero: the night sky draws in to the constellation Orion and its star pi-3 Orionis, Tabit; the Tabit knot is drawn from the star and the TABIT wordmark appears\" width=\"1280\" height=\"720\" style=\"position: absolute; left: 0; top: 0; width: 1280px; height: 720px; display: block\"></canvas>\n<canvas data-tabit-ov=\"1\" aria-hidden=\"true\" width=\"1280\" height=\"720\" style=\"position: absolute; left: 0; top: 0; width: 1280px; height: 720px; display: block; pointer-events: none\"></canvas>\n<canvas data-tabit-scene=\"1\" aria-hidden=\"true\" width=\"1280\" height=\"720\" style=\"position: absolute; left: 0; top: 0; width: 1280px; height: 720px; display: block; pointer-events: none\"></canvas><div data-tabit-vig=\"1\" aria-hidden=\"true\" style=\"position: absolute; inset: 0; pointer-events: none; background: radial-gradient(120% 92% at 50% 48%, rgba(0,0,0,0) 56%, rgba(0,0,0,.42) 100%)\"></div>\n\n</div>\n<div data-tabit-stage=\"1\" style=\"position: absolute; left: 0; top: 0; width: 1280px; height: 720px\"><div data-tabit-pageclip=\"1\" style=\"position: absolute; inset: 0; z-index: 3; pointer-events: none; overflow: hidden; overflow: clip\"><div data-tabit-page=\"1\" style=\"position: absolute; left: 0; top: 0; bottom: 0; width: 1280px; z-index: 3; pointer-events: none\"><div data-tabit-scroll=\"1\" data-h=\"4320\" style=\"position: absolute; left: 0; top: 0; width: 1280px; height: 3600px\"><svg data-tabit-wm=\"1\" viewBox=\"-3 -3 502 392\" width=\"820\" height=\"640.3\" aria-hidden=\"true\" style=\"position: absolute; right: -330px; top: 90px; opacity: 0\"><path fill=\"rgba(251,249,244,.06)\" fill-rule=\"evenodd\" d=\"M247.90 52.50L302.88 -2.48L388.60 83.25L333.63 138.23L357.86 162.45L412.83 107.48L498.56 193.20L412.83 278.93L357.86 223.95L333.63 248.18L388.60 303.16L302.88 388.88L247.90 333.90L192.93 388.88L107.20 303.16L162.18 248.18L137.95 223.95L82.97 278.93L-2.75 193.20L82.97 107.48L137.95 162.45L162.18 138.23L107.20 83.25L192.93 -2.48ZM124.46 83.25L225.78 184.57L239.27 171.08L151.44 83.25L192.93 41.76L225.78 74.62L239.27 61.13L192.93 14.78ZM201.55 116.11L215.04 129.60L302.88 41.76L344.36 83.25L311.51 116.11L325.00 129.60L371.35 83.25L302.88 14.78ZM168.70 83.25L192.93 107.48L217.15 83.25L192.93 59.02ZM278.65 83.25L302.88 107.48L327.11 83.25L302.88 59.02ZM256.53 105.37L335.74 184.57L349.23 171.08L270.02 91.88ZM223.67 138.23L247.90 162.45L272.13 138.23L247.90 114.00ZM14.50 193.20L82.97 261.67L184.30 160.34L170.81 146.85L82.97 234.69L41.49 193.20L82.97 151.72L115.83 184.57L129.32 171.08L82.97 124.74ZM311.51 226.06L325.00 239.55L412.83 151.72L454.32 193.20L412.83 234.69L379.97 201.83L366.48 215.32L412.83 261.67L481.30 193.20L412.83 124.74ZM201.55 226.06L215.04 239.55L294.25 160.34L280.76 146.85ZM58.74 193.20L82.97 217.43L107.20 193.20L82.97 168.97ZM168.70 193.20L192.93 217.43L217.15 193.20L192.93 168.97ZM278.65 193.20L302.88 217.43L327.11 193.20L302.88 168.97ZM388.60 193.20L412.83 217.43L437.06 193.20L412.83 168.97ZM146.58 215.32L225.78 294.53L239.27 281.04L160.07 201.83ZM256.53 215.32L344.36 303.16L302.88 344.64L270.02 311.78L256.53 325.27L302.88 371.62L371.35 303.16L270.02 201.83ZM223.67 248.18L247.90 272.41L272.13 248.18L247.90 223.95ZM124.46 303.16L192.93 371.62L294.25 270.30L280.76 256.81L192.93 344.64L151.44 303.16L184.30 270.30L170.81 256.81ZM168.70 303.16L192.93 327.38L217.15 303.16L192.93 278.93ZM278.65 303.16L302.88 327.38L327.11 303.16L302.88 278.93Z\"></path></svg><div data-tabit-rise=\"2\" data-tabit-col=\"1\" style=\"position: absolute; left: 80px; top: 88px; width: 640px; min-height: 632px; display: flex; flex-direction: column; justify-content: center; opacity: 0\"><div style=\"background: rgba(11,20,51,.58); border: 1px solid rgba(251,249,244,.12); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-radius: 2px; box-sizing: border-box; padding: 40px 40px 42px\"><span style=\"display: block; overflow: hidden; padding: 0 8px 12px; margin: 0px -8px -12px\"><span data-tabit-line-in=\"0\" style=\"display: block; transform: translateY(110%)\"><h1 style=\"margin: 0; font-weight: 300; font-size: 44px; line-height: 50px; letter-spacing: -.03em; color: var(--tb-text,#FBF9F4)\">Bespoke (re)insurance solutions.</h1></span></span><span style=\"display: block; overflow: hidden; padding: 0 8px 12px; margin: 20px -8px -12px\"><span data-tabit-line-in=\"1\" style=\"display: block; transform: translateY(110%)\"><div style=\"font-size: 15px; line-height: 24px; font-weight: 400; color: var(--tb-text,#FBF9F4)\">Bringing together insurance, digital assets and traditional finance. Good insurance starts with understanding what you need. Tabit structures insurance and reinsurance around your risks, your assets and your objectives.</div><div style=\"margin-top: 26px; padding-top: 18px; border-top: 1px solid rgba(251,249,244,.14); display: flex; flex-wrap: wrap; gap: 12px; font-size: 13px; line-height: 20px; font-weight: 400; color: var(--tb-text,#FBF9F4)\"><span>Licensed in Barbados</span><span style=\"color: var(--tb-gold,#A8823A)\">\u00b7</span><span>Class 2 global (re)insurer</span><span style=\"color: var(--tb-gold,#A8823A)\">\u00b7</span><span>Independently audited</span></div></span></span></div></div><h2 style=\"position: absolute; left: -9999px; top: 808px; margin: 0\">(Re)insurance</h2><div data-tabit-sec=\"1\" data-tabit-secd=\"0\" style=\"position: absolute; left: 80px; top: 808px; width: 640px; min-height: 632px; display: flex; flex-direction: column; justify-content: center; opacity: 0\"><div style=\"background: rgba(11,20,51,.58); border: 1px solid rgba(251,249,244,.12); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-radius: 2px; box-sizing: border-box; padding: 40px 40px 42px\"><div data-tabit-ik=\"1\" data-tabit-in=\"1\" style=\"opacity: 0\"><div style=\"font-weight: 300; font-size: 44px; line-height: 50px; letter-spacing: -.03em; color: var(--tb-text,#FBF9F4)\">The frontier, <span class=\"tb-key\">underwritten.</span></div></div><div data-tabit-ik=\"1\" data-tabit-in=\"2\" style=\"opacity: 0; margin-top: 18px\"><div style=\"font-size: 15px; line-height: 24px; font-weight: 400; color: var(--tb-text,#FBF9F4)\">Tabit provides capacity across casualty, specialty and retrocession markets, with a particular interest in areas where demand for cover outstrips supply. We commit our own capacity and assess each risk on its merits.</div></div><div data-tabit-ik=\"1\" data-tabit-in=\"3\" style=\"opacity: 0; margin-top: 22px\"><div style=\"font-size: 15px; line-height: 24px; font-weight: 400; color: var(--tb-text,#FBF9F4)\"><span style=\"font-weight: 600\">Specialty</span><br>Marine, traditional and renewable energy, space, political risk and transactional risk, on a proportional or non-proportional basis.</div></div><div data-tabit-ik=\"1\" data-tabit-in=\"4\" style=\"opacity: 0; margin-top: 14px\"><div style=\"font-size: 15px; line-height: 24px; font-weight: 400; color: var(--tb-text,#FBF9F4)\"><span style=\"font-weight: 600\">Property and casualty</span><br>General and excess liability, motor, errors and omissions, directors\u2019 and officers\u2019 liability and cyber, alongside high-excess catastrophe and parametric property cover. Facultative and treaty.</div></div><div data-tabit-ik=\"1\" data-tabit-in=\"5\" style=\"opacity: 0; margin-top: 14px\"><div style=\"font-size: 15px; line-height: 24px; font-weight: 400; color: var(--tb-text,#FBF9F4)\"><span style=\"font-weight: 600\">Structured solutions</span><br>From whole account covers to adverse development covers.</div></div></div></div><h2 style=\"position: absolute; left: -9999px; top: 1528px; margin: 0\">Captives</h2><div data-tabit-sec=\"2\" data-tabit-secd=\"0\" style=\"position: absolute; left: 80px; top: 1528px; width: 640px; min-height: 632px; display: flex; flex-direction: column; justify-content: center; opacity: 0\"><div style=\"background: rgba(11,20,51,.58); border: 1px solid rgba(251,249,244,.12); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-radius: 2px; box-sizing: border-box; padding: 40px 40px 42px\"><div data-tabit-ik=\"2\" data-tabit-in=\"1\" style=\"opacity: 0\"><div style=\"font-weight: 300; font-size: 44px; line-height: 50px; letter-spacing: -.03em; color: var(--tb-text,#FBF9F4)\">Your risk. Your premium.<br><span class=\"tb-key\">Your reward.</span></div></div><div data-tabit-ik=\"2\" data-tabit-in=\"2\" style=\"opacity: 0; margin-top: 18px\"><div style=\"font-size: 15px; line-height: 24px; font-weight: 400; color: var(--tb-text,#FBF9F4)\">A captive gives you a greater stake in the economics of your insurance.</div></div><div data-tabit-ik=\"2\" data-tabit-in=\"3\" style=\"opacity: 0; margin-top: 22px\"><div style=\"font-size: 15px; line-height: 24px; font-weight: 400; color: var(--tb-text,#FBF9F4)\"><span style=\"font-weight: 600\">Individual captives</span><br>A cell of your own, for risks conventional cover does not suit.</div></div><div data-tabit-ik=\"2\" data-tabit-in=\"4\" style=\"opacity: 0; margin-top: 14px\"><div style=\"font-size: 15px; line-height: 24px; font-weight: 400; color: var(--tb-text,#FBF9F4)\"><span style=\"font-weight: 600\">Put your capital to work</span><br>Back a cell with digital assets, precious metals, securities or cash, and earn US dollar premiums.</div></div><div data-tabit-ik=\"2\" data-tabit-in=\"5\" style=\"opacity: 0; margin-top: 14px\"><div style=\"font-size: 15px; line-height: 24px; font-weight: 400; color: var(--tb-text,#FBF9F4)\"><span style=\"font-weight: 600\">Insurance behind your guarantees</span><br>A CLIP puts a licensed insurer behind the guarantees you offer customers.</div></div><div data-tabit-ik=\"2\" data-tabit-in=\"6\" style=\"opacity: 0; margin-top: 14px\"><div style=\"font-size: 15px; line-height: 24px; font-weight: 400; color: var(--tb-text,#FBF9F4)\"><span style=\"font-weight: 600\">Digital asset businesses</span><br>A captive route to capacity the wider market will not offer.</div></div></div></div><h2 style=\"position: absolute; left: -9999px; top: 2248px; margin: 0\">AI</h2><div data-tabit-sec=\"3\" data-tabit-secd=\"0\" style=\"position: absolute; left: 80px; top: 2338px; width: 640px; opacity: 0\"><div style=\"background: rgba(11,20,51,.58); border: 1px solid rgba(251,249,244,.12); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-radius: 2px; box-sizing: border-box; padding: 40px 40px 42px\"><div data-tabit-ik=\"3\" data-tabit-in=\"1\" style=\"opacity: 0\"><div style=\"height: 150px\" aria-hidden=\"true\"></div></div><div data-tabit-ik=\"3\" data-tabit-in=\"2\" style=\"opacity: 0\"><div style=\"font-weight: 300; font-size: 44px; line-height: 50px; letter-spacing: -.03em; color: var(--tb-text,#FBF9F4)\">A broader view of <span class=\"tb-key\">risk.</span></div></div><div data-tabit-ik=\"3\" data-tabit-in=\"3\" style=\"opacity: 0; margin-top: 18px\"><div style=\"font-size: 15px; line-height: 24px; font-weight: 400; color: var(--tb-text,#FBF9F4)\">Insurance has a long history. New risks do not always offer it that luxury. Tabit works at the frontier of emerging risk. AI supports our underwriting, helping us assess risks that historical losses alone cannot explain.</div></div><div data-tabit-ik=\"3\" data-tabit-in=\"4\" style=\"opacity: 0; margin-top: 10px\"><div style=\"font-size: 15px; line-height: 24px; font-weight: 400; color: var(--tb-text,#FBF9F4)\">Decades of executive experience, sharpened by AI. That is how we decide where and how to offer cover.</div></div></div></div><h2 style=\"position: absolute; left: -9999px; top: 2968px; margin: 0\">License and audit</h2><div data-tabit-sec=\"4\" data-tabit-secd=\"0\" style=\"position: absolute; left: 80px; top: 2968px; width: 640px; min-height: 632px; display: flex; flex-direction: column; justify-content: center; opacity: 0\"><div style=\"background: rgba(11,20,51,.58); border: 1px solid rgba(251,249,244,.12); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-radius: 2px; box-sizing: border-box; padding: 40px 40px 42px\"><div data-tabit-ik=\"4\" data-tabit-in=\"1\" style=\"opacity: 0\"><div style=\"font-weight: 300; font-size: 44px; line-height: 50px; letter-spacing: -.03em; color: var(--tb-text,#FBF9F4)\">Licensed, audited, <span class=\"tb-key\">accountable.</span></div></div><div data-tabit-ik=\"4\" data-tabit-in=\"2\" style=\"opacity: 0; margin-top: 18px\"><div style=\"font-size: 15px; line-height: 24px; font-weight: 400; color: var(--tb-text,#FBF9F4)\">Tabit Insurance SCC is licensed by the Financial Services Commission of Barbados as a Class 2 global (re)insurer, covering life and non-life business.</div></div><div data-tabit-ik=\"4\" data-tabit-in=\"3\" style=\"opacity: 0; margin-top: 12px\"><div style=\"font-size: 15px; line-height: 24px; font-weight: 400; color: var(--tb-text,#FBF9F4)\">Our accounts are independently audited. Each cell operates within Tabit\u2019s license and is subject to the applicable regulatory and reporting requirements.</div></div></div></div><h2 style=\"position: absolute; left: -9999px; top: 3688px; margin: 0\">About us</h2><div data-tabit-sec=\"5\" data-tabit-secd=\"0\" style=\"position: absolute; left: 80px; top: 3702px; width: 1104px; opacity: 0\"><div style=\"width: 640px; background: rgba(11,20,51,.58); border: 1px solid rgba(251,249,244,.12); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-radius: 2px; box-sizing: border-box; padding: 26px 40px 28px\"><div data-tabit-ik=\"5\" data-tabit-in=\"1\" style=\"opacity: 0\"><div style=\"font-weight: 300; font-size: 44px; line-height: 50px; letter-spacing: -.03em; color: var(--tb-text,#FBF9F4)\">Named to <span class=\"tb-key\">endure.</span></div></div><div data-tabit-ik=\"5\" data-tabit-in=\"2\" style=\"opacity: 0; margin-top: 12px\"><div style=\"font-size: 15px; line-height: 24px; font-weight: 400; color: var(--tb-text,#FBF9F4)\">Tabit brings together insurance expertise and a broader approach to capital. We help institutional and individual asset holders participate in the global reinsurance market through a regulated segregated cell structure.</div></div><div data-tabit-ik=\"5\" data-tabit-in=\"3\" style=\"opacity: 0; margin-top: 8px\"><div style=\"font-size: 15px; line-height: 24px; font-weight: 400; color: var(--tb-text,#FBF9F4)\">Our approach begins with the assets you hold and the risks you are prepared to take. From there, we structure participation with the aim of generating returns that are not closely tied to conventional financial markets.</div></div><div data-tabit-ik=\"5\" data-tabit-in=\"4\" style=\"opacity: 0; margin-top: 22px\"><button type=\"button\" data-tabit-more=\"1\" style=\"pointer-events: auto; cursor: pointer; font-family: Manrope, system-ui, sans-serif; font-size: 13px; font-weight: 500; letter-spacing: .02em; color: var(--tb-text,#FBF9F4); background: transparent; border: 1px solid rgba(251,249,244,.38); border-radius: 2px; padding: 10px 18px\">Learn more about our people</button></div></div><div data-tabit-ik=\"5\" data-tabit-in=\"5\" style=\"opacity: 0; margin-top: 14px; width: 640px; font-size: 12px; line-height: 18px; color: color-mix(in srgb,var(--tb-text,#FBF9F4) 72%,transparent)\">Tabit Insurance SCC is regulated and licensed in Barbados by the Financial Services Commission of Barbados. It is not regulated or licensed outside Barbados and deals only through appropriately licensed insurance brokers.</div></div>\n</div></div></div>\n<div style=\"position: absolute; inset: 0; z-index: 6; pointer-events: none\"><svg data-tabit-lockup=\"1\" viewBox=\"-4 -4 1408 395\" width=\"603.51\" height=\"169.31\" aria-hidden=\"true\" style=\"position: absolute; left: 338.25px; top: 275.39px; overflow: visible; pointer-events: none; transform-origin: 108.01px 84.61px\"><defs><radialGradient id=\"tabitHeadGlow\"><stop offset=\"0\" stop-color=\"#FFFFFF\" stop-opacity=\".85\"></stop><stop offset=\".35\" stop-color=\"#FBF9F4\" stop-opacity=\".3\"></stop><stop offset=\"1\" stop-color=\"#FBF9F4\" stop-opacity=\"0\"></stop></radialGradient><mask id=\"tabitReveal\" maskUnits=\"userSpaceOnUse\" x=\"-30\" y=\"-30\" width=\"560\" height=\"450\"><path data-tabit-mask=\"A\" d=\"M247.90 193.20L192.93 248.18L137.95 303.15L192.93 358.13L247.90 303.15L302.88 248.18L357.86 193.20L412.83 138.22L467.81 193.20L412.83 248.18L357.86 193.20L302.88 138.22L247.90 83.25L192.93 28.27L137.95 83.25L192.93 138.22L247.90 193.20\" fill=\"none\" stroke=\"#FFFFFF\" stroke-width=\"0\" stroke-linejoin=\"miter\" stroke-linecap=\"square\"></path><path data-tabit-mask=\"B\" d=\"M247.90 193.20L302.88 248.18L357.86 303.15L302.88 358.13L247.90 303.15L192.93 248.18L137.95 193.20L82.97 138.22L28.00 193.20L82.97 248.18L137.95 193.20L192.93 138.22L247.90 83.25L302.88 28.27L357.86 83.25L302.88 138.22L247.90 193.20\" fill=\"none\" stroke=\"#FFFFFF\" stroke-width=\"0\" stroke-linejoin=\"miter\" stroke-linecap=\"square\"></path></mask></defs><path data-tabit-mark=\"1\" mask=\"url(#tabitReveal)\" fill=\"#FFFFFF\" fill-rule=\"evenodd\" style=\"opacity: 0\" d=\"M247.90 52.50L302.88 -2.48L388.60 83.25L333.63 138.23L357.86 162.45L412.83 107.48L498.56 193.20L412.83 278.93L357.86 223.95L333.63 248.18L388.60 303.16L302.88 388.88L247.90 333.90L192.93 388.88L107.20 303.16L162.18 248.18L137.95 223.95L82.97 278.93L-2.75 193.20L82.97 107.48L137.95 162.45L162.18 138.23L107.20 83.25L192.93 -2.48ZM124.46 83.25L225.78 184.57L239.27 171.08L151.44 83.25L192.93 41.76L225.78 74.62L239.27 61.13L192.93 14.78ZM201.55 116.11L215.04 129.60L302.88 41.76L344.36 83.25L311.51 116.11L325.00 129.60L371.35 83.25L302.88 14.78ZM168.70 83.25L192.93 107.48L217.15 83.25L192.93 59.02ZM278.65 83.25L302.88 107.48L327.11 83.25L302.88 59.02ZM256.53 105.37L335.74 184.57L349.23 171.08L270.02 91.88ZM223.67 138.23L247.90 162.45L272.13 138.23L247.90 114.00ZM14.50 193.20L82.97 261.67L184.30 160.34L170.81 146.85L82.97 234.69L41.49 193.20L82.97 151.72L115.83 184.57L129.32 171.08L82.97 124.74ZM311.51 226.06L325.00 239.55L412.83 151.72L454.32 193.20L412.83 234.69L379.97 201.83L366.48 215.32L412.83 261.67L481.30 193.20L412.83 124.74ZM201.55 226.06L215.04 239.55L294.25 160.34L280.76 146.85ZM58.74 193.20L82.97 217.43L107.20 193.20L82.97 168.97ZM168.70 193.20L192.93 217.43L217.15 193.20L192.93 168.97ZM278.65 193.20L302.88 217.43L327.11 193.20L302.88 168.97ZM388.60 193.20L412.83 217.43L437.06 193.20L412.83 168.97ZM146.58 215.32L225.78 294.53L239.27 281.04L160.07 201.83ZM256.53 215.32L344.36 303.16L302.88 344.64L270.02 311.78L256.53 325.27L302.88 371.62L371.35 303.16L270.02 201.83ZM223.67 248.18L247.90 272.41L272.13 248.18L247.90 223.95ZM124.46 303.16L192.93 371.62L294.25 270.30L280.76 256.81L192.93 344.64L151.44 303.16L184.30 270.30L170.81 256.81ZM168.70 303.16L192.93 327.38L217.15 303.16L192.93 278.93ZM278.65 303.16L302.88 327.38L327.11 303.16L302.88 278.93Z\"></path><path data-tabit-line=\"A\" d=\"M247.90 193.20L192.93 248.18L137.95 303.15L192.93 358.13L247.90 303.15L302.88 248.18L357.86 193.20L412.83 138.22L467.81 193.20L412.83 248.18L357.86 193.20L302.88 138.22L247.90 83.25L192.93 28.27L137.95 83.25L192.93 138.22L247.90 193.20\" pathLength=\"1\" fill=\"none\" stroke=\"#FBF9F4\" stroke-width=\"1.3\" vector-effect=\"non-scaling-stroke\" stroke-linejoin=\"miter\" style=\"stroke-dasharray: 1 1; stroke-dashoffset: 1; opacity: 0\"></path><path data-tabit-line=\"B\" d=\"M247.90 193.20L302.88 248.18L357.86 303.15L302.88 358.13L247.90 303.15L192.93 248.18L137.95 193.20L82.97 138.22L28.00 193.20L82.97 248.18L137.95 193.20L192.93 138.22L247.90 83.25L302.88 28.27L357.86 83.25L302.88 138.22L247.90 193.20\" pathLength=\"1\" fill=\"none\" stroke=\"#FBF9F4\" stroke-width=\"1.3\" vector-effect=\"non-scaling-stroke\" stroke-linejoin=\"miter\" style=\"stroke-dasharray: 1 1; stroke-dashoffset: 1; opacity: 0\"></path><g data-tabit-head=\"A\" style=\"opacity: 0\"><circle r=\"22\" fill=\"url(#tabitHeadGlow)\"></circle><circle r=\"4.2\" fill=\"#FFFFFF\"></circle></g><g data-tabit-head=\"B\" style=\"opacity: 0\"><circle r=\"22\" fill=\"url(#tabitHeadGlow)\"></circle><circle r=\"4.2\" fill=\"#FFFFFF\"></circle></g><clipPath id=\"tabitWordClip\"><rect x=\"530\" y=\"40\" width=\"900\" height=\"266.3\"></rect></clipPath><g clip-path=\"url(#tabitWordClip)\"><path data-tabit-letter=\"0\" fill=\"#FFFFFF\" fill-rule=\"evenodd\" style=\"opacity: 0; transform-box: fill-box\" d=\"M542 81.3H710V131.3H654.7V305.3H596.7V131.3H542Z\"></path><path data-tabit-letter=\"1\" fill=\"#FFFFFF\" fill-rule=\"evenodd\" style=\"opacity: 0; transform-box: fill-box\" d=\"M793.3 81.3H860.7L935.3 305.3H874L863.3 268.7H790L778.7 305.3H717.3ZM827 149.3L804.7 220.7H848.7Z\"></path><path data-tabit-letter=\"2\" fill=\"#FFFFFF\" fill-rule=\"evenodd\" style=\"opacity: 0; transform-box: fill-box\" d=\"M1084.06 302.52C1107.15 295.54 1121.96 280.22 1126.18 258.94C1128.06 249.43 1127.32 233.56 1124.64 225.77C1121.94 217.93 1118.02 211.13 1113.03 205.66C1107.47 199.56 1103.35 196.65 1095.45 193.22C1090.30 191.00 1089.15 190.20 1090.38 189.74C1104.30 184.50 1115.42 173.06 1120.11 159.15C1122.52 152.01 1123.16 132.87 1121.25 124.83C1118.80 114.48 1115.63 108.60 1108.38 100.94C1101.12 93.28 1094.39 89.12 1083.85 85.78C1071.62 81.91 1068.76 81.3 1010.39 81.3L954.6 81.3L954.6 305.3L1076.55 305.3C1079.2 305.3 1081.6 303.3 1084.06 302.52ZM1013.43 255.13L1012.82 255.13L1012.82 214.52L1033.32 214.81C1052.20 215.07 1054.11 215.24 1057.47 216.94C1059.48 217.95 1062.11 219.92 1063.32 221.31C1067.77 226.40 1069.25 235.96 1066.78 243.50C1065.15 248.44 1063.11 250.68 1058.00 253.10C1054.10 254.95 1052.45 255.11 1033.93 255.44C1022.99 255.63 1013.77 255.49 1013.43 255.13ZM1012.82 150.51L1012.82 130.81L1030.89 131.21C1041.69 131.45 1050.19 132.03 1052.05 132.66C1056.17 134.06 1061.21 139.06 1062.40 142.93C1063.61 146.89 1063.60 155.90 1062.37 159.31C1060.84 163.55 1056.67 167.52 1052.27 168.92C1049.26 169.88 1043.77 170.20 1030.54 170.20L1012.82 170.20L1012.82 150.51Z\"></path><path data-tabit-letter=\"3\" fill=\"#FFFFFF\" fill-rule=\"evenodd\" style=\"opacity: 0; transform-box: fill-box\" d=\"M1152.7 81.3H1210V305.3H1152.7Z\"></path><path data-tabit-letter=\"4\" fill=\"#FFFFFF\" fill-rule=\"evenodd\" style=\"opacity: 0; transform-box: fill-box\" d=\"M1232 81.3H1400V131.3H1344.7V305.3H1286.7V131.3H1232Z\"></path></g></svg></div>\n<button type=\"button\" data-tabit-cue=\"1\" class=\"tabit-cue\" aria-label=\"Scroll to the site\" style=\"position: absolute; left: 50%; bottom: 34px; transform: translateX(-50%); z-index: 8; opacity: 0; border: 0; background: transparent; padding: 8px 14px; cursor: pointer; font-family: Manrope, system-ui, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: .26em; color: var(--tb-label,#B8C0D4)\"><span style=\"display: block\">EXPLORE</span><span class=\"tabit-cue-line\" style=\"display: block; width: 1px; height: 30px; margin: 10px auto 0; background: rgba(184,192,212,.5)\"></span></button><button type=\"button\" data-tabit-home=\"1\" class=\"tabit-home\" aria-label=\"Tabit, back to the top\" style=\"position: absolute; left: 32px; top: 16px; width: 156px; height: 56px; z-index: 9; display: none; border: 0; padding: 0; background: transparent; cursor: pointer\"></button></div>\n<div data-tabit-navlayer=\"1\" style=\"position: absolute; inset: 0; z-index: 3; pointer-events: none\"><div data-tabit-navbg=\"1\" style=\"position: absolute; left: 0; right: 0; top: 0; height: 88px; background: rgba(8,13,30,.5); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(184,192,212,.14); opacity: 0; z-index: 4\"></div><div data-tabit-nav=\"1\" style=\"position: absolute; left: 40px; right: 40px; top: 0; height: 88px; display: flex; align-items: center; justify-content: space-between; opacity: 0; z-index: 5\"><div data-tabit-navitem=\"0\" style=\"opacity: 0; pointer-events: auto\"><details class=\"tb-menu\"><summary aria-label=\"Menu\"><span class=\"tb-menu-ic\" aria-hidden=\"true\"><i></i><i></i></span></summary><nav class=\"tb-menu-nav\" aria-label=\"Main\"><a href=\"/reinsurance\">(Re)insurance</a><a href=\"/captives\">Captives</a><a href=\"/press\">Press</a><a href=\"/about-us\">About us</a><a class=\"tb-menu-contact\" href=\"/contact\">Contact us</a></nav></details></div><a href=\"/contact\" data-tabit-navitem=\"1\" style=\"opacity: 0; pointer-events: auto; cursor: pointer; text-decoration: none; font-size: 13px; font-weight: 500; letter-spacing: .02em; border: 1px solid var(--tabit-line, rgba(251,249,244,.38)); color: var(--tabit-ink2, #FBF9F4); border-radius: 2px; padding: 10px 18px\">Contact us</a></div></div>\n\n<div data-tabit-dots=\"1\" style=\"position: absolute; right: 22px; top: 50%; transform: translateY(-50%); width: 60px; height: 248px; z-index: 8; opacity: 0\"><span data-tabit-plabel=\"0\" class=\"tabit-plabel\" aria-hidden=\"true\">Home</span><span data-tabit-plabel=\"1\" class=\"tabit-plabel\" aria-hidden=\"true\">(Re)insurance</span><span data-tabit-plabel=\"2\" class=\"tabit-plabel\" aria-hidden=\"true\">Captives</span><span data-tabit-plabel=\"3\" class=\"tabit-plabel\" aria-hidden=\"true\">AI</span><span data-tabit-plabel=\"4\" class=\"tabit-plabel\" aria-hidden=\"true\">License &amp; audit</span><span data-tabit-plabel=\"5\" class=\"tabit-plabel\" aria-hidden=\"true\">About us</span><button type=\"button\" data-tabit-ch=\"0\" class=\"tabit-dot\" aria-label=\"Go to Home\" style=\"left: 16px; top: 0px\"><span data-tabit-dot=\"0\" class=\"tabit-star\" style=\"opacity: .45\"><svg viewBox=\"-4 -4 506 395\" width=\"11\" height=\"8.6\" aria-hidden=\"true\" style=\"display: block; overflow: visible\"><path fill=\"currentColor\" fill-rule=\"evenodd\" d=\"M247.90 52.50L302.88 -2.48L388.60 83.25L333.63 138.23L357.86 162.45L412.83 107.48L498.56 193.20L412.83 278.93L357.86 223.95L333.63 248.18L388.60 303.16L302.88 388.88L247.90 333.90L192.93 388.88L107.20 303.16L162.18 248.18L137.95 223.95L82.97 278.93L-2.75 193.20L82.97 107.48L137.95 162.45L162.18 138.23L107.20 83.25L192.93 -2.48ZM124.46 83.25L225.78 184.57L239.27 171.08L151.44 83.25L192.93 41.76L225.78 74.62L239.27 61.13L192.93 14.78ZM201.55 116.11L215.04 129.60L302.88 41.76L344.36 83.25L311.51 116.11L325.00 129.60L371.35 83.25L302.88 14.78ZM168.70 83.25L192.93 107.48L217.15 83.25L192.93 59.02ZM278.65 83.25L302.88 107.48L327.11 83.25L302.88 59.02ZM256.53 105.37L335.74 184.57L349.23 171.08L270.02 91.88ZM223.67 138.23L247.90 162.45L272.13 138.23L247.90 114.00ZM14.50 193.20L82.97 261.67L184.30 160.34L170.81 146.85L82.97 234.69L41.49 193.20L82.97 151.72L115.83 184.57L129.32 171.08L82.97 124.74ZM311.51 226.06L325.00 239.55L412.83 151.72L454.32 193.20L412.83 234.69L379.97 201.83L366.48 215.32L412.83 261.67L481.30 193.20L412.83 124.74ZM201.55 226.06L215.04 239.55L294.25 160.34L280.76 146.85ZM58.74 193.20L82.97 217.43L107.20 193.20L82.97 168.97ZM168.70 193.20L192.93 217.43L217.15 193.20L192.93 168.97ZM278.65 193.20L302.88 217.43L327.11 193.20L302.88 168.97ZM388.60 193.20L412.83 217.43L437.06 193.20L412.83 168.97ZM146.58 215.32L225.78 294.53L239.27 281.04L160.07 201.83ZM256.53 215.32L344.36 303.16L302.88 344.64L270.02 311.78L256.53 325.27L302.88 371.62L371.35 303.16L270.02 201.83ZM223.67 248.18L247.90 272.41L272.13 248.18L247.90 223.95ZM124.46 303.16L192.93 371.62L294.25 270.30L280.76 256.81L192.93 344.64L151.44 303.16L184.30 270.30L170.81 256.81ZM168.70 303.16L192.93 327.38L217.15 303.16L192.93 278.93ZM278.65 303.16L302.88 327.38L327.11 303.16L302.88 278.93Z\"></path></svg></span><span class=\"tabit-dotlabel\">Home</span></button><button type=\"button\" data-tabit-ch=\"1\" class=\"tabit-dot\" aria-label=\"Go to (Re)insurance\" style=\"left: 16px; top: 44px\"><span data-tabit-dot=\"1\" class=\"tabit-star\" style=\"opacity: .45\"><svg viewBox=\"-4 -4 506 395\" width=\"11\" height=\"8.6\" aria-hidden=\"true\" style=\"display: block; overflow: visible\"><path fill=\"currentColor\" fill-rule=\"evenodd\" d=\"M247.90 52.50L302.88 -2.48L388.60 83.25L333.63 138.23L357.86 162.45L412.83 107.48L498.56 193.20L412.83 278.93L357.86 223.95L333.63 248.18L388.60 303.16L302.88 388.88L247.90 333.90L192.93 388.88L107.20 303.16L162.18 248.18L137.95 223.95L82.97 278.93L-2.75 193.20L82.97 107.48L137.95 162.45L162.18 138.23L107.20 83.25L192.93 -2.48ZM124.46 83.25L225.78 184.57L239.27 171.08L151.44 83.25L192.93 41.76L225.78 74.62L239.27 61.13L192.93 14.78ZM201.55 116.11L215.04 129.60L302.88 41.76L344.36 83.25L311.51 116.11L325.00 129.60L371.35 83.25L302.88 14.78ZM168.70 83.25L192.93 107.48L217.15 83.25L192.93 59.02ZM278.65 83.25L302.88 107.48L327.11 83.25L302.88 59.02ZM256.53 105.37L335.74 184.57L349.23 171.08L270.02 91.88ZM223.67 138.23L247.90 162.45L272.13 138.23L247.90 114.00ZM14.50 193.20L82.97 261.67L184.30 160.34L170.81 146.85L82.97 234.69L41.49 193.20L82.97 151.72L115.83 184.57L129.32 171.08L82.97 124.74ZM311.51 226.06L325.00 239.55L412.83 151.72L454.32 193.20L412.83 234.69L379.97 201.83L366.48 215.32L412.83 261.67L481.30 193.20L412.83 124.74ZM201.55 226.06L215.04 239.55L294.25 160.34L280.76 146.85ZM58.74 193.20L82.97 217.43L107.20 193.20L82.97 168.97ZM168.70 193.20L192.93 217.43L217.15 193.20L192.93 168.97ZM278.65 193.20L302.88 217.43L327.11 193.20L302.88 168.97ZM388.60 193.20L412.83 217.43L437.06 193.20L412.83 168.97ZM146.58 215.32L225.78 294.53L239.27 281.04L160.07 201.83ZM256.53 215.32L344.36 303.16L302.88 344.64L270.02 311.78L256.53 325.27L302.88 371.62L371.35 303.16L270.02 201.83ZM223.67 248.18L247.90 272.41L272.13 248.18L247.90 223.95ZM124.46 303.16L192.93 371.62L294.25 270.30L280.76 256.81L192.93 344.64L151.44 303.16L184.30 270.30L170.81 256.81ZM168.70 303.16L192.93 327.38L217.15 303.16L192.93 278.93ZM278.65 303.16L302.88 327.38L327.11 303.16L302.88 278.93Z\"></path></svg></span><span class=\"tabit-dotlabel\">(Re)insurance</span></button><button type=\"button\" data-tabit-ch=\"2\" class=\"tabit-dot\" aria-label=\"Go to Captives\" style=\"left: 16px; top: 88px\"><span data-tabit-dot=\"2\" class=\"tabit-star\" style=\"opacity: .45\"><svg viewBox=\"-4 -4 506 395\" width=\"11\" height=\"8.6\" aria-hidden=\"true\" style=\"display: block; overflow: visible\"><path fill=\"currentColor\" fill-rule=\"evenodd\" d=\"M247.90 52.50L302.88 -2.48L388.60 83.25L333.63 138.23L357.86 162.45L412.83 107.48L498.56 193.20L412.83 278.93L357.86 223.95L333.63 248.18L388.60 303.16L302.88 388.88L247.90 333.90L192.93 388.88L107.20 303.16L162.18 248.18L137.95 223.95L82.97 278.93L-2.75 193.20L82.97 107.48L137.95 162.45L162.18 138.23L107.20 83.25L192.93 -2.48ZM124.46 83.25L225.78 184.57L239.27 171.08L151.44 83.25L192.93 41.76L225.78 74.62L239.27 61.13L192.93 14.78ZM201.55 116.11L215.04 129.60L302.88 41.76L344.36 83.25L311.51 116.11L325.00 129.60L371.35 83.25L302.88 14.78ZM168.70 83.25L192.93 107.48L217.15 83.25L192.93 59.02ZM278.65 83.25L302.88 107.48L327.11 83.25L302.88 59.02ZM256.53 105.37L335.74 184.57L349.23 171.08L270.02 91.88ZM223.67 138.23L247.90 162.45L272.13 138.23L247.90 114.00ZM14.50 193.20L82.97 261.67L184.30 160.34L170.81 146.85L82.97 234.69L41.49 193.20L82.97 151.72L115.83 184.57L129.32 171.08L82.97 124.74ZM311.51 226.06L325.00 239.55L412.83 151.72L454.32 193.20L412.83 234.69L379.97 201.83L366.48 215.32L412.83 261.67L481.30 193.20L412.83 124.74ZM201.55 226.06L215.04 239.55L294.25 160.34L280.76 146.85ZM58.74 193.20L82.97 217.43L107.20 193.20L82.97 168.97ZM168.70 193.20L192.93 217.43L217.15 193.20L192.93 168.97ZM278.65 193.20L302.88 217.43L327.11 193.20L302.88 168.97ZM388.60 193.20L412.83 217.43L437.06 193.20L412.83 168.97ZM146.58 215.32L225.78 294.53L239.27 281.04L160.07 201.83ZM256.53 215.32L344.36 303.16L302.88 344.64L270.02 311.78L256.53 325.27L302.88 371.62L371.35 303.16L270.02 201.83ZM223.67 248.18L247.90 272.41L272.13 248.18L247.90 223.95ZM124.46 303.16L192.93 371.62L294.25 270.30L280.76 256.81L192.93 344.64L151.44 303.16L184.30 270.30L170.81 256.81ZM168.70 303.16L192.93 327.38L217.15 303.16L192.93 278.93ZM278.65 303.16L302.88 327.38L327.11 303.16L302.88 278.93Z\"></path></svg></span><span class=\"tabit-dotlabel\">Captives</span></button><button type=\"button\" data-tabit-ch=\"3\" class=\"tabit-dot\" aria-label=\"Go to AI\" style=\"left: 16px; top: 132px\"><span data-tabit-dot=\"3\" class=\"tabit-star\" style=\"opacity: .45\"><svg viewBox=\"-4 -4 506 395\" width=\"11\" height=\"8.6\" aria-hidden=\"true\" style=\"display: block; overflow: visible\"><path fill=\"currentColor\" fill-rule=\"evenodd\" d=\"M247.90 52.50L302.88 -2.48L388.60 83.25L333.63 138.23L357.86 162.45L412.83 107.48L498.56 193.20L412.83 278.93L357.86 223.95L333.63 248.18L388.60 303.16L302.88 388.88L247.90 333.90L192.93 388.88L107.20 303.16L162.18 248.18L137.95 223.95L82.97 278.93L-2.75 193.20L82.97 107.48L137.95 162.45L162.18 138.23L107.20 83.25L192.93 -2.48ZM124.46 83.25L225.78 184.57L239.27 171.08L151.44 83.25L192.93 41.76L225.78 74.62L239.27 61.13L192.93 14.78ZM201.55 116.11L215.04 129.60L302.88 41.76L344.36 83.25L311.51 116.11L325.00 129.60L371.35 83.25L302.88 14.78ZM168.70 83.25L192.93 107.48L217.15 83.25L192.93 59.02ZM278.65 83.25L302.88 107.48L327.11 83.25L302.88 59.02ZM256.53 105.37L335.74 184.57L349.23 171.08L270.02 91.88ZM223.67 138.23L247.90 162.45L272.13 138.23L247.90 114.00ZM14.50 193.20L82.97 261.67L184.30 160.34L170.81 146.85L82.97 234.69L41.49 193.20L82.97 151.72L115.83 184.57L129.32 171.08L82.97 124.74ZM311.51 226.06L325.00 239.55L412.83 151.72L454.32 193.20L412.83 234.69L379.97 201.83L366.48 215.32L412.83 261.67L481.30 193.20L412.83 124.74ZM201.55 226.06L215.04 239.55L294.25 160.34L280.76 146.85ZM58.74 193.20L82.97 217.43L107.20 193.20L82.97 168.97ZM168.70 193.20L192.93 217.43L217.15 193.20L192.93 168.97ZM278.65 193.20L302.88 217.43L327.11 193.20L302.88 168.97ZM388.60 193.20L412.83 217.43L437.06 193.20L412.83 168.97ZM146.58 215.32L225.78 294.53L239.27 281.04L160.07 201.83ZM256.53 215.32L344.36 303.16L302.88 344.64L270.02 311.78L256.53 325.27L302.88 371.62L371.35 303.16L270.02 201.83ZM223.67 248.18L247.90 272.41L272.13 248.18L247.90 223.95ZM124.46 303.16L192.93 371.62L294.25 270.30L280.76 256.81L192.93 344.64L151.44 303.16L184.30 270.30L170.81 256.81ZM168.70 303.16L192.93 327.38L217.15 303.16L192.93 278.93ZM278.65 303.16L302.88 327.38L327.11 303.16L302.88 278.93Z\"></path></svg></span><span class=\"tabit-dotlabel\">AI</span></button><button type=\"button\" data-tabit-ch=\"4\" class=\"tabit-dot\" aria-label=\"Go to License and audit\" style=\"left: 16px; top: 176px\"><span data-tabit-dot=\"4\" class=\"tabit-star\" style=\"opacity: .45\"><svg viewBox=\"-4 -4 506 395\" width=\"11\" height=\"8.6\" aria-hidden=\"true\" style=\"display: block; overflow: visible\"><path fill=\"currentColor\" fill-rule=\"evenodd\" d=\"M247.90 52.50L302.88 -2.48L388.60 83.25L333.63 138.23L357.86 162.45L412.83 107.48L498.56 193.20L412.83 278.93L357.86 223.95L333.63 248.18L388.60 303.16L302.88 388.88L247.90 333.90L192.93 388.88L107.20 303.16L162.18 248.18L137.95 223.95L82.97 278.93L-2.75 193.20L82.97 107.48L137.95 162.45L162.18 138.23L107.20 83.25L192.93 -2.48ZM124.46 83.25L225.78 184.57L239.27 171.08L151.44 83.25L192.93 41.76L225.78 74.62L239.27 61.13L192.93 14.78ZM201.55 116.11L215.04 129.60L302.88 41.76L344.36 83.25L311.51 116.11L325.00 129.60L371.35 83.25L302.88 14.78ZM168.70 83.25L192.93 107.48L217.15 83.25L192.93 59.02ZM278.65 83.25L302.88 107.48L327.11 83.25L302.88 59.02ZM256.53 105.37L335.74 184.57L349.23 171.08L270.02 91.88ZM223.67 138.23L247.90 162.45L272.13 138.23L247.90 114.00ZM14.50 193.20L82.97 261.67L184.30 160.34L170.81 146.85L82.97 234.69L41.49 193.20L82.97 151.72L115.83 184.57L129.32 171.08L82.97 124.74ZM311.51 226.06L325.00 239.55L412.83 151.72L454.32 193.20L412.83 234.69L379.97 201.83L366.48 215.32L412.83 261.67L481.30 193.20L412.83 124.74ZM201.55 226.06L215.04 239.55L294.25 160.34L280.76 146.85ZM58.74 193.20L82.97 217.43L107.20 193.20L82.97 168.97ZM168.70 193.20L192.93 217.43L217.15 193.20L192.93 168.97ZM278.65 193.20L302.88 217.43L327.11 193.20L302.88 168.97ZM388.60 193.20L412.83 217.43L437.06 193.20L412.83 168.97ZM146.58 215.32L225.78 294.53L239.27 281.04L160.07 201.83ZM256.53 215.32L344.36 303.16L302.88 344.64L270.02 311.78L256.53 325.27L302.88 371.62L371.35 303.16L270.02 201.83ZM223.67 248.18L247.90 272.41L272.13 248.18L247.90 223.95ZM124.46 303.16L192.93 371.62L294.25 270.30L280.76 256.81L192.93 344.64L151.44 303.16L184.30 270.30L170.81 256.81ZM168.70 303.16L192.93 327.38L217.15 303.16L192.93 278.93ZM278.65 303.16L302.88 327.38L327.11 303.16L302.88 278.93Z\"></path></svg></span><span class=\"tabit-dotlabel\">License &amp; audit</span></button><button type=\"button\" data-tabit-ch=\"5\" class=\"tabit-dot\" aria-label=\"Go to About us\" style=\"left: 16px; top: 220px\"><span data-tabit-dot=\"5\" class=\"tabit-star\" style=\"opacity: .45\"><svg viewBox=\"-4 -4 506 395\" width=\"11\" height=\"8.6\" aria-hidden=\"true\" style=\"display: block; overflow: visible\"><path fill=\"currentColor\" fill-rule=\"evenodd\" d=\"M247.90 52.50L302.88 -2.48L388.60 83.25L333.63 138.23L357.86 162.45L412.83 107.48L498.56 193.20L412.83 278.93L357.86 223.95L333.63 248.18L388.60 303.16L302.88 388.88L247.90 333.90L192.93 388.88L107.20 303.16L162.18 248.18L137.95 223.95L82.97 278.93L-2.75 193.20L82.97 107.48L137.95 162.45L162.18 138.23L107.20 83.25L192.93 -2.48ZM124.46 83.25L225.78 184.57L239.27 171.08L151.44 83.25L192.93 41.76L225.78 74.62L239.27 61.13L192.93 14.78ZM201.55 116.11L215.04 129.60L302.88 41.76L344.36 83.25L311.51 116.11L325.00 129.60L371.35 83.25L302.88 14.78ZM168.70 83.25L192.93 107.48L217.15 83.25L192.93 59.02ZM278.65 83.25L302.88 107.48L327.11 83.25L302.88 59.02ZM256.53 105.37L335.74 184.57L349.23 171.08L270.02 91.88ZM223.67 138.23L247.90 162.45L272.13 138.23L247.90 114.00ZM14.50 193.20L82.97 261.67L184.30 160.34L170.81 146.85L82.97 234.69L41.49 193.20L82.97 151.72L115.83 184.57L129.32 171.08L82.97 124.74ZM311.51 226.06L325.00 239.55L412.83 151.72L454.32 193.20L412.83 234.69L379.97 201.83L366.48 215.32L412.83 261.67L481.30 193.20L412.83 124.74ZM201.55 226.06L215.04 239.55L294.25 160.34L280.76 146.85ZM58.74 193.20L82.97 217.43L107.20 193.20L82.97 168.97ZM168.70 193.20L192.93 217.43L217.15 193.20L192.93 168.97ZM278.65 193.20L302.88 217.43L327.11 193.20L302.88 168.97ZM388.60 193.20L412.83 217.43L437.06 193.20L412.83 168.97ZM146.58 215.32L225.78 294.53L239.27 281.04L160.07 201.83ZM256.53 215.32L344.36 303.16L302.88 344.64L270.02 311.78L256.53 325.27L302.88 371.62L371.35 303.16L270.02 201.83ZM223.67 248.18L247.90 272.41L272.13 248.18L247.90 223.95ZM124.46 303.16L192.93 371.62L294.25 270.30L280.76 256.81L192.93 344.64L151.44 303.16L184.30 270.30L170.81 256.81ZM168.70 303.16L192.93 327.38L217.15 303.16L192.93 278.93ZM278.65 303.16L302.88 327.38L327.11 303.16L302.88 278.93Z\"></path></svg></span><span class=\"tabit-dotlabel\">About us</span></button></div><div data-tabit-coords=\"1\" aria-hidden=\"true\" style=\"position: absolute; right: 64px; bottom: 30px; z-index: 7; font-size: 11px; line-height: 16px; letter-spacing: .14em; color: var(--tb-text,#FBF9F4); opacity: .8; pointer-events: none\">BRIDGETOWN, BARBADOS \u00b7 13.10\u00b0 N 59.61\u00b0 W</div>\n<div aria-hidden=\"true\" style=\"position: absolute; inset: 0; pointer-events: none; opacity: .035; mix-blend-mode: screen; overflow: hidden; z-index: 7\"><div class=\"tabit-grain\" style=\"position: absolute; inset: -60px; background-image: url(&quot;data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23n)'/%3E%3C/svg%3E&quot;)\"></div></div>\n<button type=\"button\" data-tabit-skip=\"1\" class=\"tabit-skip\" aria-label=\"Skip the intro\" style=\"position: absolute; right: 40px; top: 30px; z-index: 9; opacity: 0; pointer-events: none; height: 32px; padding: 0 14px; border-radius: 2px; border: 1px solid rgba(184,192,212,.35); background: transparent; color: var(--tb-label,#B8C0D4); font-family: Manrope, system-ui, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: .2em; cursor: pointer\">SKIP INTRO</button><button type=\"button\" class=\"tabit-replay\" style=\"position: absolute; left: 24px; bottom: 24px; z-index: 9; height: 36px; padding: 0 16px; border-radius: 2px; border: 1px solid rgba(184,192,212,.45); background: rgba(4,7,15,.35); color: var(--tb-text,#FBF9F4); font-family: Manrope, system-ui, sans-serif; font-weight: 600; font-size: 13px; cursor: pointer\">Replay</button>\n</div>";
-var TABIT_FONTS = "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@300;400;500;600&display=swap";
+var TABIT_FONTS = "https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&display=swap";
 var TB_AIPTF = null, TB_STF = null, TB_KQ = [], TB_POLL = [];   /* XR2.7.3: checks run inside the frame loop instead of on timers */   /* XR2.5.7: the AI figure's knots, queued by the scene and drawn on the A and I's own canvas, above the vignette, with their sprites */   // XR2.5.1: set by the logo's A and I code, read by the figure (they live in different scopes)
 function runTabit(host, THREE, init) {
   var TABIT_OPT = (init && init.opt) || 0;   // X1.1 to X1.10: which colour option this board shows
   var TABIT_FLOW = TABIT_OPT > 0 || !!(init && init.flow);   // continuous scroll: no snapping to pages
   var TB_GOLD = TABIT_OPT === 1 || TABIT_OPT >= 11;   // gold streaks; the Captives satellite trails gold and feels the mouse
-  var TB_NEB = TABIT_OPT === 10 || TABIT_OPT >= 11;   // X1.10's colour (warmer and bluer sky stars, a faint nebula), kept from X1.11 on
-  var TB_SKYS = 0, TB_DRIFT = !!(init && init.x251);   // XR2.5.1: the raw scroll, for the sky drifting slowly up the page (nearer stars faster)
+  var TB_SKYS = 0;   // XR2.5.1: the raw scroll, for the sky drifting slowly up the page (nearer stars faster)
   var TB_Y = 0;   // X1.12: the raw scroll position past Home, for the bow lifting out as soon as you scroll
   var TRK11 = null;   // X1.11: where the bow's stars are on screen, shared by the scene and the copy
   // XR2.n (TABIT_OPT 20 + n): X1.16 with the (Re)insurance page reworked round its compass. The page holds (pins) while
   // the heading steps clockwise N, E, S, W through the four lines of business, then the site carries on.
   var TB_RV = TABIT_OPT >= 32 ? 2 : TABIT_OPT >= 22 && TABIT_OPT <= 31 ? TABIT_OPT - 20 : 0;   // 31 is XR2.4.1, 32 is XR2.2.2 and XR2.2.3, 33 is XR2.2.4, 34 is XR2.2.5
-  var TB_BIG = TABIT_OPT >= 32;
   var TB_AIL = !!(init && init.x2313), TB_KNC = null; function TB_AIFX() { return tbLerp(TABIT_C0 + TABIT_DX + 230 * TABIT_TS, 640, TABIT_ST); }   // XR2.3.13: the AI figure on the left, under a large AI, all falling from the logo; the copy on the right
   var TB_X3 = !!(init && init.x23), /* XR2.3.8: one gold, the brand book's Brass #A8823A, for every accent */ TB_CAPS = -1, TB_X34 = !!(init && init.x234);   // XR2.3.5: the Captives lines travel up the page on the scroll, set off in turn, each faster than the last, and arrive together   // XR2.3: XR2.2.13 with the compass letters under the titles, the Captives satellite down its trail, and the night plate of Endurance behind About us
   var TB_V7 = TABIT_OPT >= 36;
   var TB_V8 = TABIT_OPT >= 37;   // XR2.2.8: Home headline at 84 (clear of Orion), Talk to us 44px tall, (Re)insurance copy at 17, buttons press down   // XR2.2.7: XR2.2.6 with Y1.0's Home and compass labels, the compass on the left, the bow constant, Captives reworked   // XR2.2.2: a large gold outline letter (N, E, S, W) stands behind each line
-  var TB_STEPPX = 420, TB_QMIN = TB_RV === 7 || TB_RV === 11 ? -1 : 0, TB_PIN = TB_RV ? (3 - TB_QMIN) * TB_STEPPX : 0;
+  var TB_STEPPX = 420, TB_QMIN = 0, TB_PIN = ((3 - TB_QMIN) * TB_STEPPX);
   var TB_RQ = TB_QMIN, TB_ON1 = 0, TB_RE = null;
   function tbcl(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
   function tbsg(x, a, b) { return tbcl((x - a) / (b - a)); }
   function tbio(t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
-  function tbss(t) { return t * t * (3 - 2 * t); }
   function TB_qv(q) { var k = Math.floor(q), f = q - k; return k + tbio(tbsg(f, .2, .8)); }   // rests on each line, turns between: the compass clicks round
   // where the compass of stars sits, how large, and how it is turned. h is the heading, clockwise from north; on the
   // dial versions the card turns under a fixed mark the way a ship's compass card does, so the heading still reads clockwise
   function TB_REcalc() {
     var G = TABIT_SUBJ, qv = TB_qv(TB_RQ), h = 90 * qv, R = { cx: G.cx - 40, cy: G.cy, sc: .9, rot: 0, sy: 1, qv: qv, h: h, zi: 1 };
-    if (TB_RV === 2) { R.sc = tbLerp(4.2, 3.0, TABIT_ST) * tbLerp(1, Math.min(1, .75 / G.s), TABIT_ST); R.cx = tbLerp(TB_V7 ? TABIT_C0 + TABIT_DX + 270 : G.cx - 40, 640, TABIT_ST); R.cy = tbLerp(560, tbLerp(575, 610, TABIT_HF), TABIT_ST) + 170 * G.s * R.sc; R.rot = -h; }   // XR2.8: stacked, the arc is centred and a little smaller   // XR2.2.7: the compass on the left, the copy on the right
-    if (TB_RV === 4) { R.sc = .82; R.cy = 410; }
-    if (TB_RV === 6) { R.rot = -h; R.cx = G.cx - 10; }
-    if (TB_RV === 8) { R.rot = -h; R.sc = .82; }
-    if (TB_RV === 7) {
-      var zi = tbss(tbcl(qv + 1)), q0 = Math.max(0, qv), f = q0 - Math.floor(q0), Z = 1 + 1.0 * zi * (1 - .22 * Math.sin(Math.PI * f)), th = q0 * Math.PI / 2, tx = G.cx, ty = 300;
-      R.zi = zi; R.sc = Z * .9; R.cx = (G.cx - 40) + (tx - Z * .9 * G.s * 170 * Math.sin(th) - (G.cx - 40)) * zi; R.cy = 360 + (ty + Z * .9 * G.s * 170 * Math.cos(th) - 360) * zi;
-    }
-    if (TB_RV === 9) { R.rot = 180 - h; R.sy = .42; R.sc = 1.15; R.cy = 395; }
-    if (TB_RV === 10) { R.sc = 1.85; R.cx = 1280 + TABIT_OX + 30; R.rot = 270 - h; }
-    if (TB_RV === 11) { var e11 = tbss(tbcl(qv + 1)); R.zi = e11; R.sc = .62 + .18 * e11; R.cx = (G.cx - 20) + (640 - (G.cx - 20)) * e11; R.cy = 360 + 30 * e11; }   // XR2.4.1: the first scroll moves the compass to the middle and enlarges it
+    R.sc = tbLerp(4.2, 3.0, TABIT_ST) * tbLerp(1, Math.min(1, .75 / G.s), TABIT_ST); R.cx = tbLerp((TABIT_C0 + TABIT_DX + 270), 640, TABIT_ST); R.cy = tbLerp(560, tbLerp(575, 610, TABIT_HF), TABIT_ST) + 170 * G.s * R.sc; R.rot = -h;   // XR2.8: stacked, the arc is centred and a little smaller   // XR2.2.7: the compass on the left, the copy on the right
     if (TABIT_PH && TABIT_PHL) { var Pm = TABIT_PHL.mintaka; R.sc = Pm.rp / 170; R.cx = Pm.cx; R.cy = Pm.cy; R.rot = -h; }   // XR3.0: a phone: the top arc, edge to edge, at the foot of the screen
     TB_RE = R; return R;
   }
@@ -92,7 +88,6 @@ function runTabit(host, THREE, init) {
   function TB_SK(k) { return k === 0 ? TABIT_HAND : TABIT_HAND + 720 * k + (TB_PIN && k >= 2 ? TB_PIN : 0); }
   var TB_COORDS = '13.097\u00b0 N 59.601\u00b0 W';   // XR2.2.5: The Grove, 21 Pine Road, Belleville, St. Michael, Barbados
   // XR2.2.6: no coloured glows behind the pages, just the night; the background stars are sharp pin points that drift a little with the mouse
-  var TB_BLACK = TABIT_OPT >= 35, TB_SHARP = TABIT_OPT >= 35;
   // XR2.2.7: Y1.0's Home (the statement at 120, one sentence, a brass Talk to us about 15% smaller than Y1.0's) and a reworked Captives page
   var TB_V7CSS = '[data-tabit-col] h1{font-size:120px!important;line-height:112px!important;font-weight:600!important;letter-spacing:-.035em!important}.tb-stack .tb-hl{left:0!important}'   // XR2.11.1 (Oscar, 12 Nov, on the live page: "Text wrong alignment also its a title and should be bold"): the Home headline is 600, as every other title; and each of its lines is set so its first letter's ink stands on the copy's left edge (a B, a bracket and an s start 5, 11 and 3 units in from their own edge at this size, the body copy's letters 1), except stacked, where the lines are centred
     + '.tb-talk{transition:background .3s ease}@media (hover:hover) and (pointer:fine){.tb-talk:hover{background:#A8823A!important;filter:brightness(1.12)}}.tb-talk:focus-visible,.tb-explore:focus-visible{outline:2px solid #A8823A;outline-offset:3px}'   // XR3.0: every hover state is a mouse's alone (on a phone a tapped button kept its hover look until the next tap elsewhere)
@@ -162,13 +157,13 @@ function runTabit(host, THREE, init) {
   for (var ocx = 17; ocx <= 40; ocx++) if (!OPT_CSS[ocx]) OPT_CSS[ocx] = OPT_CSS[16];   // later versions build on X1.16
   var TB_NOGRAIN = false; try { TB_NOGRAIN = /nograin/.test(location.search + location.hash) || !!window.__TABIT_NOGRAIN; } catch (e0) {}   // XR2.7.3: ?nograin hides the film grain, to A/B its cost
   host.innerHTML = '<style>' + (TB_NOGRAIN ? '.tabit-grain{display:none!important}' : '') + TABIT_STYLE + (OPT_CSS[TABIT_OPT] || '') + (TABIT_OPT >= 34 ? '.tabit-coordlink{transition:color .5s ease}.tabit-coordlink:focus-visible{color:var(--tb-gold,#A8823A)!important}@media (hover:hover) and (pointer:fine){.tabit-coordlink:hover{color:var(--tb-gold,#A8823A)!important}}.tabit-coordlink:focus-visible{outline:2px solid #A8823A;outline-offset:4px}' : '') + (TB_V7 ? TB_V7CSS : '') + TB_PHCSS + '</style>' + TABIT_MARKUP;
-  if (TB_V7) TB_V7DOM(host);
-  if (TB_AIL) (function () {   // XR2.3.13: the AI page's copy moves to the right; the title no longer sits in it
+  TB_V7DOM(host);
+  (function () {   // XR2.3.13: the AI page's copy moves to the right; the title no longer sits in it
     var s3 = host.querySelector('[data-tabit-sec="3"]'); if (!s3) return;
     s3.style.left = '660px'; s3.style.width = '430px';
     var sp = s3.querySelector('[data-tabit-in="1"]'); if (sp) sp.style.display = 'none';
   })();
-  if (init && init.x2310) (function () {   // XR2.3.10: About us rebuilt from the dictionary-entry layout, in the site's style: brand Ivory, one brass word, the 64 / 40 / 17 / 13 scale, no kicker
+  (function () {   // XR2.3.10: About us rebuilt from the dictionary-entry layout, in the site's style: brand Ivory, one brass word, the 64 / 40 / 17 / 13 scale, no kicker
     var s5 = host.querySelector('[data-tabit-sec="5"]'); if (!s5) return;
     var IV = 'var(--tb-about-text,var(--tb-text,#FBF9F4))', SUB = 'var(--tb-about-sub,color-mix(in srgb,var(--tb-text,#FBF9F4) 72%,transparent))', BR = 'var(--tb-gold,#A8823A)';
     var BTN = 'pointer-events: auto; cursor: pointer; font-family: Manrope, system-ui, sans-serif; font-size: 14px; line-height: 18px; font-weight: 500; letter-spacing: 0; color: ' + IV + '; background: transparent; border: 1px solid rgba(251,249,244,.38); border-radius: 2px; padding: 13px 24px; text-decoration: none; display: inline-block';   // XR2.9: the Control button size (STYLE.md §5)
@@ -210,11 +205,7 @@ function runTabit(host, THREE, init) {
       });
     })();
   })();
-  if (init && init.photos) init.photos.forEach(function (ph) {   // a picture laid faintly into the night behind a page (XR2.3: About us, Hurley's Endurance at night, 1915)
-    var sc = host.querySelector('[data-tabit-scroll]'), im = realDoc.createElement('img'); if (!sc) return; im.src = ph.src; im.alt = ''; im.setAttribute('aria-hidden', 'true');
-    im.style.cssText = 'position:absolute;left:' + ph.left + 'px;top:' + (720 * ph.page + (ph.top || 0)) + 'px;width:' + ph.width + 'px;opacity:' + (ph.opacity || .25) + ';pointer-events:none;user-select:none;-webkit-mask-image:radial-gradient(62% 62% at 50% 48%,#000 50%,transparent 100%);mask-image:radial-gradient(62% 62% at 50% 48%,#000 50%,transparent 100%)';
-    sc.insertBefore(im, sc.firstChild); });
-  if (TABIT_OPT >= 34) { var cE0 = host.querySelector('[data-tabit-coords]'); if (cE0) { cE0.textContent = TB_COORDS; cE0.removeAttribute('aria-hidden'); cE0.setAttribute('role', 'link'); cE0.setAttribute('tabindex', '0'); cE0.setAttribute('aria-label', 'Our office, ' + TB_COORDS + '. Go to About us'); cE0.style.pointerEvents = 'auto'; cE0.style.cursor = 'pointer'; cE0.classList.add('tabit-coordlink'); } }
+  var cE0 = host.querySelector('[data-tabit-coords]'); if (cE0) { cE0.textContent = TB_COORDS; cE0.removeAttribute('aria-hidden'); cE0.setAttribute('role', 'link'); cE0.setAttribute('tabindex', '0'); cE0.setAttribute('aria-label', 'Our office, ' + TB_COORDS + '. Go to About us'); cE0.style.pointerEvents = 'auto'; cE0.style.cursor = 'pointer'; cE0.classList.add('tabit-coordlink'); }
   // ---- X1.1 to X1.10: how the words move as you scroll. Each option pairs one colour idea with one way of moving the copy.
   //   1 the box blooms out of the star and folds away    2 words light up one by one as you read down
   //   3 lines rise out of a mask and leave through it    4 the copy flows out of the figure and drifts away
@@ -223,9 +214,7 @@ function runTabit(host, THREE, init) {
   //   9 a brass line draws beside the copy; the headline drifts across   10 each headline opens as a large statement, then docks
   var CHOR = null;
   (function () {
-    if (!TABIT_OPT) return;
     function c01(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
-    function ss(x, a, b) { x = c01((x - a) / (b - a)); return x * x * (3 - 2 * x); }
     function put(el, k, v) { if (el['__' + k] !== v) { el['__' + k] = v; el.style[k] = v; } }   // writes only when the value changes
     var rootEl = host.querySelector('[data-tabit-root]');
     var SECS = Array.prototype.slice.call(host.querySelectorAll('[data-tabit-sec]')).map(function (el) {
@@ -233,41 +222,7 @@ function runTabit(host, THREE, init) {
       var ins = Array.prototype.slice.call(el.querySelectorAll('[data-tabit-in]'));
       return { el: el, k: +el.getAttribute('data-tabit-sec'), box: el.firstElementChild, ins: ins, head: hd, headIn: hd ? hd.closest('[data-tabit-in]') : null };
     });
-    function split(node, chars, out) {   // wraps each word (or each letter, kept within its word) in a span
-      Array.prototype.slice.call(node.childNodes).forEach(function (n) {
-        if (n.nodeType === 3) {
-          var frag = realDoc.createDocumentFragment();
-          n.nodeValue.split(/(\s+)/).forEach(function (w) {
-            if (!w) return;
-            if (/^\s+$/.test(w)) { frag.appendChild(realDoc.createTextNode(w)); return; }
-            var sp = realDoc.createElement('span');
-            if (chars) { sp.style.display = 'inline-block'; sp.style.whiteSpace = 'nowrap'; w.split('').forEach(function (ch) { var cs = realDoc.createElement('span'); cs.style.display = 'inline-block'; cs.textContent = ch; sp.appendChild(cs); out.push({ el: cs, rx: Math.random() * 2 - 1, ry: Math.random() * 2 - 1 }); }); }
-            else { sp.textContent = w; out.push({ el: sp }); }
-            frag.appendChild(sp);
-          });
-          n.parentNode.replaceChild(frag, n);
-        } else if (n.nodeType === 1 && n.tagName !== 'BUTTON' && n.tagName !== 'BR') split(n, chars, out);
-      });
-    }
     var O = TABIT_OPT;
-    if (O === 2) SECS.forEach(function (S) { S.words = []; S.ins.forEach(function (el) { split(el, false, S.words); }); });
-    if (O === 5) SECS.forEach(function (S) { S.chars = []; if (S.head) split(S.head, true, S.chars); });
-    if (O === 3) SECS.forEach(function (S) { S.ins.forEach(function (el) { el.style.overflow = 'hidden'; el.style.paddingBottom = '6px'; el.style.marginBottom = '-6px'; }); });
-    if (O === 9) SECS.forEach(function (S) { var ln = realDoc.createElement('div'); S.box.style.position = 'relative'; ln.style.cssText = 'position:absolute;left:12px;top:44px;bottom:44px;width:1px;background:#A8823A;transform-origin:50% 0;transform:scaleY(0);pointer-events:none'; S.box.appendChild(ln); S.line = ln; });
-    var IDX = null;
-    if (O === 8 && rootEl) {   // the running index sits in the nav's empty left side: page number and name, and five short bars
-      var COLS = ['#A8823A', '#88F9C0', '#A08CFF', '#96C4FF', '#FBF9F4'], NAMES = ['(Re)insurance', 'Captives', 'AI', 'License & audit', 'About us'];
-      IDX = realDoc.createElement('div');
-      IDX.style.cssText = 'position:absolute;left:80px;top:30px;pointer-events:none;opacity:0;z-index:5;font-family:Manrope,system-ui,sans-serif;font-size:11px;font-weight:600;letter-spacing:.16em;color:var(--tb-text,#FBF9F4);white-space:nowrap';
-      IDX.innerHTML = '<div data-i-lab style="height:14px"><span data-i-num></span><span data-i-name style="margin-left:10px"></span></div><div data-i-bars style="display:flex;gap:6px;margin-top:9px"></div>';
-      IDX.lab = IDX.querySelector('[data-i-lab]'); IDX.num = IDX.querySelector('[data-i-num]'); IDX.nm = IDX.querySelector('[data-i-name]'); IDX.cur = -1;
-      IDX.items = NAMES.map(function (nm, i) {
-        var it = realDoc.createElement('div'); it.style.cssText = 'width:30px;height:2px;background:rgba(251,249,244,.18)';
-        it.innerHTML = '<div style="height:2px;width:100%;transform-origin:0 0;transform:scaleX(0);background:' + COLS[i] + '"></div>';
-        IDX.querySelector('[data-i-bars]').appendChild(it); return { el: it, bar: it.firstChild, col: COLS[i], nm: nm };
-      });
-      rootEl.appendChild(IDX);
-    }
     var BOWB = null;
     if (O >= 11 && rootEl) BOWB = ['(Re)insurance', 'Captives', 'AI', 'License & audit', 'About us'].map(function (nm, i) {   // the bow's stars are the page links
       var b = realDoc.createElement('button'); b.type = 'button'; b.className = 'tb-bow'; b.setAttribute('aria-label', 'Go to ' + nm);
@@ -285,93 +240,33 @@ function runTabit(host, THREE, init) {
         { t: 'Structured solutions', d: 'From whole account covers to adverse development covers.' }];
       var INTRO = 'Providing capacity in traditional and new markets alike. We commit our own capital, assess each risk on its merits and build for the long term with brokers and cedants.';
       var S1 = SECS.filter(function (S) { return S.k === 1; })[0]; if (!S1) return;
-      var V = TB_RV;
       // the page's own copy: the headline stays, the intro is the new one, and the old list goes (the compass carries the four lines now)
-      S1.ins.forEach(function (e) { var n = +e.getAttribute('data-tabit-in'); if (n === 2) { e.firstElementChild.textContent = INTRO.split('. We commit')[0] + '.'; if (V === 10) e.style.display = 'none'; } if (n >= 3) e.style.display = 'none'; });
-      S1.el.style.width = V === 10 ? '640px' : V === 6 ? '600px' : '540px';
-      if (TB_V7) { S1.el.__l0 = 680; S1.el.style.width = '480px'; S1.el.style.left = (TABIT_C0 + TABIT_DX + (680 - TABIT_C0) * TABIT_TS).toFixed(1) + 'px'; }
-      if (TB_V8) S1.ins.forEach(function (e) { if (+e.getAttribute('data-tabit-in') === 2 && e.firstElementChild) { e.firstElementChild.style.fontSize = '17px'; e.firstElementChild.style.lineHeight = '26px'; } });   // XR2.2.8   // XR2.2.7: the copy on the right, the compass on the left
+      S1.ins.forEach(function (e) { var n = +e.getAttribute('data-tabit-in'); if (n === 2) { e.firstElementChild.textContent = INTRO.split('. We commit')[0] + '.'; } if (n >= 3) e.style.display = 'none'; });
+      S1.el.__l0 = 680; S1.el.style.width = '480px'; S1.el.style.left = (TABIT_C0 + TABIT_DX + (680 - TABIT_C0) * TABIT_TS).toFixed(1) + 'px';
+      S1.ins.forEach(function (e) { if (+e.getAttribute('data-tabit-in') === 2 && e.firstElementChild) { e.firstElementChild.style.fontSize = '17px'; e.firstElementChild.style.lineHeight = '26px'; } });   // XR2.2.8   // XR2.2.7: the copy on the right, the compass on the left
       function mk(css, html, parent) { var e = realDoc.createElement('div'); e.style.cssText = css; e.innerHTML = html || ''; (parent || rootEl).appendChild(e); return e; }
-      function add(css, html) { var e = mk('opacity:0;' + css, html, S1.box); e.setAttribute('data-tabit-ik', '1'); e.setAttribute('data-tabit-in', '3'); return e; }
       var KICK = 'font-size:11px;font-weight:600;letter-spacing:.24em;color:var(--tb-gold,#A8823A)';
       function lab(i, w, tsz, align) { return mk('position:absolute;left:0;top:0;width:' + w + 'px;text-align:' + (align || 'center') + ';pointer-events:none;z-index:4;opacity:0;will-change:transform,opacity', '<div style="' + KICK + '">' + DIRS[i] + '</div><div style="font-size:' + tsz + 'px;font-weight:600;letter-spacing:-.02em;margin-top:6px;color:var(--tb-text,#FBF9F4)">' + IT[i].t + '</div><div class="ld" style="font-size:14px;line-height:22px;color:color-mix(in srgb,var(--tb-text,#FBF9F4) 80%,transparent);margin-top:8px">' + IT[i].d + '</div>'); }
-      function stub(i) { return mk('position:absolute;left:0;top:0;pointer-events:none;z-index:4;opacity:0;white-space:nowrap;font-size:11px;font-weight:600;letter-spacing:.2em;color:color-mix(in srgb,var(--tb-text,#FBF9F4) 70%,transparent)', '<span style="color:var(--tb-gold,#A8823A);margin-right:8px">' + DIRS[i] + '</span>' + IT[i].t.toUpperCase()); }
       function at(e, x, y, tf, a) { put(e, 'transform', 'translate(' + x.toFixed(1) + 'px,' + (y + TABIT_OY).toFixed(1) + 'px) ' + (tf || '')); put(e, 'opacity', Math.max(0, a).toFixed(3)); }   // XR2.8.1: root-level labels follow the content box
       function sm(t) { t = c01(t); return t * t * (3 - 2 * t); }
       function nearq(q, i) { return c01(1 - Math.abs(q - i)); }
-      function dirv(a) { var r = a * Math.PI / 180; return [Math.sin(r), -Math.cos(r)]; }
-      var labs = [], stubs = [], extra = {};
-      if (V === 2) labs = IT.map(function (_, i) { var e = lab(i, TB_V7 ? 520 : 440, TB_V7 ? 64 : 46); e.className = 'tb-clab'; e.children[1].className = 'tb-clt'; e.querySelector('.ld').style.fontSize = TB_V7 ? '17px' : '15px'; e.querySelector('.ld').style.lineHeight = TB_V7 ? '26px' : '24px'; if (TB_V7) { e.children[1].style.fontWeight = '300'; e.children[1].style.letterSpacing = '-.03em'; var ld = e.querySelector('.ld'); ld.style.maxWidth = '420px'; ld.style.marginLeft = ld.style.marginRight = 'auto'; ld.style.setProperty('text-wrap', 'balance'); }   // XR2.11: a description sets on two even lines inside 420 (the shortest is 463 wide on one line, the longest 697), so every point's title sits at one height and a line keeps well clear of the copy beside it (the shorter descriptions of 12 Nov ran as one line to 6 px from it at 1.6:1)
-        if (init && init.x237) { var t7 = e.children[1]; t7.style.fontSize = '40px'; t7.style.lineHeight = '44px'; t7.style.fontWeight = '600'; t7.style.letterSpacing = '-.035em'; t7.style.marginTop = '0'; }   // XR2.3.7: the compass titles in the headline's own style (semi-bold, tight), one step down the scale
-        if (TB_BIG) { e.firstChild.style.display = 'none';   // XR2.2.3: the big letter replaces the small one
-          var bg = realDoc.createElement('div'); bg.style.cssText = TB_X3 ? 'position:absolute;left:50%;top:100%;transform:translate(-50%,50px);font-size:84px;line-height:84px;font-weight:600;letter-spacing:0;color:transparent;-webkit-text-stroke:1.2px rgba(168,130,58,.62);pointer-events:none'   // XR2.3: below the title, in the gap between the gold diamond and the compass
-              : 'position:absolute;left:50%;top:50%;transform:translate(-50%,-56%);font-size:300px;line-height:300px;font-weight:600;letter-spacing:-.04em;color:transparent;-webkit-text-stroke:1.2px rgba(168,130,58,.42);z-index:-1;pointer-events:none'; bg.textContent = DIRS[i]; bg.className = 'tb-clb'; e.insertBefore(bg, e.firstChild); e.__big = bg; }
+      var labs = [];
+      labs = IT.map(function (_, i) { var e = lab(i, 520, 64); e.className = 'tb-clab'; e.children[1].className = 'tb-clt'; e.querySelector('.ld').style.fontSize = '17px'; e.querySelector('.ld').style.lineHeight = '26px'; e.children[1].style.fontWeight = '300'; e.children[1].style.letterSpacing = '-.03em'; var ld = e.querySelector('.ld'); ld.style.maxWidth = '420px'; ld.style.marginLeft = ld.style.marginRight = 'auto'; ld.style.setProperty('text-wrap', 'balance');   // XR2.11: a description sets on two even lines inside 420 (the shortest is 463 wide on one line, the longest 697), so every point's title sits at one height and a line keeps well clear of the copy beside it (the shorter descriptions of 12 Nov ran as one line to 6 px from it at 1.6:1)
+        var t7 = e.children[1]; t7.style.fontSize = '40px'; t7.style.lineHeight = '44px'; t7.style.fontWeight = '600'; t7.style.letterSpacing = '-.035em'; t7.style.marginTop = '0';   // XR2.3.7: the compass titles in the headline's own style (semi-bold, tight), one step down the scale
+        e.firstChild.style.display = 'none';   // XR2.2.3: the big letter replaces the small one
+        var bg = realDoc.createElement('div'); bg.style.cssText = 'position:absolute;left:50%;top:100%;transform:translate(-50%,50px);font-size:84px;line-height:84px;font-weight:600;letter-spacing:0;color:transparent;-webkit-text-stroke:1.2px rgba(168,130,58,.62);pointer-events:none'; bg.textContent = DIRS[i]; bg.className = 'tb-clb'; e.insertBefore(bg, e.firstChild); e.__big = bg;
         return e; });
-      if (V === 4) { stubs = IT.map(function (_, i) { return stub(i); }); labs = IT.map(function (_, i) { return lab(i, i === 1 ? 160 : i === 3 ? 150 : 320, 28, i === 1 ? 'left' : i === 3 ? 'right' : 'center'); });
-        extra.ray = mk('position:absolute;left:0;top:0;width:1px;height:1.2px;background:#A8823A;transform-origin:0 50%;z-index:4;opacity:0;pointer-events:none'); }
-      if (V === 11) { stubs = IT.map(function (_, i) { return stub(i); }); labs = IT.map(function (_, i) { return lab(i, i === 1 || i === 3 ? 230 : 420, 30, i === 1 ? 'left' : i === 3 ? 'right' : 'center'); });
-        extra.rays = IT.map(function () { return mk('position:absolute;left:0;top:0;width:1px;height:1.2px;background:#A8823A;transform-origin:0 50%;z-index:4;opacity:0;pointer-events:none'); }); }
-      if (V === 5) { stubs = IT.map(function (_, i) { return stub(i); });
-        extra.nd = mk('position:absolute;left:0;top:0;width:0;height:0;z-index:4;pointer-events:none;opacity:0', '<svg width="40" height="300" viewBox="-20 -150 40 300" style="position:absolute;left:-20px;top:-150px;overflow:visible"><path d="M0 -136L5 0L0 5L-5 0Z" fill="#A8823A"/><path d="M0 136L5 0L0 -5L-5 0Z" fill="rgba(251,249,244,.5)"/><circle r="3.5" fill="#04070F" stroke="#A8823A" stroke-width="1.4"/></svg>');
-        extra.mask = add('position:relative;height:122px;overflow:hidden;margin-top:30px', '');
-        extra.pans = IT.map(function (it, i) { return mk('position:absolute;inset:0', '<div style="' + KICK + '">' + DIRS[i] + ' · ' + it.t.toUpperCase() + '</div><div style="font-size:30px;font-weight:600;letter-spacing:-.02em;margin-top:8px">' + it.t + '</div><div style="font-size:15px;line-height:23px;color:color-mix(in srgb,var(--tb-text,#FBF9F4) 82%,transparent);margin-top:8px;max-width:440px">' + it.d + '</div>', extra.mask); }); }
-      if (V === 6) { extra.list = add('margin-top:24px', ''); extra.rows = IT.map(function (it, i) { var r = mk('position:relative;overflow:hidden;border-top:1px solid rgba(251,249,244,.14);padding-top:12px', '<div style="display:flex;align-items:baseline;gap:16px"><span style="' + KICK + ';width:16px">' + DIRS[i] + '</span><span class="tt" style="font-weight:600;letter-spacing:-.03em;white-space:nowrap">' + it.t + '</span></div><div class="dd" style="font-size:15px;line-height:23px;color:color-mix(in srgb,var(--tb-text,#FBF9F4) 82%,transparent);margin:10px 0 0 32px;max-width:440px">' + it.d + '</div>', extra.list); r.tt = r.querySelector('.tt'); r.dd = r.querySelector('.dd'); return r; }); }
-      if (V === 7) { labs = IT.map(function (_, i) { return lab(i, 280, 34); }); stubs = IT.map(function (_, i) { return stub(i); }); }
-      if (V === 8) { extra.ring = mk('position:absolute;left:0;top:0;width:0;height:0;z-index:4;pointer-events:none;opacity:0', '');
-        var circ = 2 * Math.PI * 100, svg = '<svg width="260" height="260" viewBox="-130 -130 260 260" style="position:absolute;left:-130px;top:-130px;overflow:visible"><g class="rg"><path id="tbRim" d="M0 -100A100 100 0 1 1 0 100A100 100 0 1 1 0 -100A100 100 0 1 1 0 100A100 100 0 1 1 0 -100" fill="none"/>';
-        IT.forEach(function (it, i) { svg += '<text class="rt" font-family="Manrope,sans-serif" font-size="9.5" font-weight="600" letter-spacing="2.6" fill="#FBF9F4" text-anchor="middle"><textPath href="#tbRim" startOffset="' + (circ * (1 + i / 4)).toFixed(1) + '">' + DIRS[i] + ' · ' + it.t.toUpperCase() + '</textPath></text>'; });
-        extra.ring.innerHTML = svg + '</g></svg>'; extra.rg = extra.ring.querySelector('.rg'); extra.rts = extra.ring.querySelectorAll('.rt');
-        extra.descs = IT.map(function (it, i) { return mk('position:absolute;left:0;top:0;width:420px;text-align:center;z-index:4;pointer-events:none;opacity:0;font-size:15px;line-height:24px;color:color-mix(in srgb,var(--tb-text,#FBF9F4) 86%,transparent)', it.d); }); }
-      if (V === 9) labs = IT.map(function (_, i) { return lab(i, 260, 34); });
-      if (V === 10) { stubs = IT.map(function (_, i) { return stub(i); });
-        extra.box = add('position:relative;height:300px;margin-top:40px', '');
-        extra.blocks = IT.map(function (it, i) { return mk('position:absolute;left:0;top:0;width:620px', '<div style="position:absolute;left:-12px;top:-64px;font-size:300px;line-height:300px;font-weight:700;letter-spacing:-.04em;color:transparent;-webkit-text-stroke:1.2px rgba(168,130,58,.4)">' + DIRS[i] + '</div><div style="position:relative;font-size:60px;line-height:62px;font-weight:600;letter-spacing:-.035em;margin-top:84px">' + it.t + '</div><div style="position:relative;font-size:17px;line-height:27px;color:color-mix(in srgb,var(--tb-text,#FBF9F4) 84%,transparent);margin-top:16px;max-width:470px">' + it.d + '</div>', extra.box); }); }
 
       CHOR_RE = function (yc) {
         var R = TB_REcalc(), OX = TABIT_OX, cx = R.cx + OX, cy = R.cy, Rp = 170 * TB_GS() * R.sc, pres = TB_ON1, qv = R.qv, h = R.h;
-        function pt(i, rad) { var a = (ANG[i] + R.rot) * Math.PI / 180; return [cx + rad * Math.sin(a), cy - rad * Math.cos(a) * R.sy]; }
         // XR2.9.20: a title in transit never crosses the copy beside it or the window's edge. Arriving, it used to pass over the headline and the button at up
         // to 35 % strength; leaving, it ran off the left edge. Each title now travels only as far as the room it has (24 clear of the copy and of the edge)
         // and fades over that same distance: the one leaving is gone at the half-turn, exactly as the one arriving begins, so the compass is never without
         // a title for longer than an instant. Where a wide window has the room, the travel is the original one.
-        if (V === 2) { var LH9 = (TABIT_PH ? TABIT_W - 48 : parseFloat(labs[0].style.width)) / 2, cl9 = parseFloat(S1.el.style.left) + 40 + OX, Dr9 = Math.max(24, tbLerp(cl9, TABIT_W, TABIT_ST) - 24 - (cx + LH9)), Dl9 = Math.max(24, cx - LH9 - 24);
-          labs.forEach(function (e, i) { var dd9 = (ANG[i] - h) / 90, ph = dd9 * 90 * .38 * Math.PI / 180, RR = Rp * 1.153 + 44, w = nearq(qv, i), room9 = dd9 > 0 ? Dr9 : Dl9;
-            var xo9 = (dd9 > 0 ? 1 : -1) * Math.min(RR * Math.sin(Math.min(Math.PI / 2, Math.abs(ph))), room9 * Math.abs(dd9) * 2), yo9 = Math.sqrt(Math.max(0, RR * RR - xo9 * xo9)), cut9 = 1 - sm(Math.abs(xo9) / room9);
-            if (TB_X3 && e.__big) put(e.__big, 'transform', 'translate(-50%,' + ((31 + .153 * Rp + 44) / 2 - (TABIT_PH ? 23 : 42)).toFixed(1) + 'px)'); /* XR2.3: centred in the gap between the diamond (31px below the copy) and the rim */  at(e, cx + xo9, cy - yo9, 'translate(-50%,-100%)', pres * Math.pow(w, 1.5) * cut9); }); }
-        if (V === 4) {
-          var best = 0, bw = 0, ANCH = [[0, -1, 'translate(-50%,-100%)', 1.16], [1, 0, 'translate(0,-50%)', 1.2], [0, 1, 'translate(-50%,0)', 1.16], [-1, 0, 'translate(-100%,-50%)', 1.2]];
-          labs.forEach(function (e, i) { var w = sm(c01(1 - Math.abs(qv - i) * 1.7)), A = ANCH[i], rr = Rp * A[3] + 34; if (w > bw) { bw = w; best = i; }
-            at(e, cx + A[0] * rr - A[0] * (1 - w) * 40, cy + A[1] * rr - A[1] * (1 - w) * 40, A[2] + ' scale(' + (.92 + .08 * w).toFixed(3) + ')', pres * w);
-            var sp = pt(i, Rp * 1.16 + 16); at(stubs[i], sp[0], sp[1], A[2], pres * .7 * (1 - w)); });
-          var A2 = ANCH[best], r0 = Rp * 1.16 + 2; at(extra.ray, cx + A2[0] * r0, cy + A2[1] * r0, 'rotate(' + [-90, 0, 90, 180][best] + 'deg) scaleX(' + (30 * bw).toFixed(2) + ')', pres * bw);
-        }
-        if (V === 11) {   // XR2.4.1: the copy slides away, the compass moves to the middle and grows, then each line pops out at its point in turn, clockwise, and stays
-          var e1 = R.zi, ANC = [[0, -1, 'translate(-50%,-100%)'], [1, 0, 'translate(0,-50%)'], [0, 1, 'translate(-50%,0)'], [-1, 0, 'translate(-100%,-50%)']];
-          var eo = sm(c01((qv + 1) * 1.6)); S1.el.style.transform = 'translateX(' + (-180 * eo).toFixed(1) + 'px)'; S1.el.style.opacity = (parseFloat(S1.el.style.opacity || '1') * (1 - eo)).toFixed(3);
-          labs.forEach(function (e, i) { var w = qv >= i ? 1 : sm(c01(1 - (i - qv) * 2.2)), fo = c01(1 - Math.abs(qv - i)), A = ANC[i], rr = Rp * 1.16 + 34;
-            at(e, cx + A[0] * (rr - (1 - w) * 40), cy + A[1] * (rr - (1 - w) * 40), A[2] + ' scale(' + (.9 + .1 * w).toFixed(3) + ')', pres * w * (.42 + .58 * fo));
-            var sp = pt(i, Rp * 1.16 + 16); at(stubs[i], sp[0], sp[1], A[2], pres * .65 * (1 - w) * e1);
-            var r0 = Rp * 1.16 + 3; at(extra.rays[i], cx + A[0] * r0, cy + A[1] * r0, 'rotate(' + [-90, 0, 90, 180][i] + 'deg) scaleX(' + (30 * w).toFixed(2) + ')', pres * w * (.4 + .6 * fo)); });
-        }
-        if (V === 5) {
-          at(extra.nd, cx, cy, 'rotate(' + h.toFixed(2) + 'deg) scale(' + (Rp / 150).toFixed(3) + ')', pres);
-          stubs.forEach(function (e, i) { var p = pt(i, Rp * 1.16 + 22), tf = ['translate(-50%,-100%)', 'translate(0,-50%)', 'translate(-50%,0)', 'translate(-100%,-50%)'][i], w = nearq(qv, i); put(e, 'color', w > .5 ? '#FBF9F4' : 'rgba(251,249,244,.6)'); at(e, p[0], p[1], tf, pres * (.55 + .45 * w)); });
-          extra.pans.forEach(function (e, i) { var w = sm(c01(1 - Math.abs(qv - i) * 1.6)), d = dirv(ANG[i]), come = qv < i ? 1 : -1; put(e, 'opacity', w.toFixed(3)); put(e, 'transform', 'translate(' + (d[0] * (1 - w) * 105 * come).toFixed(1) + '%,' + (d[1] * (1 - w) * 105 * come).toFixed(1) + '%)'); });
-        }
-        if (V === 6) extra.rows.forEach(function (r, i) { var w = sm(nearq(qv, i)); put(r, 'height', (38 + 104 * w).toFixed(1) + 'px'); put(r.tt, 'fontSize', (20 + 22 * w).toFixed(1) + 'px'); put(r.tt, 'color', 'rgba(251,249,244,' + (.5 + .5 * w).toFixed(3) + ')'); put(r.dd, 'opacity', c01((w - .55) / .45).toFixed(3)); });
-        if (V === 7) labs.forEach(function (e, i) { var tf = ['translate(-50%,-100%)', 'translate(0,-50%)', 'translate(-50%,0)', 'translate(-100%,-50%)'][i], p = pt(i, Rp * 1.16 + 26), w = c01(1 - Math.abs(Math.max(0, qv) - i) * 1.5);
-          at(e, p[0], p[1], tf, pres * R.zi * w); var ps = pt(i, Rp * 1.16 + 18); at(stubs[i], ps[0], ps[1], tf, pres * .75 * (1 - R.zi)); });
-        if (V === 8) {
-          at(extra.ring, cx, cy, 'scale(' + (Rp * 1.3 / 100).toFixed(3) + ')', pres); extra.rg.setAttribute('transform', 'rotate(' + R.rot.toFixed(2) + ')');
-          Array.prototype.forEach.call(extra.rts, function (t, i) { var w = c01(1 - Math.abs(((((ANG[i] + R.rot) % 360) + 540) % 360) - 180) / 90); t.setAttribute('fill-opacity', (.32 + .68 * w).toFixed(3)); t.setAttribute('fill', w > .6 ? '#A8823A' : '#FBF9F4'); });
-          extra.descs.forEach(function (e, i) { var d = i - qv, a = c01(1 - Math.abs(d) * 2.2); at(e, cx, cy + Rp * 1.46, 'translate(-50%,0) translateY(' + (d * 24).toFixed(1) + 'px)', pres * a); });
-        }
-        if (V === 9) labs.forEach(function (e, i) { var a = (ANG[i] + R.rot) * Math.PI / 180, dep = (1 - Math.cos(a)) / 2, x = cx + Rp * Math.sin(a), y = cy - Rp * Math.cos(a) * R.sy;
-          put(e, 'zIndex', String(4 + Math.round(dep * 6))); at(e, x, y, 'translate(-50%,' + (-100 + 100 * dep).toFixed(1) + '%) translateY(' + (-14 + 36 * dep).toFixed(1) + 'px) scale(' + (.5 + .5 * dep).toFixed(3) + ')', pres * (.14 + .86 * dep * dep)); e.querySelector('.ld').style.opacity = Math.pow(dep, 6).toFixed(3); });
-        if (V === 10) {
-          stubs.forEach(function (e, i) { var p = pt(i, Rp * 1.16 + 24), w = nearq(qv, i); at(e, p[0], p[1], 'translate(-100%,-50%)', pres * (.35 + .65 * w)); });
-          extra.blocks.forEach(function (e, i) { var d = i - qv, a = sm(c01(1 - Math.abs(d) * 1.8)); put(e, 'opacity', a.toFixed(3)); put(e, 'transform', 'translateY(' + (d * 60).toFixed(1) + 'px)'); });
-        }
+        var LH9 = (TABIT_PH ? TABIT_W - 48 : parseFloat(labs[0].style.width)) / 2, cl9 = parseFloat(S1.el.style.left) + 40 + OX, Dr9 = Math.max(24, tbLerp(cl9, TABIT_W, TABIT_ST) - 24 - (cx + LH9)), Dl9 = Math.max(24, cx - LH9 - 24);
+        labs.forEach(function (e, i) { var dd9 = (ANG[i] - h) / 90, ph = dd9 * 90 * .38 * Math.PI / 180, RR = Rp * 1.153 + 44, w = nearq(qv, i), room9 = dd9 > 0 ? Dr9 : Dl9;
+          var xo9 = (dd9 > 0 ? 1 : -1) * Math.min(RR * Math.sin(Math.min(Math.PI / 2, Math.abs(ph))), room9 * Math.abs(dd9) * 2), yo9 = Math.sqrt(Math.max(0, RR * RR - xo9 * xo9)), cut9 = 1 - sm(Math.abs(xo9) / room9);
+          if (TB_X3 && e.__big) put(e.__big, 'transform', 'translate(-50%,' + ((31 + .153 * Rp + 44) / 2 - (TABIT_PH ? 23 : 42)).toFixed(1) + 'px)'); /* XR2.3: centred in the gap between the diamond (31px below the copy) and the rim */  at(e, cx + xo9, cy - yo9, 'translate(-50%,-100%)', pres * Math.pow(w, 1.5) * cut9); });
       };
     })();
     var geo = { w: -1 };
@@ -386,85 +281,21 @@ function runTabit(host, THREE, init) {
     }
     CHOR = function (yc) {
       measure();
-      var FX = TABIT_SUBJ.cx + TABIT_OX;   // the figure's centre on screen
       SECS.forEach(function (S) {
         var p = (yc - 720 * S.k) / 720;   // -1 below the screen, 0 in place, +1 gone above
         if (p < -1.1 || p > 1.1) return;
-        if ((O === 1 || O === 11 || O === 12) && S.box) {   // the box blooms out from the star side and folds away towards it again
-          var o1 = ss(p, -.62, -.22), c1 = 1 - ss(p, .22, .58), r1 = Math.min(o1, c1);
-          put(S.box, 'clipPath', r1 > .995 ? 'none' : 'circle(' + (r1 * 135).toFixed(1) + '% at 100% 42%)');
-          put(S.box, 'transform', 'translate(' + ((1 - o1) * 70).toFixed(1) + 'px,' + (-(1 - c1) * 70).toFixed(1) + 'px)');
-        }
-        if (O === 2 && S.words) {   // each word is dim until you reach it, then lights
-          var nW = S.words.length;
-          S.words.forEach(function (w, i) { var a = -.66 + .58 * i / nW, v = .13 + .87 * ss(p, a, a + .09); v = Math.round(v * 50) / 50; put(w.el, 'opacity', String(v)); });
-          S.ins.forEach(function (el) { el.style.opacity = '1'; el.style.transform = 'none'; });
-        }
-        if (O === 3) S.ins.forEach(function (el, i) {   // each line rises out of a mask, and later leaves up through it
-          var d = i * .05, a = ss(p, -.6 + d, -.36 + d), b = ss(p, .16 + d * .7, .4 + d * .7), ch = el.firstElementChild;
-          el.style.opacity = '1'; el.style.transform = 'none';
-          if (ch) put(ch, 'transform', 'translateY(' + ((1 - a) * 110 - b * 110).toFixed(1) + '%)');
-        });
-        if (O === 4) {   // the copy comes out of the figure, small and pinned to it, then opens out into place; it drifts up and away
-          var e4 = ss(p, -.72, -.16), l4 = ss(p, .14, .6), sc4 = .5 + .5 * e4 - .08 * l4;
-          var dx4 = (1 - e4) * (FX - (S.x + S.w / 2)), dy4 = (1 - e4) * (360 - (S.y + S.h / 2 - yc)) - l4 * 70;
-          put(S.el, 'transformOrigin', '50% 50%');
-          S.el.style.transform = 'translate(' + dx4.toFixed(1) + 'px,' + dy4.toFixed(1) + 'px) scale(' + sc4.toFixed(4) + ')';
-          S.el.style.opacity = (ss(p, -.75, -.45) * (1 - l4)).toFixed(3);
-          S.ins.forEach(function (el) { el.style.opacity = '1'; el.style.transform = 'none'; });
-        }
-        if (O === 5) {   // the headline's letters gather out of a scatter of blurred specks, and scatter again as you leave
-          var nC = S.chars ? S.chars.length : 0;
-          if (S.headIn) { S.headIn.style.opacity = '1'; S.headIn.style.transform = 'none'; }
-          (S.chars || []).forEach(function (q, i) {
-            var t = i / nC, a = ss(p, -.66 + .26 * t, -.36 + .26 * t), z = ss(p, .18 + .14 * t, .44 + .14 * t), v = a * (1 - z);
-            v = Math.round(v * 40) / 40;
-            put(q.el, 'opacity', String(v)); put(q.el, 'filter', v > .97 ? 'none' : 'blur(' + ((1 - v) * 7).toFixed(1) + 'px)');
-            put(q.el, 'transform', v > .97 ? 'none' : 'translate(' + (q.rx * (1 - a) * 46 + q.rx * z * 30).toFixed(1) + 'px,' + (q.ry * (1 - a) * 34 - z * 46).toFixed(1) + 'px)');
-          });
-          S.ins.forEach(function (el) { if (el === S.headIn) return; var o = parseFloat(el.style.opacity) || 0; put(el, 'filter', o > .97 ? 'none' : 'blur(' + ((1 - o) * 6).toFixed(1) + 'px)'); });
-        }
-        if (O === 6 && S.box) {   // a navy panel unfolds from a fine line, then folds up into a line and slips away
-          var o6 = ss(p, -.66, -.3), c6 = ss(p, .2, .52);
-          put(S.box, 'clipPath', c6 > 0 ? 'inset(0 0 ' + (c6 * 99.6).toFixed(1) + '% 0)' : (o6 > .995 ? 'none' : 'inset(' + (49.8 * (1 - o6)).toFixed(1) + '% 0 ' + (49.8 * (1 - o6)).toFixed(1) + '% 0)'));
-          S.ins.forEach(function (el, i) { el.style.opacity = (ss(p, -.4 + i * .04, -.22 + i * .04) * (1 - ss(p, .14, .3))).toFixed(3); });
-        }
-        if (O === 7) S.ins.forEach(function (el, i) {   // depth: the headline moves at half speed and lingers; each detail below moves a little faster
-          var sp = el === S.headIn ? .55 : 1 + .1 * i;
-          el.style.transform = 'translateY(' + (-p * 720 * (sp - 1)).toFixed(1) + 'px)';
-        });
-        if (O === 9) {   // a brass line draws down beside the copy and is drawn up again; the headline drifts across
-          if (S.line) { var o9 = ss(p, -.62, -.18), c9 = ss(p, .16, .52); put(S.line, 'transformOrigin', c9 > 0 ? '50% 100%' : '50% 0'); put(S.line, 'transform', 'scaleY(' + (c9 > 0 ? 1 - c9 : o9).toFixed(3) + ')'); }
-          if (S.headIn) S.headIn.style.transform = 'translateX(' + (-p * 150).toFixed(1) + 'px)';
-        }
-        if (O === 10 && S.headIn) {   // the headline arrives first, large and centred, held while you scroll; then it docks into the copy
-          var m = 1 - ss(p, -.42, -.1), SC = 1.75, nx = S.x + S.hx, ny = S.y + S.hy - yc;
-          var tx = TABIT_W / 2 - S.hw * SC / 2 - nx, ty = 320 - S.hh * SC / 2 - ny;
-          put(S.headIn, 'transformOrigin', '0 0');
-          S.headIn.style.transform = 'translate(' + (m * tx).toFixed(1) + 'px,' + (m * ty).toFixed(1) + 'px) scale(' + (1 + m * (SC - 1)).toFixed(4) + ')';
-          S.headIn.style.opacity = ss(p, -.78, -.56).toFixed(3);
-          S.ins.forEach(function (el, i) { if (el !== S.headIn) el.style.opacity = (ss(p, -.24 + i * .02, -.12 + i * .02)).toFixed(3); });
-        }
       });
       if (BOWB) BOWB.forEach(function (b, i) { var Pb = TRK11 && TRK11.p[i + 1]; if (!Pb) { put(b, 'display', 'none'); return; } put(b, 'display', TRK11.a > .5 ? 'block' : 'none'); put(b, 'left', (Pb[0] + TABIT_OX).toFixed(1) + 'px'); put(b, 'top', (Pb[1] + TABIT_OY).toFixed(1) + 'px'); });   // XR2.9.20: + the stage's vertical offset; on a window taller than 720 units the click targets sat that far above the bow's stars
       if (CHOR_RE) CHOR_RE(yc);
-      if (IDX) {   // the page you are on is named in its colour; its bar fills as you read through it
-        var uI = yc / 720, cur = Math.max(0, Math.min(4, Math.round(uI) - 1));
-        put(IDX, 'opacity', ss(yc, 300, 620).toFixed(3));
-        if (cur !== IDX.cur) { IDX.cur = cur; IDX.num.textContent = '0' + (cur + 1) + ' / 05'; IDX.num.style.color = IDX.items[cur].col; IDX.nm.textContent = IDX.items[cur].nm.toUpperCase(); }
-        var lf = c01(1 - Math.abs(uI - (cur + 1)) * 2.4); put(IDX.lab, 'opacity', (.25 + .75 * lf).toFixed(3));
-        IDX.items.forEach(function (it, i) { put(it.bar, 'transform', 'scaleX(' + c01(uI - (i + 1) + .5).toFixed(3) + ')'); });
-      }
     };
   })();
 
 var TABIT_DATA = { mark: "M247.90 52.50L302.88 -2.48L388.60 83.25L333.63 138.23L357.86 162.45L412.83 107.48L498.56 193.20L412.83 278.93L357.86 223.95L333.63 248.18L388.60 303.16L302.88 388.88L247.90 333.90L192.93 388.88L107.20 303.16L162.18 248.18L137.95 223.95L82.97 278.93L-2.75 193.20L82.97 107.48L137.95 162.45L162.18 138.23L107.20 83.25L192.93 -2.48ZM124.46 83.25L225.78 184.57L239.27 171.08L151.44 83.25L192.93 41.76L225.78 74.62L239.27 61.13L192.93 14.78ZM201.55 116.11L215.04 129.60L302.88 41.76L344.36 83.25L311.51 116.11L325.00 129.60L371.35 83.25L302.88 14.78ZM168.70 83.25L192.93 107.48L217.15 83.25L192.93 59.02ZM278.65 83.25L302.88 107.48L327.11 83.25L302.88 59.02ZM256.53 105.37L335.74 184.57L349.23 171.08L270.02 91.88ZM223.67 138.23L247.90 162.45L272.13 138.23L247.90 114.00ZM14.50 193.20L82.97 261.67L184.30 160.34L170.81 146.85L82.97 234.69L41.49 193.20L82.97 151.72L115.83 184.57L129.32 171.08L82.97 124.74ZM311.51 226.06L325.00 239.55L412.83 151.72L454.32 193.20L412.83 234.69L379.97 201.83L366.48 215.32L412.83 261.67L481.30 193.20L412.83 124.74ZM201.55 226.06L215.04 239.55L294.25 160.34L280.76 146.85ZM58.74 193.20L82.97 217.43L107.20 193.20L82.97 168.97ZM168.70 193.20L192.93 217.43L217.15 193.20L192.93 168.97ZM278.65 193.20L302.88 217.43L327.11 193.20L302.88 168.97ZM388.60 193.20L412.83 217.43L437.06 193.20L412.83 168.97ZM146.58 215.32L225.78 294.53L239.27 281.04L160.07 201.83ZM256.53 215.32L344.36 303.16L302.88 344.64L270.02 311.78L256.53 325.27L302.88 371.62L371.35 303.16L270.02 201.83ZM223.67 248.18L247.90 272.41L272.13 248.18L247.90 223.95ZM124.46 303.16L192.93 371.62L294.25 270.30L280.76 256.81L192.93 344.64L151.44 303.16L184.30 270.30L170.81 256.81ZM168.70 303.16L192.93 327.38L217.15 303.16L192.93 278.93ZM278.65 303.16L302.88 327.38L327.11 303.16L302.88 278.93Z", nodes: [[247.9, 193.2, 0.0], [192.93, 248.18, 0.0625], [137.95, 303.15, 0.125], [192.93, 358.13, 0.1875], [247.9, 303.15, 0.25], [302.88, 248.18, 0.0625], [357.86, 193.2, 0.375], [412.83, 138.22, 0.4375], [467.81, 193.2, 0.5], [412.83, 248.18, 0.5625], [302.88, 138.22, 0.6875], [247.9, 83.25, 0.75], [192.93, 28.27, 0.8125], [137.95, 83.25, 0.875], [192.93, 138.22, 0.6875], [357.86, 303.15, 0.125], [302.88, 358.13, 0.1875], [137.95, 193.2, 0.375], [82.97, 138.22, 0.4375], [28.0, 193.2, 0.5], [82.97, 248.18, 0.5625], [302.88, 28.27, 0.8125], [357.86, 83.25, 0.875]] };
-var TABIT_KPMG = "m 62.74202,0.20119 0,16.00227 -0.20416,0.16862 -0.20416,0.16862 -0.19566,0.17706 -0.18715,0.17705 -0.17864,0.17705 -0.17864,0.18549 -0.17013,0.18548 -0.17014,0.18549 0,-17.42713 -17.88969,0 0,14.56898 -1.48018,0 0,-14.56898 -17.88969,0 0,14.59427 -1.48018,0 0,-14.59427 -17.88969,0 0,16.6346 -4.56813,15.08327 4.01519,0 2.0161,-6.67744 0.57846,0 3.33464,6.67744 4.84885,0 -3.23257,-6.67744 7.33282,0 -2.03311,6.67744 4.38098,0 2.00759,-6.66058 0.96977,0 0,-0.0169 1.37809,0 0.11059,0 8.27707,0 -1.93954,6.66059 4.42351,0 1.87999,-6.66059 1.99058,0 0.051,6.66059 3.70894,0 4.26189,-6.66059 2.79021,0 -1.44615,6.66059 4.35546,0 1.42063,-6.66059 2.51799,0 -0.017,0.3794 0.009,0.38783 0.017,0.37097 0.034,0.37097 0.0255,0.17705 0.0255,0.17706 0.034,0.17705 0.034,0.17706 0.0425,0.17705 0.0425,0.16862 0.051,0.16862 0.051,0.16863 0.0596,0.16862 0.0596,0.16019 0.068,0.16019 0.0681,0.15176 0.0766,0.16019 0.0766,0.15176 0.0851,0.14333 0.0851,0.15176 0.0936,0.14333 0.10208,0.1349 0.10209,0.14333 0.11058,0.12646 0.11059,0.1349 0.11059,0.12647 0.1276,0.12647 0.1276,0.11803 0.16163,0.1349 0.16163,0.1349 0.17013,0.12646 0.17864,0.11804 0.17865,0.11804 0.17864,0.1096 0.18715,0.0927 0.19565,0.10117 0.18715,0.0843 0.19566,0.0843 0.19565,0.0759 0.20416,0.0759 0.20416,0.0675 0.20417,0.059 0.20416,0.059 0.20416,0.0506 0.40832,0.0927 0.41684,0.0675 0.40832,0.059 0.40832,0.0506 0.39982,0.0337 0.39131,0.0169 0.3828,0.0169 0.36579,0 0.4934,-0.008 0.49339,-0.008 0.5019,-0.0253 0.50189,-0.0253 0.5019,-0.0422 0.5019,-0.0422 0.5019,-0.0506 0.5019,-0.059 0.5104,-0.0675 0.51041,-0.0759 0.5104,-0.0843 0.51041,-0.0843 0.5104,-0.0927 0.51041,-0.10117 0.5104,-0.10117 0.51891,-0.11804 1.51421,-6.04511 4.96794,0 0,-25.04043 -17.8897,0 z m -56.4593,24.41653 0.0255,-0.0927 0.0596,0.0927 -0.0851,0 z m 15.58437,-8.97072 -0.2552,0.85155 -2.38189,7.84094 -0.0936,0.27823 -7.82621,0 -0.60398,-1.28154 8.43019,-8.54072 -5.4188,0 -6.59273,7.03999 2.13519,-7.03999 -3.99817,0 0,-13.96193 16.60517,0 0,14.81347 z m 4.61916,6.62686 0,0 -0.1276,0.008 -0.11909,0.008 -0.1276,0.008 -0.13611,0 -0.17864,0 -0.15312,0 -0.14462,0.008 -0.13611,0 -1.06334,-0.008 0.49339,-1.80426 0.22968,-0.8937 0.56145,-2.09934 0.17864,0 0.18715,0 0.17864,-0.008 0.17014,0 0.82515,0 0.5019,0.008 0.45936,0.0169 0.20416,0.008 0.19566,0.0169 0.18715,0.0253 0.17013,0.0253 0.15312,0.0253 0.14462,0.0422 0.13611,0.0422 0.11909,0.0506 0.10208,0.0506 0.0936,0.0675 0.0851,0.0675 0.068,0.0843 0.0425,0.0675 0.034,0.0675 0.034,0.0759 0.0255,0.0843 0.017,0.0927 0.009,0.0927 0,0.10117 0,0.1096 -0.009,0.11804 -0.008,0.11803 -0.0255,0.1349 -0.0255,0.1349 -0.0766,0.28666 -0.0936,0.32038 -0.0936,0.2698 -0.10208,0.26136 -0.11058,0.2445 -0.1191,0.22764 -0.0596,0.10118 -0.0596,0.10117 -0.0681,0.10117 -0.0766,0.0927 -0.0766,0.0927 -0.0766,0.0843 -0.0851,0.0843 -0.0851,0.0759 -0.0936,0.0675 -0.0936,0.0759 -0.10208,0.059 -0.11059,0.0675 -0.11059,0.059 -0.11909,0.0506 -0.1191,0.0506 -0.1276,0.0422 -0.1361,0.0506 -0.14462,0.0337 -0.15312,0.0337 -0.15312,0.0337 -0.17014,0.0253 -0.17013,0.0253 -0.17864,0.0169 -0.18715,0.0169 z m 12.0966,2.34386 1.74389,-6.15472 0.0681,6.15472 -1.81194,0 z m 2.65411,-9.84755 -4.1513,0 -2.85826,9.84755 -4.4065,0 0.20416,-0.0843 0.20416,-0.0843 0.19566,-0.0843 0.19565,-0.0927 0.18715,-0.0927 0.17864,-0.10961 0.17865,-0.10117 0.17013,-0.10961 0.17014,-0.11803 0.16162,-0.11804 0.15313,-0.11803 0.15312,-0.1349 0.14461,-0.12647 0.13611,-0.14333 0.13611,-0.1349 0.1276,-0.15176 0.1276,-0.14332 0.1191,-0.1602 0.11058,-0.15176 0.11059,-0.16862 0.10208,-0.16862 0.0936,-0.16862 0.0936,-0.17706 0.0851,-0.18548 0.0851,-0.18549 0.0766,-0.18548 0.068,-0.19392 0.0681,-0.20234 0.051,-0.20235 0.0596,-0.20235 0.0425,-0.21921 0.0425,-0.21077 0.0596,-0.33725 0.051,-0.32038 0.034,-0.30352 0.0255,-0.28666 0.009,-0.28666 -0.009,-0.26136 -0.008,-0.26137 -0.034,-0.2445 -0.034,-0.22764 -0.0596,-0.22764 -0.0596,-0.21078 -0.0851,-0.20235 -0.0936,-0.19391 -0.10208,-0.19392 -0.11909,-0.17705 -0.13611,-0.16862 -0.11059,-0.11804 -0.11059,-0.11803 -0.11909,-0.10118 -0.1276,-0.0927 -0.13611,-0.0927 -0.13611,-0.0843 -0.14461,-0.0759 -0.14462,-0.0675 -0.15312,-0.0675 -0.15312,-0.0506 -0.16163,-0.0506 -0.16163,-0.0506 -0.17013,-0.0422 -0.17014,-0.0337 -0.17013,-0.0337 -0.17865,-0.0253 -0.36579,-0.0506 -0.36579,-0.0253 -0.37429,-0.0253 -0.38281,-0.008 -0.7656,0 -0.7571,0 -0.23819,0 -0.42534,0 -0.52742,0 -0.58697,0 -0.56995,0 -0.48488,0 -0.34027,0 -0.1276,0 0,-13.93664 16.60517,0 0,13.93664 z m 10.089,9.84755 -2.49247,0 3.77699,-5.90179 -1.28452,5.90179 z m 9.28087,-9.56933 -0.009,3.41461 -0.21267,0.29509 -0.19566,0.30352 -0.19565,0.30352 -0.17864,0.30352 -0.17014,0.30352 -0.17013,0.31195 -0.14462,0.30352 -0.14461,0.30352 -0.13611,0.29509 -0.11909,0.30352 -0.1191,0.29509 -0.10208,0.28666 -0.0936,0.28665 -0.0851,0.27823 -0.0766,0.2698 -0.0681,0.26979 -0.0425,0.17706 -0.0425,0.18548 -0.0425,0.17706 -0.034,0.18548 -0.034,0.17705 -0.0255,0.17706 -0.0255,0.17705 -0.017,0.18549 -2.44144,0 2.08416,-9.82226 -7.02658,-0.008 -6.28649,9.83069 -0.45936,0 0,-23.78419 16.61368,0 0,14.21486 z m 9.5786,13.59097 -0.34878,0.059 -0.35728,0.0506 -0.35729,0.0506 -0.34877,0.0422 -0.34878,0.0337 -0.34878,0.0253 -0.34027,0.0169 -0.34027,0 -0.22117,0 -0.22118,-0.008 -0.21267,-0.0169 -0.21266,-0.0253 -0.20417,-0.0337 -0.19565,-0.0337 -0.19566,-0.0422 -0.18714,-0.0506 -0.17865,-0.059 -0.17864,-0.059 -0.17013,-0.0759 -0.16163,-0.0759 -0.16163,-0.0927 -0.15312,-0.0927 -0.14462,-0.10117 -0.1361,-0.10118 -0.13611,-0.11803 -0.1191,-0.12647 -0.11909,-0.12647 -0.11059,-0.14333 -0.10208,-0.14332 -0.0936,-0.1602 -0.0851,-0.16019 -0.0851,-0.16862 -0.0681,-0.17705 -0.0596,-0.19392 -0.051,-0.19391 -0.051,-0.20235 -0.034,-0.21078 -0.0255,-0.21921 -0.017,-0.22764 -0.009,-0.23607 7.74114,0 -0.85067,3.39774 z m 9.81679,-4.02164 -4.18532,0 0.68904,-2.74855 -8.38765,0 -0.68905,2.74855 -4.05772,0 0,-0.56489 0.051,-0.23607 0.0425,-0.23607 0.051,-0.25294 0.051,-0.25293 0.0766,-0.27823 0.0766,-0.27822 0.0851,-0.27823 0.0936,-0.2698 0.10208,-0.26979 0.11059,-0.2698 0.11909,-0.26136 0.1191,-0.26137 0.13611,-0.26136 0.1361,-0.2445 0.14462,-0.25294 0.16163,-0.23607 0.16163,-0.23607 0.16162,-0.22764 0.17865,-0.21921 0.18714,-0.21078 0.19566,-0.20235 0.19566,-0.18548 0.21266,-0.18548 0.21267,-0.17706 0.22118,-0.16019 0.23819,-0.15176 0.23819,-0.1349 0.24669,-0.12646 0.2552,-0.11804 0.26371,-0.10117 0.27222,-0.0843 0.28072,-0.0675 0.28923,-0.059 0.29774,-0.0422 0.30624,-0.0253 0.31475,-0.008 0.2467,0.008 0.24669,0.0169 0.2467,0.0337 0.23819,0.0506 0.11909,0.0337 0.11059,0.0337 0.11059,0.0337 0.10208,0.0506 0.10208,0.0422 0.10208,0.059 0.0936,0.059 0.0936,0.059 0.0851,0.0759 0.0851,0.0759 0.0766,0.0759 0.0766,0.0927 0.0681,0.0843 0.0596,0.10117 0.051,0.1096 0.051,0.10961 0.0425,0.11804 0.034,0.12646 0.0255,0.12647 0.0255,0.14333 0.009,0.14333 0,0.15176 0,0.16019 -0.017,0.16862 5.00197,0 0.0766,-0.34568 0.0681,-0.39626 0.034,-0.21078 0.017,-0.22764 0.017,-0.22764 0,-0.23607 -0.008,-0.2445 -0.0255,-0.25293 -0.0255,-0.11804 -0.017,-0.12647 -0.034,-0.12646 -0.034,-0.12647 -0.0425,-0.1349 -0.0425,-0.12646 -0.051,-0.12647 -0.0596,-0.12647 -0.0596,-0.12647 -0.0766,-0.12646 -0.0766,-0.12647 -0.0851,-0.12647 -0.10208,-0.13489 -0.11059,-0.12647 -0.11059,-0.12647 -0.11909,-0.11803 -0.1276,-0.11804 -0.13611,-0.1096 -0.13611,-0.10118 -0.14461,-0.10117 -0.15313,-0.10117 -0.15312,-0.0843 -0.16162,-0.0843 -0.17014,-0.0843 -0.17013,-0.0759 -0.17865,-0.0759 -0.18715,-0.0675 -0.18714,-0.0675 -0.18715,-0.059 -0.20416,-0.0506 -0.19566,-0.0506 -0.21267,-0.0506 -0.21267,-0.0422 -0.21267,-0.0422 -0.22117,-0.0337 -0.22968,-0.0253 -0.46787,-0.0506 -0.47638,-0.0422 -0.5019,-0.0169 -0.51041,-0.008 -0.3828,0.008 -0.39982,0.008 -0.41683,0.0253 -0.43384,0.0337 -0.45086,0.0506 -0.45936,0.059 -0.46787,0.0759 -0.47638,0.10117 -0.23819,0.0506 -0.2467,0.059 -0.23819,0.0675 -0.24669,0.0675 -0.2467,0.0759 -0.24669,0.0843 -0.2467,0.0843 -0.23819,0.0927 -0.24669,0.10117 -0.2467,0.10961 -0.23819,0.1096 -0.2467,0.11804 -0.23818,0.12646 -0.23819,0.1349 -0.23819,0.1349 -0.23819,0.15176 0,-14.92308 16.6307,0 0,23.78419 z";   // KPMG_blue_logo.svg, path unchanged (viewBox 0.05 0.2 80.58 32.08)
-var TABIT_AI_SHIFT = 2, TABIT_AI = 'stars', TABIT_VARIANT = 'dc17', TABIT_END = 7.2, TABIT_SNAP = [0, 900, 1620, 2340, 3060, 3780, 4500];   // six pages: Home, AI, Capital, Life & PPLI, Licence & audit, About us
+var TABIT_AI_SHIFT = 2, TABIT_AI = 'stars', TABIT_VARIANT = 'dc17', TABIT_END = 7.2;   // six pages: Home, AI, Capital, Life & PPLI, Licence & audit, About us
 // AS12.10: the site fills any landscape screen and follows a window as it is resized. The design is 720 units tall and
 // its width W follows the screen (960 to 1940). The centred 1280-wide stage keeps the logo and the copy where they were
 // designed; the sky, the nav bar, the page markers and the corner captions run to the screen's edges.
-var TABIT_WMAX = 4096, TABIT_W = 1280, TABIT_OX = 0, TABIT_DX = 0, TABIT_TS = 1, TABIT_RS = 1, TABIT_K = 1, TABIT_FOCUS = 240, TABIT_SUBJ = { cx: 940, cy: 360, s: 1 }, TABIT_C0 = 120;
+var TABIT_WMAX = 4096, TABIT_W = 1280, TABIT_OX = 0, TABIT_DX = 0, TABIT_TS = 1, TABIT_RS = 1, TABIT_K = 1, TABIT_SUBJ = { cx: 940, cy: 360, s: 1 }, TABIT_C0 = 120;
 var TABIT_PH = false;   // XR3.0: a phone (the stage is narrower than 600 units: TabitHome gives a phone a stage 390 wide)
 var TABIT_PHL = null;   // XR3.0: the phone composition: where each chapter's figure stands on this screen (tbPhoneLayout)
 var TABIT_XQ = 0;       // XR3.0: extra scroll after the last chapter, when About us is taller than the phone's screen
@@ -589,7 +420,7 @@ function tbPhoneLayout(root, W, H, OY) {
   L.licence = { cx: 640, cy: lTop + 167 * lS - OY, s: lS };
   L.contact = { cx: 640, cy: H + 80 - OY, s: .5 };   // About us has no figure
   // About us runs on under the fold: the scroll carries on until its last line is 24 above the bottom edge; on a screen it fits, the legal line stands at the foot
-  var lg = sec[5] ? sec[5].querySelector('[data-tabit-in="5"]') : null, xq = 0;
+  var xq = 0;
   if (sec[5]) { sec[5].style.setProperty('--tb-ph-lg', '40px'); var b5 = CT + hh(sec[5]), ov5 = b5 + 24 - H; if (ov5 <= 24) sec[5].style.setProperty('--tb-ph-lg', Math.round(40 - ov5) + 'px'); else xq = Math.round(ov5); }   // short of the foot: the legal line drops to it; over by 24 or less: its gap closes (40 to no less than 16) rather than leave its last line on the edge; more: the scroll carries on
   TABIT_PHL = L; TABIT_XQ = xq;
 }
@@ -617,7 +448,6 @@ function makeTabitHero(glCanvas, ovCanvas, DATA, DOM) {
   function seg(t, a, b) { return clamp((t - a) / (b - a), 0, 1); }
   function eIOS(x) { return -(Math.cos(Math.PI * x) - 1) / 2; }
   function eIOC(x) { return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; }
-  function eIOQ(x) { return x < .5 ? 16 * x * x * x * x * x : 1 - Math.pow(-2 * x + 2, 5) / 2; }
   function eOC(x) { return 1 - Math.pow(1 - x, 3); }
   function eOQ(x) { return 1 - Math.pow(1 - x, 4); }
   function lerp(a, b, k) { return a + (b - a) * k; }
@@ -744,10 +574,9 @@ function makeTabitHero(glCanvas, ovCanvas, DATA, DOM) {
     var ix = Math.floor(x), iy = Math.floor(y), fx = x - ix, fy = y - iy, ux = fx * fx * (3 - 2 * fx), uy = fy * fy * (3 - 2 * fy);
     return lerp(lerp(hsh(ix, iy), hsh(ix + 1, iy), ux), lerp(hsh(ix, iy + 1), hsh(ix + 1, iy + 1), ux), uy);
   }
-  var i, v, D, n;
+  var i, n;
   var ZF = Zo * .92 / .95, ZS = 3200, SHIFT = 640 - TX;
   function placeAt(sx, sy, z, zr, xr) { var d = zr - z; return [(xr || 0) + (sx - 640) * d / FPX, -(sy - 360) * d / FPX, z]; }
-  var XEND = 45.2, LOCK_W = 600, ZEND = 140 * FPX / LOCK_W, SLIDE = (700 - 248) * LOCK_W / 1400;
   var LAYERS = [
     { z0: 520, z1: 900, n: 900, pw: 2.8, amp: .85, dim: .03 },
     { z0: -1600, z1: -1000, n: 2600, pw: 3.3, amp: .78, dim: .11 },
@@ -816,7 +645,6 @@ function makeTabitHero(glCanvas, ovCanvas, DATA, DOM) {
   });
   var starPts = new T3.Points(sg, starMat); starPts.frustumCulled = false; starPts.renderOrder = 1; scene.add(starPts);
   // Barnard's Loop (the faint arc of gas around Orion's belt and sword) and the Orion Nebula, muted to the brand palette
-  var chartCX = 961.3, chartCY = 312.8;
   function chartToFrame(cx, cy) { return scr([cx, cy]); }
   var texLoop = canvasTex(512, 512, function (g) {
     g.filter = 'blur(22px)'; g.lineCap = 'round';
@@ -861,7 +689,7 @@ function makeTabitHero(glCanvas, ovCanvas, DATA, DOM) {
 
   // ------------------------------------------------------------------ Tabit's own constellation lives at the star, tiny at first, and grows as we zoom in.
   // Each point of the knot lights as the line reaches it.
-  var MS = .1, MCX = 248, MCY = 193.4, nodes = [];
+  var MCX = 248, MCY = 193.4, nodes = [];
   DATA.nodes.forEach(function (p) {
     if (p[2] < .002) return;   // the centre is Tabit itself
     nodes.push({ x: 640 + (p[0] - MCX) * KM, y: TY + (p[1] - MCY) * KM, f: p[2], ph: rnd() * 6.28 });
@@ -881,8 +709,6 @@ function makeTabitHero(glCanvas, ovCanvas, DATA, DOM) {
   }
   // C-series: hooks the page hand-off drives (all neutral at their defaults, so the splash is exactly B11)
   var FX = { sky: 1, ori: 1, grid: 0, snap: 0, gridLine: 1, hLine: 1, push: 0, camY: 0, lens: 1, keepGrid: 0, lineBoost: 1, creep: 1, colsOnly: 0, colMin: -1e9, colMax: 1e9, colKeep: null };
-  var slideK = 0;
-  var zoomS = 0;
   var shiftK = 0;
   // XR3.0: a phone's view of the intro. The intro is composed for a wide screen (Orion to the left of Tabit, the lockup 604 units wide), so a
   // phone looks at it through a view of its own: a stage point (x, y) is shown at ((x - 640) z + cx, (y - 360) z + cy). It opens close on Orion's
@@ -902,7 +728,6 @@ function makeTabitHero(glCanvas, ovCanvas, DATA, DOM) {
     var p = eIOS(seg(t, 0, 3.9));
     var z = Math.exp(lerp(Math.log(ZS), Math.log(ZF), p)) * Math.exp(-.0018 * Math.min(40, Math.max(0, t - 6.4)) * FX.creep) * (1 - .3 * FX.push);
     shiftK = eIOS(seg(t, TL.word0 - .1, TL.word0 + 1.25));
-    zoomS = 1;
     var x = SHIFT * shiftK * z / FPX;   // camera slides right, so Tabit (and the mark) slide left by exactly SHIFT px
     var cy = FX.camY * z / FPX;
     cam.position.set(x, cy, z); cam.lookAt(x, cy, z - 1000);
@@ -915,7 +740,7 @@ function makeTabitHero(glCanvas, ovCanvas, DATA, DOM) {
     try { renderer.compile(scene, cam); } catch (err) {}
     hidden.forEach(function (o) { o.visible = false; });
   })();
-  var v3 = new T3.Vector3(), ORIGIN = new T3.Vector3();
+  var v3 = new T3.Vector3();
   function toScreen(v) { v3.copy(v).project(cam); return [(v3.x + 1) / 2 * W - OX, (1 - v3.y) / 2 * H - OY]; }   // in the 1280 design's units. XR2.9.20: vertically too; the overlay is drawn offset by OY, so on a stage taller than 720 the ring, Orion and the grid sat OY below the logo they frame
 
   var hid = false, whole = false;   // XR3.6: the two hero canvases are taken out of the page while the site's sky covers them; whole: a frame has been drawn in full at this size
@@ -969,7 +794,6 @@ function makeTabitHero(glCanvas, ovCanvas, DATA, DOM) {
     flare.bloom.material.opacity = .2 * F; pxScale(flare.bloom, 80 + 460 * F);
     flare.spikes.material.opacity = .62 * F * sh; flare.spikes.material.rotation = -cam.rotation.z + .03 * Math.sin(t * .8); pxScale(flare.spikes, 60 + 540 * F);
     flare.streak.material.opacity = .22 * F; flare.streak.material.rotation = -cam.rotation.z; pxScale(flare.streak, 1300 * F + 1, 20 + 12 * F);
-    var pu = Math.exp(-Math.pow((t - (TL.pulse + .1)) / .32, 2));
     flare.pulse.material.opacity = 0; pxScale(flare.pulse, 760);
 
     for (var si = 0; si < scene.children.length; si++) { var so = scene.children[si]; if (so.isSprite) so.visible = so.material.opacity > .002; }   // XR2.7.2: nothing is drawn for a sprite you cannot see
@@ -981,7 +805,6 @@ function makeTabitHero(glCanvas, ovCanvas, DATA, DOM) {
   }
 
   // ------------------------------------------------------------------ star-chart overlay: Dusk hairlines, Tabit marked in Brass
-  var GZ = -900;
   function rgba(c, a) { return 'rgba(' + c + ',' + clamp(a, 0, 1).toFixed(3) + ')'; }
   // Live RA/Dec grid on Tabit's own plane. It stays through the zoom and refines like a map:
   // 5 degree lines first, then 1 degree, then 20 arcminutes, with the edge labels homing in on Tabit.
@@ -1088,7 +911,7 @@ function makeTabitHero(glCanvas, ovCanvas, DATA, DOM) {
     }
     var rA = PHI ? 0 : eIOS(seg(t, 1.5, 2.1)) * (1 - eIOS(seg(t, TL.grow0, TL.grow1 - .05)));
     if (rA > 0) {
-      var s = S.pi3, k = eOQ(seg(t, 1.5, 2.3)), R0 = lerp(30, 12, k), kd = eIOS(seg(t, TL.draw0 - .2, TL.draw0 + .5)), R = lerp(R0, KR, kd), rot = lerp(.8, 0, k);
+      var s = S.pi3, k = eOQ(seg(t, 1.5, 2.3)), R0 = lerp(30, 12, k), kd = eIOS(seg(t, TL.draw0 - .2, TL.draw0 + .5)), R = lerp(R0, KR, kd);
       ox.strokeStyle = rgba(BRASS, .95 * rA); ox.lineWidth = 1;
       ox.beginPath(); ox.arc(s[0], s[1], R, 0, 6.2832); ox.stroke();
       var tA = eIOS(seg(t, 1.7, 2.2)) * (1 - eIOS(PV ? seg(t, 2.95, 3.4) : seg(t, TL.word0 - .15, TL.word0 + .35)));   // XR3.0: on a phone the star's name goes as the ring opens: at that size the ring fills the width and the name would run off the edge
@@ -1187,12 +1010,11 @@ function makeHandoff(hero, root, V) {
   var lock = q('[data-tabit-lockup]'), mark = q('[data-tabit-mark]'), letters = qa('[data-tabit-letter]');
   var night = q('[data-tabit-night]'), page = q('[data-tabit-page]'), scroller = q('[data-tabit-scroll]'), nav = q('[data-tabit-nav]');
   var navBg = q('[data-tabit-navbg]'), navLogo = q('[data-tabit-navlogo]'), cue = q('[data-tabit-cue]'), cols = q('[data-tabit-cols]');
-  var rise = qa('[data-tabit-rise]'), wm = q('[data-tabit-wm]'), idx = qa('[data-tabit-idx]'), horizon = q('[data-tabit-horizon]');
+  var rise = qa('[data-tabit-rise]'), wm = q('[data-tabit-wm]'), idx = qa('[data-tabit-idx]');
   var QMAX = scroller ? Math.max(0, parseFloat(scroller.getAttribute('data-h')) - 720) : 0, QM0 = QMAX; QMAX += TB_PIN;   // XR2: extra scroll while the (Re)insurance page holds
   // the white lockup's box inside its own svg, in px (measured from the B11 end state)
   var VB = { x: -4, y: -4 }, K = parseFloat(lock.getAttribute('width')) / 1408;
   var BX0 = (-2.75 - VB.x) * K, BY0 = (-2.48 - VB.y) * K, BX1 = (1400 - VB.x) * K, BY1 = (388.88 - VB.y) * K;
-  var MX = (247.9 - VB.x) * K, MY = (193.2 - VB.y) * K;
   var L0 = parseFloat(lock.style.left), T0 = parseFloat(lock.style.top);
   var LOGO_W = 140;   // brand book: never under 120px wide on screen
   var touched = false;
@@ -1200,7 +1022,7 @@ function makeHandoff(hero, root, V) {
   var dotsBox = q('[data-tabit-dots]'), dotEls = qa('[data-tabit-dot]');
   var conProg = q('[data-tabit-conprog]'), CONP = [[38, 10], [22, 66], [40, 122], [26, 178], [36, 232], [24, 288]], CONL = [], CONC = [0], CONT = 0;
   for (var ci = 0; ci < CONP.length - 1; ci++) { var cdl = Math.hypot(CONP[ci + 1][0] - CONP[ci][0], CONP[ci + 1][1] - CONP[ci][1]); CONL.push(cdl); CONT += cdl; CONC.push(CONT); }
-  var homeBtn = q('[data-tabit-home]'), HV = { t0: -99 };
+  var homeBtn = q('[data-tabit-home]');
   if (homeBtn) homeBtn.style.left = '562px';   // AS12.5: the logo docks in the centre of the nav, so its home button sits there too   // D.C.2.4: the docked logo is alive
   // D.C.2.5: the docked logo as fine pixels with springs. Only the part under the mouse breaks up and is pushed aside; each piece
   // springs back, so a pass of the mouse leaves a ripple through the letters. The real logo shows whenever nothing is disturbed.
@@ -1227,7 +1049,7 @@ function makeHandoff(hero, root, V) {
       RP.P.forEach(function (o) { if (o.a < 160 || rr() > dens) return; var an = rr() * 6.283;   // a dense set of stars laid over the letters
         SG.K.push({ x: RP.gx0 + o.hx / d, y: RP.gy0 + o.hy / d, dx: Math.cos(an), dy: Math.sin(an), ph: rr() * 6.283, r2: rr(), r3: rr(), sp: (rr() - .5) * 1.6 }); }); }
     var inside = PTR.x > RP.gx0 && PTR.x < RP.gx0 + RP.gw && PTR.y > RP.gy0 && PTR.y < RP.gy0 + RP.gh;
-    var big = false, splash = s1 > .6, mx = PTR.x - RP.gx0, my = PTR.y - RP.gy0, R = 18, mxv = 0; if (splash) inside = inside && SPL.on === 1;   // F2.8: same patch, stars and drift as the docked logo; on the splash, nothing until the pointer is on the logo   // F2.6: a tight patch round the pointer, and nothing until it is on the logo
+    var splash = s1 > .6, mx = PTR.x - RP.gx0, my = PTR.y - RP.gy0, R = 18, mxv = 0; if (splash) inside = inside && SPL.on === 1;   // F2.8: same patch, stars and drift as the docked logo; on the splash, nothing until the pointer is on the logo   // F2.6: a tight patch round the pointer, and nothing until it is on the logo
     for (var gy = 0; gy < SG.h; gy++) for (var gx = 0; gx < SG.w; gx++) {
       var i = gy * SG.w + gx, v = SG.v[i] * .93;
       if (inside) { var dd = Math.hypot(gx * C + C / 2 - mx, gy * C + C / 2 - my); if (dd < R) { var f = 1 - dd / R; v = Math.min(1, v + f * f * .5); } }
@@ -1249,8 +1071,8 @@ function makeHandoff(hero, root, V) {
     c.globalCompositeOperation = 'lighter';
     SG.K.forEach(function (o) {   // the stars, on the letters, each drifting a hair and twinkling
       var hx = o.x, hy = o.y, a = act(hx - RP.gx0, hy - RP.gy0); if (a < .02) return;
-      var tw = .65 + .35 * Math.sin(t * 5.2 + o.ph), dr = a * (.6 + 1.6 * o.r2) * (big ? 4 : 1);
-      var x = hx + o.dx * dr + Math.sin(t * 1.3 + o.ph) * .35 * a, y = hy + o.dy * dr + Math.cos(t * 1.1 + o.ph) * .35 * a, sz = (2.4 + 1.6 * o.r3) * (big ? 1.9 : 1);
+      var tw = .65 + .35 * Math.sin(t * 5.2 + o.ph), dr = a * (.6 + 1.6 * o.r2) * (1);
+      var x = hx + o.dx * dr + Math.sin(t * 1.3 + o.ph) * .35 * a, y = hy + o.dy * dr + Math.cos(t * 1.1 + o.ph) * .35 * a, sz = (2.4 + 1.6 * o.r3) * (1);
       c.globalAlpha = Math.min(1, a * tw * .7); var gs = sz * 2.8; c.drawImage(FL2.gl, x - gs / 2, y - gs / 2, gs, gs);
       c.globalAlpha = Math.min(1, a * (.55 + .6 * tw)); c.save(); c.translate(x, y); c.rotate(o.sp * .4 * a); c.drawImage(FL2.kn, -sz / 2, -sz / 2, sz, sz); c.restore();
     });
@@ -1260,60 +1082,6 @@ function makeHandoff(hero, root, V) {
   var SPL = { on: 0 };
   // F2.7: the splash logo is cut into tiny pieces. Only the pieces the pointer actually touches burst off as small Tabit knots,
   // then drift home and turn back into solid logo. No disc, no fading grid: untouched pieces stay exactly as they are.
-  var BU = null, BT = 5;
-  function burstInit() {
-    var d = FL2.dpr, M = 6, wL = parseFloat(lock.getAttribute('width')), hL = parseFloat(lock.getAttribute('height'));
-    var gx0 = Math.floor(L0 - M), gy0 = Math.floor(T0 - M), gw = Math.ceil(wL + 2 * M + 1), gh = Math.ceil(hL + 2 * M + 1);
-    var cv = document.createElement('canvas'); cv.width = gw * d; cv.height = gh * d; var g = cv.getContext('2d'), k = d * K;
-    var fc = /(\d+)\D+(\d+)\D+(\d+)/.exec(mark.style.fill || '') || [0, 255, 255, 255];
-    g.setTransform(k, 0, 0, k, d * (L0 - gx0) - k * VB.x, d * (T0 - gy0) - k * VB.y); g.fillStyle = 'rgb(' + fc[1] + ',' + fc[2] + ',' + fc[3] + ')';
-    g.fill(new Path2D(mark.getAttribute('d')), 'evenodd'); letters.forEach(function (el) { g.fill(new Path2D(el.getAttribute('d')), 'evenodd'); });
-    var A = g.getImageData(0, 0, cv.width, cv.height).data, P = [], sd = 17;
-    function rr() { sd = (sd * 16807) % 2147483647; return (sd - 1) / 2147483646; }
-    for (var ty = 0; ty < gh; ty += BT) for (var tx = 0; tx < gw; tx += BT) {
-      var cov = 0, n = 0;
-      for (var yy = ty * d; yy < Math.min(gh, ty + BT) * d; yy += 1) for (var xx = tx * d; xx < Math.min(gw, tx + BT) * d; xx += 1) { cov += A[(yy * cv.width + xx) * 4 + 3]; n++; }
-      cov /= n * 255; if (cov < .06) continue;
-      P.push({ hx: gx0 + tx, hy: gy0 + ty, sx: tx * d, sy: ty * d, cov: cov, dx: 0, dy: 0, vx: 0, vy: 0, tch: 0, ph: rr() * 6.283, rot: (rr() - .5) * 2, r: rr(), sz: 6 + 3.5 * rr() });
-    }
-    var hs = document.createElement('canvas'); hs.width = hs.height = 32; var hg = hs.getContext('2d'), hr = hg.createRadialGradient(16, 16, 0, 16, 16, 16);   // a soft-edged hole, so no squares ever show
-    hr.addColorStop(0, 'rgba(0,0,0,1)'); hr.addColorStop(.5, 'rgba(0,0,0,1)'); hr.addColorStop(1, 'rgba(0,0,0,0)'); hg.fillStyle = hr; hg.fillRect(0, 0, 32, 32);
-    BU = { P: P, hs: hs, cv: cv, A: A, gx0: gx0, gy0: gy0, gw: gw, gh: gh, d: d, px: -999, py: -999, live: false };
-  }
-  function inkB(x, y) {   // is the pointer on the logo's ink (within 2px)?
-    if (!BU) return false; var d = BU.d, mx = Math.round((x - BU.gx0) * d), my = Math.round((y - BU.gy0) * d), tl = Math.round(2 * d), W = BU.gw * d, H = BU.gh * d;
-    for (var oy = -tl; oy <= tl; oy += tl) for (var ox = -tl; ox <= tl; ox += tl) { var xx = mx + ox, yy = my + oy; if (xx < 0 || yy < 0 || xx >= W || yy >= H) continue; if (BU.A[(yy * W + xx) * 4 + 3] > 100) return true; }
-    return false;
-  }
-  function burstUpdate(t, on) {
-    var c = FL2.c, RH = 9, moved = BU.px > -900 ? Math.hypot(PTR.x - BU.px, PTR.y - BU.py) : 0, mvx = BU.px > -900 ? PTR.x - BU.px : 0, mvy = BU.px > -900 ? PTR.y - BU.py : 0;
-    BU.px = PTR.x; BU.py = PTR.y; var energy = 0;
-    BU.P.forEach(function (o) {
-      var cx = o.hx + BT / 2 - PTR.x, cy = o.hy + BT / 2 - PTR.y, dd = Math.hypot(cx, cy) || 1, near = on && dd < RH;
-      if (near && (!o.tch || moved > .6)) {   // touched: this piece bursts away from the pointer tip
-        var an = Math.atan2(cy, cx) + (o.r - .5) * 1.4, sp = (2.2 + 3.2 * o.r) * (1 - .4 * dd / RH);
-        o.vx += Math.cos(an) * sp + mvx * .18; o.vy += Math.sin(an) * sp + mvy * .18;
-      }
-      o.tch = near ? 1 : 0;
-      o.vx = (o.vx - o.dx * .028) * .9; o.vy = (o.vy - o.dy * .028) * .9; o.dx += o.vx; o.dy += o.vy;
-      var e = Math.abs(o.dx) + Math.abs(o.dy) + Math.abs(o.vx) + Math.abs(o.vy); if (e < .04) { o.dx = o.dy = o.vx = o.vy = 0; } energy += e;
-    });
-    BU.live = energy > .5;
-    if (!BU.live) { lock.style.opacity = ''; return; }
-    lock.style.opacity = '0';
-    c.drawImage(BU.cv, BU.gx0, BU.gy0, BU.gw, BU.gh);   // the logo, exactly as it is...
-    c.globalCompositeOperation = 'destination-out';      // ...minus the pieces that have flown
-    var HS = BT * 2.3; BU.P.forEach(function (o) { var D = Math.hypot(o.dx, o.dy); if (D > .2) { c.globalAlpha = sg(D, .2, 2.5); c.drawImage(BU.hs, o.hx + BT / 2 - HS / 2, o.hy + BT / 2 - HS / 2, HS, HS); } });
-    c.globalCompositeOperation = 'source-over';
-    c.globalCompositeOperation = 'lighter';
-    BU.P.forEach(function (o) {
-      var D = Math.hypot(o.dx, o.dy); if (D <= .2) return; var m = sg(D, .2, 2.5), tw = .7 + .3 * Math.sin(t * 5.5 + o.ph);
-      var x = o.hx + BT / 2 + o.dx, y = o.hy + BT / 2 + o.dy, sz = o.sz, a = m * Math.min(1, .45 + o.cov) * tw;
-      c.globalAlpha = a * .45; var gs = sz * 2.6; c.drawImage(FL2.gl, x - gs / 2, y - gs / 2, gs, gs);
-      c.globalAlpha = a; c.save(); c.translate(x, y); c.rotate(o.rot * Math.min(1, D / 30)); c.drawImage(FL2.kn, -sz / 2, -sz / 2, sz, sz); c.restore();
-    });
-    c.globalAlpha = 1; c.globalCompositeOperation = 'source-over';
-  }
 
   function inkAt(R, x, y) {   // F2.6: is the pointer on the logo's ink (within 3px)?
     if (!R || !R.A) return false; var d = R.d, mx = Math.round((x - R.gx0) * d), my = Math.round((y - R.gy0) * d), tl = Math.round(3 * d);
@@ -1321,48 +1089,17 @@ function makeHandoff(hero, root, V) {
     return false;
   }
   function starAt(st, tx, ty, s1, t) { var r0 = RP, g0 = SG; RP = st.RP; SG = st.SG; starUpdate(tx, ty, s1, t); st.RP = RP; st.SG = SG; RP = r0; SG = g0; }
-  function rippleUpdate(tx, ty, s1, t) {
-    if (!RP) rippleInit(tx, ty, s1);
-    var d = RP.d, inside = PTR.x > RP.gx0 && PTR.x < RP.gx0 + RP.gw && PTR.y > RP.gy0 && PTR.y < RP.gy0 + RP.gh;
-    var mx = (PTR.x - RP.gx0) * d, my = (PTR.y - RP.gy0) * d, mvx = PTR.px > -900 ? (PTR.x - PTR.px) * d : 0, mvy = PTR.py > -900 ? (PTR.y - PTR.py) * d : 0; PTR.px = PTR.x; PTR.py = PTR.y;
-    if (!inside && !RP.live) { lock.style.opacity = '1'; return; }
-    var R = 13 * d, energy = 0;
-    RP.P.forEach(function (o) {
-      if (inside) { var ex = o.hx + o.dx - mx, ey = o.hy + o.dy - my, dist = Math.hypot(ex, ey);
-        if (dist < R) { var f = (1 - dist / R); f *= f; o.vx += (ex / (dist || 1)) * f * 1.3 * d + mvx * f * .16; o.vy += (ey / (dist || 1)) * f * 1.3 * d + mvy * f * .16; } }
-      o.vx = (o.vx - o.dx * .11) * .82; o.vy = (o.vy - o.dy * .11) * .82; o.dx += o.vx; o.dy += o.vy;
-      energy += Math.abs(o.dx) + Math.abs(o.dy);
-    });
-    RP.live = inside || energy > RP.P.length * .004;
-    if (!RP.live) { RP.P.forEach(function (o) { o.dx = o.dy = o.vx = o.vy = 0; }); lock.style.opacity = '1'; return; }
-    lock.style.opacity = '0';
-    var fc = /(\d+)\D+(\d+)\D+(\d+)/.exec(mark.style.fill || '') || [0, 255, 255, 255], cr = +fc[1], cg = +fc[2], cb = +fc[3];
-    var W2 = RP.gw * d, H2 = RP.gh * d, data = RP.img.data; data.fill(0);
-    RP.P.forEach(function (o) {
-      var x = Math.round(o.hx + o.dx), y = Math.round(o.hy + o.dy); if (x < 0 || y < 0 || x >= W2 || y >= H2) return;
-      var q = (y * W2 + x) * 4, disp = Math.abs(o.dx) + Math.abs(o.dy), a = disp > 1.5 * d ? Math.min(255, o.a * 1.15) : o.a;
-      if (a > data[q + 3]) { data[q] = cr; data[q + 1] = cg; data[q + 2] = cb; data[q + 3] = a; }
-    });
-    var c = FL2.c; c.setTransform(1, 0, 0, 1, 0, 0); c.putImageData(RP.img, RP.gx0 * d, (RP.gy0 + FL2.oy) * d); c.setTransform(d, 0, 0, d, 0, d * FL2.oy);
-    c.globalCompositeOperation = 'lighter';   // the most disturbed pieces glint as tiny Tabit stars
-    RP.P.forEach(function (o) {
-      if (o.r > .035) return; var disp = Math.hypot(o.dx, o.dy) / d; if (disp < 1.6) return;
-      var x = RP.gx0 + (o.hx + o.dx) / d, y = RP.gy0 + (o.hy + o.dy) / d, ga = Math.min(1, (disp - 1.6) / 4), sz = 3.4;
-      c.globalAlpha = ga * .45; c.drawImage(FL2.gl, x - sz * 1.3, y - sz * 1.3, sz * 2.6, sz * 2.6);
-      c.globalAlpha = ga; c.drawImage(FL2.kn, x - sz / 2, y - sz / 2, sz, sz);
-    });
-    c.globalAlpha = 1; c.globalCompositeOperation = 'source-over';
-  }
-  var vig = q('[data-tabit-vig]'), secs = qa('[data-tabit-sec]'), ins = qa('[data-tabit-in]'), plabels = qa('[data-tabit-plabel]'), logoParts = [mark].concat(letters);
+  var vig = q('[data-tabit-vig]'), secs = qa('[data-tabit-sec]'), ins = qa('[data-tabit-in]'), plabels = qa('[data-tabit-plabel]'), logoParts = [mark].concat(letters), coordsEl = q('[data-tabit-coords]');
+  // XR3.7: a page marker's label has its height kept for it (the browser says when it changes), so no frame asks for it. Asked for between
+  // writes, as it was in every frame, it made the browser lay the page out again several times a frame.
+  var railRO = window.ResizeObserver ? new ResizeObserver(function (es) { es.forEach(function (e) { e.target.__lh = e.target.offsetHeight; }); }) : null; if (railRO) plabels.forEach(function (lb) { railRO.observe(lb); });
+  function railH(lb) { if (!railRO) return lb.offsetHeight; if (lb.__lh == null) lb.__lh = lb.offsetHeight; return lb.__lh; }   // a browser without the observer is asked each time, as before
   function mixHex(a, b, k) { var A = [parseInt(a.slice(1, 3), 16), parseInt(a.slice(3, 5), 16), parseInt(a.slice(5, 7), 16)], B = [parseInt(b.slice(1, 3), 16), parseInt(b.slice(3, 5), 16), parseInt(b.slice(5, 7), 16)]; return 'rgb(' + Math.round(lp(A[0], B[0], k)) + ',' + Math.round(lp(A[1], B[1], k)) + ',' + Math.round(lp(A[2], B[2], k)) + ')'; }
   var navItems = qa('[data-tabit-navitem]'), lineIn = qa('[data-tabit-line-in]'), cards = qa('[data-tabit-card]'), wwd = q('[data-tabit-wwd]');
   function io5(x) { return x < .5 ? 16 * Math.pow(x, 5) : 1 - Math.pow(-2 * x + 2, 5) / 2; }   // ease in-out quint
-  if (V === 'e2') { hero.fx.keepGrid = 1; hero.fx.lineBoost = 1.65; }
-  if (V === 'e4') { hero.fx.keepGrid = 1; hero.fx.lineBoost = 1.65; hero.fx.creep = 0; hero.fx.colKeep = [124.27, 468.65, 813.04, 1157.42]; }   // E4: four of the chart's lines, three wide columns
-  if (V === 'e3') { hero.fx.keepGrid = 1; hero.fx.lineBoost = 1.65; hero.fx.creep = 0; hero.fx.colMin = 123; hero.fx.colMax = 1159; }   // E3: a still chart whose 13 lines (124.3 to 1157.4px) are the page columns   // E2: the grid stays through the splash; Orion's lines carry more light
 
   var DK = { tx: 0, ty: 0, s: 1 };
-  var DOCK_Y = (V === 'dd2' || V === 'dd3' || V === 'dd4') ? 668 : 44;   // DD2-DD4: the logo docks at the bottom of the screen, not in the nav
+  var DOCK_Y = 44;   // DD2-DD4: the logo docks at the bottom of the screen, not in the nav
   var AI_ON = typeof TABIT_AI !== 'undefined' && !!TABIT_AI;   // D.C.2.3: DD1.3's AI slide on page 2
   // DD series (DD1.1 to DD5.1): the A and I slide out of TABIT and become page 2's title. They are tied to the scroll,
   // never on a timer: scroll back and they slide back. Both letters move as one pair on the same curve, with no fall,
@@ -1397,7 +1134,6 @@ function makeHandoff(hero, root, V) {
     lock.parentNode.appendChild(aiOv);
   }
   function ss(x) { return x * x * (3 - 2 * x); }
-  function smin(a, b, k) { var m = Math.min(a, b); return m - k * Math.log(Math.exp((m - a) / k) + Math.exp((m - b) / k)); }   // a soft min, so a pick-up has no jolt
   // D.C.2.3.1: the A and I do not slide. Like the splash, they dissolve into tiny Tabit knots that stream down and
   // re-form as page 2's title; moving on, the title dissolves again and the knots stream back into the logo.
   // Tied to the scroll throughout, so scrolling back plays it in reverse.
@@ -1500,7 +1236,7 @@ function makeHandoff(hero, root, V) {
       var sz = back ? lp(o.s0, 2.4, f) : lp(2.4, o.s0, f);
       if (f > .02 && f < .96) {   // a short tapering tail along the path just travelled
         var prev = q; for (var jj = 1; jj <= 4; jj++) { var qj = back ? stPath(o, tx, ty, lx, ly, Math.max(0, k - .01 * jj), false) : stPath(o, lx, ly, tx, ty, Math.max(0, k - .01 * jj), true);
-          c.globalAlpha = a * .3 * (1 - jj / 5) * (TB_GOLD ? 1.6 : 1); c.strokeStyle = TB_GOLD ? 'rgb(168,130,58)' : 'rgb(240,238,232)'; c.lineWidth = Math.max(.5, sz * .15); c.beginPath(); c.moveTo(prev[0], prev[1]); c.lineTo(qj[0], qj[1]); c.stroke(); prev = qj; } }
+          c.globalAlpha = a * .3 * (1 - jj / 5) * (1.6); c.strokeStyle = 'rgb(168,130,58)'; c.lineWidth = Math.max(.5, sz * .15); c.beginPath(); c.moveTo(prev[0], prev[1]); c.lineTo(qj[0], qj[1]); c.stroke(); prev = qj; } }
       c.globalAlpha = Math.min(1, a * .5 + glint * .8); var gs = sz * (2.4 + 2 * glint); c.drawImage(ST.gl, q[0] - gs / 2, q[1] - gs / 2, gs, gs);
       c.globalAlpha = a; c.drawImage(ST.kn, q[0] - sz / 2, q[1] - sz / 2, sz, sz);
     });
@@ -1508,62 +1244,17 @@ function makeHandoff(hero, root, V) {
   }
   function aiUpdate(S, yc, ink) {
     if (!aiOv) return;
-    if (TB_AIL) { AI_CAP = 176 * TABIT_TS * tbLerp(1, tbLerp(.7, .95, TABIT_HF), TABIT_ST); AI_TOP = TABIT_SUBJ.cy - AI_CAP / 2;
-      if (TABIT_PH && TABIT_PHL) { AI_CAP = TABIT_PHL.ai.cap; AI_TOP = TABIT_PHL.ai.cy - AI_CAP / 2; }   // XR3.0
-      else if (TABIT_ST > .5) {   // XR2.8.2: stacked, the figure sits under the AI page's copy, never on it
-        aiTick++; if (aiSecB == null || aiTick % 60 === 1) { var s3 = document.querySelector('[data-tabit-sec="3"]'), b3 = s3 && s3.firstElementChild; aiSecB = b3 ? 88 - TABIT_LIFT + b3.offsetHeight * (parseFloat(s3.style.scale) || 1) : 0; }
-        var aiT2 = Math.max(AI_TOP, aiSecB + 36), aiLim = 720 + TABIT_OY - 96; if (aiT2 + AI_CAP > aiLim) AI_CAP = Math.max(60, aiLim - aiT2); AI_TOP = aiT2; }
-      AIL.forEach(function (L) { L.tx = TB_AIFX() + (L.tx0 - 233) * AI_CAP / 132; }); TABIT_AIC = AI_TOP + AI_CAP / 2 - (TABIT_PH ? Math.max(0, yc - 720) : 0); /* XR3.0: on a phone the figure leaves with its page, as the large AI does, so the copy under it never rides over it */ } else { AIL.forEach(function (L) { L.tx = TABIT_C0 + TABIT_DX + (L.tx0 - TABIT_C0) * TABIT_TS; }); AI_CAP = 132 * TABIT_TS; }   // the title follows the copy column
+    AI_CAP = 176 * TABIT_TS * tbLerp(1, tbLerp(.7, .95, TABIT_HF), TABIT_ST); AI_TOP = TABIT_SUBJ.cy - AI_CAP / 2;
+    if (TABIT_PH && TABIT_PHL) { AI_CAP = TABIT_PHL.ai.cap; AI_TOP = TABIT_PHL.ai.cy - AI_CAP / 2; }   // XR3.0
+    else if (TABIT_ST > .5) {   // XR2.8.2: stacked, the figure sits under the AI page's copy, never on it
+      aiTick++; if (aiSecB == null || aiTick % 60 === 1) { var s3 = document.querySelector('[data-tabit-sec="3"]'), b3 = s3 && s3.firstElementChild; aiSecB = b3 ? 88 - TABIT_LIFT + b3.offsetHeight * (parseFloat(s3.style.scale) || 1) : 0; }
+      var aiT2 = Math.max(AI_TOP, aiSecB + 36), aiLim = 720 + TABIT_OY - 96; if (aiT2 + AI_CAP > aiLim) AI_CAP = Math.max(60, aiLim - aiT2); AI_TOP = aiT2; }
+    AIL.forEach(function (L) { L.tx = TB_AIFX() + (L.tx0 - 233) * AI_CAP / 132; }); TABIT_AIC = AI_TOP + AI_CAP / 2 - (TABIT_PH ? Math.max(0, yc - 720) : 0); /* XR3.0: on a phone the figure leaves with its page, as the large AI does, so the copy under it never rides over it */   // the title follows the copy column
     if (S < TABIT_HAND) { if (ST) stClear(); aiOv.style.display = 'none'; AIL.forEach(function (L) { letters[L.i].style.fillOpacity = ''; }); return; }
     aiOv.style.display = ''; aiFit();
     var scT = AI_CAP / 224, s0 = DK.s * K, HR = AI_TOP + AI_CAP / 2, Hy = TB_AIL && yc <= 720 ? HR : HR + 720 - yc;   // XR2.3.13: while arriving, the AI's place is fixed over the figure; it scrolls away with the page after   // Hy: where page 2's title line is on screen now
-    aiClip.setAttribute('y', yc > 720 && V !== 'ddr' && V !== 'ddf' && !AI_ON ? '88' : '0');   // past page 2 the title slides under the nav with the rest of the text
-    if (AI_STARS) { starsUpdate(yc, Hy, scT, s0); return; }
-    AIL.forEach(function (L, j) {
-      var X0 = L0 + DK.tx + DK.s * (L.cx - VB.x) * K, Y0 = T0 + DK.ty + DK.s * (L.cy - VB.y) * K;   // the letter's own place in the docked logo
-      var x = X0, y = Y0, sc = s0, show = 0, fill = 1, k = 0, thr = 0;
-      if (V === 'ddm' || V === 'ddf' || AI_ON) {
-        var YM = 400, ycm = HR + 720 - YM;
-        y = smin(lp(Y0, YM, ss(sg(yc, 0, ycm))), Hy, 14);
-        k = ss(sg(yc, 0, 720)); x = lp(X0, L.tx, k); sc = lp(s0, scT, k);
-        show = yc > .5 ? 1 : 0; fill = show ? sg(yc, 640, 720) : 1;
-        if (V === 'ddf' || AI_ON) {   // the letters stay out while page 2 is up, then fold back into the logo as the page lifts away
-          var kf2 = ss(sg(yc, 720, 1010));   // they leave the page as it starts to lift and are home before its text reaches the nav
-          if (kf2 > 0) { x = lp(L.tx, X0, kf2); y = lp(HR, Y0, kf2); sc = lp(scT, s0, kf2); k = 1 - kf2; }
-          show = (yc > .5 && kf2 < 1) ? 1 : 0; fill = show ? 0 : 1;
-        }
-      } else if (V === 'ddr') {
-        var ycc = HR + 720 - Y0;
-        y = smin(Y0, Hy, 14);
-        k = ss(sg(yc, ycc - 40, 720)); x = lp(X0, L.tx, k); sc = lp(s0, scT, k);
-        var kr = ss(sg(yc, 780, 1300));   // moving on to page 3: they let go of the page and slide back into the word
-        x = lp(x, X0, kr); y = lp(y, Y0, kr); sc = lp(sc, s0, kr); k *= 1 - kr;
-        show = (Hy < Y0 + 40 && kr < 1) ? 1 : 0; fill = show ? 0 : 1;
-      } else if (V === 'ddp') {
-        k = ss(sg(yc, 0, 380)); x = lp(X0, L.tx, k); y = lp(Y0, HR, k); sc = lp(s0, scT, k);
-        if (yc > 720) y = Hy;   // page 2 has arrived under them: from here they travel with it
-        show = yc > .5 ? 1 : 0; fill = 1;
-      } else if (V === 'ddb') {
-        var cap = 224 * s0, YL = Y0 - 1.3 * cap, ycb = HR + 720 - YL;
-        var yFree = lp(Y0, YL, ss(sg(yc, 0, 90)));
-        x = lp(X0, L.tx, ss(sg(yc, 60, ycb - 20)));
-        y = smin(yFree, Hy, 12);
-        k = ss(sg(yc, ycb - 30, 720)); sc = lp(s0, scT, k);
-        show = yc > .5 ? 1 : 0; fill = show ? sg(yc, 640, 720) : 1;
-      } else if (V === 'dds') {
-        var YD = 430, ycd = HR + 720 - YD;
-        y = smin(lp(Y0, YD, ss(sg(yc, 0, ycd))), Hy, 14);
-        k = ss(sg(yc, 0, 720)); x = lp(X0, L.tx, k); sc = lp(s0, scT, k);
-        show = yc > .5 ? 1 : 0; fill = show ? sg(yc, 640, 720) : 1;
-        thr = show * (1 - sg(yc, 600, 720));
-      }
-      aiLet[j].g.setAttribute('transform', 'translate(' + x.toFixed(2) + ',' + y.toFixed(2) + ') scale(' + sc.toFixed(4) + ') translate(' + (-L.cx) + ',' + (-L.cy) + ')');
-      aiLet[j].g.style.opacity = show ? '1' : '0';
-      aiLet[j].p.setAttribute('fill', mixHex(ink.charAt(0) === '#' ? ink : '#FFFFFF', '#FBF9F4', k));
-      letters[L.i].style.fillOpacity = fill.toFixed(3);
-      var t2 = aiThr[j]; t2.style.opacity = thr.toFixed(3);
-      if (thr > 0) { t2.setAttribute('x1', X0.toFixed(1)); t2.setAttribute('y1', (Y0 + 112 * s0).toFixed(1)); t2.setAttribute('x2', x.toFixed(1)); t2.setAttribute('y2', (y - 112 * sc).toFixed(1)); }
-    });
+    aiClip.setAttribute('y', '0');   // past page 2 the title slides under the nav with the rest of the text
+    starsUpdate(yc, Hy, scT, s0); return;
   }
   function dock(e, mode, left, cxT, wT) {
     var F0 = hero.fx, pv = TABIT_PH && F0.pvZ != null;   // XR3.0: on a phone the lockup starts from where the phone's view of the intro shows it
@@ -1577,55 +1268,6 @@ function makeHandoff(hero, root, V) {
   }
   // D.C.2.2.1: the logo breaks into hundreds of tiny Tabit knots that streak like stars into the top-left corner and
   // reassemble there into the docked logo (each knot returns to its own place in the lockup; the real logo is never altered)
-  var FLY = null;
-  function flyInit() {
-    var wL = parseFloat(lock.getAttribute('width')), hL = parseFloat(lock.getAttribute('height'));
-    var sc = document.createElement('canvas'); sc.width = Math.ceil(wL); sc.height = Math.ceil(hL); var g = sc.getContext('2d', { willReadFrequently: true });   // XR2.9.1: CPU canvas, no GPU readback
-    g.setTransform(K, 0, 0, K, -VB.x * K, -VB.y * K); g.fillStyle = '#fff';
-    g.fill(new Path2D(mark.getAttribute('d')), 'evenodd'); letters.forEach(function (el) { g.fill(new Path2D(el.getAttribute('d')), 'evenodd'); });
-    var px = g.getImageData(0, 0, sc.width, sc.height).data, pts = [];
-    for (var yy = 0; yy < sc.height; yy += 2) for (var xx = 0; xx < sc.width; xx += 2) if (px[(yy * sc.width + xx) * 4 + 3] > 128) pts.push([xx, yy]);
-    var seed = 7; function rnd() { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }
-    var N = 380, P = [];
-    for (var i = 0; i < N; i++) { var pt = pts[Math.floor(rnd() * pts.length)], a = rnd() * 6.283;
-      P.push({ lx: pt[0], ly: pt[1], r: rnd(), r2: rnd(), r3: rnd(), dx: Math.cos(a), dy: Math.sin(a), ph: rnd() * 6.283 }); }
-    // the tiny knot and a soft star glow, drawn once
-    var kn = document.createElement('canvas'); kn.width = kn.height = 48; var kg = kn.getContext('2d'), ks = 44 / 501.3;
-    kg.setTransform(ks, 0, 0, ks, 2 + 2.75 * ks, 24 - 193.2 * ks); kg.fillStyle = '#FBF9F4'; kg.fill(new Path2D(mark.getAttribute('d')), 'evenodd');
-    var gl = document.createElement('canvas'); gl.width = gl.height = 48; var gg = gl.getContext('2d'), rg = gg.createRadialGradient(24, 24, 0, 24, 24, 24);
-    rg.addColorStop(0, 'rgba(251,249,244,.9)'); rg.addColorStop(.25, 'rgba(251,249,244,.25)'); rg.addColorStop(1, 'rgba(251,249,244,0)'); gg.fillStyle = rg; gg.fillRect(0, 0, 48, 48);
-    var cv = document.createElement('canvas'); cv.width = 1280; cv.height = 720; cv.setAttribute('aria-hidden', 'true');
-    cv.style.cssText = 'position:absolute;left:0;top:0;width:1280px;height:720px;pointer-events:none;z-index:7';
-    lock.parentNode.appendChild(cv);
-    FLY = { P: P, kn: kn, gl: gl, cv: cv, c: cv.getContext('2d') };
-  }
-  function flyUpdate(p, t) {
-    if (!FLY) flyInit();
-    var c = FLY.c; c.clearRect(0, 0, 1280, 720);
-    dock(1, 'centre'); var tx = DK.tx, ty = DK.ty, s1 = DK.s;   // where the docked logo sits
-    var landed = sg(p, .7, .86);
-    if (p < .5) dock(0, 'centre');
-    lock.style.opacity = (p < .5 ? 1 - sg(p, .05, .2) : landed).toFixed(3);
-    if (p <= .02 || p >= .92) return;
-    c.globalCompositeOperation = 'lighter';
-    FLY.P.forEach(function (o) {
-      var sx = L0 + o.lx, sy = T0 + o.ly, ex = L0 + tx + s1 * o.lx, ey = T0 + ty + s1 * o.ly;
-      var d = sg(p, .03 + o.r * .1, .14 + o.r * .1);                                   // the logo breaks into knots
-      var f = io(sg(p, .18 + o.r * .2, .56 + o.r * .14));                             // the flight, staggered
-      var drift = 22 * (.5 + o.r2) * Math.sin(Math.PI * Math.min(1, d * .5 + f * .5)) * (1 - f);
-      var ax = sx + o.dx * drift, ay = sy + o.dy * drift;
-      var cx = lp(ax, ex, .35) - 60 - 160 * o.r2, cy = Math.min(ay, ey) - 40 - 140 * o.r3;   // an arc up and over to the corner
-      function at(k) { var u1 = 1 - k; return [u1 * u1 * ax + 2 * u1 * k * cx + k * k * ex, u1 * u1 * ay + 2 * u1 * k * cy + k * k * ey]; }
-      var q0 = at(f), sz = lp(lp(9, 13, o.r3), 3.2, f), a = d * (1 - landed) * (.7 + .3 * Math.sin(t * 3 + o.ph));
-      if (a <= .01) return;
-      if (f > .02 && f < .98) {                                                        // a faint streak behind it
-        var q1 = at(Math.max(0, f - .09)); c.globalAlpha = a * .35 * (TB_GOLD ? 1.6 : 1); c.strokeStyle = TB_GOLD ? 'rgb(168,130,58)' : 'rgba(251,249,244,1)'; c.lineWidth = Math.max(.6, sz * .14);
-        c.beginPath(); c.moveTo(q1[0], q1[1]); c.lineTo(q0[0], q0[1]); c.stroke(); }
-      c.globalAlpha = a * .45; c.drawImage(FLY.gl, q0[0] - sz * 1.3, q0[1] - sz * 1.3, sz * 2.6, sz * 2.6);
-      c.globalAlpha = a; c.drawImage(FLY.kn, q0[0] - sz / 2, q0[1] - sz / 2, sz, sz);
-    });
-    c.globalAlpha = 1; c.globalCompositeOperation = 'source-over';
-  }
   // D.C.2.2.2: the polished flight. The word unravels from the knot to the final T into ~700 tiny knots set evenly over its
   // shape; each launches up and away on a curved path with a tapering tail, settles into the corner with a glint, and the
   // real logo is revealed left to right in step with the landings. Crisp on high-density screens; reduced motion gets the glide.
@@ -1663,40 +1305,6 @@ function makeHandoff(hero, root, V) {
     if (FL2.oy !== oy) { FL2.oy = oy; FL2.cv.height = Math.round((720 + oy) * d); FL2.cv.style.top = (-oy) + 'px'; FL2.cv.style.height = (720 + oy) + 'px'; }
     c.setTransform(1, 0, 0, 1, 0, 0); c.clearRect(0, 0, FL2.cv.width, FL2.cv.height); c.setTransform(d, 0, 0, d, 0, d * oy); return c;
   }
-  function lockMask(dir, x) {   // dir 1: show what is right of x (the word still to unravel); -1: show what is left of x (the logo written so far)
-    var a = (x * 100).toFixed(2), b = ((x + .07) * 100).toFixed(2), m = dir > 0 ? 'linear-gradient(90deg, transparent ' + a + '%, #000 ' + b + '%)' : 'linear-gradient(90deg, #000 ' + a + '%, transparent ' + b + '%)';
-    lock.style.webkitMaskImage = m; lock.style.maskImage = m;
-  }
-  function fly2Update(p, t) {
-    if (RM) { lock.style.webkitMaskImage = lock.style.maskImage = ''; dock(io5(sg(p, .04, .78)), 'centre'); return; }
-    if (!FL2) fly2Init();
-    var c = fl2Begin(), d = FL2.dpr;
-    dock(1, 'centre'); var tx = DK.tx, ty = DK.ty, s1 = DK.s;
-    if (p < .45) { dock(0, 'centre'); lockMask(1, ((p - .04) / .22 - .06) / .55 - .035); }
-    else lockMask(-1, (p - .5) / .135 - .035);
-    lock.style.opacity = '1';
-    if (p <= .03 || p >= .8) return;
-    c.globalCompositeOperation = 'lighter';
-    FL2.P.forEach(function (o) {
-      if (p < o.b) return;
-      var sx = L0 + o.lx, sy = T0 + o.ly, ex = L0 + tx + s1 * o.lx, ey = T0 + ty + s1 * o.ly;
-      var dr = sg(p, o.b, o.f0), drift = (5 + 9 * o.r3) * Math.sin(Math.PI * .5 * dr);
-      var ax = sx + o.dx * drift, ay = sy + o.dy * drift;
-      var c1x = ax - 70 - 150 * o.r2, c1y = ay - 150 - 170 * o.r3, c2x = ex + 110 + 170 * o.r, c2y = ey + 30 + 70 * o.r3;
-      function at(k) { var u1 = 1 - k; return [u1 * u1 * u1 * ax + 3 * u1 * u1 * k * c1x + 3 * u1 * k * k * c2x + k * k * k * ex, u1 * u1 * u1 * ay + 3 * u1 * u1 * k * c1y + 3 * u1 * k * k * c2y + k * k * k * ey]; }
-      var fr = sg(p, o.f0, o.arr), f = io(fr), q0 = fr > 0 ? at(f) : [ax, ay];
-      var land = sg(p, o.arr, o.arr + .05), glint = Math.sin(Math.PI * sg(p, o.arr - .012, o.arr + .03));
-      var a = sg(p, o.b, o.b + .02) * (1 - land) * (.78 + .22 * Math.sin(t * 2.6 + o.ph)) * (1 + .25 * Math.sin(Math.PI * fr));
-      if (a <= .01 && glint <= .01) return;
-      var sz = lp(o.s0, o.s0 * .3, f);
-      if (fr > .03 && fr < .985) {   // a tapering tail along the path just travelled
-        var prev = q0; for (var j = 1; j <= 5; j++) { var qj = at(Math.max(0, io(Math.max(0, fr - .022 * j)))); c.globalAlpha = a * .32 * (1 - j / 6);
-          if (TB_GOLD) c.globalAlpha *= 1.6; c.strokeStyle = TB_GOLD ? 'rgb(168,130,58)' : 'rgb(240,238,232)'; c.lineWidth = Math.max(.5, sz * .16 * (1 - j / 7)); c.beginPath(); c.moveTo(prev[0], prev[1]); c.lineTo(qj[0], qj[1]); c.stroke(); prev = qj; } }
-      c.globalAlpha = Math.min(1, a * .5 + glint * .9); var gs = sz * (2.4 + 2.2 * glint); c.drawImage(FL2.gl, q0[0] - gs / 2, q0[1] - gs / 2, gs, gs);
-      c.globalAlpha = a; c.drawImage(FL2.kn, q0[0] - sz / 2, q0[1] - sz / 2, sz, sz);
-    });
-    c.globalAlpha = 1; c.globalCompositeOperation = 'source-over';
-  }
   // D.C.2.2.3: the logo pulls apart all at once (no sweep), bursts outward into a cloud of tiny knots, then the cloud swipes
   // up and curls into the top-left corner, where the knots settle and the real logo fades in evenly as they land.
   var FL3 = false;
@@ -1708,7 +1316,7 @@ function makeHandoff(hero, root, V) {
     if (!FL3) { var cxL = parseFloat(lock.getAttribute('width')) / 2, cyL = parseFloat(lock.getAttribute('height')) / 2;
       FL2.P.forEach(function (o) { o.b = .035 + o.r * .03; o.f0 = .24 + o.r2 * .12; o.arr = o.f0 + .26 + o.r * .08; o.ox = o.lx - cxL; o.oy = o.ly - cyL;
         o.sp = (o.r3 - .5) * 1.6; o.burst = 14 + 30 * o.r2; }); FL3 = true; }
-    var c = fl2Begin(), d = FL2.dpr;
+    var c = fl2Begin();
     dock(1, 'centre'); var tx = DK.tx, ty = DK.ty, s1 = DK.s;
     var cx0 = L0 + parseFloat(lock.getAttribute('width')) / 2, cy0 = T0 + parseFloat(lock.getAttribute('height')) / 2;
     if (p < .45) { dock(0, 'centre'); lock.style.opacity = (1 - io(sg(p, .045, .13))).toFixed(3); }
@@ -1740,7 +1348,7 @@ function makeHandoff(hero, root, V) {
       var sz = lp(o.s0, o.s0 * .3, f);
       if (p - o.b > .02) {   // a tapering tail along the path just travelled (short in the burst, longer in flight)
         var prev = q0; for (var j = 1; j <= 5; j++) { var qj = pos(o, Math.max(o.b, p - .008 * j)); c.globalAlpha = a * .3 * (1 - j / 6);
-          if (TB_GOLD) c.globalAlpha *= 1.6; c.strokeStyle = TB_GOLD ? 'rgb(168,130,58)' : 'rgb(240,238,232)'; c.lineWidth = Math.max(.5, sz * .15 * (1 - j / 7)); c.beginPath(); c.moveTo(prev[0], prev[1]); c.lineTo(qj[0], qj[1]); c.stroke(); prev = qj; } }
+          c.globalAlpha *= 1.6; c.strokeStyle = 'rgb(168,130,58)'; c.lineWidth = Math.max(.5, sz * .15 * (1 - j / 7)); c.beginPath(); c.moveTo(prev[0], prev[1]); c.lineTo(qj[0], qj[1]); c.stroke(); prev = qj; } }
       c.globalAlpha = Math.min(1, a * .5 + glint * .9 + flash * .5); var gs = sz * (2.4 + 2.2 * Math.max(glint, flash)); c.drawImage(FL2.gl, q0[0] - gs / 2, q0[1] - gs / 2, gs, gs);
       var rot = o.sp * (oq(sg(p, o.b, .3)) * .6 + f * 1.4) * (1 - land * 0);   // each knot turns a little as it goes, and lands square
       rot *= 1 - sg(fr, .8, 1);
@@ -1748,29 +1356,17 @@ function makeHandoff(hero, root, V) {
     });
     c.globalAlpha = 1; c.globalCompositeOperation = 'source-over';
   }
-  function riseIn(p, a) {
-    rise.forEach(function (el) {
-      var d = parseFloat(el.getAttribute('data-tabit-rise')) || 0, e = oq(sg(p, a + d * .07, a + .32 + d * .07));
-      el.style.opacity = e.toFixed(3); el.style.transform = 'translateY(' + (26 * (1 - e)).toFixed(2) + 'px)';
-    });
-  }
-  function navIn(e, y) {
-    if (nav) { nav.style.opacity = e.toFixed(3); nav.style.transform = 'translateY(' + (-10 * (1 - e)).toFixed(2) + 'px)'; }
-    if (navBg) navBg.style.opacity = sg(y, 10, 120).toFixed(3);
-  }
   function reset() {
     var F = hero.fx; F.oriName = 1; F.sky = 1; F.ori = 1; F.grid = 0; F.snap = 0; F.gridLine = 1; F.push = 0; F.camY = 0; F.lens = 1; F.phk = 0; F.phy = 0; F.hLine = 1; F.colsOnly = 0;
     if (night) night.style.transform = 'none';
     if (page) { page.style.clipPath = 'none'; page.style.pointerEvents = 'none'; }
-    if (V === 'c4' || V === 'c5') { if (page) page.style.visibility = V === 'c5' ? 'visible' : 'hidden'; }
     rise.forEach(function (el) { el.style.opacity = 0; });
     if (nav) nav.style.opacity = 0; if (navBg) navBg.style.opacity = 0; if (navLogo) navLogo.style.opacity = 0;
     if (wm) wm.style.opacity = 0; if (cols) cols.style.opacity = 0; idx.forEach(function (el) { el.style.opacity = 0; });
     if (scroller) scroller.style.transform = 'none';
-    if (scene) { var db0 = q('[data-tabit-dots]'); if (db0) db0.style.opacity = 0; scene.draw(0, 0); logoParts.forEach(function (el) { if (el) el.style.fill = ''; }); if (vig) vig.style.opacity = 1; secs.forEach(function (el) { el.style.opacity = 0; }); }
+    if (scene) { var db0 = q('[data-tabit-dots]'); if (db0) db0.style.opacity = 0; scene.draw(0, 0); logoParts.forEach(function (el) { if (el) el.style.fill = ''; }); dayW = null; if (vig) vig.style.opacity = 1; secs.forEach(function (el) { el.style.opacity = 0; }); }
     if (!(TABIT_PH && hero.fx.pvZ != null)) { lock.style.transformOrigin = ''; lock.__pvO = 0; }   // XR3.6: on a phone the hero has already placed the lockup for this frame, from its top left corner (drawDom): clearing the origin here drew the lockup one frame out of place whenever the page came back to the splash
     root.style.cursor = 'none';
-    if (FLY) { FLY.c.clearRect(0, 0, 1280, 720); lock.style.opacity = ''; lock.style.transform = ''; }
     if (homeBtn) homeBtn.style.display = 'none';
     if (FL2) { FL2.c.setTransform(1, 0, 0, 1, 0, 0); FL2.c.clearRect(0, 0, FL2.cv.width, FL2.cv.height); lock.style.webkitMaskImage = lock.style.maskImage = ''; lock.style.transform = ''; lock.style.opacity = ''; }
   }
@@ -1793,53 +1389,11 @@ function makeHandoff(hero, root, V) {
     if (page) page.style.pointerEvents = p > .6 ? 'auto' : 'none';
     if (scroller) scroller.style.transform = 'translateY(' + (-y).toFixed(1) + 'px)';
 
-    if (V === 'c1') {             // the logo docks into the nav; the sky dims behind the hero
-      F.sky = lp(1, .4, E(p, 0, .6)); F.ori = 1 - E(p, 0, .45);
-      dock(E(p, .05, .75), 'left', 40); navIn(E(p, .45, .85), y); riseIn(p, .42);
-      if (wm) wm.style.opacity = E(p, .5, 1).toFixed(3);
-    } else if (V === 'c2') {      // the sky becomes the page: it stays alive and drifts in depth behind glass panels
-      F.sky = lp(1, .78, E(p, 0, .7)); F.ori = lp(1, .22, E(p, 0, .5)); F.camY = -(70 * E(p, 0, 1) + .32 * y);
-      dock(E(p, .05, .75), 'centre'); navIn(E(p, .45, .85), y); riseIn(p, .42);
-    } else if (V === 'c3') {      // the coordinate grid returns and settles into the page's column grid
-      F.sky = lp(1, .35, E(p, 0, .6)); F.ori = 1 - E(p, 0, .4);
-      F.grid = E(p, 0, .28); F.snap = E(p, .22, .72); F.gridLine = 1 - E(p, .6, .95);
-      if (cols) cols.style.opacity = E(p, .55, .9).toFixed(3);
-      dock(E(p, .2, .8), 'left', 92); navIn(E(p, .55, .9), y); riseIn(p, .55);
-      idx.forEach(function (el, i) { var e = oq(sg(p, .72 + i * .06, .98 + i * .06)); el.style.opacity = e.toFixed(3); el.style.transform = 'translateY(' + (10 * (1 - e)).toFixed(2) + 'px)'; });
-    } else if (V === 'g1') {      // G1 (C2 + C3): the grid settles into the layout while the sky stays alive behind glass cards
-      F.sky = lp(1, .78, E(p, 0, .7)); F.ori = lp(1, .1, E(p, 0, .5)); F.camY = -(70 * E(p, 0, 1) + .32 * y);
-      F.grid = E(p, 0, .28); F.snap = E(p, .22, .72); F.gridLine = 1 - E(p, .6, .95);
-      if (cols) cols.style.opacity = E(p, .55, .9).toFixed(3);
-      dock(E(p, .2, .8), 'left', 92); navIn(E(p, .55, .9), y); riseIn(p, .55);
-      idx.forEach(function (el, i) { var e = oq(sg(p, .72 + i * .06, .98 + i * .06)); el.style.opacity = e.toFixed(3); el.style.transform = 'translateY(' + (10 * (1 - e)).toFixed(2) + 'px)'; });
-    } else if (V === 'g2') {      // G2: as G1, but the logo docks to the centre (as D1) and only the vertical grid lines return
-      F.sky = lp(1, .78, E(p, 0, .7)); F.ori = lp(1, .1, E(p, 0, .5)); F.camY = -(70 * E(p, 0, 1) + .32 * y); F.hLine = 0;
-      F.grid = E(p, 0, .28); F.snap = E(p, .22, .72); F.gridLine = 1 - E(p, .6, .95);
-      if (cols) cols.style.opacity = E(p, .55, .9).toFixed(3);
-      dock(E(p, .2, .8), 'centre'); navIn(E(p, .55, .9), y); riseIn(p, .55);
-      idx.forEach(function (el, i) { var e = oq(sg(p, .72 + i * .06, .98 + i * .06)); el.style.opacity = e.toFixed(3); el.style.transform = 'translateY(' + (10 * (1 - e)).toFixed(2) + 'px)'; });
-    } else if (V === 'e4') {      // E4: the chart sheds all but four lines; they hand over to page lines that run the full height, through the nav, at the same strength
-      F.sky = lp(1, .35, E(p, 0, .6)); F.ori = 1 - E(p, 0, .4);
-      F.hLine = 1 - E(p, .04, .4); F.colsOnly = E(p, .04, .4); F.gridLine = 1 - E(p, .42, .62);
-      if (cols) cols.style.opacity = E(p, .42, .62).toFixed(3);
-      dock(E(p, .15, .75), 'centre', 0, 640.84, 172.19); navIn(E(p, .5, .85), y); riseIn(p, .5);
-      idx.forEach(function (el, i) { var e = oq(sg(p, .7 + i * .06, .96 + i * .06)) * (1 - sg(y, 0, 160)); el.style.opacity = e.toFixed(3); el.style.transform = 'translateY(' + (10 * (1 - e)).toFixed(2) + 'px)'; });
-    } else if (V === 'e3') {      // E3: nothing moves sideways; the chart sheds every line except the 13 page columns, and the page is laid on them
-      F.sky = lp(1, .35, E(p, 0, .6)); F.ori = 1 - E(p, 0, .4);
-      F.hLine = 1 - E(p, .04, .4); F.colsOnly = E(p, .04, .4);
-      dock(E(p, .15, .75), 'centre', 0, 640.84, 172.19); navIn(E(p, .5, .85), y); riseIn(p, .5);
-      idx.forEach(function (el, i) { var e = oq(sg(p, .7 + i * .06, .96 + i * .06)) * (1 - sg(y, 0, 160)); el.style.opacity = e.toFixed(3); el.style.transform = 'translateY(' + (10 * (1 - e)).toFixed(2) + 'px)'; });
-    } else if (V === 'e2') {      // E2: the splash grid never leaves; its horizontals fall away and the verticals settle into the columns
-      F.sky = lp(1, .35, E(p, 0, .6)); F.ori = 1 - E(p, 0, .4);
-      F.hLine = 1 - E(p, .04, .4); F.snap = E(p, .2, .7); F.gridLine = 1 - E(p, .6, .95);
-      if (cols) cols.style.opacity = E(p, .55, .9).toFixed(3);
-      dock(E(p, .2, .8), 'centre'); navIn(E(p, .55, .9), y); riseIn(p, .55);
-      idx.forEach(function (el, i) { var e = oq(sg(p, .72 + i * .06, .98 + i * .06)); el.style.opacity = e.toFixed(3); el.style.transform = 'translateY(' + (10 * (1 - e)).toFixed(2) + 'px)'; });
-    } else if (V === 'd2' || V === 'd3' || V === 'd4' || V === 'd5' || V === 'd6' || V === 'd7' || V === 'd8' || V === 'd9' || V === 'd10' || V === 'd11' || V === 'd12' || V === 'd13' || (V === 'd14' || /^dd/.test(V) || /^d[abc][1-6]$/.test(V) || V === 'db3' || V === 'dc3' || V === 'dc4' || V === 'dc5' || V === 'dc6' || V === 'dc7' || V === 'dc8' || V === 'dc9' || V === 'dc10' || V === 'dc11' || V === 'dc12' || V === 'dc13' || V === 'dc14' || V === 'dc15' || V === 'dc16' || V === 'dc17')) {      // D2: D1 with finesse: a calmer glide to centre, nav opening out from the logo, lines rising from their baselines, cards met as you scroll
-      F.sky = lp(1, .8, E(p, 0, .7)); if ((V === 'd14' || /^dd/.test(V) || /^d[abc][1-6]$/.test(V) || V === 'db3' || V === 'dc3' || V === 'dc4' || V === 'dc5' || V === 'dc6' || V === 'dc7' || V === 'dc8' || V === 'dc9' || V === 'dc10' || V === 'dc11' || V === 'dc12' || V === 'dc13' || V === 'dc14' || V === 'dc15' || V === 'dc16' || V === 'dc17')) F.oriName = 1 - E(p, 0, .3);   // D14: the drawing stays, its label goes as the hand-off begins
-      F.ori = (V === 'd13' || (V === 'd14' || /^dd/.test(V) || /^d[abc][1-6]$/.test(V) || V === 'db3' || V === 'dc3' || V === 'dc4' || V === 'dc5' || V === 'dc6' || V === 'dc7' || V === 'dc8' || V === 'dc9' || V === 'dc10' || V === 'dc11' || V === 'dc12' || V === 'dc13' || V === 'dc14' || V === 'dc15' || V === 'dc16' || V === 'dc17')) ? 1 : lp(1, (V === 'd11' || V === 'd12') ? 0 : V === 'd10' ? .07 : .2, E(p, 0, .5)); F.camY = -(70 * E(p, 0, 1) + .32 * y);
+    {      // D2: D1 with finesse: a calmer glide to centre, nav opening out from the logo, lines rising from their baselines, cards met as you scroll
+      F.sky = lp(1, .8, E(p, 0, .7)); F.oriName = 1 - E(p, 0, .3);   // D14: the drawing stays, its label goes as the hand-off begins
+      F.ori = 1; F.camY = -(70 * E(p, 0, 1) + .32 * y);
       if (TABIT_PH) F.phy = -TB_PHGL * (1 - Math.pow(1 - p, 2));   // XR3.1: and the splash's own (3D) sky slides up with it, as one
-      var dk = io5(sg(p, .04, .78)); if (V === 'dc17') fly3Update(p, t); else if (V === 'dc16') fly2Update(p, t); else if (V === 'dc15' || V === 'dc16' || V === 'dc17') flyUpdate(p, t); else dock(dk, V === 'dc14' || V === 'dc15' || V === 'dc16' || V === 'dc17' ? 'left' : 'centre', 40);   // D.C.2.2: the logo docks left in the nav; D.C.2.2.1: it flies there as stars
+      fly3Update(p, t);   // D.C.2.2: the logo docks left in the nav; D.C.2.2.1: it flies there as stars
       if (nav) { nav.style.opacity = p > .3 ? '1' : '0'; nav.style.transform = 'none'; }
       if (navBg) navBg.style.opacity = sg(y, 10, 120).toFixed(3);
       navItems.forEach(function (el) { var r = +el.getAttribute('data-tabit-navitem'), e = oq(sg(p, .56 + r * .07, .84 + r * .07)); el.style.opacity = e.toFixed(3); el.style.pointerEvents = e > .5 ? 'auto' : 'none'; el.style.transform = 'translateY(' + (-8 * (1 - e)).toFixed(2) + 'px)'; el.style.display = 'inline-block'; });
@@ -1850,74 +1404,44 @@ function makeHandoff(hero, root, V) {
         el.style.transform = 'translateY(' + (d === 0 ? 0 : 18 * (1 - e)).toFixed(2) + 'px)';
         if (d === 0) el.style.letterSpacing = lp(.62, .26, io(sg(p, .46, 1))).toFixed(3) + 'em';
       });
-      lineIn.forEach(function (el, i) { var e = TB_V7 ? io(sg(p, .5 + i * .07, .78 + i * .07)) : io(sg(p, .52 + i * .1, .9 + i * .1)); el.style.transform = 'translateY(' + (110 * (1 - e)).toFixed(1) + '%)'; });
+      lineIn.forEach(function (el, i) { var e = io(sg(p, .5 + i * .07, .78 + i * .07)); el.style.transform = 'translateY(' + (110 * (1 - e)).toFixed(1) + '%)'; });
       if (wwd) { var w0 = oq(sg(y, 60, 260)); wwd.style.opacity = w0.toFixed(3); wwd.style.transform = 'translateY(' + (12 * (1 - w0)).toFixed(2) + 'px)'; }
       cards.forEach(function (el, i) {
         var e = oq(sg(y, 140 + i * 60, 440 + i * 60)); el.style.opacity = e.toFixed(3); el.style.transform = 'translateY(' + (34 * (1 - e)).toFixed(2) + 'px)';
         var ln = el.querySelector('[data-tabit-cardline]'); if (ln) ln.style.width = (36 * io(sg(y, 260 + i * 60, 560 + i * 60))).toFixed(1) + 'px';
       });
-    } else if (V === 'c4') {      // through the knot: the name steps aside, the mark opens into a window onto the page
-      F.ori = 1 - E(p, 0, .3); F.push = E(p, 0, 1); F.sky = lp(1, .7, E(p, .3, 1));
-      letters.forEach(function (el, k) { var e = E(p, k * .03, .24 + k * .03); el.style.opacity = (1 - e).toFixed(3); el.style.transform = 'translateY(' + (120 * e).toFixed(2) + 'px)'; });
-      var g = Math.pow(sg(p, .1, .9), 1.9), sc = 1 + 30 * g;
-      lock.style.transformOrigin = MX.toFixed(2) + 'px ' + MY.toFixed(2) + 'px';
-      lock.style.transform = 'scale(' + sc.toFixed(4) + ')';
-      if (mark) { mark.style.opacity = (1 - E(p, .26, .58)).toFixed(3); mark.style.filter = 'none'; }
-      var r = 1500 * Math.pow(sg(p, .16, .95), 1.6), cx = L0 + MX, cy = T0 + MY;
-      if (page) { page.style.visibility = 'visible'; page.style.clipPath = 'circle(' + r.toFixed(1) + 'px at ' + cx.toFixed(1) + 'px ' + cy.toFixed(1) + 'px)'; }
-      if (navLogo) navLogo.style.opacity = E(p, .78, 1).toFixed(3);
-      navIn(E(p, .7, 1), y); riseIn(p, .55);
-      if (wm) wm.style.opacity = E(p, .6, 1).toFixed(3);
-    } else if (V === 'c5') {      // a horizon curtain: night lifts away and the Day page is underneath
-      var e5 = E(p, .04, .96), up = -724 * e5;
-      if (night) night.style.transform = 'translateY(' + up.toFixed(1) + 'px)';
-      lock.style.transformOrigin = '0 0'; lock.style.transform = 'translateY(' + up.toFixed(1) + 'px)';
-      if (horizon) horizon.style.opacity = sg(p, 0, .08).toFixed(3);
-      if (page) page.style.transform = 'translateY(' + (90 * (1 - e5)).toFixed(1) + 'px)';
-      if (navLogo) navLogo.style.opacity = E(p, .34, .74).toFixed(3);
-      navIn(E(p, .34, .74), y); riseIn(p, .3);
-      if (wm) wm.style.opacity = E(p, .4, 1).toFixed(3);
-    } else if (V === 'c6') {      // recommended: 1 + 2, the logo docks left and the sky stays alive behind glass
-      F.sky = lp(1, .62, E(p, 0, .7)); F.ori = lp(1, .16, E(p, 0, .5)); F.camY = -(50 * E(p, 0, 1) + .3 * y);
-      dock(E(p, .05, .75), 'left', 40); navIn(E(p, .45, .85), y); riseIn(p, .42);
-      if (wm) wm.style.opacity = E(p, .5, 1).toFixed(3);
     }
   }
-  var update0 = update;
+  var update0 = update, dayW = null, inkW = null;
   if (scene) update = function (t, S) {   // D3: after the hand-off, scrolling descends from the night sky to the beach
     update0(t, S); TB_SKYS = S;
     if (S < .5) return;
     var F = hero.fx, y = cl(S - TABIT_HAND, 0, QMAX + TABIT_XQ), yc = y, u = QMAX ? y / QMAX : 0;
-    if (V === 'd6' || V === 'd7' || V === 'd8' || V === 'd9' || V === 'd10' || V === 'd11' || V === 'd12' || V === 'd13' || (V === 'd14' || /^dd/.test(V) || /^d[abc][1-6]$/.test(V) || V === 'db3' || V === 'dc3' || V === 'dc4' || V === 'dc5' || V === 'dc6' || V === 'dc7' || V === 'dc8' || V === 'dc9' || V === 'dc10' || V === 'dc11' || V === 'dc12' || V === 'dc13' || V === 'dc14' || V === 'dc15' || V === 'dc16' || V === 'dc17')) {   // chapters: the text holds still while you read; it moves, and the scene mostly changes, between chapters
-      if (TABIT_FLOW) { if (TB_PIN) { TB_RQ = Math.max(TB_QMIN, Math.min(3, TB_QMIN + (y - 720) / TB_STEPPX)); y = y <= 720 ? y : y <= 720 + TB_PIN ? 720 : y - TB_PIN; TB_ON1 = 1 - Math.min(1, Math.abs(y - 720) / 90); } var pgf = Math.min(y, QM0) / 720, pgk = Math.floor(pgf); yc = y; TB_Y = Math.min(y, QM0);   /* XR3.0: past the last page (a phone's About us running on) only the copy moves */ u = QM0 ? 720 * (pgk + io(sg(pgf - pgk, .22, .78))) / QM0 : 0; }
-      else {
-      var Dw = 170, k2 = Math.round(y / 720), rest = 720 * k2;
-      if (Math.abs(y - rest) <= Dw) yc = rest;
-      else { var k0 = Math.floor((y - Dw) / 720), a0 = 720 * k0 + Dw; yc = lp(720 * k0, 720 * (k0 + 1), io(sg(y, a0, a0 + 720 - 2 * Dw))); }
-      u = lp(u, yc / QMAX, .6); }
-      if (scroller) scroller.style.transform = 'translateY(' + (-yc).toFixed(1) + 'px)';
-    }
+    // chapters: the text holds still while you read; it moves, and the scene mostly changes, between chapters
+    TB_RQ = Math.max(TB_QMIN, Math.min(3, TB_QMIN + (y - 720) / TB_STEPPX)); y = y <= 720 ? y : y <= 720 + TB_PIN ? 720 : y - TB_PIN; TB_ON1 = 1 - Math.min(1, Math.abs(y - 720) / 90); var pgf = Math.min(y, QM0) / 720, pgk = Math.floor(pgf); yc = y; TB_Y = Math.min(y, QM0);   /* XR3.0: past the last page (a phone's About us running on) only the copy moves */ u = QM0 ? 720 * (pgk + io(sg(pgf - pgk, .22, .78))) / QM0 : 0;
+    if (scroller) scroller.style.transform = 'translateY(' + (-yc).toFixed(1) + 'px)';
     var r = scene.draw(t, u, cl(S / TABIT_HAND, 0, 1)), ph = r.ph, day = r.day;
     F.sky *= 1 - .8 * sg(ph, .15, .8);
     if (TABIT_PH) F.sky = lp(1, F.sky, sg(S / TABIT_HAND, .5, 1));   // XR3.1: on a phone the splash's sky stays whole as it slides away, and gives way to the site's sky only over the second half of the scroll (dimmed from the first touch, it read as the stars going out) F.ori *= (V === 'd13' || (V === 'd14' || /^dd/.test(V) || /^d[abc][1-6]$/.test(V) || V === 'db3' || V === 'dc3' || V === 'dc4' || V === 'dc5' || V === 'dc6' || V === 'dc7' || V === 'dc8' || V === 'dc9' || V === 'dc10' || V === 'dc11' || V === 'dc12' || V === 'dc13' || V === 'dc14' || V === 'dc15' || V === 'dc16' || V === 'dc17')) ? 1 - sg(ph, .2, .62) : 1 - sg(u, 0, .1);   // D13: the constellation stays with the night and goes with the dawn, like the stars
-    var ink = mixHex('#FFFFFF', '#09154A', day);
-    logoParts.forEach(function (el) { if (el) el.style.fill = ink; });
-    aiUpdate(S, yc - 720 * TABIT_AI_SHIFT, ink);   // AI is page 4: its title animation runs two pages later than it did on page 2
-    root.style.setProperty('--tabit-ink', mixHex('#FBF9F4', '#09154A', day).replace('rgb', 'rgba').replace(')', ',.84)'));
-    root.style.setProperty('--tabit-ink2', mixHex('#FBF9F4', '#09154A', day));
-    root.style.setProperty('--tabit-line', mixHex('#FBF9F4', '#09154A', day).replace('rgb', 'rgba').replace(')', ',.4)'));
-    if (navBg) navBg.style.background = mixHex('#080D1E', '#FBF9F4', day).replace('rgb', 'rgba').replace(')', ',' + lp(.5, .58, day).toFixed(2) + ')');
-    if (vig) vig.style.opacity = (1 - .9 * day).toFixed(3);
-    var hc = q('[data-tabit-herocue]'); if (hc) hc.style.opacity = (sg(S, TABIT_HAND * .85, TABIT_HAND) * (1 - sg(yc, 30, 220))).toFixed(3);
-    var coordsEl = q('[data-tabit-coords]'); if (coordsEl) { var cS = TABIT_OPT >= 34 ? S - Math.max(0, Math.min(TB_PIN, S - TABIT_HAND - 720)) : S, cO = 1 - sg(cS, TABIT_HAND + 720 * 4.35, TABIT_HAND + 720 * 4.75); coordsEl.style.opacity = cO.toFixed(3); if (TABIT_OPT >= 34) coordsEl.style.pointerEvents = cO > .1 ? 'auto' : 'none'; }   // XR2.2.5: allows for the held page, and can't be clicked once it has gone
+    if (day !== dayW) {   // XR3.7: written when the day changes, and again after the splash (which clears the logo's), not in every frame
+      dayW = day; inkW = mixHex('#FFFFFF', '#09154A', day);
+      logoParts.forEach(function (el) { if (el) el.style.fill = inkW; });
+      root.style.setProperty('--tabit-ink', mixHex('#FBF9F4', '#09154A', day).replace('rgb', 'rgba').replace(')', ',.84)'));
+      root.style.setProperty('--tabit-ink2', mixHex('#FBF9F4', '#09154A', day));
+      root.style.setProperty('--tabit-line', mixHex('#FBF9F4', '#09154A', day).replace('rgb', 'rgba').replace(')', ',.4)'));
+      if (navBg) navBg.style.background = mixHex('#080D1E', '#FBF9F4', day).replace('rgb', 'rgba').replace(')', ',' + lp(.5, .58, day).toFixed(2) + ')');
+      if (vig) vig.style.opacity = (1 - .9 * day).toFixed(3);
+    }
+    aiUpdate(S, yc - 720 * TABIT_AI_SHIFT, inkW);   // AI is page 4: its title animation runs two pages later than it did on page 2
+    if (coordsEl) { var cS = (S - Math.max(0, Math.min(TB_PIN, S - TABIT_HAND - 720))), cO = 1 - sg(cS, TABIT_HAND + 720 * 4.35, TABIT_HAND + 720 * 4.75); coordsEl.style.opacity = cO.toFixed(3); coordsEl.style.pointerEvents = cO > .1 ? 'auto' : 'none'; }   // XR2.2.5: allows for the held page, and can't be clicked once it has gone
     if (dotsBox) { dotsBox.style.opacity = sg(S, TABIT_HAND * .6, TABIT_HAND).toFixed(3); var fi = cl(yc / 720, 0, dotEls.length - 1);   // D.C.2.4: the page markers are a small constellation
       var railY = 0;
       dotEls.forEach(function (el, i) { var on0 = 1 - Math.min(1, Math.abs(fi - i)), lb = plabels[i], btn = el.parentNode;
-        var lh = lb ? lb.offsetHeight : 0, open = lb ? ss(on0) * (lh + 26) : 0; railY += open;
+        var lh = lb ? railH(lb) : 0, open = lb ? ss(on0) * (lh + 26) : 0; railY += open;
         if (btn) btn.style.top = (44 * i + railY).toFixed(1) + 'px';
         if (lb) { lb.style.top = (44 * i + railY - 8 - open / 2 - lh / 2).toFixed(1) + 'px'; lb.style.opacity = sg(on0, .6, 1).toFixed(3); }
       });
-      dotEls.forEach(function (el, i) { var on = 1 - Math.min(1, Math.abs(fi - i)); el.style.opacity = ((.45 + .55 * on) * (.86 + .14 * Math.sin(t * 1.7 + i * 1.9))).toFixed(3); el.style.transform = 'scale(' + (1 + .55 * on).toFixed(3) + ')'; el.style.filter = 'drop-shadow(0 0 ' + (1.5 + 4 * on).toFixed(1) + 'px rgba(251,249,244,' + (.2 + .5 * on).toFixed(2) + '))'; });
+      dotEls.forEach(function (el, i) { var on = 1 - Math.min(1, Math.abs(fi - i)); el.style.opacity = ((.45 + .55 * on) * (.86 + .14 * Math.sin(t * 1.7 + i * 1.9))).toFixed(3); if (on !== el.__on) { el.__on = on; el.style.transform = 'scale(' + (1 + .55 * on).toFixed(3) + ')'; el.style.filter = 'drop-shadow(0 0 ' + (1.5 + 4 * on).toFixed(1) + 'px rgba(251,249,244,' + (.2 + .5 * on).toFixed(2) + '))'; } });
       if (conProg) { var seg0 = Math.min(CONP.length - 2, Math.floor(fi)), done = CONC[seg0] + CONL[seg0] * (fi - seg0); conProg.style.strokeDashoffset = (1 - done / CONT).toFixed(4); } }
     secs.forEach(function (el) {
       var k = +el.getAttribute('data-tabit-sec'), d = +el.getAttribute('data-tabit-secd'), c0 = 720 * k - 560 + d * 50, e = oq(sg(yc, c0, c0 + 300));
@@ -1945,7 +1469,7 @@ function makeHandoff(hero, root, V) {
     try { if (aiOv && !ST) starsInit(); } catch (e) {}
   }
   function covered(S) { return !!scene && !!scene.ready && scene.ready() && S / TABIT_HAND >= .3; }   // XR3.6: the site's sky lies over the hero's at full strength (makeScene.draw: sg(r, .02, .3))
-  return { update: update, qmax: QMAX, hoverLogo: function (tn) {}, ptr: function (x, y) { PTR.x = x; PTR.y = y; }, prepare: prepare, covered: covered };
+  return { update: update, qmax: QMAX, ptr: function (x, y) { PTR.x = x; PTR.y = y; }, prepare: prepare, covered: covered, dispose: function () { if (railRO) railRO.disconnect(); } };
 }
 
 // Alpha Stars · scroll concepts (AS6.1 to AS15.1). One light 2D engine shared by ten ideas.
@@ -1957,23 +1481,17 @@ function makeScrollSky(root, IDEA, LOGO, OPT) {
   // OPT.headless: the scene only, drawn into the given canvas as the background of the shared Beta site shell (which owns
   // the splash, the logo, the nav, the page copy and the knot page markers). The copy there sits on the left, so the
   // scenes put their subject on the right.
-  OPT = OPT || {}; var HL = !!OPT.headless, CL = HL && OPT.side === 'left', FOCUSX = HL && !CL ? 860 : CL && OPT.focus ? OPT.focus : 420;   // AS7.6: OPT.focus sets the path's x   // CL: copy on the right, subject on the left (AS7.5)
-  var W = 1280, H = 720, BRASS = '#A8823A', IVORY = '251,249,244', DUSK = '184,192,212', NIGHT = '#04070F';
-  var OXS = HL ? TABIT_OX : 0, WT = W + 2 * OXS;   // the canvas is the screen's width; scenes still draw in the 1280 design, centred
-  var OYS = HL ? TABIT_OY : 0, HT = H + 2 * OYS;   // XR2.8.2: and the screen's height on a taller stage
-  var dpr = HL ? tbDpr(TB_SHARP ? 2 : 1.5) : Math.min(window.devicePixelRatio || 1, 2);
-  var cv = HL ? root : root.querySelector('canvas[data-ss]'), c = cv.getContext('2d');
+  OPT = OPT || {}; var HL = !!OPT.headless;
+  var W = 1280, H = 720, IVORY = '251,249,244', DUSK = '184,192,212', NIGHT = '#04070F';
+  var OXS = TABIT_OX, WT = W + 2 * OXS;   // the canvas is the screen's width; scenes still draw in the 1280 design, centred
+  var OYS = TABIT_OY, HT = H + 2 * OYS;   // XR2.8.2: and the screen's height on a taller stage
+  var dpr = tbDpr(2);
+  var cv = root, c = cv.getContext('2d');
   cv.width = Math.round(WT * dpr); cv.height = Math.round(HT * dpr);
-  var lockEl, ui;
-  if (HL) {   // stand-ins for the interface the shell provides
-    lockEl = document.createElement('div'); ui = document.createElement('div');
-    ui.innerHTML = '<div data-ss-panel><div data-ss-kick></div><div data-ss-head></div><div data-ss-body></div></div><div data-ss-prog></div><div data-ss-menu></div><div data-ss-meter></div><div data-ss-cue></div>';
-  } else { lockEl = root.querySelector('[data-ss-lock]'); ui = root.querySelector('[data-ss-ui]'); }
   var seed = 1291; function rnd() { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }
   function cl(v, a, b) { return v < a ? a : v > b ? b : v; }
   function sg(t, a, b) { return cl((t - a) / (b - a), 0, 1); }
   function io(x) { return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; }
-  function ss(x) { return x * x * (3 - 2 * x); }
   function lp(a, b, k) { return a + (b - a) * k; }
   var RGBA = {};   // XR3.6: each colour's strings are kept, by the thousandth of strength (a frame built some two thousand of them, for the same few colours)
   function rgba(col, a) {
@@ -1992,31 +1510,29 @@ function makeScrollSky(root, IDEA, LOGO, OPT) {
   var LINES = [['pi3', 'pi2'], ['pi2', 'pi1'], ['pi1', 'omi2'], ['omi2', 'o11'], ['pi3', 'pi4'], ['pi4', 'pi5'], ['pi5', 'pi6'], ['pi3', 'bella'], ['bella', 'meissa'], ['meissa', 'betel'],
     ['betel', 'bella'], ['bella', 'mintaka'], ['mintaka', 'alnilam'], ['alnilam', 'alnitak'], ['betel', 'alnitak'], ['alnitak', 'saiph'], ['mintaka', 'eta'], ['eta', 'tau'], ['tau', 'rigel'],
     ['betel', 'mu'], ['mu', 'xi'], ['xi', 'chi2'], ['chi2', 'chi1'], ['chi1', 'nu']];
-  var NAMES = { pi3: 'Tabit', mintaka: 'Mintaka', alnilam: 'Alnilam', alnitak: 'Alnitak', meissa: 'Meissa', bella: 'Bellatrix', betel: 'Betelgeuse', rigel: 'Rigel', saiph: 'Saiph' };
-  var DESIG = { pi3: 'π³ Ori', mintaka: 'δ Ori', alnilam: 'ε Ori', alnitak: 'ζ Ori', meissa: 'λ Ori', bella: 'γ Ori', betel: 'α Ori', rigel: 'β Ori', saiph: 'κ Ori' };
   function oriB(k) { return cl(Math.pow(10, -.4 * (ORI[k][3] - 1)), .15, 1); }
 
   // ---- the sky: three depth layers of real-looking stars (a few bright with halos, many faint), muted true colours
-  var TEMP = TB_NEB ? ['150,180,255', '196,214,255', '255,236,196', '255,196,130', '255,150,110'] : ['210,222,255', '246,246,255', '255,246,226', '255,232,200', '255,214,176'];
+  var TEMP = ['150,180,255', '196,214,255', '255,236,196', '255,196,130', '255,150,110'];
   var SKY = [];
   for (var i = 0; i < 2400; i++) {
     var lay = i < 1500 ? 0 : i < 2150 ? 1 : 2, b = Math.pow(rnd(), lay === 0 ? 6 : lay === 1 ? 4 : 3);
-    SKY.push({ x: rnd() * 1600 - 160, y: rnd() * 1040 - 160, z: [5, 2.6, 1.5][lay], b: b * [.5, .75, 1][lay] * (TB_NEB ? 1.25 : 1), col: TEMP[TB_NEB ? (rnd() * 5) | 0 : (rnd() * rnd() * 5) | 0], ph: rnd() * 6.28 });
+    SKY.push({ x: rnd() * 1600 - 160, y: rnd() * 1040 - 160, z: [5, 2.6, 1.5][lay], b: b * [.5, .75, 1][lay] * (1.25), col: TEMP[((rnd() * 5) | 0)], ph: rnd() * 6.28 });
   }
   var SKYX = [];   // the same sky carried out to the widest screen's edges, from its own random sequence (SKY itself is untouched)
-  if (HL) { var sx7 = 9137; var rx = function () { sx7 = (sx7 * 16807) % 2147483647; return (sx7 - 1) / 2147483646; };
-    var ex = 330 - 120 + 60, nx = Math.round(2400 * ex / 1600);
-    for (var side = 0; side < 2; side++) for (var i2 = 0; i2 < nx; i2++) {
-      var lay2 = i2 % 32 < 20 ? 0 : i2 % 32 < 29 ? 1 : 2, b2 = Math.pow(rx(), lay2 === 0 ? 6 : lay2 === 1 ? 4 : 3);
-      SKYX.push({ x: side ? 1440 + rx() * ex : -160 - rx() * ex, y: rx() * 1040 - 160, z: [5, 2.6, 1.5][lay2], b: b2 * [.5, .75, 1][lay2] * (TB_NEB ? 1.25 : 1), col: TEMP[TB_NEB ? (rx() * 5) | 0 : (rx() * rx() * 5) | 0], ph: rx() * 6.28 });
-    } }
+  var sx7 = 9137; var rx = function () { sx7 = (sx7 * 16807) % 2147483647; return (sx7 - 1) / 2147483646; };
+  var ex = 330 - 120 + 60, nx = Math.round(2400 * ex / 1600);
+  for (var side = 0; side < 2; side++) for (var i2 = 0; i2 < nx; i2++) {
+    var lay2 = i2 % 32 < 20 ? 0 : i2 % 32 < 29 ? 1 : 2, b2 = Math.pow(rx(), lay2 === 0 ? 6 : lay2 === 1 ? 4 : 3);
+    SKYX.push({ x: side ? 1440 + rx() * ex : -160 - rx() * ex, y: rx() * 1040 - 160, z: [5, 2.6, 1.5][lay2], b: b2 * [.5, .75, 1][lay2] * (1.25), col: TEMP[((rx() * 5) | 0)], ph: rx() * 6.28 });
+  }
   var SKYY = [];   // XR2.8.2: the sky carried above and below the design for the taller stage
-  if (HL) { var sy7 = 4421; var ry = function () { sy7 = (sy7 * 16807) % 2147483647; return (sy7 - 1) / 2147483646; };
-    var ey = 480, ny = Math.round(2400 * ey / 1040 * (1600 + 2 * 270) / 1600);
-    for (var vs = 0; vs < 2; vs++) for (var i3 = 0; i3 < ny; i3++) {
-      var lay3 = i3 % 32 < 20 ? 0 : i3 % 32 < 29 ? 1 : 2, b3 = Math.pow(ry(), lay3 === 0 ? 6 : lay3 === 1 ? 4 : 3);
-      SKYY.push({ x: rnd ? ry() * 2140 - 430 : 0, y: vs ? 880 + ry() * ey : -160 - ry() * ey, z: [5, 2.6, 1.5][lay3], b: b3 * [.5, .75, 1][lay3] * (TB_NEB ? 1.25 : 1), col: TEMP[TB_NEB ? (ry() * 5) | 0 : (ry() * ry() * 5) | 0], ph: ry() * 6.28 });
-    } }
+  var sy7 = 4421; var ry = function () { sy7 = (sy7 * 16807) % 2147483647; return (sy7 - 1) / 2147483646; };
+  var ey = 480, ny = Math.round(2400 * ey / 1040 * (1600 + 2 * 270) / 1600);
+  for (var vs = 0; vs < 2; vs++) for (var i3 = 0; i3 < ny; i3++) {
+    var lay3 = i3 % 32 < 20 ? 0 : i3 % 32 < 29 ? 1 : 2, b3 = Math.pow(ry(), lay3 === 0 ? 6 : lay3 === 1 ? 4 : 3);
+    SKYY.push({ x: rnd ? ry() * 2140 - 430 : 0, y: vs ? 880 + ry() * ey : -160 - ry() * ey, z: [5, 2.6, 1.5][lay3], b: b3 * [.5, .75, 1][lay3] * (1.25), col: TEMP[((ry() * 5) | 0)], ph: ry() * 6.28 });
+  }
   function star(x, y, r, a, col) {
     if (a <= .01) return;
     var g = c.createRadialGradient(x, y, 0, x, y, r * 3.2); g.addColorStop(0, rgba(col || IVORY, a)); g.addColorStop(.25, rgba(col || IVORY, a * .45)); g.addColorStop(1, rgba(col || IVORY, 0));
@@ -2026,11 +1542,11 @@ function makeScrollSky(root, IDEA, LOGO, OPT) {
   function drawSky(dx, dy, a, map) {   // dx, dy: camera drift in px for the nearest layer; map: optional per-star transform
     for (var i = 0, nS = SKY.length, nX = OXS > 0 ? SKYX.length : 0, nA = nS + nX + (OYS > 0 ? SKYY.length : 0); i < nA; i++) {
       var s = i < nS ? SKY[i] : i < nS + nX ? SKYX[i - nS] : SKYY[i - nS - nX], x = s.x + dx / s.z, y = s.y + dy / s.z;
+      if (x < -40 - OXS || x > W + 40 + OXS) continue;   // XR3.7: well off to the side (the map, skyMap, moves a star at most 12 units sideways, and only near the pointer): on a phone, three stars in four
       if (map) { var m = map(x, y, s); if (!m) continue; x = m[0]; y = m[1]; }
       if (x < -20 - OXS || x > W + 20 + OXS || y < -20 - OYS || y > H + 20 + OYS) continue;
       var al = a * (.25 + .75 * s.b) * (.85 + .15 * Math.sin(T * 1.2 + s.ph));
-      if (TB_SHARP) { var sc6 = SKYM[s.col] || s.col; dot(x, y, .42 + .9 * s.b, Math.min(1, al * (1.05 + .5 * s.b)), sc6); if (s.b > .5) dot(x, y, 1.4 + 2 * s.b, al * .07, sc6); }   // XR2.2.6: a crisp point, the brightest with only a hint of bloom
-      else if (s.b > .55) star(x, y, .9 + 1.6 * s.b, al * .8, s.col); else dot(x, y, .5 + .9 * s.b, al, s.col);
+      var sc6 = SKYM[s.col] || s.col; dot(x, y, .42 + .9 * s.b, Math.min(1, al * (1.05 + .5 * s.b)), sc6); if (s.b > .5) dot(x, y, 1.4 + 2 * s.b, al * .07, sc6);
     }
   }
   function drawOrion(a, f, lineA) {   // f maps an Orion star key to [x, y]; default is the B11 frame
@@ -2040,44 +1556,16 @@ function makeScrollSky(root, IDEA, LOGO, OPT) {
     LINES.forEach(function (L) { var p = f(L[0]), q = f(L[1]); if (!p || !q) return; var dx = q[0] - p[0], dy = q[1] - p[1], d = Math.hypot(dx, dy); if (d < 16) return; var ux = dx / d * 7, uy = dy / d * 7; c.beginPath(); c.moveTo(p[0] + ux, p[1] + uy); c.lineTo(q[0] - ux, q[1] - uy); c.stroke(); });
     Object.keys(ORI).forEach(function (k) { var p = f(k); if (!p) return; var b = oriB(k); star(p[0], p[1], 1 + 1.6 * b, a * (.55 + .45 * b), k === 'pi3' ? '255,248,232' : '232,238,255'); });
   }
-  function lock(op, tx, ty, s) { lockEl.style.opacity = cl(op, 0, 1).toFixed(3); lockEl.style.transform = 'translate(' + (tx || 0).toFixed(1) + 'px,' + (ty || 0).toFixed(1) + 'px) scale(' + (s || 1).toFixed(4) + ')'; }
-  function knotPath() { return new Path2D(LOGO.mark); }
   // the lockup's mark sits on Tabit: its svg units map to screen as x = 441.29 + (u + 4) * k, y = 304.28 + (v + 4) * k
-  var LK = 397.42 / 1408, MARKC = [441.29 + (247.9 + 4) * LK, 304.28 + (193.2 + 4) * LK];
 
   // ---- chapters: the same five sections in every idea (ideas may reorder them)
   var BASE = [{ k: 'home', t: 'Home' }, { k: 'mintaka', t: '(Re)insurance' }, { k: 'alnilam', t: 'Capital & cells' }, { k: 'alnitak', t: 'Life & PPLI' }, { k: 'meissa', t: 'AI' }, { k: 'contact', t: 'Contact' }];
-  var S = { u: 0, uAim: 0, vel: 0, last: 0, idle: 0 };
   var CH = BASE;
 
-  // ---- interface: text panel, progress marker, plain menu, scroll cue
-  var panel = ui.querySelector('[data-ss-panel]'), kick = panel.querySelector('[data-ss-kick]'), head = panel.querySelector('[data-ss-head]'), body = panel.querySelector('[data-ss-body]');
-  var prog = ui.querySelector('[data-ss-prog]'), menu = ui.querySelector('[data-ss-menu]'), cue = ui.querySelector('[data-ss-cue]'), meter = ui.querySelector('[data-ss-meter]');
-  function buildNav() {
-    prog.innerHTML = ''; menu.innerHTML = '';
-    CH.forEach(function (ch, i) {
-      var b = document.createElement('button'); b.type = 'button'; b.className = 'ss-dot'; b.setAttribute('aria-label', ch.t);
-      var d = document.createElement('span'); b.appendChild(d); b.addEventListener('click', function () { S.uAim = i; }); prog.appendChild(b);
-      if (i > 0) { var m = document.createElement('button'); m.type = 'button'; m.className = 'ss-lnk'; m.textContent = ch.t; m.addEventListener('click', function () { S.uAim = i; }); menu.appendChild(m); }
-    });
-  }
-  var shown = -1;
-  function setPanel(i) {
-    var ch = CH[i]; shown = i;
-    if (ch.k === 'home') { kick.textContent = ''; head.textContent = ''; body.textContent = ''; return; }
-    if (ch.k === 'contact') { kick.textContent = ch.kick || 'Contact'; head.textContent = ch.head || 'Speak to the team'; body.textContent = '[Placeholder contact details and enquiry form]'; return; }
-    kick.textContent = ch.kick || (NAMES[ch.k] ? NAMES[ch.k] + ' · ' + DESIG[ch.k] : '');
-    head.textContent = ch.t; body.textContent = '[Placeholder line on ' + ch.t + '. Two or three lines introducing this section will sit here.]';
-  }
-  function placePanel(side, top) { panel.style.left = side === 'left' ? '96px' : side === 'centre' ? '440px' : '760px'; panel.style.top = (top || 250) + 'px'; }
 
   // ---- scrolling: wheel scrubs the scene; when the wheel goes quiet the camera settles on the nearest chapter
-  if (!HL) root.addEventListener('wheel', function (e) { e.preventDefault(); S.uAim = cl(S.uAim + e.deltaY / 900, 0, CH.length - 1); S.idle = 0; }, { passive: false });
-  var touchY = null;
-  if (!HL) root.addEventListener('touchstart', function (e) { touchY = e.touches[0].clientY; }, { passive: true });
-  if (!HL) root.addEventListener('touchmove', function (e) { if (touchY == null) return; var y = e.touches[0].clientY; S.uAim = cl(S.uAim + (touchY - y) / 500, 0, CH.length - 1); touchY = y; S.idle = 0; e.preventDefault(); }, { passive: false });
 
-  var T = 0, scenes = {}, SHELLR = 1, SHELLU = 0, meterTxt = '';
+  var T = 0, scenes = {}, SHELLR = 1;
   var MPX = { x: 0, y: 0, k: 0, mx: -999, my: -999 };   // XR2.2.6: the mouse, eased, for the background stars
   var SKYM = { '150,180,255': '214,224,255', '196,214,255': '236,240,255', '255,236,196': '255,246,228', '255,196,130': '255,238,214', '255,150,110': '255,230,206' };   // XR2.2.6: the splash's muted, near-white tints
   var MP2 = [0, 0];   // XR3.6: the one pair the sky's map hands back, read at once by drawSky (a new pair was made for every star in every frame)
@@ -2092,362 +1580,28 @@ function makeScrollSky(root, IDEA, LOGO, OPT) {
   // XR2.10: the home sky itself (stars, twinkle, drift against the mouse, parting round it, drift up with the scroll), drawn by
   // the diagrams scene on the home and alone behind the click-out pages, so a change made here holds on every page
   function skyLayer() {
-    if (TB_SHARP) {   // XR2.2.6: the sky drifts a little against the mouse (nearer stars more) and parts round the pointer
-      var pon = GRAV.on && GRAV.x > -900; MPX.x = lp(MPX.x, pon ? (GRAV.x - 640) / 640 : 0, .035); MPX.y = lp(MPX.y, pon ? (GRAV.y - 360) / 360 : 0, .035); MPX.k = lp(MPX.k, pon ? 1 : 0, .05);
-      if (pon) { MPX.mx = MPX.mx < -900 ? GRAV.x : lp(MPX.mx, GRAV.x, .2); MPX.my = MPX.my < -900 ? GRAV.y : lp(MPX.my, GRAV.y, .2); }
-      var dr7 = TB_DRIFT ? (TABIT_PH ? TB_PHSKY * (1 - Math.pow(1 - Math.min(1, Math.max(0, TB_SKYS) / TABIT_HAND), 2)) : 0) + Math.max(0, TB_SKYS - TABIT_HAND) * .05 : 0;   // XR3.1: on a phone the sky moves from the first touch of the scroll off the splash (Oscar: "none of the stars move at all until the Tabit logo's got to the top"); the splash's sky is this one, drawn once when the splash comes to rest, so until now it stood still until the drift began at Home
-      drawSky(-MPX.x * 22, -MPX.y * 14 - dr7, .72, TB_DRIFT ? skyMap : MPX.k > .01 ? mlens : null);
-    } else drawSky(0, 0, .55);
-  }
-  function inCopy(x, y, hold) {   // is this point under the text? (labels keep clear of it)
-    if (hold <= .3) return false;
-    if (!HL) return x > 740 && x < 1220 && y > 230 && y < 420;
-    if (SHELLU < .1) return x > 230 && x < 1050 && y > 260 && y < 520;
-    return CL ? x > 570 && x < 1200 && y > 200 && y < 640 : x > 90 && x < 720 && y > 200 && y < 640;
+    // XR2.2.6: the sky drifts a little against the mouse (nearer stars more) and parts round the pointer
+    var pon = GRAV.on && GRAV.x > -900; MPX.x = lp(MPX.x, pon ? (GRAV.x - 640) / 640 : 0, .035); MPX.y = lp(MPX.y, pon ? (GRAV.y - 360) / 360 : 0, .035); MPX.k = lp(MPX.k, pon ? 1 : 0, .05);
+    if (pon) { MPX.mx = MPX.mx < -900 ? GRAV.x : lp(MPX.mx, GRAV.x, .2); MPX.my = MPX.my < -900 ? GRAV.y : lp(MPX.my, GRAV.y, .2); }
+    var dr7 = ((TABIT_PH ? TB_PHSKY * (1 - Math.pow(1 - Math.min(1, Math.max(0, TB_SKYS) / TABIT_HAND), 2)) : 0) + Math.max(0, TB_SKYS - TABIT_HAND) * .05);   // XR3.1: on a phone the sky moves from the first touch of the scroll off the splash (Oscar: "none of the stars move at all until the Tabit logo's got to the top"); the splash's sky is this one, drawn once when the splash comes to rest, so until now it stood still until the drift began at Home
+    drawSky(-MPX.x * 22, -MPX.y * 14 - dr7, .72, skyMap);
   }
 
   // =========================================================================================== shared looks
-  function homeFrame(a) { drawSky(0, 0, a); drawOrion(a); }
-
-  // =========================================================================================== AS6 · Through the knot
-  // Igloo (one continuous camera, distinct scenes) + Lusion (spend the drama on a few beats): every chapter break is a
-  // dive through Tabit's knot; you come out in a new region of sky, each with its own colour and centrepiece.
-  scenes.knot = (function () {
-    var REG = [null, { tint: '96,120,190', obj: 'spikes' }, { tint: '170,96,120', obj: 'nebula' }, { tint: '90,150,170', obj: 'cluster' }, { tint: '130,110,190', obj: 'double' }, { tint: '160,140,90', obj: 'tabit' }];
-    function region(i, a) {
-      var R = REG[i]; if (!R || a <= 0) return;
-      var g = c.createRadialGradient(360, 380, 0, 360, 380, 620); g.addColorStop(0, rgba(R.tint, .28 * a)); g.addColorStop(1, rgba(R.tint, 0)); c.fillStyle = g; c.fillRect(0, 0, W, H);
-      centrepiece(R.obj, 360, 380, a, i);
-    }
-    return {
-      side: 'right',
-      draw: function (u, near, hold) {
-        var k = Math.floor(u), f = u - k;
-        var dive = sg(f, .15, .85), e = io(dive), flash = Math.sin(Math.PI * e);
-        if (u < .001) { homeFrame(1); lock(1); return; }
-        // leaving chapter k: we fall towards Tabit and through the knot
-        var zoom = Math.exp(e * 5.2), ax = k === 0 ? MARKC[0] : 360, ay = k === 0 ? MARKC[1] : 380;
-        var tunnel = function (x, y) { var dx = x - ax, dy = y - ay; return [ax + dx * lp(1, 1 + 3 * e, sg(f, .1, .5)), ay + dy * lp(1, 1 + 3 * e, sg(f, .1, .5))]; };
-        drawSky(0, 0, 1 - .6 * flash, tunnel);
-        if (k === 0) { drawOrion(1 - sg(f, .1, .45), function (q) { var p = tunnel(ORI[q][0], ORI[q][1]); return p; }); }
-        region(k, 1 - sg(f, .1, .5));
-        // the knot grows from Tabit until we are through it
-        var kx = k === 0 ? MARKC[0] : 360, ky = k === 0 ? MARKC[1] : 380, ks = (k === 0 ? 1 : .35) * zoom;
-        if (k === 0) lock(1 - sg(f, .05, .3)); else lock(0);
-        if (f > .02 && f < .98) {
-          c.save(); c.translate(kx, ky); c.scale(LK * ks, LK * ks); c.translate(-247.9, -193.2);
-          c.strokeStyle = rgba(IVORY, .9 * (1 - sg(e, .55, .8))); c.lineWidth = 1.4 / (LK * ks); c.stroke(knotPath()); c.restore();
-          var fl = c.createRadialGradient(kx, ky, 0, kx, ky, 700); fl.addColorStop(0, rgba('235,240,255', .22 * Math.pow(flash, 4))); fl.addColorStop(1, rgba('235,240,255', 0)); c.fillStyle = fl; c.fillRect(0, 0, W, H);   // a brief glow at the centre, not a white-out
-        }
-        // arriving: the next region opens out from the centre of the knot
-        region(k + 1, sg(f, .55, 1));
-        if (f >= .55) drawSky(0, 0, sg(f, .55, 1), function (x, y) { var s2 = lp(.25, 1, io(sg(f, .55, 1))); return [360 + (x - 360) * s2, 380 + (y - 380) * s2]; });
-      }
-    };
-  })();
 
   // shared centrepieces, each a different kind of object so no two chapters look alike (the Igloo lesson)
-  function centrepiece(kind, x, y, a, seedN) {
-    if (kind === 'spikes') { star(x, y, 9, a, '214,226,255'); c.strokeStyle = rgba('224,232,255', .5 * a); c.lineWidth = 1; c.beginPath(); c.moveTo(x - 120, y); c.lineTo(x + 120, y); c.moveTo(x, y - 120); c.lineTo(x, y + 120); c.stroke(); }
-    else if (kind === 'nebula') { [[0, 0, 160, '200,120,150'], [60, -30, 120, '120,140,220'], [-50, 40, 110, '220,160,140']].forEach(function (b) { var g = c.createRadialGradient(x + b[0], y + b[1], 0, x + b[0], y + b[1], b[2]); g.addColorStop(0, rgba(b[3], .35 * a)); g.addColorStop(1, rgba(b[3], 0)); c.fillStyle = g; c.beginPath(); c.arc(x + b[0], y + b[1], b[2], 0, 6.2832); c.fill(); }); star(x + 10, y, 4, a, '255,240,240'); }
-    else if (kind === 'cluster') { var sd = 77; for (var i = 0; i < 46; i++) { sd = (sd * 16807) % 2147483647; var r1 = sd / 2147483647; sd = (sd * 16807) % 2147483647; var r2 = sd / 2147483647; sd = (sd * 16807) % 2147483647; var r3 = sd / 2147483647; var rr = 90 * Math.sqrt(r1), an = r2 * 6.2832; star(x + rr * Math.cos(an), y + rr * Math.sin(an) * .8, 1 + 2.4 * r3 * r3, a, '200,220,255'); } }
-    else if (kind === 'double') { var an2 = T * .6; star(x + 46 * Math.cos(an2), y + 18 * Math.sin(an2), 5, a, '255,226,190'); star(x - 46 * Math.cos(an2), y - 18 * Math.sin(an2), 3.6, a, '200,220,255'); c.strokeStyle = rgba(DUSK, .25 * a); c.beginPath(); c.ellipse(x, y, 46, 18, 0, 0, 6.2832); c.stroke(); }
-    else if (kind === 'tabit') { star(x, y, 6, a, '255,248,232'); c.save(); c.translate(x, y); c.scale(.42, .42); c.translate(-247.9, -193.2); c.fillStyle = rgba(IVORY, .9 * a); c.fill(knotPath(), 'evenodd'); c.restore(); }
-  }
-
-  // =========================================================================================== AS7 · Deeper into Orion
-  // ERA's "road" camera flight and Virgin Galactic's real-object focus: the scroll travels outwards through Orion's real
-  // depth; each section is a real star met at its true distance; the light-year counter is the progress bar.
-  scenes.deeper = (function () {
-    var ORDER = [{ k: 'home', t: 'Home' }, { k: 'bella', t: 'Regulation' }, { k: 'alnitak', t: 'Life & PPLI' }, { k: 'mintaka', t: '(Re)insurance' }, { k: 'meissa', t: 'AI' }, { k: 'alnilam', t: 'Capital & cells' }, { k: 'contact', t: 'Contact', kick: '1,342 light years out' }];
-    var SHELL_ORDER = [{ k: 'home', t: 'Home' }, { k: 'bella', t: 'AI' }, { k: 'alnitak', t: 'Capital' }, { k: 'meissa', t: 'Life & PPLI' }, { k: 'alnilam', t: 'Barbados' }];
-    if (HL) ORDER = SHELL_ORDER;
-    var F = 800, SC = 1.6, AIMX = HL ? 900 : 380;   // world depth = light years × SC
-    function Z(k) { return ORI[k][2] * SC; }
-    function stopZ(i) { var ch = ORDER[i]; if (ch.k === 'home') return 0; if (ch.k === 'contact') return Z('alnilam') + 300; return Z(ch.k) - 240; }
-    var FIELD = []; for (var i = 0; i < 1400; i++) { var z = rnd() * 2600; FIELD.push({ X: (rnd() - .5) * 2.4 * (z + 300), Y: (rnd() - .5) * 1.5 * (z + 300), Z: z, b: Math.pow(rnd(), 4), col: TEMP[(rnd() * rnd() * 5) | 0] }); }
-    return {
-      chapters: ORDER, side: 'right', meter: true, shell: { chapters: SHELL_ORDER, map: 'page' },
-      draw: function (u, near, hold) {
-        var k = Math.min(Math.floor(u), ORDER.length - 2), f = u - k, e = io(sg(f, .25, 1));
-        var cz = lp(stopZ(k), stopZ(k + 1), e); if (u >= ORDER.length - 1) cz = stopZ(ORDER.length - 1);
-        // keep the star we are heading for at the left third of the screen
-        function aimX(i) { var ch = ORDER[i]; if (!ORI[ch.k]) return 0; var z = Z(ch.k), d = Math.max(60, z - stopZ(i)); return (ORI[ch.k][0] - 640) * z / F - (AIMX - 640) * d / F; }
-        function aimY(i) { var ch = ORDER[i]; if (!ORI[ch.k]) return 0; var z = Z(ch.k), d = Math.max(60, z - stopZ(i)); return (ORI[ch.k][1] - 360) * z / F - (380 - 360) * d / F; }
-        var cx = lp(aimX(k), aimX(k + 1), e), cy = lp(aimY(k), aimY(k + 1), e);
-        drawSky(-cx * .02, -cy * .02, .7);
-        FIELD.forEach(function (s) { var d = s.Z - cz; if (d < 40) return; var x = 640 + (s.X - cx) * F / d, y = 360 + (s.Y - cy) * F / d; if (x < -10 || x > W + 10 || y < -10 || y > H + 10) return; dot(x, y, cl(.4 + 120 / d, .4, 2.2), (.25 + .75 * s.b) * sg(d, 40, 200), s.col); });
-        var P = {};
-        Object.keys(ORI).forEach(function (q) { var z = ORI[q][2] * SC, d = z - cz; if (d < 30) return; var X = (ORI[q][0] - 640) * z / F, Y = (ORI[q][1] - 360) * z / F; P[q] = [640 + (X - cx) * F / d, 360 + (Y - cy) * F / d, d]; });
-        var lineA = 1 - sg(u, 0, .6);
-        drawOrion(1, function (q) { return P[q] ? [P[q][0], P[q][1]] : null; }, lineA);
-        Object.keys(P).forEach(function (q) { var d = P[q][2]; if (d < 700) star(P[q][0], P[q][1], cl(1600 / d, 2, 26), sg(d, 30, 120), q === 'betel' ? '255,200,160' : '220,230,255'); });
-        var ch = ORDER[near]; if (ORI[ch.k] && P[ch.k] && hold > .3) { c.strokeStyle = rgba('168,130,58', hold); c.lineWidth = 1.2; c.beginPath(); c.arc(P[ch.k][0], P[ch.k][1], cl(1600 / P[ch.k][2], 2, 26) * 3.6 + 10, 0, 6.2832); c.stroke(); }
-        lock(1 - sg(u, 0, .3), 0, 0, 1 + .4 * sg(u, 0, .3));
-        meterTxt = meter.textContent = Math.round(cz / SC).toLocaleString('en-GB') + ' light years from Earth';
-      }
-    };
-  })();
-
-  // =========================================================================================== AS7.2 · Down the bow
-  // AS7's depth, given a track. The camera flies one continuous path down Orion's bow (the arc of π stars that holds
-  // Tabit), from the top of the arc to π⁶. Each section is one bow star, met at its real distance, and the camera turns
-  // to follow the track rather than hopping between scattered stars. The bow's stars sit at very different distances
-  // (Tabit 26 ly, its neighbours up to 1,342 ly), so the path swings in and out through real depth.
-  scenes.bow = (function () {
-    var F = 800, D = 175;
-    function zOf(ly) { return 300 + 700 * Math.log(ly / 20) / Math.LN10; }   // depth, compressed (log) so near and far both read
-    function lyOf(z) { return 20 * Math.pow(10, (z - 300) / 700); }
-    // The bow is laid out as a road into depth: each bow star stays on its B11 sight-line (so the opening frame is exactly
-    // B11), but sits one step further away than the last, so the arc that reads flat on the splash turns out to recede
-    // into the distance. Real distances are kept for the labels and the meter. The rest of Orion is a far backdrop.
-    var TRACK = ['o11', 'omi2', 'pi1', 'pi2', 'pi3', 'pi4', 'pi5', 'pi6'];
-    var P3 = {}; Object.keys(ORI).forEach(function (k) { var ti = TRACK.indexOf(k), z = ti >= 0 ? 560 * Math.pow(1.32, ti) : 9000; P3[k] = [(ORI[k][0] - 640) * z / F, (ORI[k][1] - 360) * z / F, z]; });
-    var COL = { o11: '230,236,255', omi2: '255,222,186', pi1: '236,240,255', pi2: '240,243,255', pi3: '255,246,226', pi4: '204,218,255', pi5: '210,224,255', pi6: '255,212,168' };
-    var SUP = { pi1: 'π¹', pi2: 'π²', pi3: 'π³', pi4: 'π⁴', pi5: 'π⁵', pi6: 'π⁶' };
-    function lyTxt(k) { return Number(ORI[k][2]).toLocaleString('en-GB') + ' light years'; }
-    var ORDER = [{ k: 'home', t: 'Home' },
-      { k: 'pi1', t: '(Re)insurance', kick: 'π¹ Orionis · ' + lyTxt('pi1') },
-      { k: 'pi2', t: 'Capital & cells', kick: 'π² Orionis · ' + lyTxt('pi2') },
-      { k: 'pi3', t: 'About Tabit', kick: 'Tabit · π³ Orionis · ' + lyTxt('pi3') },
-      { k: 'pi4', t: 'Life & PPLI', kick: 'π⁴ Orionis · ' + lyTxt('pi4') },
-      { k: 'pi5', t: 'AI', kick: 'π⁵ Orionis · ' + lyTxt('pi5') },
-      { k: 'contact', star: 'pi6', t: 'Contact', kick: 'π⁶ Orionis · ' + lyTxt('pi6') + ' · the foot of the bow', head: 'Speak to the team' }];
-    // on the Beta site the bow carries the site's five pages: Home holds the B11 view while the route draws itself down the
-    // bow, then one stop per page, ending at the foot of the bow
-    var SHELL_ORDER = [{ k: 'home', t: 'Home' }, { k: 'pi1', t: 'AI' }, { k: 'pi3', t: 'Capital' }, { k: 'pi5', t: 'Life & PPLI' }, { k: 'contact', star: 'pi6', t: 'Barbados' }];
-    if (HL) ORDER = SHELL_ORDER;
-    function sub(a, b) { return [a[0] - b[0], a[1] - b[1], a[2] - b[2]]; }
-    function add(a, b) { return [a[0] + b[0], a[1] + b[1], a[2] + b[2]]; }
-    function mul(a, s) { return [a[0] * s, a[1] * s, a[2] * s]; }
-    function nrm(a) { var l = Math.hypot(a[0], a[1], a[2]) || 1; return [a[0] / l, a[1] / l, a[2] / l]; }
-    function cross(a, b) { return [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]]; }
-    function dot3(a, b) { return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]; }
-    // centripetal Catmull-Rom (no overshoot or loops where neighbouring stars sit at very different depths)
-    function crom(p0, p1, p2, p3, t) {
-      function kn(a, b) { return Math.pow(Math.max(1e-3, Math.hypot(b[0] - a[0], b[1] - a[1], b[2] - a[2])), .5); }
-      if (p0 === p1) p0 = sub(p1, sub(p2, p1)); if (p3 === p2) p3 = add(p2, sub(p2, p1));
-      var t0 = 0, t1 = t0 + kn(p0, p1), t2 = t1 + kn(p1, p2), t3 = t2 + kn(p2, p3), tt = t1 + (t2 - t1) * t;
-      function L(a, b, ta, tb) { var w = (tt - ta) / (tb - ta); return [a[0] + (b[0] - a[0]) * w, a[1] + (b[1] - a[1]) * w, a[2] + (b[2] - a[2]) * w]; }
-      var A1 = L(p0, p1, t0, t1), A2 = L(p1, p2, t1, t2), A3 = L(p2, p3, t2, t3), B1 = L(A1, A2, t0, t2), B2 = L(A2, A3, t1, t3);
-      return L(B1, B2, t1, t2);
-    }
-    function trackAt(t) {   // the path itself runs through the bow's stars
-      var i = Math.min(Math.floor(t), TRACK.length - 2), u2 = t - i, P = TRACK.map(function (k) { return P3[k]; });
-      return crom(P[Math.max(0, i - 1)], P[i], P[i + 1], P[Math.min(P.length - 1, i + 2)], u2);
-    }
-    // arc-length table, so the camera moves at an even pace whatever the gaps between stars
-    var ARC = [{ t: 0, l: 0, p: trackAt(0) }];
-    for (var j = 1; j <= 700; j++) { var tt = j / 700 * (TRACK.length - 1), pp = trackAt(tt), lst = ARC[ARC.length - 1]; ARC.push({ t: tt, l: lst.l + Math.hypot(pp[0] - lst.p[0], pp[1] - lst.p[1], pp[2] - lst.p[2]), p: pp }); }
-    var TOT = ARC[ARC.length - 1].l;
-    var LS = TRACK.map(function (_, i) { var best = 0; ARC.forEach(function (a, n) { if (Math.abs(a.t - i) < Math.abs(ARC[best].t - i)) best = n; }); return ARC[best].l; });
-    function lOfStar(i) { return LS[i]; }
-    function ptL(L) {
-      if (L <= 0) { var t0 = nrm(sub(ARC[3].p, ARC[0].p)); return add(ARC[0].p, mul(t0, L)); }
-      if (L >= TOT) { var n = ARC.length - 1, t1 = nrm(sub(ARC[n].p, ARC[n - 3].p)); return add(ARC[n].p, mul(t1, L - TOT)); }
-      var lo = 0, hi = ARC.length - 1; while (hi - lo > 1) { var m = (lo + hi) >> 1; if (ARC[m].l < L) lo = m; else hi = m; }
-      var w = (L - ARC[lo].l) / (ARC[hi].l - ARC[lo].l || 1); return add(ARC[lo].p, mul(sub(ARC[hi].p, ARC[lo].p), w));
-    }
-    // a chase camera: a little behind and above the track, looking down it, so the path ahead reads like a road
-    var BACK = 240, HIGH = -105, AHEAD = 700;   // the camera rides just under the line, so the road ahead runs down the screen as you scroll down
-    function chase(L) {
-      var tg = nrm(sub(ptL(L + 140), ptL(L - 140))), up = [0, -1, 0];
-      up = nrm(sub(up, mul(tg, dot3(up, tg))));
-      var pos = add(add(ptL(L), mul(tg, -BACK)), mul(up, HIGH));
-      return { c: pos, f: nrm(sub(ptL(L + AHEAD), pos)) };
-    }
-    var STAR_I = { pi1: 2, pi2: 3, pi3: 4, pi4: 5, pi5: 6, pi6: 7 };
-    var FIELD = []; for (var i = 0; i < 2600; i++) FIELD.push([(rnd() - .5) * 3400, (rnd() - .5) * 2200, rnd() * 3000 - 200, Math.pow(rnd(), 4), TEMP[(rnd() * rnd() * 5) | 0]]);
-    return {
-      chapters: ORDER, side: 'right', meter: true, shell: { chapters: SHELL_ORDER, map: 'page' },
-      draw: function (u, near, hold) {
-        var k = Math.min(Math.floor(u), ORDER.length - 2), f = u - k, e = io(sg(f, .18, .82));
-        function stopL(i) { var ch = ORDER[i]; return ch.k === 'home' ? 0 : lOfStar(STAR_I[ch.star || ch.k]); }
-        var Lc = lp(stopL(k), stopL(k + 1), e); if (u >= ORDER.length - 1) Lc = stopL(ORDER.length - 1);
-        var ch0 = chase(Lc), C = ch0.c, fw = ch0.f;
-        if (k === 0 && u < 1) {   // leaving home: ease from the B11 view onto the track
-          var bl = ss(sg(e, 0, .55)); C = add(mul([0, 0, 0], 1 - bl), mul(ch0.c, bl)); fw = nrm(add(mul([0, 0, 1], 1 - bl), mul(ch0.f, bl)));
-        }
-        var n = 1 + Lc / TOT * (TRACK.length - 1);
-        var rt = nrm(cross([0, 1, 0], fw)), dn = cross(fw, rt);
-        var away = sg(u, 0, .7), cx = lp(640, FOCUSX, away), cy = lp(360, HL ? 560 : 460, away);
-        function P(p) { var d = sub(p, C), zc = dot3(d, fw); if (zc < 18) return null; return [cx + dot3(d, rt) * F / zc, cy + dot3(d, dn) * F / zc, zc]; }
-        var NEAR = 26;
-        function V(p) { var d = sub(p, C); return [dot3(d, rt), dot3(d, dn), dot3(d, fw)]; }
-        function seg(a, b) {   // a 3D segment clipped to the near plane, in screen space; null if wholly behind
-          var A = V(a), B = V(b);
-          if (A[2] < NEAR && B[2] < NEAR) return null;
-          if (A[2] < NEAR) { var w = (NEAR - A[2]) / (B[2] - A[2]); A = [A[0] + (B[0] - A[0]) * w, A[1] + (B[1] - A[1]) * w, NEAR]; }
-          if (B[2] < NEAR) { var w2 = (NEAR - B[2]) / (A[2] - B[2]); B = [B[0] + (A[0] - B[0]) * w2, B[1] + (A[1] - B[1]) * w2, NEAR]; }
-          return [cx + A[0] * F / A[2], cy + A[1] * F / A[2], cx + B[0] * F / B[2], cy + B[1] * F / B[2], Math.min(A[2], B[2])];
-        }
-        // far sky turns with the camera; the near field moves in true 3D
-        var yaw = Math.atan2(fw[0], fw[2]), pitch = Math.asin(cl(fw[1], -1, 1));
-        drawSky(-yaw * 1400 - (cx - 640) * 2, -pitch * 1400 - (cy - 360) * 2, .75);
-        FIELD.forEach(function (s) { var q = P(s); if (!q || q[0] < -10 - OXS || q[0] > W + 10 + OXS || q[1] < -10 - OYS || q[1] > H + 10 + OYS) return; var r = cl(.35 + 90 / q[2], .35, 2.4); dot(q[0], q[1], r, (.15 + .4 * s[3]) * sg(q[2], 18, 160) * (1 - sg(q[2], 2400, 3200)), s[4]); });
-        // Orion's figure, fading back as we go in; the bow is drawn as the track
-        var figA = lp(1, .2, away);
-        c.lineWidth = 1;
-        LINES.forEach(function (L) {
-          if (TRACK.indexOf(L[0]) >= 0 && TRACK.indexOf(L[1]) >= 0 && away > .02) return;
-          var q = seg(P3[L[0]], P3[L[1]]); if (!q) return;
-          c.strokeStyle = rgba(DUSK, .4 * figA * (u < .02 ? 1 : sg(q[4], 60, 700))); c.beginPath(); c.moveTo(q[0], q[1]); c.lineTo(q[2], q[3]); c.stroke();
-        });
-        // the track: the whole bow faintly ahead, the part travelled in brass
-        var doneL = Lc, reveal = HL ? sg(SHELLR, .55, 1) : 0, trA = Math.max(sg(u, 0, .5), .8 * reveal), L0 = lOfStar(2), Lend = u < .02 ? lp(L0, TOT, reveal) : TOT;
-        if (trA > 0) {
-          for (var pass = 0; pass < 2; pass++) {
-            var prev = ptL(L0);
-            for (var L2 = L0 + 8; L2 <= Lend + 1e-6; L2 += 8) {
-              var cur3 = ptL(L2), q = seg(prev, cur3); prev = cur3; if (!q) continue;
-              var trav = L2 <= doneL + 1, prox = sg(q[4], NEAR, 110);   // the track fades out as it passes the camera, so it never slices the screen
-              if (prox <= 0) continue;
-              c.strokeStyle = trav ? rgba('168,130,58', (pass ? .95 : .18) * trA * prox) : rgba(DUSK, (pass ? .4 : .07) * trA * prox);
-              c.lineWidth = (pass ? 1.3 : 6) * cl(500 / q[4], .6, 2.6); c.beginPath(); c.moveTo(q[0], q[1]); c.lineTo(q[2], q[3]); c.stroke();
-            }
-          }
-        }
-        // the stars, each in its true colour; the bow's stars swell as the camera reaches them
-        var cur = ORDER[near].star || ORDER[near].k, LBL = [];
-        var STOPT = {}; ORDER.forEach(function (o) { if (o.k !== 'home') STOPT[o.star || o.k] = o.t; });
-        Object.keys(P3).forEach(function (key) {
-          var q = P(P3[key]); if (!q) return; var b = oriB(key), r = (1 + 1.6 * b) * cl(380 / q[2], .55, 15) * (key === cur ? 1 + .6 * hold : 1), col = COL[key] || (key === 'betel' ? '255,200,160' : '226,234,255');
-          star(q[0], q[1], r, sg(q[2], 18, 70), col);
-          var ti = TRACK.indexOf(key);
-          if (ti >= 2 && key !== cur && away > .3 && q[2] > 60) {   // the stops still ahead (and behind) carry a small station ring
-            var ahead = lOfStar(ti) > Lc; c.strokeStyle = ahead ? rgba(IVORY, .38 * away) : rgba('168,130,58', .45 * away); c.lineWidth = 1; c.beginPath(); c.arc(q[0], q[1], Math.max(4, r * 2.2), 0, 6.2832); c.stroke();
-            var nxt = ORDER[Math.min(near + 1, ORDER.length - 1)], isNext = ahead && (nxt.star || nxt.k) === key;
-            // every star on the line is named: the stops by their section, the stars passed on the way by their designation
-            LBL.push({ x: q[0] + Math.max(4, r * 2.2) + 9, y: q[1], z: q[2], txt: (SUP[key] || '') + '  ' + (STOPT[key] ? STOPT[key] : 'Orionis') + (key === 'pi3' ? ' · Tabit' : ''), a: (isNext ? .8 : STOPT[key] ? (ahead ? .55 : .4) : .32) * away, pri: isNext ? 0 : STOPT[key] ? 1 : 2 });
-          }
-          if (key === cur && hold > .3 && P3[key]) { c.strokeStyle = rgba('168,130,58', hold); c.lineWidth = 1.2; c.beginPath(); c.arc(q[0], q[1], r * 3.3 + 10, 0, 6.2832); c.stroke(); }
-        });
-        LBL.sort(function (a, b2) { return a.pri - b2.pri || a.z - b2.z; });
-        var placed = []; c.font = '600 10px Manrope, system-ui, sans-serif'; c.textBaseline = 'middle';
-        LBL.forEach(function (l) {
-          if (l.x > W - 150 || l.y < 96 || l.y > H - 40) return;
-          if (placed.some(function (p2) { return Math.abs(p2.y - l.y) < 15 && Math.abs(p2.x - l.x) < 170; })) return;
-          placed.push(l); c.fillStyle = rgba(DUSK, l.a); c.fillText(l.txt.toUpperCase().split('').join(String.fromCharCode(8202)), l.x, l.y);
-        });
-        lock(1 - sg(u, 0, .22), 0, 0, 1 + .25 * sg(u, 0, .22));
-        var at = 0; for (var ai = 0; ai < ARC.length && ARC[ai].l < Lc; ai++) at = ARC[ai].t;
-        var i0 = Math.floor(at), i1 = Math.min(TRACK.length - 1, i0 + 1), ly = lp(ORI[TRACK[i0]][2], ORI[TRACK[i1]][2], at - i0); if (u < .05) ly = ORI[TRACK[0]][2];
-        meterTxt = meter.textContent = hold > .5 && ORDER[near].k !== 'home' ? (SUP[cur] || '') + ' Orionis · ' + lyTxt(cur) + ' from Earth' : 'Traveling · ' + Math.round(cl(ly, 20, 2000)).toLocaleString('en-GB') + ' light years';
-      }
-    };
-  })();
-
-  // =========================================================================================== AS8 · The constellation draws itself
-  // Ten Years Away's "panels arrive" and ERA's zoom into one detailed image: each chapter draws its part of the real figure
-  // in brass, the camera eases onto it; at the end the finished figure is the sitemap.
-  scenes.draws = (function () {
-    var PART = { mintaka: [['bella', 'mintaka'], ['mintaka', 'eta'], ['eta', 'tau'], ['tau', 'rigel']], alnilam: [['mintaka', 'alnilam'], ['alnilam', 'alnitak']], alnitak: [['alnitak', 'saiph'], ['betel', 'alnitak']], meissa: [['bella', 'meissa'], ['meissa', 'betel'], ['betel', 'bella']], contact: [['pi3', 'bella'], ['pi3', 'pi2'], ['pi2', 'pi1'], ['pi3', 'pi4'], ['pi4', 'pi5'], ['pi5', 'pi6']] };
-    return {
-      side: 'right',
-      draw: function (u, near, hold) {
-        var k = Math.floor(u), f = u - k, e = io(sg(f, .2, .9));
-        function focus(i) { var ch = CH[i]; if (ch.k === 'home' || ch.k === 'contact') return [640, 360, 1]; var segs = PART[ch.k], xs = [], ys = []; segs.forEach(function (s) { s.forEach(function (q) { xs.push(ORI[q][0]); ys.push(ORI[q][1]); }); }); return [(Math.min.apply(0, xs) + Math.max.apply(0, xs)) / 2, (Math.min.apply(0, ys) + Math.max.apply(0, ys)) / 2, 1.9]; }
-        var a = focus(k), b = focus(Math.min(k + 1, CH.length - 1)), fx = lp(a[0], b[0], e), fy = lp(a[1], b[1], e), s = lp(a[2], b[2], e);
-        var tx = 420 - fx * s, ty = 380 - fy * s; if (s < 1.05) { tx = lp(0, tx, (s - 1) / .9); ty = lp(0, ty, (s - 1) / .9); }
-        drawSky(tx * .3, ty * .3, 1);
-        c.save(); c.translate(tx, ty); c.scale(s, s);
-        drawOrion(1, null, .55);
-        // the drawn lines: every finished chapter stays drawn; the current one draws with the scroll
-        c.lineWidth = 1.6 / s; c.strokeStyle = BRASS;
-        CH.forEach(function (ch, i) {
-          var segs = PART[ch.k]; if (!segs) return; var p = i < u ? Math.min(1, (u - i + 1) / 1) : 0; if (i > u + 1) return;
-          var pr = i <= Math.floor(u) ? 1 : sg(f, .2, .9); if (i <= k) pr = 1; else if (i === k + 1) pr = sg(f, .2, .9); else pr = 0;
-          segs.forEach(function (sgm, j) { var q = sg(pr * segs.length - j, 0, 1); if (q <= 0) return; var A = ORI[sgm[0]], B = ORI[sgm[1]]; c.beginPath(); c.moveTo(A[0], A[1]); c.lineTo(lp(A[0], B[0], q), lp(A[1], B[1], q)); c.stroke(); });
-        });
-        c.restore();
-        lock(ch_is(near, 'home') || ch_is(near, 'contact') ? 1 - sg(Math.abs(u - near), .05, .3) : 0);
-        if (ch_is(near, 'contact')) { placePanel('centre', 470); } else placePanel('right', 250);
-      }
-    };
-  })();
-  function ch_is(i, k) { return CH[i] && CH[i].k === k; }
-
-  // =========================================================================================== AS9 · Orbit Tabit
-  // IVRESS's closed loop and Messenger's small world you can turn: the camera swings round Tabit as you scroll; Orion's
-  // flat figure opens into its true depth, then closes back into the familiar shape at Contact.
-  scenes.orbit = (function () {
-    var F = 800, R = 1600;
-    function rel(k) { return 260 * Math.log(ORI[k][2] / 26 + 1) / Math.LN10 * 2.4; }
-    var P3 = {}; Object.keys(ORI).forEach(function (k) { var z = R + rel(k); P3[k] = [(ORI[k][0] - 640) * z / F, (ORI[k][1] - 360) * z / F, z]; });
-    var piv = P3.pi3;
-    var FIELD = []; for (var i = 0; i < 900; i++) { var z = R + (rnd() - .3) * 2400; FIELD.push([(rnd() - .5) * 2.6 * z, (rnd() - .5) * 1.6 * z, z, Math.pow(rnd(), 4)]); }
-    function proj(p, th) { var x = p[0] - piv[0], z = p[2] - piv[2]; var xr = x * Math.cos(th) - z * Math.sin(th), zr = x * Math.sin(th) + z * Math.cos(th); var X = xr + piv[0], Z = zr + piv[2]; if (Z < 60) return null; return [640 + X * F / Z, 360 + p[1] * F / Z, Z]; }
-    return {
-      side: 'right', meter: true,
-      draw: function (u, near, hold) {
-        var p = u / (CH.length - 1), th = Math.sin(Math.PI * p) * 1.15 * (p < .5 ? 1 : 1);   // swings out to ~66° and home again
-        drawSky(-th * 260, 0, .8);
-        FIELD.forEach(function (s) { var q = proj(s, th); if (!q || q[0] < -10 - OXS || q[0] > W + 10 + OXS || q[1] < -10 - OYS || q[1] > H + 10 + OYS) return; dot(q[0], q[1], .5 + .8 * s[3], .3 + .6 * s[3]); });
-        drawOrion(1, function (k) { var q = proj(P3[k], th); return q ? [q[0], q[1]] : null; }, 1);
-        var ch = CH[near]; if (ORI[ch.k] && hold > .3) { var q = proj(P3[ch.k], th); if (q) { c.strokeStyle = rgba('168,130,58', hold); c.lineWidth = 1.2; c.beginPath(); c.arc(q[0], q[1], 14, 0, 6.2832); c.stroke(); } }
-        lock(1 - sg(th, 0, .12));
-        meterTxt = meter.textContent = 'Viewing Orion from ' + Math.round(th * 57.3) + '° round Tabit';
-        if (ch_is(near, 'contact')) placePanel('centre', 470); else placePanel('right', 250);
-      }
-    };
-  })();
-
-  // =========================================================================================== AS10 · Star trails
-  // Ten Years Away's scroll-speed shader (slow = soft clusters, fast = streaks) applied to a long exposure: scrolling turns
-  // the sky and every star draws an arc; Tabit alone holds still. The idea of the name, shown rather than said.
-  scenes.trails = (function () {
-    var PX = 640, PY = -1500;
-    var TR = SKY.filter(function (s, i) { return i % 2 === 0; });
-    return {
-      side: 'right',
-      draw: function (u, near, hold) {
-        var p = u / (CH.length - 1), ang = .34 * ss(sg(p, 0, 1)) + .02 * sg(S.vel, 0, 2);
-        function arc(x, y, a, w, col) { var dx = x - PX, dy = y - PY, r = Math.hypot(dx, dy), a0 = Math.atan2(dy, dx); c.strokeStyle = rgba(col, a); c.lineWidth = w; c.beginPath(); c.arc(PX, PY, r, a0, a0 + ang); c.stroke(); }
-        c.lineCap = 'round';
-        TR.forEach(function (s) { var x = s.x, y = s.y; if (x < -400 || x > W + 400 || y < -50 || y > H + 50) return; if (ang < .002) dot(x, y, .5 + .9 * s.b, .25 + .7 * s.b, s.col); else arc(x, y, (.15 + .6 * s.b) * lp(1, .7, sg(ang, 0, .3)), .6 + 1.3 * s.b, s.col); });
-        Object.keys(ORI).forEach(function (k) { if (k === 'pi3') return; var b = oriB(k); if (ang < .002) return; arc(ORI[k][0], ORI[k][1], .5 + .45 * b, 1 + 1.6 * b, '232,238,255'); });
-        drawOrion(1 - sg(ang, 0, .05), null, 1);
-        // Tabit never moves: the fixed point of the whole picture
-        star(ORI.pi3[0], ORI.pi3[1], 3.2, 1, '255,248,232');
-        if (ang > .02) { c.strokeStyle = rgba('168,130,58', .9); c.lineWidth = 1.2; c.beginPath(); c.arc(ORI.pi3[0], ORI.pi3[1], 13, 0, 6.2832); c.stroke(); }
-        lock(ch_is(near, 'home') ? 1 - sg(u, 0, .3) : ch_is(near, 'contact') ? sg(u, CH.length - 1.4, CH.length - 1) : 0);
-        if (ch_is(near, 'contact')) placePanel('centre', 470); else placePanel('right', 250);
-      }
-    };
-  })();
-
-  // =========================================================================================== AS11 · Gravitational lens
-  // The splash's black-hole cursor becomes the scroll. Each chapter break passes through the lens's edge (a short
-  // controlled swirl, the "tumble"); content emerges from the bend.
-  scenes.lens = (function () {
-    return {
-      side: 'right',
-      draw: function (u, near, hold) {
-        var k = Math.floor(u), f = u - k, e = io(sg(f, .1, .9)), swell = Math.sin(Math.PI * e);
-        var lx = 400, ly = 370 + 40 * Math.sin(u * 1.7), rad = (u < .3 ? 70 * sg(u, 0, .3) : 70) + 760 * Math.pow(swell, 2);
-        var E = rad * .65, swirl = 2.4 * swell;
-        function lensMap(x, y) { var dx = x - lx, dy = y - ly, r = Math.hypot(dx, dy) || .001; if (r < rad * .55) return null; var rl = .5 * (r + Math.sqrt(r * r + 4 * E * E)), tw = swirl * E / (r + E); var ca = Math.cos(tw), sa = Math.sin(tw), ux = dx / r, uy = dy / r; return [lx + (ux * ca - uy * sa) * rl, ly + (ux * sa + uy * ca) * rl]; }
-        drawSky(0, -u * 60, 1, lensMap);
-        if (u < 1.1) drawOrion(1 - sg(u, .1, .8), function (q) { return lensMap(ORI[q][0], ORI[q][1]); }, 1);
-        // the photon ring and the dark centre
-        var g = c.createRadialGradient(lx, ly, rad * .45, lx, ly, rad * 1.2); g.addColorStop(0, 'rgba(0,0,0,1)'); g.addColorStop(.42, 'rgba(0,0,0,1)'); g.addColorStop(.5, rgba('255,236,210', .55)); g.addColorStop(.58, rgba('255,236,210', .08)); g.addColorStop(1, 'rgba(0,0,0,0)');
-        c.fillStyle = g; c.beginPath(); c.arc(lx, ly, rad * 1.2, 0, 6.2832); c.fill();
-        lock(1 - sg(u, 0, .25));
-        if (ch_is(near, 'contact')) placePanel('right', 250); else placePanel('right', 250);
-      }
-    };
-  })();
 
   // =========================================================================================== AS12 · Stars become the diagrams
   // Igloo's links section (particles swirl into the shape of what you choose): the starfield streams into each section's
   // explanation and scatters back into sky between chapters.
+  seed = 2016984324;   // XR3.7: where the eleven scenes that stood before this one left the generator (they are gone; the figures' stars are drawn from it, and stay where they were)
   scenes.diagrams = (function () {
-    var N = 900, PTS = [];
+    var N = 900;
     function sample(drawFn, seed) {   // XR2.9.1: a CPU canvas (no GPU readback) and its own sequence, so it can run lazily
       var o = document.createElement('canvas'); o.width = 520; o.height = 420; var g = o.getContext('2d', { willReadFrequently: true }); g.fillStyle = '#fff'; g.strokeStyle = '#fff'; drawFn(g);
       var d = g.getImageData(0, 0, 520, 420).data, pts = []; for (var y = 0; y < 420; y += 3) for (var x = 0; x < 520; x += 3) if (d[(y * 520 + x) * 4 + 3] > 120) pts.push([x, y]);
       var s9 = seed || 2468; function r9() { s9 = (s9 * 16807) % 2147483647; return (s9 - 1) / 2147483646; }
-      var out = []; for (var i = 0; i < N; i++) { var p = pts[Math.floor(r9() * pts.length)] || [260, 210]; out.push([(HL ? 680 : 640) + p[0], 150 + p[1]]); } return out;
+      var out = []; for (var i = 0; i < N; i++) { var p = pts[Math.floor(r9() * pts.length)] || [260, 210]; out.push([(680) + p[0], 150 + p[1]]); } return out;
     }
     // Captives: a captured orbit. The geometry is shared by the stars' shape and the satellite that is caught into it
     var CAPO = { cx: 300, cy: 236, rx: 175, ry: 92, rot: -.32, t0: 3.5 }, capS = -1;
@@ -2487,19 +1641,18 @@ function makeScrollSky(root, IDEA, LOGO, OPT) {
     // XR3.0: on a phone a figure that stands under its copy (Captives, License) belongs to its page and travels with it, arriving and leaving, so the
     // words and the figure keep their distance all the way; fixed on the screen, the figure formed where its own copy was still rising through
     function gy9(i) { var kk = CH[i].k; return TABIT_PH && (kk === 'alnilam' || kk === 'licence') ? 720 * i - TB_Y : 0; }
-    function shapeAt(i, j) { var sh = SH[CH[i].k]; if (TB_AIL && sh && HL && CH[i].k === 'ai') { var G0 = tbG('ai'); var aic = TABIT_AIC != null ? TABIT_AIC : G0.cy; return [TB_AIFX() + (sh[j][0] - 940) * G0.s, aic + (sh[j][1] - 360) * G0.s]; } if (!sh) return [P[j].hx, P[j].hy]; if (!HL) return sh[j]; var G = tbG(CH[i].k); if (TB_RV && TB_RE && CH[i].k === 'mintaka') return TB_REX(sh[j][0] - 940, sh[j][1] - 360); return [G.cx + (sh[j][0] - 940) * G.s, G.cy + gy9(i) + (sh[j][1] - 360) * G.s]; }
+    function shapeAt(i, j) { var sh = SH[CH[i].k]; if (TB_AIL && sh && HL && CH[i].k === 'ai') { var G0 = tbG('ai'); var aic = TABIT_AIC != null ? TABIT_AIC : G0.cy; return [TB_AIFX() + (sh[j][0] - 940) * G0.s, aic + (sh[j][1] - 360) * G0.s]; } if (!sh) return [P[j].hx, P[j].hy]; var G = tbG(CH[i].k); if (TB_RV && TB_RE && CH[i].k === 'mintaka') return TB_REX(sh[j][0] - 940, sh[j][1] - 360); return [G.cx + (sh[j][0] - 940) * G.s, G.cy + gy9(i) + (sh[j][1] - 360) * G.s]; }
     return {
       warm: warmShape, side: 'right', shell: { chapters: SHELL_ORDER, map: 'page' },
       draw: function (u, near, hold) {
-        skyLayer();   // XR2.10: the sky itself, shared with the click-out pages (skyLayer, below inCopy)
+        skyLayer();   // XR2.10: the sky itself, shared with the click-out pages (skyLayer)
         var k = Math.floor(u), f = u - k;
-        var oA = TABIT_PH ? (1 - sg(TB_Y, 20, 170)) * (TABIT_PHL ? TABIT_PHL.home.a : 1) : TABIT_OPT >= 13 ? 1 - sg(io(sg(TB_Y, 20, 360)), .05, .85) : u < .02 ? 1 : 1 - sg(u, 0, .4);   // XR3.0: on a phone Orion stays where it is and is gone before the next page's words reach it   // X1.13: Orion fades as it enlarges
+        var oA = TABIT_PH ? (1 - sg(TB_Y, 20, 170)) * (TABIT_PHL ? TABIT_PHL.home.a : 1) : (1 - sg(io(sg(TB_Y, 20, 360)), .05, .85));   // XR3.0: on a phone Orion stays where it is and is gone before the next page's words reach it   // X1.13: Orion fades as it enlarges
         if (TABIT_PH) oA *= sg(SHELLR, .72, 1);   // XR3.1: on a phone Orion comes in on the Home page itself, once the logo is in the bar: it never crosses the splash
         if (oA > 0) {
-          if (HL) { var oe = TABIT_PH ? 1 : io(sg(SHELLR, .3, .9)), OG = tbG('home'), osc = .8 * OG.s * tbLerp(1, tbLerp(.6, .8, TABIT_HF), TABIT_ST);   // Orion's figure spans x 163 to 522 and y 107 to 661: centre (342, 384)
-            drawOrion(oA, function (q) { if (TABIT_OPT >= 12 && /^(o11|omi2|pi[1-6])$/.test(q)) return null; var x = ORI[q][0], y = ORI[q][1], hx = lp(x, OG.cx + (x - 342) * osc, oe), hy = lp(y, OG.cy + tbLerp(44, tbLerp(70, 116, TABIT_HF), TABIT_ST) + (y - 384) * osc, oe); if (TABIT_OPT >= 13 && !TABIT_PH) { var te = io(sg(TB_Y, 20, 360)); return [lp(hx, 1280 + OXS - 106 + (x - 505) * 2.285, te), lp(hy, 64 + (y - 210) * 2.285, te)]; }   // X1.13: the whole drawing enlarges, centred on its bow
-            return [hx, hy]; }); }
-          else drawOrion(oA);
+          var oe = TABIT_PH ? 1 : io(sg(SHELLR, .3, .9)), OG = tbG('home'), osc = .8 * OG.s * tbLerp(1, tbLerp(.6, .8, TABIT_HF), TABIT_ST);   // Orion's figure spans x 163 to 522 and y 107 to 661: centre (342, 384)
+          drawOrion(oA, function (q) { if (TABIT_OPT >= 12 && /^(o11|omi2|pi[1-6])$/.test(q)) return null; var x = ORI[q][0], y = ORI[q][1], hx = lp(x, OG.cx + (x - 342) * osc, oe), hy = lp(y, OG.cy + tbLerp(44, tbLerp(70, 116, TABIT_HF), TABIT_ST) + (y - 384) * osc, oe); if (TABIT_OPT >= 13 && !TABIT_PH) { var te = io(sg(TB_Y, 20, 360)); return [lp(hx, 1280 + OXS - 106 + (x - 505) * 2.285, te), lp(hy, 64 + (y - 210) * 2.285, te)]; }   // X1.13: the whole drawing enlarges, centred on its bow
+          return [hx, hy]; });
         }
         c.globalCompositeOperation = 'lighter'; TB_KQ.length = 0;
         // AS12.7: a soft field of gravity follows the mouse; stars within reach drift a little towards it and curl round it
@@ -2507,70 +1660,33 @@ function makeScrollSky(root, IDEA, LOGO, OPT) {
         GRAV.sx = lp(GRAV.sx, GRAV.x, .16); GRAV.sy = lp(GRAV.sy, GRAV.y, .16); GRAV.s = lp(GRAV.s, GRAV.on ? 1 : 0, .06);
         var GR = 190;
         // X1.4, X1.5: an electric-indigo glow behind the figure; X1.7: a horizon that warms page by page
-        var GS = TABIT_SUBJ, figA = sg(u, .2, .8);
-        var CF16 = TABIT_OPT >= 16 ? io(sg(SHELLR, .3, 1)) : 1;   // X1.16: the nebula and the blue fade in slowly from the splash, full once Home has come together
-        if (TABIT_OPT >= 16) figA = CF16;
-        if ((TABIT_OPT === 4 || TABIT_OPT === 5) && figA > 0) {
-          var ig = c.createRadialGradient(GS.cx, 360, 0, GS.cx, 360, 430 * GS.s); ig.addColorStop(0, 'rgba(99,49,251,' + (.30 * figA).toFixed(3) + ')'); ig.addColorStop(.45, 'rgba(99,49,251,' + (.14 * figA).toFixed(3) + ')'); ig.addColorStop(1, 'rgba(99,49,251,0)');
-          c.fillStyle = ig; c.fillRect(GS.cx - 460, -100, 920, 920);
-        }
-        if (TB_NEB && !TB_BLACK) {   // X1.10: a faint nebula, rose and blue, drifting slowly behind the stars (none from XR2.2.6)
-          // XR2.2.4: the golden-angle palette from the Tabit blue; a muted oxblood (hue +137.5) takes the rose top right, a slate (saturation -60%) the violet top left
-          (TABIT_OPT >= 33 ? [[GS.cx + 160, 170, 440, '108,28,34', .22], [GS.cx - 260, 560, 520, '40,90,200', .14], [-OXS + 180, 120, 420, '74,86,112', .16]]
-            : [[GS.cx + 160, 170, 420, '170,70,140', .16], [GS.cx - 260, 560, 520, '40,90,200', .14], [-OXS + 180, 120, 380, '90,60,200', .10]]).forEach(function (N) {
-            var nx = N[0] + 30 * Math.sin(T * .05 + N[2]), ng = c.createRadialGradient(nx, N[1], 0, nx, N[1], N[2]); ng.addColorStop(0, 'rgba(' + N[3] + ',' + (N[4] * CF16).toFixed(3) + ')'); ng.addColorStop(1, 'rgba(' + N[3] + ',0)');
-            c.fillStyle = ng; c.fillRect(nx - N[2], N[1] - N[2], 2 * N[2], 2 * N[2]); });
-        }
-        if ((TABIT_OPT === 7 || TABIT_OPT >= 11) && figA > 0 && !TB_BLACK) {   // X1.11 on keep X1.7's dawn (not XR2.2.6)
-          var DAWN = [[4, 7, 15], [12, 38, 92], [16, 64, 112], [58, 52, 120], [140, 62, 92], [214, 112, 52]], du = TABIT_OPT >= 13 ? 1 : cl(u, 0, DAWN.length - 1), di = Math.min(DAWN.length - 2, Math.floor(du)), dk = du - di;
-          var dc = [0, 1, 2].map(function (n) { return Math.round(lp(DAWN[di][n], DAWN[di + 1][n], dk)); }).join(',');
-          var hg = c.createLinearGradient(0, H, 0, H * .3); hg.addColorStop(0, 'rgba(' + dc + ',' + (.62 * figA).toFixed(3) + ')'); hg.addColorStop(.5, 'rgba(' + dc + ',' + (.18 * figA).toFixed(3) + ')'); hg.addColorStop(1, 'rgba(' + dc + ',0)');
-          c.fillStyle = hg; c.fillRect(-OXS, -OYS, WT, HT);
-        }
+        var GS = TABIT_SUBJ;
         // XR2: where the compass of stars sits this frame; on XR2.2 its rim is also drawn, finely ticked, as a horizon
-        if (TB_RV) {
-          var RE = TB_REcalc();
-          if (TB_RV === 2 && TB_ON1 > 0) {
-            var Rr = 170 * TB_GS() * RE.sc, rr0 = RE.rot * Math.PI / 180;
-            c.strokeStyle = rgba(DUSK, .3 * TB_ON1); c.lineWidth = 1; c.beginPath(); c.arc(RE.cx, RE.cy, Rr, -Math.PI * .75, -Math.PI * .25); c.stroke();
-            for (var tk = 0; tk < 360; tk += 3) { var ta = tk * Math.PI / 180 + rr0, sx = Math.sin(ta), sy2 = -Math.cos(ta); if (sy2 > -.55) continue; var big = tk % 45 === 0, l0 = Rr - (big ? 22 : tk % 15 === 0 ? 13 : 7);
-              c.strokeStyle = rgba(IVORY, (big ? .55 : .26) * TB_ON1); c.beginPath(); c.moveTo(RE.cx + sx * l0, RE.cy + sy2 * l0); c.lineTo(RE.cx + sx * Rr, RE.cy + sy2 * Rr); c.stroke(); }
-            c.fillStyle = 'rgba(168,130,58,' + (TB_VAR('--tb-diamond', .9) * TB_ON1).toFixed(3) + ')'; c.save(); c.translate(RE.cx, RE.cy - Rr * 1.153 - 20); c.rotate(Math.PI / 4); c.fillRect(-5, -5, 10, 10); c.restore();   // the lubber mark
-          }
+        var RE = TB_REcalc();
+        if (TB_RV === 2 && TB_ON1 > 0) {
+          var Rr = 170 * TB_GS() * RE.sc, rr0 = RE.rot * Math.PI / 180;
+          c.strokeStyle = rgba(DUSK, .3 * TB_ON1); c.lineWidth = 1; c.beginPath(); c.arc(RE.cx, RE.cy, Rr, -Math.PI * .75, -Math.PI * .25); c.stroke();
+          for (var tk = 0; tk < 360; tk += 3) { var ta = tk * Math.PI / 180 + rr0, sx = Math.sin(ta), sy2 = -Math.cos(ta); if (sy2 > -.55) continue; var big = tk % 45 === 0, l0 = Rr - (big ? 22 : tk % 15 === 0 ? 13 : 7);
+            c.strokeStyle = rgba(IVORY, (big ? .55 : .26) * TB_ON1); c.beginPath(); c.moveTo(RE.cx + sx * l0, RE.cy + sy2 * l0); c.lineTo(RE.cx + sx * Rr, RE.cy + sy2 * Rr); c.stroke(); }
+          c.fillStyle = 'rgba(168,130,58,' + (TB_VAR('--tb-diamond', .9) * TB_ON1).toFixed(3) + ')'; c.save(); c.translate(RE.cx, RE.cy - Rr * 1.153 - 20); c.rotate(Math.PI / 4); c.fillRect(-5, -5, 10, 10); c.restore();   // the lubber mark
         }
         // X1.3: gold figures; X1.8: each page's figure in its own colour
-        var PCOL = { mintaka: '222,186,112', alnilam: '136,249,192', ai: '160,140,255', licence: '150,196,255', contact: '251,249,244' };
-        function figCol(kk) { if (TABIT_OPT === 3) return '222,186,112'; if (TABIT_OPT === 8) return PCOL[CH[kk].k] || IVORY; return IVORY; }
         // X1.1: between pages the stars gather into one bright clump, which streaks down the page as a gold shooting star and
         // swings back up to burst into the next page's figure. Scrolling back plays it in reverse.
-        var TR = TABIT_OPT === 1 && HL, CX = [GS.cx, 360];
-        function comet(m) {   // the clump's path: down and away to the right, round, and back up into the figure
-          m = cl(m, 0, 1); var v = 1 - m, B1 = [CX[0] + 120, CX[1] + 330], B2 = [CX[0] - 420, CX[1] + 300];
-          return [v * v * v * CX[0] + 3 * v * v * m * B1[0] + 3 * v * m * m * B2[0] + m * m * m * CX[0], v * v * v * CX[1] + 3 * v * v * m * B1[1] + 3 * v * m * m * B2[1] + m * m * m * CX[1]];
-        }
-        function oqx(x) { return 1 - (1 - x) * (1 - x); }
-        function trPos(o, j, ff) {
-          var a = shapeAt(k, j), b = shapeAt(Math.min(k + 1, CH.length - 1), j);
-          var g = io(sg(ff, .05 + o.d * .3, .34 + o.d * .2)), m = sg(ff, .34, .68) - o.d * .16, e = oqx(sg(ff, .64 + o.d * .2, .96));
-          var cp = comet(m), sq = 1 - .7 * Math.sin(Math.PI * cl(m, 0, 1)), jx = o.w * 14 * sq, jy = (o.d - .15) * 60 * sq;
-          var px = lp(a[0], cp[0] + jx, g), py = lp(a[1], cp[1] + jy, g);
-          return [lp(px, b[0], e), lp(py, b[1], e), g, e];
-        }
         // X1.11: Orion's bow is the path, down the right-hand side, one of its stars for each page. Between pages the figure's
         // stars gather into one ball on this page's star, the ball runs down the bow to the next page's star (the stretch it has
         // covered turns brass), and there it bursts out into the next page's figure. Scrolling back runs it back up.
-        var TB11 = TABIT_OPT >= 11 && HL, TB12 = TABIT_OPT === 12 && HL, TB13 = TABIT_OPT >= 13 && HL, TBB = TB12 || TB13;
+        var TB12 = TABIT_OPT === 12 && HL, TB13 = TABIT_OPT >= 13 && HL, TBB = TB12 || TB13;
         var BOWK = ['o11', 'omi2', 'pi1', 'pi2', 'pi3', 'pi4', 'pi5', 'pi6'], BY = [64, 108, 160, 250, 340, 430, 520, 610];   // the bow's real x; its stops spaced evenly down the page
         var BX = 1280 + OXS - 106, BPTS = BOWK.map(function (kb, n) { return [BX + (ORI[kb][0] - 505) * 1.3, BY[n]]; });
         // X1.12: on Home the bow is where it sits in the Orion drawing; leaving Home it lifts out and opens out to the right
         var oe12 = io(sg(SHELLR, .3, .9)), OG12 = tbG('home'), osc12 = .8 * OG12.s * tbLerp(1, tbLerp(.6, .8, TABIT_HF), TABIT_ST);
         function oriHome(q) { var x = ORI[q][0], y = ORI[q][1]; return [lp(x, OG12.cx + (x - 342) * osc12, oe12), lp(y, OG12.cy + tbLerp(44, tbLerp(70, 116, TABIT_HF), TABIT_ST) + (y - 384) * osc12, oe12)]; }
         var exB = TB12 ? io(sg(TB_Y, 30, 330)) : 1;   // starts with the first scroll, before the page itself moves on
-        if (TB12) BPTS = BPTS.map(function (Pb, n) { var h = oriHome(BOWK[n]); return [lp(h[0], Pb[0], exB), lp(h[1], Pb[1], exB)]; });
         // X1.13: the whole drawing enlarges about its bow (tE), then the bow settles into the evenly spaced path (tS)
         var tE13 = io(sg(TB_Y, 20, 360)), tS13 = io(sg(TB_Y, 260, 440)); if (TABIT_PH) tE13 = tS13 = 0;   // XR3.0: a phone has no chapter path: the bow stays in Orion and goes with it
         function ori13(q) { var h = oriHome(q); return [lp(h[0], BX + (ORI[q][0] - 505) * 2.285, tE13), lp(h[1], 64 + (ORI[q][1] - 210) * 2.285, tE13)]; }
-        if (TB13) { exB = tS13; BPTS = BPTS.map(function (Pb, n) { var h = ori13(BOWK[n]); return [lp(h[0], Pb[0], tS13), lp(h[1], Pb[1], tS13)]; }); }
+        exB = tS13; BPTS = BPTS.map(function (Pb, n) { var h = ori13(BOWK[n]); return [lp(h[0], Pb[0], tS13), lp(h[1], Pb[1], tS13)]; });
         // X1.13 runs on the scroll itself: page K, and F, how far through the gap to the next page (0 to 1)
         var ANC13 = [];   // XR3.0: each figure's anchor, worked out once a frame (it was built afresh for every star)
         var K13 = Math.min(5, Math.floor(TB_Y / 720)), F13 = K13 >= 5 ? 0 : TB_Y / 720 - K13;
@@ -2578,7 +1694,6 @@ function makeScrollSky(root, IDEA, LOGO, OPT) {
         var M13 = io(sg(F13, Q13[2], Q13[3]));
         function bowStop(i) { if (TABIT_PH) return anc13(Math.max(0, Math.min(5, i))); return BPTS[2 + Math.max(0, Math.min(5, i))]; }   // XR3.0: on a phone the ball of stars runs from one figure's place straight to the next's
         // leaving Home in X1.12 the bow opens out first; only then do the stars gather and run (other pages: gather, run, burst)
-        var PH = TB12 && k === 0 ? [.4, .56, .56, .76, .78, .98] : [.03, .3, .32, .62, .64, .97];
         function b13Pos(o, j) {   // X1.13: one body. The figure shrinks into a ball as it glides onto its star, the ball runs down the bow, the next figure grows out of it
           var K = K13, F = F13, a = shapeAt(K, j), b = shapeAt(Math.min(K + 1, CH.length - 1), j), P0 = bowStop(K), P1 = bowStop(K + 1), Q = Q13;
           // XR2.2.1: each figure shrinks into, and grows out of, its own visible centre, and the ball is always a small ball,
@@ -2589,7 +1704,7 @@ function makeScrollSky(root, IDEA, LOGO, OPT) {
             var o9 = P[j], sA = TB_AIPTF ? TB_AIPTF(j) : [640, 46];   // XR2.5.1: each star's own point inside the A or I of the logo
             // XR2.3.14: each star leaves the logo on its own (staggered over the gap), drops, and curves down onto its place in the figure, drawn as a tiny knot with a tail, as the A and I are
             var rr = (Math.sin(j * 12.9898 + 4.1) * 43758.5453) % 1; rr = rr < 0 ? rr + 1 : rr;
-            var t0 = .3 + rr * .32, t1 = Math.min(.9, t0 + .28), mL = io(sg(F, .16, .3));
+            var t0 = .3 + rr * .32, t1 = Math.min(.9, t0 + .28);
             function fall9(ff) { var u = io(sg(ff, t0, t1)), cx = sA[0] + o9.w * 90, cy = sA[1] + 260 + o9.d * 300, v = 1 - u; return [v * v * sA[0] + 2 * v * u * cx + u * u * b[0], v * v * sA[1] + 2 * v * u * cy + u * u * b[1], u]; }
             if (F >= t0) { var p9 = fall9(F), tl9 = []; for (var jt = 1; jt <= 4; jt++) tl9.push(fall9(Math.max(t0, F - .01 * jt))); return [p9[0], p9[1], lp(.9, .85, p9[2]), 0, 1, tl9[0][0], tl9[0][1], p9[2], tl9]; }
             var fd9 = 1 - sg(F, Math.max(.3, t0 - .12), t0);   // XR2.5.6: Captives gathers onto its star and runs down the path as every page does; the ball fades as its star falls from the A and I
@@ -2616,72 +1731,44 @@ function makeScrollSky(root, IDEA, LOGO, OPT) {
         function anc13(kk) { return ANC13[kk] || (ANC13[kk] = anc13x(kk)); }
         function anc13x(kk) { if (TABIT_PH && TABIT_PHL && CH[kk].k !== 'ai') { var gp = TABIT_PHL[CH[kk].k]; if (gp) return [gp.ax != null ? gp.ax : gp.cx, (gp.ay != null ? gp.ay : gp.cy) + gy9(kk)]; } if (TB_AIL && CH[kk].k === 'ai') return [TB_AIFX(), TABIT_AIC != null ? TABIT_AIC : TABIT_SUBJ.cy]; if (TB_RV && TB_RE && CH[kk].k === 'mintaka') return [cl(TB_RE.cx, 140 - OXS, 1140 + OXS), cl(TB_RE.cy, 140, 600)]; return [GS.cx, 360]; }
         function bl13(kk) { if (TB_RV && TB_RE && CH[kk].k === 'mintaka') return Math.min(.03, 12 / (2 * 196 * TB_GS() * TB_RE.sc)); return .03; }
-        function bowPos(o, j, ff) {
-          var a = shapeAt(k, j), b = shapeAt(Math.min(k + 1, CH.length - 1), j);
-          var g = io(sg(ff, PH[0] + o.d * .3, PH[1] + o.d * .2)), m = io(sg(ff, PH[2] + o.d * .07, PH[3] + o.d * .07)), e = oqx(sg(ff, PH[4] + o.d * .2, PH[5]));
-          var P0 = bowStop(k), P1 = bowStop(k + 1), jx = o.w * 6, jy = (o.d - .15) * 26;
-          var px = lp(a[0], lp(P0[0], P1[0], m) + jx, g), py = lp(a[1], lp(P0[1], P1[1], m) + jy, g);
-          return [lp(px, b[0], e), lp(py, b[1], e), g, e];
+        var trA = TABIT_PH ? oA : 1, mh = M13, kb0 = K13;
+        var hd11 = [lp(bowStop(kb0)[0], bowStop(kb0 + 1)[0], mh), lp(bowStop(kb0)[1], bowStop(kb0 + 1)[1], mh)];
+        TRK11 = { a: exB, p: BPTS.slice(2) };
+        if (trA > 0) {
+          c.lineCap = 'round';
+          if (TBB && oA > 0) {   // while it is still part of Orion, the bow keeps its line to Bellatrix (which fades with the rest)
+            var pA = BPTS[4], pB = ori13('bella'), ddx = pB[0] - pA[0], ddy = pB[1] - pA[1], dd = Math.hypot(ddx, ddy) || 1;
+            c.strokeStyle = rgba(DUSK, TB_VAR('--tb-orion-lines', .42) * oA); c.lineWidth = 1; c.beginPath(); c.moveTo(pA[0] + ddx / dd * 7, pA[1] + ddy / dd * 7); c.lineTo(pB[0] - ddx / dd * 7, pB[1] - ddy / dd * 7); c.stroke();
+          }
+          c.strokeStyle = rgba(DUSK, (lp(TB_VAR('--tb-orion-lines', .42), .22, exB)) * trA); c.lineWidth = 1; c.beginPath(); BPTS.forEach(function (Pb, n) { if (n) c.lineTo(Pb[0], Pb[1]); else c.moveTo(Pb[0], Pb[1]); }); c.stroke();   // the whole bow, faint
+          if (!TABIT_PH) { c.strokeStyle = 'rgba(168,130,58,' + (TB_VAR('--tb-path-gold', .75) * trA).toFixed(3) + ')'; c.lineWidth = 1.4; c.beginPath(); c.moveTo(bowStop(0)[0], bowStop(0)[1]);   // travelled so far, in brass
+          for (var bi = 1; bi <= kb0; bi++) c.lineTo(bowStop(bi)[0], bowStop(bi)[1]);
+          if (mh > 0) c.lineTo(hd11[0], hd11[1]); c.stroke(); }
+          c.globalCompositeOperation = 'lighter';
+          BPTS.forEach(function (Pb, n) {
+            var st11 = n >= 2, on = st11 && n - 2 === near ? hold : 0, sz = st11 ? 2.2 + 2.4 * on : 1.3, al = st11 ? .7 + .3 * on : .4;
+            var b12 = oriB(BOWK[n]); sz = lp(1 + 1.6 * b12, sz, exB); al = lp(.55 + .45 * b12, al, exB);   // drawn as Orion draws it, then as the path
+            star(Pb[0], Pb[1], sz, trA * al, BOWK[n] === 'pi3' ? '255,248,232' : IVORY);
+          });
+          c.globalCompositeOperation = 'source-over';
+          if (near >= 1 && !TABIT_PH) { var cs = bowStop(near); c.strokeStyle = rgba(IVORY, .5 * hold * trA); c.lineWidth = 1; c.beginPath(); c.arc(cs[0], cs[1], 9, 0, 6.2832); c.stroke();
+            c.font = '600 10px Manrope, system-ui, sans-serif'; c.textAlign = 'center'; c.textBaseline = 'top'; c.fillStyle = rgba(TB_RGB('--tb-path-label', IVORY), TB_VAR('--tb-path-label-a', .7) * hold * trA); c.fillText(CH[near].t.toUpperCase().split('').join(String.fromCharCode(8202)), cs[0], cs[1] + 15); c.textAlign = 'left'; c.textBaseline = 'alphabetic'; }
         }
-        if (TB11) {
-          var trA = TABIT_PH ? oA : TBB ? 1 : sg(u, .06, .6), mh = TB13 ? M13 : (f > .005 && f < .995) ? io(sg(f, PH[2], PH[3])) : 0, kb0 = TB13 ? K13 : Math.min(k, 5);
-          if (TB_RV && !TB_V7) trA *= 1 - .7 * TB_ON1;   // XR2: the path dims while the (Re)insurance page holds
-          var hd11 = [lp(bowStop(kb0)[0], bowStop(kb0 + 1)[0], mh), lp(bowStop(kb0)[1], bowStop(kb0 + 1)[1], mh)];
-          TRK11 = { a: TBB ? exB : trA, p: BPTS.slice(2) };
-          if (trA > 0) {
-            c.lineCap = 'round';
-            if (TBB && oA > 0) {   // while it is still part of Orion, the bow keeps its line to Bellatrix (which fades with the rest)
-              var pA = BPTS[4], pB = TB13 ? ori13('bella') : oriHome('bella'), ddx = pB[0] - pA[0], ddy = pB[1] - pA[1], dd = Math.hypot(ddx, ddy) || 1;
-              c.strokeStyle = rgba(DUSK, TB_VAR('--tb-orion-lines', .42) * oA); c.lineWidth = 1; c.beginPath(); c.moveTo(pA[0] + ddx / dd * 7, pA[1] + ddy / dd * 7); c.lineTo(pB[0] - ddx / dd * 7, pB[1] - ddy / dd * 7); c.stroke();
-            }
-            c.strokeStyle = rgba(DUSK, (TBB ? lp(TB_VAR('--tb-orion-lines', .42), .22, exB) : .22) * trA); c.lineWidth = 1; c.beginPath(); BPTS.forEach(function (Pb, n) { if (n) c.lineTo(Pb[0], Pb[1]); else c.moveTo(Pb[0], Pb[1]); }); c.stroke();   // the whole bow, faint
-            if (!TABIT_PH) { c.strokeStyle = 'rgba(168,130,58,' + (TB_VAR('--tb-path-gold', .75) * trA).toFixed(3) + ')'; c.lineWidth = 1.4; c.beginPath(); c.moveTo(bowStop(0)[0], bowStop(0)[1]);   // travelled so far, in brass
-            for (var bi = 1; bi <= kb0; bi++) c.lineTo(bowStop(bi)[0], bowStop(bi)[1]);
-            if (mh > 0) c.lineTo(hd11[0], hd11[1]); c.stroke(); }
-            c.globalCompositeOperation = 'lighter';
-            BPTS.forEach(function (Pb, n) {
-              var st11 = n >= 2, on = st11 && n - 2 === near ? hold : 0, sz = st11 ? 2.2 + 2.4 * on : 1.3, al = st11 ? .7 + .3 * on : .4;
-              if (TBB) { var b12 = oriB(BOWK[n]); sz = lp(1 + 1.6 * b12, sz, exB); al = lp(.55 + .45 * b12, al, exB); }   // drawn as Orion draws it, then as the path
-              star(Pb[0], Pb[1], sz, trA * al, BOWK[n] === 'pi3' ? '255,248,232' : IVORY);
-            });
-            c.globalCompositeOperation = 'source-over';
-            if (near >= 1 && !TABIT_PH) { var cs = bowStop(near); c.strokeStyle = rgba(IVORY, .5 * hold * trA); c.lineWidth = 1; c.beginPath(); c.arc(cs[0], cs[1], 9, 0, 6.2832); c.stroke();
-              c.font = '600 10px Manrope, system-ui, sans-serif'; c.textAlign = 'center'; c.textBaseline = 'top'; c.fillStyle = rgba(TB_RGB('--tb-path-label', IVORY), TB_VAR('--tb-path-label-a', .7) * hold * trA); c.fillText(CH[near].t.toUpperCase().split('').join(String.fromCharCode(8202)), cs[0], cs[1] + 15); c.textAlign = 'left'; c.textBaseline = 'alphabetic'; }
-          }
-          if (mh > 0 && mh < 1) {   // the ball and the brass trail it leaves along the bow
-            c.globalCompositeOperation = 'lighter';
-            for (var tt11 = 14; tt11 >= 0; tt11--) { var m2 = Math.max(0, mh - tt11 * .02), tp2 = [lp(bowStop(kb0)[0], bowStop(kb0 + 1)[0], m2), lp(bowStop(kb0)[1], bowStop(kb0 + 1)[1], m2)]; dot(tp2[0], tp2[1], 3.2 * (1 - tt11 / 15) + .6, .5 * (1 - tt11 / 15), '168,130,58'); }
-            star(hd11[0], hd11[1], TB13 ? 5 : 6, TB13 ? .5 : .85, '255,244,224');
-            c.globalCompositeOperation = 'source-over';
-          }
-          var fl11 = Math.exp(-Math.pow((f - PH[4]) / .03, 2)); if (fl11 > .02 && !TB13) { var b1 = bowStop(kb0 + 1); c.globalCompositeOperation = 'lighter'; star(b1[0], b1[1], 26, .5 * fl11, '255,240,214'); c.globalCompositeOperation = 'source-over'; }   // the burst
-        } else TRK11 = null;
-        if (TR && f > .02 && f < .98) {   // the shooting star's head and its gold tail
-          var mh = sg(f, .34, .68);
-          if (mh > 0 && mh < 1) {
-            c.globalCompositeOperation = 'lighter';
-            for (var ti = 22; ti >= 0; ti--) { var ta = comet(mh - ti * .012), tb = comet(mh - (ti + 1) * .012); c.strokeStyle = 'rgba(168,130,58,' + (.55 * (1 - ti / 23)).toFixed(3) + ')'; c.lineWidth = 7 * (1 - ti / 24) + .5; c.lineCap = 'round'; c.beginPath(); c.moveTo(tb[0], tb[1]); c.lineTo(ta[0], ta[1]); c.stroke(); }
-            var hd = comet(mh); star(hd[0], hd[1], 7, .9, '255,240,210');
-            c.globalCompositeOperation = 'source-over';
-          }
-          var fl = Math.exp(-Math.pow((f - .67) / .035, 2)); if (fl > .02) { c.globalCompositeOperation = 'lighter'; star(CX[0], CX[1], 30, .55 * fl, '255,236,196'); c.globalCompositeOperation = 'source-over'; }   // the burst
+        if (mh > 0 && mh < 1) {   // the ball and the brass trail it leaves along the bow
+          c.globalCompositeOperation = 'lighter';
+          for (var tt11 = 14; tt11 >= 0; tt11--) { var m2 = Math.max(0, mh - tt11 * .02), tp2 = [lp(bowStop(kb0)[0], bowStop(kb0 + 1)[0], m2), lp(bowStop(kb0)[1], bowStop(kb0 + 1)[1], m2)]; dot(tp2[0], tp2[1], 3.2 * (1 - tt11 / 15) + .6, .5 * (1 - tt11 / 15), '168,130,58'); }
+          star(hd11[0], hd11[1], 5, .5, '255,244,224');
+          c.globalCompositeOperation = 'source-over';
         }
         P.forEach(function (o, j) {
           var a = shapeAt(k, j), b = shapeAt(Math.min(k + 1, CH.length - 1), j), q = io(sg(f, .15 + o.d, .65 + o.d));
           var mx = (a[0] + b[0]) / 2 + o.w * 120 * Math.sin(Math.PI * q), my = (a[1] + b[1]) / 2 - 80 * Math.sin(Math.PI * q);   // a gentle curl on the way
           var x = (1 - q) * (1 - q) * a[0] + 2 * (1 - q) * q * mx + q * q * b[0], y = (1 - q) * (1 - q) * a[1] + 2 * (1 - q) * q * my + q * q * b[1];
-          var inShape = (CH[k].k !== 'home' && q < .5) || (CH[Math.min(k + 1, CH.length - 1)].k !== 'home' && q >= .5);
-          var clump = 0, vis13 = 1;
-          if (TB13) { var r13 = b13Pos(o, j); x = r13[0]; y = r13[1]; vis13 = r13[2]; clump = r13[3]; inShape = true; }
-          else if ((TR || TB11) && f > .005 && f < .995) {
-            var tp = TB11 ? bowPos(o, j, f) : trPos(o, j, f), tq = TB11 ? bowPos(o, j, Math.max(0, f - .03)) : trPos(o, j, Math.max(0, f - .03)); x = tp[0]; y = tp[1]; clump = Math.min(tp[2], 1 - tp[3]);
-            inShape = (CH[k].k !== 'home' && tp[2] < .5) || (CH[Math.min(k + 1, CH.length - 1)].k !== 'home' && tp[3] > .5);
-            var sp = Math.hypot(x - tq[0], y - tq[1]);
-            if (sp > 2) { c.strokeStyle = 'rgba(168,130,58,' + Math.min(.5, sp / 120).toFixed(3) + ')'; c.lineWidth = .8; c.beginPath(); c.moveTo(tq[0], tq[1]); c.lineTo(x, y); c.stroke(); }   // each star's own gold streak
-          }
+          var vis13 = 1;
+          var r13 = b13Pos(o, j); x = r13[0]; y = r13[1]; vis13 = r13[2];
           var gf = 0;
           if (GRAV.s > .01 && !(TB13 && r13 && (K13 > 0 || F13 > Q13[0]) && (r13[3] > .02 || r13[4]))) { /* XR2.5.4: on Home the stars still answer the mouse; only once they set off down the path are they out of reach */ var gx = GRAV.sx - x, gy = GRAV.sy - y, gd = Math.hypot(gx, gy); if (gd < GR) { gf = 1 - gd / GR; gf = gf * gf * GRAV.s; x += gx * .42 * gf - gy * .08 * gf; y += gy * .42 * gf + gx * .08 * gf; } }
-          var fcol = (TABIT_OPT === 3 || TABIT_OPT === 8) ? (q < .5 ? figCol(k) : figCol(Math.min(k + 1, CH.length - 1))) : IVORY;
+          var fcol = IVORY;
           var kn9 = TB_AIL && TB13 && r13 && (r13[4] || (CH[K13].k === 'ai' && F13 < Q13[1] * .8));
           if (kn9 && vis13 > .004) {   // XR2.3.14: the AI figure is made of tiny Tabit knots. XR2.5.1: drawn with the very same sprites, sizes, glow, twinkle and glint as the A and I's knots
             var ST9 = TB_STF ? TB_STF() : null, rr9 = (Math.sin(j * 78.233 + 1.7) * 43758.5453) % 1; rr9 = rr9 < 0 ? rr9 + 1 : rr9;
@@ -2692,13 +1779,12 @@ function makeScrollSky(root, IDEA, LOGO, OPT) {
               if (!TB_KNC) { TB_KNC = realDoc.createElement('canvas'); TB_KNC.width = TB_KNC.height = 40; var kg9 = TB_KNC.getContext('2d'), ks9 = 36 / 501.3; kg9.setTransform(ks9, 0, 0, ks9, 2 + 2.75 * ks9, 20 - 193.2 * ks9); kg9.fillStyle = '#FBF9F4'; kg9.fill(new Path2D(LOGO.mark), 'evenodd'); }
               c.globalAlpha = a9; c.drawImage(TB_KNC, x - sz9 / 2, y - sz9 / 2, sz9, sz9); c.globalAlpha = 1;
             }
-          } else if (vis13 > .004) dot(x, y, (inShape ? 1.3 : .8) + .5 * gf + (TB13 ? 0 : .6 * clump), vis13 * Math.min(1, (inShape ? .85 : .5) + .3 * gf + (TB13 ? 0 : .4 * clump)), inShape ? fcol : (clump > .5 ? '255,244,224' : '220,226,246'));
+          } else if (vis13 > .004) dot(x, y, (1.3) + .5 * gf + (0), vis13 * Math.min(1, (.85) + .3 * gf + (0)), fcol);
         });
         c.globalCompositeOperation = 'source-over';
         var capI = -1; CH.forEach(function (ch, i) { if (ch.k === 'alnilam') capI = i; });
         if (HL && capI >= 0 && TB_V7 && TB13) {   // XR2.2.7
           var SG7 = tbG('alnilam'), mode7 = K13 === capI ? 0 : K13 + 1 === capI ? 1 : -1, s17 = io(sg(F13, Q13[0], Q13[1])), m7 = io(sg(F13, Q13[2], Q13[3])), s27 = io(sg(F13, Q13[4], Q13[5]));
-          var sa7 = mode7 === 0 ? (1 - m7) * (1 - .35 * s17) : mode7 === 1 ? s27 : 0;   // leaving: it rides the ball and fades; arriving: it grows in with the orbit
           var C7 = anc13(capI), BL7 = bl13(capI), P07 = bowStop(K13), P17 = bowStop(K13 + 1);
           var sat7 = function (q) {   // a point of the orbit to the screen, placed exactly as the orbit's own stars are
             var p = [SG7.cx + (q[0] - 260) * SG7.s, SG7.cy + gy9(capI) + (q[1] - 210) * SG7.s], x, y, kk;
@@ -2708,295 +1794,48 @@ function makeScrollSky(root, IDEA, LOGO, OPT) {
             if (GRAV.s > .01) { var gx = GRAV.sx - x, gy = GRAV.sy - y, gd = Math.hypot(gx, gy); if (gd < GR) { var gq = 1 - gd / GR; gq = gq * gq * GRAV.s; x += gx * .42 * gq - gy * .08 * gq; y += gy * .42 * gq + gx * .08 * gq; } }
             return [x, y];
           };
-          if (TB_X3) {   // XR2.3: the satellite comes in down the dotted trail, then round the orbit; before, it circled while the trail led nowhere
-            var form9 = (mode7 === 0 && F13 < Q13[0]) || (mode7 === 1 && s27 > .98);
-            if (form9 && TB_CAPS < 0) TB_CAPS = T; if (mode7 < 0 || (mode7 === 1 && s27 < .5)) TB_CAPS = -1;
-            var st9 = TB_CAPS < 0 ? -1 : T - TB_CAPS, sa9 = st9 < 0 ? 0 : Math.min(1, st9 / .5) * (mode7 === 0 ? (1 - m7) * (1 - .35 * s17) : 1);
-            if (sa9 > .01) { c.globalCompositeOperation = 'lighter';
-              for (var tj9 = 12; tj9 >= 1; tj9--) { if (st9 - tj9 * .045 < 0) continue; var pj9 = sat7(capAt(st9 - tj9 * .045)); dot(pj9[0], pj9[1], (2.2 - tj9 * .13) * 1.2, sa9 * .9 * (1 - tj9 / 13), '168,130,58'); }
-              var ps9 = sat7(capAt(st9)); star(ps9[0], ps9[1], 5 * lp(.5, 1, sa9), sa9, '255,248,232'); dot(ps9[0], ps9[1], 2.8 * lp(.6, 1, sa9), sa9, '255,252,244');
-              c.globalCompositeOperation = 'source-over'; }
-          } else if (sa7 > .01) {
-            var th7 = CAPO.t0 - T * 1.2; c.globalCompositeOperation = 'lighter';
-            for (var tj7 = 12; tj7 >= 1; tj7--) { var pj7 = sat7(capE(th7 + tj7 * .054)); dot(pj7[0], pj7[1], (2.2 - tj7 * .13) * 1.2, sa7 * .9 * (1 - tj7 / 13), '168,130,58'); }   // a fading gold trail, along the orbit
-            var ps7 = sat7(capE(th7)); star(ps7[0], ps7[1], 5 * lp(.5, 1, sa7), sa7, '255,248,232'); dot(ps7[0], ps7[1], 2.8 * lp(.6, 1, sa7), sa7, '255,252,244');
-            c.globalCompositeOperation = 'source-over';
-          }
+          // XR2.3: the satellite comes in down the dotted trail, then round the orbit; before, it circled while the trail led nowhere
+          var form9 = (mode7 === 0 && F13 < Q13[0]) || (mode7 === 1 && s27 > .98);
+          if (form9 && TB_CAPS < 0) TB_CAPS = T; if (mode7 < 0 || (mode7 === 1 && s27 < .5)) TB_CAPS = -1;
+          var st9 = TB_CAPS < 0 ? -1 : T - TB_CAPS, sa9 = st9 < 0 ? 0 : Math.min(1, st9 / .5) * (mode7 === 0 ? (1 - m7) * (1 - .35 * s17) : 1);
+          if (sa9 > .01) { c.globalCompositeOperation = 'lighter';
+            for (var tj9 = 12; tj9 >= 1; tj9--) { if (st9 - tj9 * .045 < 0) continue; var pj9 = sat7(capAt(st9 - tj9 * .045)); dot(pj9[0], pj9[1], (2.2 - tj9 * .13) * 1.2, sa9 * .9 * (1 - tj9 / 13), '168,130,58'); }
+            var ps9 = sat7(capAt(st9)); star(ps9[0], ps9[1], 5 * lp(.5, 1, sa9), sa9, '255,248,232'); dot(ps9[0], ps9[1], 2.8 * lp(.6, 1, sa9), sa9, '255,252,244');
+            c.globalCompositeOperation = 'source-over'; }
         } else if (HL && capI >= 0) {
           var onCap = near === capI ? hold : 0;
           if (onCap > .9 && capS < 0) capS = T; if (onCap < .2) capS = -1;
           if (capS >= 0 && onCap > .01) {
             var SG = tbG('alnilam'), st = T - capS; c.globalCompositeOperation = 'lighter';
             function gpull(x, y) { if (!TB_GOLD || GRAV.s <= .01) return [x, y]; var gx = GRAV.sx - x, gy = GRAV.sy - y, gd = Math.hypot(gx, gy); if (gd >= 190) return [x, y]; var gf = 1 - gd / 190; gf = gf * gf * GRAV.s; return [x + gx * .42 * gf - gy * .08 * gf, y + gy * .42 * gf + gx * .08 * gf]; }
-            for (var tj = 12; tj >= 1; tj--) { if (st - tj * .045 < 0) continue; var qj = capAt(st - tj * .045), pj = gpull(SG.cx + (qj[0] - 260) * SG.s, SG.cy + (qj[1] - 210) * SG.s); dot(pj[0], pj[1], (2.2 - tj * .13) * (TB_GOLD ? 1.2 : 1), onCap * (TB_GOLD ? .9 : .7) * (1 - tj / 13), TB_GOLD ? '168,130,58' : '255,248,232'); }   // a fading trail
+            for (var tj = 12; tj >= 1; tj--) { if (st - tj * .045 < 0) continue; var qj = capAt(st - tj * .045), pj = gpull(SG.cx + (qj[0] - 260) * SG.s, SG.cy + (qj[1] - 210) * SG.s); dot(pj[0], pj[1], (2.2 - tj * .13) * (1.2), onCap * (.9) * (1 - tj / 13), '168,130,58'); }   // a fading trail
             var qs = capAt(st), ps = gpull(SG.cx + (qs[0] - 260) * SG.s, SG.cy + (qs[1] - 210) * SG.s), sx0 = ps[0], sy0 = ps[1]; star(sx0, sy0, 5, onCap, '255,248,232'); dot(sx0, sy0, 2.8, onCap, '255,252,244');   // the satellite: brighter than any star in the figure
             c.globalCompositeOperation = 'source-over';
           }
         }
-        lock(ch_is(near, 'home') ? 1 - sg(u, 0, .25) : 0);
-        placePanel('left', 250);
       }
     };
   })();
-
-  // =========================================================================================== AS13 · Powers of ten
-  // ERA's scroll zoom into a detailed image, taken all the way: from the constellation down to the planet, the island, the
-  // town and finally a single document on a desk. Each scale is a chapter.
-  scenes.powers = (function () {
-    function layer(i, s, a) {
-      if (a <= .01 || s < .02 || s > 60) return;
-      c.save(); c.translate(640, 360); c.scale(s, s); c.globalAlpha = a;
-      if (i === 0) { c.restore(); c.save(); c.globalAlpha = a; c.translate(640, 360); c.scale(s, s); c.translate(-512, -360); drawOrion(1); c.restore(); return; }
-      if (i === 1) { var g = c.createRadialGradient(-60, -60, 20, 0, 0, 240); g.addColorStop(0, '#2a3d6e'); g.addColorStop(1, '#0a1230'); c.fillStyle = g; c.beginPath(); c.arc(0, 0, 220, 0, 6.2832); c.fill(); c.fillStyle = 'rgba(255,214,150,.8)'; var sd = 5; for (var j = 0; j < 120; j++) { sd = (sd * 16807) % 2147483647; var r1 = sd / 2147483647; sd = (sd * 16807) % 2147483647; var r2 = sd / 2147483647; var rr = 200 * Math.sqrt(r1), an = r2 * 6.28; c.fillRect(rr * Math.cos(an), rr * Math.sin(an), 1.6, 1.6); } c.strokeStyle = 'rgba(168,130,58,.9)'; c.lineWidth = 1.5 / s; c.beginPath(); c.arc(0, 0, 6, 0, 6.2832); c.stroke(); }
-      if (i === 2) { c.fillStyle = '#16244d'; c.beginPath(); c.moveTo(-40, -150); c.bezierCurveTo(60, -140, 90, -40, 70, 60); c.bezierCurveTo(50, 150, -20, 170, -60, 120); c.bezierCurveTo(-90, 60, -100, -60, -40, -150); c.fill(); c.strokeStyle = 'rgba(184,192,212,.6)'; c.lineWidth = 1 / s; c.stroke(); c.fillStyle = BRASS; c.beginPath(); c.arc(0, 0, 4, 0, 6.2832); c.fill(); }
-      if (i === 3) { c.strokeStyle = 'rgba(184,192,212,.5)'; c.lineWidth = 1 / s; for (var gx = -200; gx <= 200; gx += 40) { c.beginPath(); c.moveTo(gx, -160); c.lineTo(gx + 20, 160); c.stroke(); } for (var gy = -160; gy <= 160; gy += 40) { c.beginPath(); c.moveTo(-200, gy); c.lineTo(200, gy + 10); c.stroke(); } c.strokeStyle = 'rgba(251,249,244,.8)'; c.beginPath(); c.moveTo(-220, 120); c.bezierCurveTo(-80, 90, 60, 140, 220, 100); c.stroke(); c.fillStyle = BRASS; c.fillRect(-6, -6, 12, 12); }
-      if (i === 4) { c.strokeStyle = 'rgba(251,249,244,.7)'; c.lineWidth = 1.5 / s; c.strokeRect(-180, -110, 360, 220); c.beginPath(); c.moveTo(-40, -110); c.lineTo(-40, 110); c.moveTo(-40, 0); c.lineTo(180, 0); c.stroke(); c.fillStyle = 'rgba(251,249,244,.12)'; c.fillRect(-20, -20, 40, 26); }
-      if (i === 5) { c.fillStyle = '#F4EFE6'; c.fillRect(-60, -80, 120, 160); c.fillStyle = 'rgba(9,21,74,.5)'; for (var ly = -50; ly < 60; ly += 10) c.fillRect(-44, ly, 88 - (ly % 20 ? 20 : 0), 2); c.save(); c.translate(0, -66); c.scale(.04, .04); c.translate(-247.9, -193.2); c.fillStyle = 'rgba(9,21,74,.8)'; c.fill(new Path2D(LOGO.mark), 'evenodd'); c.restore(); }
-      c.restore();
-    }
-    var LAB = ['', 'Earth, at night', 'Barbados', 'Bridgetown', 'The office', 'The document'];
-    return {
-      side: 'right', meter: true,
-      draw: function (u, near, hold) {
-        drawSky(0, 0, 1 - sg(u, .3, 1.2) * .7);
-        for (var i = 0; i < CH.length; i++) { var s = Math.pow(10, (u - i) * 1.2), a = sg(s, .06, .3) * (1 - sg(s, 4, 14)); if (i === 0) a = 1 - sg(u, .35, .9); layer(i, i === 0 ? s : s, a); }
-        lock(1 - sg(u, 0, .25), 0, 0, Math.pow(10, u * 1.2));
-        meterTxt = meter.textContent = LAB[near] || '';
-      }
-    };
-  })();
-
-  // =========================================================================================== AS14 · The night passes
-  // Aten7's living world (dynamic seasons, an interactive timeline): scrolling runs one night over Bridgetown. Orion
-  // rises at dusk, crosses and sets at dawn; a clock is the progress bar.
-  scenes.night = (function () {
-    var HOURS = ['', '19:00', '22:00', '00:30', '03:00', '05:40'];
-    return {
-      side: 'right', meter: true,
-      draw: function (u, near, hold) {
-        var tilt = 220 * sg(u, 0, .8), p = sg(u, .6, CH.length - 1), rot = lp(-.5, .5, p), dawn = sg(p, .72, 1), dusk = 1 - sg(p, 0, .25);
-        var g = c.createLinearGradient(0, 0, 0, H); g.addColorStop(0, 'rgb(' + Math.round(lp(4, 40, dawn)) + ',' + Math.round(lp(7, 52, dawn)) + ',' + Math.round(lp(15, 96, dawn)) + ')');
-        g.addColorStop(1, 'rgb(' + Math.round(lp(4, 196, dawn) + 30 * dusk * sg(u, .2, .8)) + ',' + Math.round(lp(7, 150, dawn) + 18 * dusk * sg(u, .2, .8)) + ',' + Math.round(lp(15, 120, dawn)) + ')'); c.fillStyle = g; c.fillRect(0, 0, W, H);
-        var CX = 640, CY = 2600 - tilt;
-        function rotP(x, y) { var dx = x - CX, dy = y + (-tilt) + 900 * sg(u, 0, .8) * 0 - CY, a = rot, ca = Math.cos(a), sa = Math.sin(a); var X = CX + dx * ca - dy * sa, Y = CY + dx * sa + dy * ca; return [X, Y]; }
-        var starA = 1 - .8 * dawn, hz = 720 - 150 * sg(u, 0, .8);
-        drawSky(0, 0, starA, function (x, y) { var q = rotP(x, y); return q[1] < hz ? q : null; });
-        var oriShift = function (k) { var q = rotP(ORI[k][0] + 400 * sg(u, .2, .8), ORI[k][1] + 120 * sg(u, .2, .8)); return q[1] < hz - 6 ? q : null; };
-        drawOrion(starA, u < .2 ? null : oriShift, 1);
-        if (hz < 720) { var sea = c.createLinearGradient(0, hz, 0, H); sea.addColorStop(0, 'rgba(' + Math.round(lp(10, 120, dawn)) + ',' + Math.round(lp(16, 110, dawn)) + ',' + Math.round(lp(36, 120, dawn)) + ',1)'); sea.addColorStop(1, '#03050c'); c.fillStyle = sea; c.fillRect(0, hz, W, H - hz); c.fillStyle = 'rgba(8,12,24,.95)'; c.beginPath(); c.moveTo(0, hz); for (var x = 0; x <= W; x += 40) c.lineTo(x, hz - 6 - 10 * Math.abs(Math.sin(x * .013)) - (x > 380 && x < 700 ? 14 + 10 * Math.sin(x * .1) : 0)); c.lineTo(W, hz); c.fill(); }
-        lock(1 - sg(u, 0, .25));
-        meterTxt = meter.textContent = HOURS[near] ? 'Bridgetown · ' + HOURS[near] : '';
-      }
-    };
-  })();
-
-  // =========================================================================================== AS14.2 · The night passes
-  // One real night over Bridgetown (8 December, when Orion rises at dusk and sets at dawn), worked out properly: every star
-  // sits at its true position for the hour, so the sky turns the way it really does from 13° north (rising in the east,
-  // climbing over the south, setting in the west). Orion's neighbours come and go with it: Taurus and the Pleiades lead,
-  // Sirius and Canopus follow, Gemini rides above, the moon sets over Carlisle Bay. Scrolling is the clock.
-  scenes.night2 = (function () {
-    var LAT = 13.1 * Math.PI / 180, LON = -59.62, JD0 = 2461382.5, RAD = Math.PI / 180, FPX = 480;
-    function lstAt(h) { var D = JD0 - 2451545 + (h + 4) / 24; return ((18.697374558 + 24.06570982441908 * D + LON / 15) % 24 + 24) % 24; }
-    function hor(ra, dec, L) {   // horizon vector [east, north, up] for RA (h), Dec (deg) at sidereal time L
-      var H = (L - ra) * 15 * RAD, d = dec * RAD, cd = Math.cos(d);
-      return [-cd * Math.sin(H), Math.sin(d) * Math.cos(LAT) - cd * Math.sin(LAT) * Math.cos(H), Math.sin(d) * Math.sin(LAT) + cd * Math.cos(LAT) * Math.cos(H)];
-    }
-    // Orion (the B11 stars) in RA / Dec
-    var OEQ = { betel: [5.9195, 7.407], rigel: [5.2423, -8.202], bella: [5.4189, 6.350], mintaka: [5.5334, -0.299], alnilam: [5.6036, -1.202], alnitak: [5.6793, -1.943], saiph: [5.7959, -9.670],
-      meissa: [5.5856, 9.934], pi1: [4.9149, 10.151], pi2: [4.8435, 8.900], pi3: [4.8307, 6.961], pi4: [4.8535, 5.605], pi5: [4.9042, 2.441], pi6: [4.9758, 1.714], mu: [6.0397, 9.648],
-      nu: [6.1263, 14.768], xi: [6.2002, 14.209], chi1: [5.9065, 20.276], chi2: [6.0657, 20.138], omi2: [4.9395, 13.514], o11: [5.0762, 15.404], eta: [5.4078, -2.397], tau: [5.2932, -6.845] };
-    // the neighbours: [RA h, Dec deg, magnitude, colour]
-    var NB = {
-      ald: [4.5987, 16.509, .87, '255,206,160'], elnath: [5.4382, 28.608, 1.65], zetT: [5.6274, 21.143, 3.0], gamT: [4.3297, 15.628, 3.65], delT: [4.3825, 17.543, 3.76], epsT: [4.4769, 19.180, 3.53], the2T: [4.4777, 15.871, 3.4], lamT: [4.0110, 12.490, 3.4],
-      alcy: [3.7914, 24.105, 2.87], atlas: [3.8193, 24.053, 3.62], elec: [3.7479, 24.113, 3.7], maia: [3.7636, 24.368, 3.87], merope: [3.7721, 23.948, 4.18], tayg: [3.7535, 24.467, 4.3], pleio: [3.8196, 24.137, 5.0],
-      sirius: [6.7525, -16.716, -1.46, '226,236,255'], mirzam: [6.3783, -17.956, 1.98], adhara: [6.9771, -28.972, 1.5], wezen: [7.1399, -26.393, 1.83], aludra: [7.4016, -29.303, 2.45], furud: [6.3385, -30.063, 3.0], omi2C: [7.0501, -23.833, 3.0], iotC: [6.9356, -17.054, 4.4], mulip: [7.0624, -15.633, 4.1],
-      procyon: [7.6550, 5.225, .34, '255,248,228'], gomeisa: [7.4527, 8.289, 2.9],
-      castor: [7.5767, 31.888, 1.58], pollux: [7.7553, 28.026, 1.14, '255,214,170'], alhena: [6.6285, 16.399, 1.9], mebsuta: [6.7322, 25.131, 3.0], tejat: [6.3827, 22.514, 2.87], propus: [6.2479, 22.507, 3.3], wasat: [7.3354, 21.982, 3.5], mekbuda: [7.0685, 20.570, 3.9],
-      arneb: [5.5455, -17.822, 2.58], nihal: [5.4709, -20.759, 2.84], epsL: [5.0913, -22.371, 3.19], muL: [5.2156, -16.205, 3.3], gamL: [5.7445, -22.448, 3.6], delL: [5.8555, -20.879, 3.8],
-      canopus: [6.3992, -52.696, -.74, '255,250,236'],
-      acrux: [12.4433, -63.099, .77, '220,230,255'], mimosa: [12.7954, -59.689, 1.25, '220,230,255'], gacrux: [12.5194, -57.113, 1.6, '255,210,170'], delCr: [12.2524, -58.749, 2.8],
-      rigilK: [14.6600, -60.835, -.27, '255,240,214'], hadar: [14.0637, -60.373, .61, '220,230,255'],
-      capella: [5.2782, 45.998, .08, '255,240,200'], menkal: [5.9921, 44.948, 1.9], hassal: [4.9499, 33.166, 2.69],
-      achernar: [1.6286, -57.237, .46, '220,230,255'], fomal: [22.9608, -29.622, 1.16], hamal: [2.1196, 23.463, 2.0, '255,214,176'], sheratan: [1.9107, 20.808, 2.64], menkar: [3.0380, 4.090, 2.5, '255,206,170']
-    };
-    var NLINES = [['lamT', 'gamT'], ['gamT', 'delT'], ['delT', 'epsT'], ['epsT', 'elnath'], ['gamT', 'the2T'], ['the2T', 'ald'], ['ald', 'zetT'],
-      ['mirzam', 'sirius'], ['sirius', 'iotC'], ['iotC', 'mulip'], ['sirius', 'omi2C'], ['omi2C', 'wezen'], ['wezen', 'adhara'], ['adhara', 'furud'], ['wezen', 'aludra'],
-      ['procyon', 'gomeisa'], ['castor', 'mebsuta'], ['mebsuta', 'tejat'], ['tejat', 'propus'], ['pollux', 'wasat'], ['wasat', 'mekbuda'], ['mekbuda', 'alhena'], ['castor', 'pollux'],
-      ['muL', 'arneb'], ['arneb', 'nihal'], ['nihal', 'epsL'], ['arneb', 'gamL'], ['gamL', 'delL'], ['nihal', 'gamL'],
-      ['gacrux', 'acrux'], ['mimosa', 'delCr'], ['capella', 'menkal'], ['capella', 'hassal'], ['hamal', 'sheratan']];
-    var LABELS = [['ald', 'Taurus', 14, -14], ['alcy', 'The Pleiades', 12, -12], ['sirius', 'Sirius', 12, 4], ['canopus', 'Canopus', 12, 4], ['procyon', 'Procyon', 12, 4], ['castor', 'Gemini', 12, -12],
-      ['arneb', 'Lepus', 12, 4], ['acrux', 'Southern Cross', 14, 4], ['rigilK', 'Alpha Centauri', 12, 4], ['capella', 'Capella', 12, 4], ['betel', 'Orion', -54, -16], ['wezen', 'Canis Major', 12, 4], ['hamal', 'Aries', 12, 4]];
-    // the sky behind: faint stars spread over the whole sphere, and the winter Milky Way
-    var BG = []; for (var i = 0; i < 2200; i++) BG.push([rnd() * 24, Math.asin(2 * rnd() - 1) / RAD, Math.pow(rnd(), 5), TEMP[(rnd() * rnd() * 5) | 0]]);
-    var MW = [];
-    (function () {   // galactic plane to RA / Dec (J2000): north galactic pole RA 192.859, Dec 27.128, l of the celestial pole 122.932
-      var aP = 192.85948 * RAD, dP = 27.12825 * RAD, lN = 122.93192 * RAD;
-      for (var j = 0; j < 2600; j++) {
-        var l = rnd() * 360, g = (rnd() + rnd() + rnd() - 1.5) * 9, b = g * RAD, L2 = l * RAD;
-        var sd = Math.sin(dP) * Math.sin(b) + Math.cos(dP) * Math.cos(b) * Math.cos(lN - L2), dec = Math.asin(sd);
-        var ra = aP + Math.atan2(Math.cos(b) * Math.sin(lN - L2), Math.cos(dP) * Math.sin(b) - Math.sin(dP) * Math.cos(b) * Math.cos(lN - L2));
-        var bright = .35 + .65 * Math.pow(Math.max(0, Math.cos((l - 300) * RAD)), 2);   // brighter towards Carina and the Cross, faint at the anticentre by Orion
-        MW.push([((ra / RAD / 15) % 24 + 24) % 24, dec / RAD, bright * (1 - Math.abs(g) / 14), rnd()]);
-      }
-    })();
-    var MOON = [2.0, 12.0], SUN = [16.95, -22.7], MOONK = .86;   // a waxing gibbous moon on the ecliptic below Aries, west of Taurus
-    // chapters: the clock (local time, hours, running past midnight) and where you are looking [azimuth, altitude]
-    var ORDER = [{ k: 'home', t: 'Home', h: 18.33, cam: [118, 0, 630] },
-      { k: 'mintaka', t: '(Re)insurance', h: 18.75, cam: [118, 0, 630], kick: '18:45 · Orion rises over the island in the east' },
-      { k: 'alnilam', t: 'Capital & cells', h: 21.5, cam: [128, 0, 640], kick: '21:30 · Sirius and Canopus follow it up' },
-      { k: 'alnitak', t: 'Life & PPLI', h: 24.5, cam: [225, 78, 300], kick: '00:30 · Orion stands highest, due south' },
-      { k: 'meissa', t: 'AI', h: 27.0, cam: [268, 12, 560], kick: '03:00 · The moon sets over Carlisle Bay' },
-      { k: 'contact', t: 'Contact', h: 29.0, cam: [280, 0, 610], kick: '05:00 · First light · Orion goes down in the west', head: 'Speak to the team' }];
-    // on the Beta site: the sky morphs out of B11 during the hand-off, then one hour per page, with the subject kept right of the copy
-    var SHELL_ORDER = [{ k: 'home', t: 'Home', h: 18.33, cam: [62, 0, 630] },
-      { k: 'p1', t: 'Home', h: 18.75, cam: [62, 0, 630] },
-      { k: 'p2', t: 'AI', h: 21.5, cam: [80, 0, 640] },
-      { k: 'p3', t: 'Capital', h: 24.5, cam: [200, 78, 300] },
-      { k: 'p4', t: 'Life & PPLI', h: 27.0, cam: [246, 12, 560] },
-      { k: 'p5', t: 'Barbados', h: 29.0, cam: [246, 0, 610] }];
-    if (HL) ORDER = SHELL_ORDER;
-    var COMP = [[90, 'E'], [112.5, 'ESE'], [135, 'SE'], [157.5, 'SSE'], [180, 'S'], [202.5, 'SSW'], [225, 'SW'], [247.5, 'WSW'], [270, 'W'], [292.5, 'WNW']];
-    function facing(az) { var n = ['north', 'north-east', 'east', 'south-east', 'south', 'south-west', 'west', 'north-west']; return n[Math.round(((az % 360) + 360) % 360 / 45) % 8]; }
-    function landH(az) {   // the skyline in degrees: the island to the east (low hills, Bridgetown), sea from the south round to the west
-      var a = ((az % 360) + 360) % 360;
-      if (a > 30 && a < 160) return .9 + .5 * Math.sin(a * .21) + .3 * Math.sin(a * .77) + .25 * Math.sin(a * 2.3) + (a > 95 && a < 125 ? .35 : 0) * (1 + Math.sin(a * 3.1)) * sg(a, 30, 50) * (1 - sg(a, 140, 160));
-      if (a >= 160 && a < 176) return .35 * (1 - sg(a, 168, 176));   // Needham's Point
-      return 0;
-    }
-    var LIGHTS = []; for (var i2 = 0; i2 < 90; i2++) LIGHTS.push([40 + rnd() * 128, rnd(), rnd() * 6.28]);
-    return {
-      chapters: ORDER, side: 'right', meter: true, shell: { chapters: SHELL_ORDER, map: 'handoff' },
-      draw: function (u, near, hold) {
-        var k = Math.min(Math.floor(u), ORDER.length - 2), f = u - k, e = io(sg(f, .1, .9));
-        if (u >= ORDER.length - 1) { k = ORDER.length - 2; e = 1; }
-        var A = ORDER[k], B = ORDER[k + 1], hrs = lp(A.h, B.h, e), L = lstAt(hrs);
-        var az0 = lp(A.cam[0], B.cam[0], ss(e)) * RAD, al0 = lp(A.cam[1], B.cam[1], ss(e)) * RAD, PY = lp(A.cam[2], B.cam[2], ss(e));
-        var fw = [Math.cos(al0) * Math.sin(az0), Math.cos(al0) * Math.cos(az0), Math.sin(al0)], rt = [Math.cos(az0), -Math.sin(az0), 0];
-        var up = [rt[1] * fw[2] - rt[2] * fw[1], rt[2] * fw[0] - rt[0] * fw[2], rt[0] * fw[1] - rt[1] * fw[0]];
-        function proj(v) { var cz = v[0] * fw[0] + v[1] * fw[1] + v[2] * fw[2]; if (cz < -.2) return null; var kk = 2 * FPX / (1 + cz); return [640 + kk * (v[0] * rt[0] + v[1] * rt[1] + v[2] * rt[2]), PY - kk * (v[0] * up[0] + v[1] * up[1] + v[2] * up[2])]; }
-        function azal(az, al) { var a = az * RAD, b = al * RAD; return [Math.cos(b) * Math.sin(a), Math.cos(b) * Math.cos(a), Math.sin(b)]; }
-        var dome = sg(u, .08, .75), b11 = 1 - sg(u, 0, .45);
-        // ---- the sky's colour from the sun's real height: dusk glow in the west early on, first light from the east at the end
-        var sv = hor(SUN[0], SUN[1], L), sunAlt = Math.asin(sv[2]) / RAD, tw = sg(sunAlt, -19, -4);
-        var sunAz = Math.atan2(sv[0], sv[1]), toward = Math.max(0, Math.cos(sunAz - az0));
-        var top = [lp(4, 22, tw * .8), lp(7, 34, tw * .8), lp(15, 70, tw * .8)], low = [lp(8, lp(70, 190, toward), tw), lp(12, lp(86, 140, toward), tw), lp(26, lp(130, 140, toward), tw)];
-        var g = c.createLinearGradient(0, 0, 0, H); g.addColorStop(0, 'rgb(' + top.map(Math.round) + ')'); g.addColorStop(.5, 'rgb(' + top.map(function (x, q) { return Math.round(lp(x, low[q], .3)); }) + ')'); g.addColorStop(1, 'rgb(' + low.map(Math.round) + ')');
-        c.globalAlpha = dome; c.fillStyle = g; c.fillRect(0, 0, W, H); c.globalAlpha = 1;
-        if (b11 > 0) drawSky(0, 0, b11);
-        var starA = dome * (1 - .88 * tw);
-        // the moon, and how much it washes out the stars near it
-        var mv = hor(MOON[0], MOON[1], L), moonAlt = Math.asin(mv[2]) / RAD, mUp = sg(moonAlt, -1, 2);
-        function glare(v) { if (mUp <= 0) return 1; var d = Math.acos(cl(v[0] * mv[0] + v[1] * mv[1] + v[2] * mv[2], -1, 1)) / RAD; return lp(1, .35 + .65 * sg(d, 5, 28), mUp); }
-        function ext(alt) { return sg(alt, -.5, 7); }   // stars dim into the haze near the horizon
-        if (starA > .01) {
-          // Milky Way
-          for (var i = 0; i < MW.length; i++) { var m = MW[i], v = hor(m[0], m[1], L); if (v[2] < 0) continue; var p = proj(v); if (!p || p[0] < -4 || p[0] > W + 4 || p[1] < -4 || p[1] > H + 4) continue; dot(p[0], p[1], .5 + .7 * m[3], starA * .16 * m[2] * ext(Math.asin(v[2]) / RAD) * glare(v), '214,222,246'); }
-          for (var i = 0; i < BG.length; i++) { var s = BG[i], v = hor(s[0], s[1], L); if (v[2] < 0) continue; var p = proj(v); if (!p || p[0] < -4 || p[0] > W + 4 || p[1] < -4 || p[1] > H + 4) continue; var al = starA * (.22 + .7 * s[2]) * ext(Math.asin(v[2]) / RAD) * glare(v) * (.88 + .12 * Math.sin(T * 1.3 + i)); if (s[2] > .5) star(p[0], p[1], .8 + 1.4 * s[2], al * .8, s[3]); else dot(p[0], p[1], .45 + .8 * s[2], al, s[3]); }
-        }
-        // the neighbouring constellations
-        var NP = {};
-        Object.keys(NB).forEach(function (key) { var n = NB[key], v = hor(n[0], n[1], L); if (v[2] < -.01) return; var p = proj(v); if (p) NP[key] = [p[0], p[1], Math.asin(v[2]) / RAD, glare(v)]; });
-        c.lineWidth = 1;
-        NLINES.forEach(function (ln) { var a = NP[ln[0]], b = NP[ln[1]]; if (!a || !b) return; var dx = b[0] - a[0], dy = b[1] - a[1], d = Math.hypot(dx, dy); if (d < 14 || d > 900) return; var ux = dx / d * 6, uy = dy / d * 6; c.strokeStyle = rgba(DUSK, .26 * starA * Math.min(ext(a[2]), ext(b[2]))); c.beginPath(); c.moveTo(a[0] + ux, a[1] + uy); c.lineTo(b[0] - ux, b[1] - uy); c.stroke(); });
-        Object.keys(NP).forEach(function (key) { var n = NB[key], p = NP[key], br = cl(Math.pow(10, -.4 * (n[2] - 1)), .1, 2.4); star(p[0], p[1], .9 + 1.5 * Math.sqrt(br), starA * cl(.4 + .5 * br, .3, 1) * ext(p[2]) * p[3], n[3] || '236,240,255'); });
-        // Orion: B11 at the top of the page, easing into its true place in tonight's sky
-        var mo = io(sg(u, .05, .85)), OP = {};
-        Object.keys(OEQ).forEach(function (key) { var v = hor(OEQ[key][0], OEQ[key][1], L), p = proj(v); if (!p) return; var alt = Math.asin(v[2]) / RAD; if (alt < -.3 && mo > .99) return; OP[key] = [lp(ORI[key][0], p[0], mo), lp(ORI[key][1], p[1], mo), alt]; });
-        var oA = lp(1, starA / Math.max(dome, .001) * 1, mo) * (mo > .99 ? 1 : 1);
-        drawOrion(cl(oA, 0, 1) * (u < .02 ? 1 : 1), function (key) { var p = OP[key]; if (!p) return null; if (mo > .5 && p[2] < 0) return null; return [p[0], p[1]]; }, lp(1, .9, mo));
-        // Tabit, marked quietly
-        if (OP.pi3 && mo > .6 && OP.pi3[2] > 1) { var ta = sg(mo, .6, 1) * (1 - .7 * tw); c.strokeStyle = rgba('168,130,58', .8 * ta); c.lineWidth = 1; c.beginPath(); c.arc(OP.pi3[0], OP.pi3[1], 8, 0, 6.2832); c.stroke(); c.font = '600 9px Manrope, system-ui, sans-serif'; c.textBaseline = 'middle'; c.fillStyle = rgba('168,130,58', .85 * ta); c.fillText('T A B I T', OP.pi3[0] + 13, OP.pi3[1]); }
-        // labels for the neighbours
-        if (dome > .5) {
-          c.font = '600 9px Manrope, system-ui, sans-serif'; c.textBaseline = 'middle';
-          LABELS.forEach(function (lb) { var p = lb[0] === 'betel' ? OP.betel : NP[lb[0]]; if (!p || p[2] < 3 || p[0] < 20 || p[0] > W - 120 || p[1] < 60 || p[1] > H - 40) return; if (inCopy(p[0], p[1], hold)) return; c.fillStyle = rgba(DUSK, .55 * sg(dome, .5, 1) * (1 - .6 * tw) * ext(p[2])); c.fillText(lb[1].toUpperCase().split('').join(String.fromCharCode(8202)), p[0] + lb[2], p[1] + lb[3]); });
-        }
-        // the moon: a gibbous moon, lit on the side facing the (set) sun
-        var horizonY = null;
-        var mp = proj(mv);
-        if (mp && moonAlt > -1.2 && dome > 0) {
-          var t3 = [sv[0] - mv[0] * (sv[0] * mv[0] + sv[1] * mv[1] + sv[2] * mv[2]), sv[1] - mv[1] * (sv[0] * mv[0] + sv[1] * mv[1] + sv[2] * mv[2]), sv[2] - mv[2] * (sv[0] * mv[0] + sv[1] * mv[1] + sv[2] * mv[2])], tl = Math.hypot(t3[0], t3[1], t3[2]) || 1;
-          var q2 = proj([mv[0] + t3[0] / tl * .05, mv[1] + t3[1] / tl * .05, mv[2] + t3[2] / tl * .05]), ang = q2 ? Math.atan2(q2[1] - mp[1], q2[0] - mp[0]) : 0, R = 13;
-          var halo = c.createRadialGradient(mp[0], mp[1], 0, mp[0], mp[1], 170); halo.addColorStop(0, rgba('240,236,224', .16 * dome)); halo.addColorStop(1, rgba('240,236,224', 0)); c.fillStyle = halo; c.fillRect(mp[0] - 170, mp[1] - 170, 340, 340);
-          c.save(); c.translate(mp[0], mp[1]); c.rotate(ang);
-          c.fillStyle = rgba('70,76,96', .55 * dome); c.beginPath(); c.arc(0, 0, R, 0, 6.2832); c.fill();
-          c.fillStyle = rgba('250,246,234', .97 * dome); c.beginPath(); c.arc(0, 0, R, -Math.PI / 2, Math.PI / 2); c.ellipse(0, 0, R * (2 * MOONK - 1), R, 0, Math.PI / 2, -Math.PI / 2, false); c.fill();
-          c.restore();
-          if (dome > .5) { c.font = '600 9px Manrope, system-ui, sans-serif'; c.fillStyle = rgba(DUSK, .55 * sg(dome, .5, 1)); c.textBaseline = 'middle'; if (mp[1] > 40 && moonAlt > 3) c.fillText('M O O N', mp[0] + R + 10, mp[1]); }
-        }
-        // the skyline: the island to the east with Bridgetown's lights, the sea of Carlisle Bay from the south to the west
-        if (dome > 0) {
-          var pts = [], az = az0 / RAD;
-          for (var a = az - 95; a <= az + 95; a += 1.5) { var p = proj(azal(a, landH(a))); if (p) pts.push([p[0], p[1], a]); }
-          var seaPts = []; for (var a2 = az - 95; a2 <= az + 95; a2 += 1.5) { var p2 = proj(azal(a2, 0)); if (p2) seaPts.push(p2); }
-          var hy = proj(azal(az, 0)); horizonY = hy ? hy[1] : null;
-          if (horizonY != null && horizonY < H + 40) {
-            c.globalAlpha = dome;
-            // sea
-            var sg2 = c.createLinearGradient(0, horizonY, 0, H); sg2.addColorStop(0, 'rgb(' + [lp(12, 70, tw), lp(18, 82, tw), lp(36, 112, tw)].map(Math.round) + ')'); sg2.addColorStop(1, 'rgb(3,5,12)');
-            c.fillStyle = sg2; c.beginPath(); c.moveTo(-10, H + 10); seaPts.forEach(function (p) { c.lineTo(p[0], p[1]); }); c.lineTo(W + 10, H + 10); c.closePath(); c.fill();
-            // moonlight on the water
-            if (mp && moonAlt > -.5 && moonAlt < 40 && mp[0] > -40 && mp[0] < W + 40) {
-              for (var r = 0; r < 60; r++) { var yy = horizonY + 3 + Math.pow(r / 60, 1.6) * (H - horizonY), wv = (3 + 40 * Math.pow(r / 60, 1.4)) * (.6 + .4 * Math.sin(T * 1.7 + r * 1.3)); c.fillStyle = rgba('240,232,210', .22 * (1 - r / 60) * sg(moonAlt, -.5, 3) * (1 - sg(moonAlt, 20, 40))); c.fillRect(mp[0] - wv / 2 + 6 * Math.sin(T + r), yy, wv, 1.2); }
-            }
-            // land
-            c.fillStyle = 'rgb(' + [lp(5, 26, tw), lp(8, 32, tw), lp(16, 50, tw)].map(Math.round) + ')';
-            c.beginPath(); c.moveTo(pts[0][0], H + 10); var inL = false;
-            pts.forEach(function (p) { c.lineTo(p[0], p[1]); }); c.lineTo(pts[pts.length - 1][0], H + 10); c.closePath(); c.fill();
-            // town lights along the island's edge
-            LIGHTS.forEach(function (lt) { var p = proj(azal(lt[0], lt[1] * landH(lt[0]) * .8)); if (!p || p[0] < 0 || p[0] > W) return; dot(p[0], p[1] + 1, .7 + .5 * lt[1], (.45 + .25 * Math.sin(T * 2 + lt[2])) * (1 - .7 * tw), '255,206,140'); });
-            // compass points on the horizon
-            c.font = '600 9px Manrope, system-ui, sans-serif'; c.textBaseline = 'top'; c.textAlign = 'center';
-            COMP.forEach(function (cp) { var p = proj(azal(cp[0], 0)); if (!p || p[0] < 30 || p[0] > W - 30) return; c.fillStyle = rgba(DUSK, .5); c.fillRect(p[0] - .5, p[1] + 4, 1, 5); c.fillText(cp[1], p[0], p[1] + 12); });
-            c.textAlign = 'start'; c.globalAlpha = 1;
-          }
-        }
-        lock(1 - sg(u, 0, .22));
-        var hh = ((Math.floor(hrs) % 24) + 24) % 24, mm = Math.floor((hrs - Math.floor(hrs)) * 60);
-        meterTxt = meter.textContent = (HL ? '' : 'Bridgetown · ') + (hh < 10 ? '0' : '') + hh + ':' + (mm < 10 ? '0' : '') + mm + (al0 / RAD > 55 ? ' · looking straight up' : ' · facing ' + facing(az0 / RAD));
-      }
-    };
-  })();
-
-  // =========================================================================================== AS15 · A column of stars
-  // Igloo's structure, taken literally: you descend a vertical shaft of space past one striking object per section, each a
-  // different kind of thing (Igloo's own lesson: blocks that looked alike blurred together).
-  scenes.column = (function () {
-    var OBJ = [null, 'spikes', 'nebula', 'cluster', 'double', 'tabit'], GAP = 760;
-    return {
-      side: 'auto',
-      draw: function (u, near, hold) {
-        var cy = u * GAP;
-        drawSky(0, -cy * .6, 1);
-        for (var j = 0; j < 2; j++) { var off = j ? -cy * .25 : -cy * .4; }
-        if (u < 1) { c.save(); c.translate(0, -cy); drawOrion(1); c.restore(); }
-        for (var i = 1; i < CH.length; i++) { var oy = 360 + i * GAP - cy; if (oy < -300 || oy > H + 300) continue; var ox = i % 2 ? 360 : 920; centrepiece(OBJ[i], ox, oy, 1, i); }
-        lock(1, 0, -cy);
-        placePanel(near % 2 ? 'right' : 'left', 250);
-      }
-    };
-  })();
+  seed = 173602983;   // and where the scenes after it left it
 
   // =========================================================================================== run
   var SC = scenes[IDEA];
   if (SC.chapters) CH = SC.chapters;
   if (HL && SC.shell) CH = SC.shell.chapters;
-  buildNav();
   function frameStart() {
     if (TABIT_OX !== OXS) { OXS = TABIT_OX; WT = W + 2 * OXS; cv.width = Math.round(WT * dpr); }   // the window was resized
     if (TABIT_OY !== OYS) { OYS = TABIT_OY; HT = H + 2 * OYS; cv.height = Math.round(HT * dpr); }
-    if (OPT.focusFn) FOCUSX = OPT.focusFn();
     c.setTransform(1, 0, 0, 1, 0, 0); c.globalAlpha = 1; c.globalCompositeOperation = 'source-over'; c.fillStyle = NIGHT; c.fillRect(0, 0, cv.width, cv.height);
     c.setTransform(dpr, 0, 0, dpr, OXS * dpr, OYS * dpr);   // the 1280 design, centred on the screen
   }
   function washes(u, r) {
     // legibility, as on F2.0: a light navy shade behind the copy column and under the nav
     var sa = sg(u, .05, .3);
-    if (sa > 0) { var lw = CL ? c.createLinearGradient(W + OXS, 0, 420, 0) : c.createLinearGradient(-OXS, 0, 860 - OXS, 0); lw.addColorStop(0, rgba('8,13,30', .5 * sa)); lw.addColorStop(.55, rgba('8,13,30', .22 * sa)); lw.addColorStop(1, rgba('8,13,30', 0)); c.globalAlpha = 1 - TABIT_ST; c.fillStyle = lw; c.fillRect(-OXS, -OYS, WT, HT); c.globalAlpha = 1; }   // XR2.8.2: the left wash fades as the copy centres
+    if (sa > 0) { var lw = c.createLinearGradient(-OXS, 0, 860 - OXS, 0); lw.addColorStop(0, rgba('8,13,30', .5 * sa)); lw.addColorStop(.55, rgba('8,13,30', .22 * sa)); lw.addColorStop(1, rgba('8,13,30', 0)); c.globalAlpha = 1 - TABIT_ST; c.fillStyle = lw; c.fillRect(-OXS, -OYS, WT, HT); c.globalAlpha = 1; }   // XR2.8.2: the left wash fades as the copy centres
     var tg = c.createLinearGradient(0, -OYS, 0, 160 - OYS); tg.addColorStop(0, rgba('8,13,30', .3 * sg(r, .5, 1))); tg.addColorStop(1, rgba('8,13,30', 0)); c.fillStyle = tg; c.fillRect(-OXS, -OYS, WT, 160);
   }
-  if (HL) return {
+  return {
+    warm: SC.warm,   // XR3.7: handed on, so makeScene.prepare reaches it (XR3.6's prepare asked for it and it was not there: the figures were still made at first sight, a held frame at each chapter the first time through)
     pointer: function (x, y, on) { GRAV.x = x; GRAV.y = y; GRAV.on = on ? 1 : 0; },
     // XR2.10: the sky alone, as on the home at a page (washes full on), for the click-out pages
     sky: function (t) { T = t; frameStart(); skyLayer(); washes(1, 1); },
@@ -3005,31 +1844,10 @@ function makeScrollSky(root, IDEA, LOGO, OPT) {
       T = t; var sh = SC.shell, NS = CH.length - 1, su = sh.map === 'handoff' ? r + 4 * u : NS * u;
       var near = Math.round(su), hold = 1 - sg(Math.abs(su - near), .06, .24);
       frameStart();
-      SHELLR = r; SHELLU = u; meterTxt = '';
+      SHELLR = r;
       SC.draw(su, near, hold);
       washes(u, r);
-      var mA = .8 * sg(r, .7, 1) * (1 - sg(u, .85, .97)) * (sh.map === 'page' ? sg(su, .3, .8) : 1);   // off on page 5, where the address line sits
-      if (meterTxt && SC.meter && mA > .01) { c.font = '600 11px Manrope, system-ui, sans-serif'; c.textBaseline = 'alphabetic'; c.fillStyle = rgba(DUSK, mA); c.fillText(meterTxt.toUpperCase().split('').join(String.fromCharCode(8202)), 124, 694 + OYS); }
     }
-  };
-  var lastT = performance.now() / 1000;
-  return {
-    frame: function (now) {
-      var t = now / 1000, dt = Math.min(.1, t - lastT); lastT = t; T = t;
-      S.idle += dt; if (S.idle > .28) S.uAim += (Math.round(S.uAim) - S.uAim) * (1 - Math.exp(-dt * 5));   // settle on the nearest chapter
-      var pu = S.u; S.u += (S.uAim - S.u) * (1 - Math.exp(-dt * 5.5)); S.vel = lp(S.vel, Math.abs(S.u - pu) / Math.max(dt, .001), .2);
-      var u = S.u, near = Math.round(u), hold = 1 - sg(Math.abs(u - near), .06, .24);
-      c.setTransform(dpr, 0, 0, dpr, 0, 0); c.fillStyle = NIGHT; c.fillRect(0, 0, W, H);
-      if (SC.side === 'right' || SC.side === 'auto' || !SC.side) placePanel(SC.side === 'auto' ? (near % 2 ? 'right' : 'left') : 'right', 250);
-      SC.draw(u, near, hold);
-      if (near !== shown) setPanel(near);
-      var on = CH[near].k !== 'home';
-      panel.style.opacity = (on ? hold : 0).toFixed(3); panel.style.transform = 'translateY(' + (16 * (1 - hold)).toFixed(1) + 'px)';
-      Array.prototype.forEach.call(prog.children, function (b, i) { var d = b.firstChild; d.style.opacity = i === near ? '1' : '.35'; d.style.height = i === near ? '14px' : '6px'; d.style.background = i === near ? BRASS : 'rgb(' + IVORY + ')'; });
-      cue.style.opacity = (1 - sg(u, 0, .15)).toFixed(3);
-      meter.style.opacity = SC.meter ? sg(u, .1, .5).toFixed(3) : 0;
-    },
-    jump: function (i) { S.uAim = i; }, set: function (v) { S.u = S.uAim = v; }
   };
 }
 
@@ -3037,7 +1855,7 @@ function makeScrollSky(root, IDEA, LOGO, OPT) {
 // The background: an Alpha Stars scene (the stars become the diagrams), drawn by the shared scroll-sky engine in headless mode. Everything else
 // on this board (splash, star-burst, docked logo with its stars under the mouse, AI page, knot page markers, skip) is the
 // same as F2.0; only this background differs.
-var SS_IDEA = 'diagrams', SS_SIDE = 'right', SS_FOCUS = 0;
+var SS_IDEA = 'diagrams';
 function makeScene(cv, V0) {
   var sky = null, failed = false, bound = false, PT = { x: -999, y: -999, on: false };
   function bindPointer() {   // AS12.7: the scene reads the mouse over the board (in board pixels, whatever the zoom)
@@ -3048,7 +1866,7 @@ function makeScene(cv, V0) {
   function cl(x, a, b) { return Math.max(a, Math.min(b, x)); }
   function sg(x, a, b) { return cl((x - a) / (b - a), 0, 1); }
   var blank = false;   // XR3.6: the canvas has been cleared and hidden (once, not on every frame of the intro and the splash)
-  function build() { if (!sky && !failed) { try { sky = makeScrollSky(cv, SS_IDEA, { mark: TABIT_DATA.mark }, { headless: true, side: SS_SIDE, focus: SS_FOCUS, focusFn: SS_SIDE === 'left' ? function () { return TABIT_FOCUS; } : null }); } catch (err) { failed = true; } } }
+  function build() { if (!sky && !failed) { try { sky = makeScrollSky(cv, SS_IDEA, { mark: TABIT_DATA.mark }, { headless: true }); } catch (err) { failed = true; } } }
   // XR3.6: the sky and its star figures are made before the first frame (prepare), while the screen is still black. From XR2.9.1 they were
   // made "in idle time" from 2.5 s into the intro; Safari has no idle time to give, so there they were made inside the intro's own frames
   // (one long frame, then one more for each figure), which showed as the intro catching.
@@ -3098,7 +1916,7 @@ if (init && init.sky) return (function () {
   onS(window, 'pointermove', function (e) { PS.x = e.clientX / k0 - TABIT_OX; PS.y = e.clientY / k0 - TABIT_OY; PS.on = true; }, { passive: true });
   onS(realDoc.documentElement, 'pointerleave', function () { PS.on = false; });   // realDoc: inside the engine, document is the host-scoped shim
   fitS();
-  skyS = makeScrollSky(cvS, SS_IDEA, { mark: TABIT_DATA.mark }, { headless: true, side: SS_SIDE, focus: SS_FOCUS });
+  skyS = makeScrollSky(cvS, SS_IDEA, { mark: TABIT_DATA.mark }, { headless: true });
   function tickS(now) {
     rafS = requestAnimationFrame(tickS);
     if (window.innerWidth !== vw || Math.abs(window.innerHeight - vh) > 120) fitS();   // a phone's toolbar showing and hiding as it scrolls does not refit the sky
@@ -3135,8 +1953,6 @@ function onIn(ev, fn, opt) { root.addEventListener(ev, fn, opt); inOff.push(func
 offs.push(function () { inOff.forEach(function (f) { f(); }); inOff = []; });
 on(root, 'pointerdown', function () { try { root.focus({ preventScroll: true }); } catch (err) {} });
 var hb = root.querySelector('[data-tabit-home]');
-on(hb, 'pointerenter', function () { if (self.hand && self.hand.hoverLogo) self.hand.hoverLogo(self.t); });
-on(hb, 'focus', function () { if (self.hand && self.hand.hoverLogo) self.hand.hoverLogo(self.t); });
 on(hb, 'click', function () { self.go(0); });
 on(root, 'keydown', function (e) {
   if (natOn()) return;   // XR3.4: the browser's own keys scroll the page
@@ -3175,11 +1991,10 @@ on(root, 'pointermove', function (e) {
   if (self.hand && self.hand.ptr) self.hand.ptr(((e.clientX - r.left) / r.width * TABIT_W - TABIT_OX), (e.clientY - r.top) / r.height * TABIT_H - TABIT_OY);
 });
 on(root, 'pointerleave', function () { if (self.hand && self.hand.ptr) self.hand.ptr(-999, -999); if (self.hero) { self.hero.pointer(0, 0); if (self.hero.mouse) self.hero.mouse(-999, -999, false); } });
-Array.prototype.forEach.call(root.querySelectorAll('[data-tabit-ch]'), function (b) { on(b, 'click', function () { var k = +b.getAttribute('data-tabit-ch'); if (self.t < TABIT_END) self.t = TABIT_END; self.go(TABIT_OPT >= 34 ? TB_SK(k) : k === 0 ? TABIT_HAND : TABIT_HAND + 720 * k); }); });
-if (TABIT_OPT >= 34) {   // XR2.2.5: the coordinates take you to About us
-  var cEl = root.querySelector('[data-tabit-coords]'), goAbout = function () { if (self.t < TABIT_END) self.t = TABIT_END; self.go(TB_SK(5)); };
-  on(cEl, 'click', goAbout); on(cEl, 'keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goAbout(); } });
-}
+Array.prototype.forEach.call(root.querySelectorAll('[data-tabit-ch]'), function (b) { on(b, 'click', function () { var k = +b.getAttribute('data-tabit-ch'); if (self.t < TABIT_END) self.t = TABIT_END; self.go(TB_SK(k)); }); });
+// XR2.2.5: the coordinates take you to About us
+var cEl = root.querySelector('[data-tabit-coords]'), goAbout = function () { if (self.t < TABIT_END) self.t = TABIT_END; self.go(TB_SK(5)); };
+on(cEl, 'click', goAbout); on(cEl, 'keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goAbout(); } });
 on(root.querySelector('[data-tabit-cue]'), 'click', function () { if (self.t < TABIT_END) { self.ff = true; return; } var qm = self.hand ? self.hand.qmax : 600; self.go(self.St < TABIT_HAND - 1 ? TABIT_HAND : TABIT_HAND + qm); });
 on(root.querySelector('[data-tabit-skip]'), 'click', function () { self.t = TABIT_END; self.ff = false; });
 on(root.querySelector('.tabit-replay'), 'click', function () { self.t = 0; self.S = 0; self.St = 0; self.ff = false; var N = natOn(); if (N) N.to(0, false); });
@@ -3219,14 +2034,10 @@ self.tick = function () {
   self.t += dt * (self.ff ? 7 : 1); if (self.t >= TABIT_END) self.ff = false;
   if (skEl) { var ska = (Math.min(1, Math.max(0, (self.t - .6) / .5)) * Math.min(1, Math.max(0, (TABIT_END - .3 - self.t) / .4))).toFixed(3); if (ska !== skA) { skA = ska; skEl.style.opacity = ska; skEl.style.pointerEvents = ska > .1 ? 'auto' : 'none'; } }   // Skip intro, shown only while the intro plays (XR3.6: written when it changes)
   if (!seen && self.t >= TABIT_END) { seen = true; try { window.sessionStorage.setItem('tabit-intro', '1'); } catch (e3) {} }   // XR3.6: the intro has played in this visit
-  if (!N && TABIT_SNAP && !TABIT_FLOW && self.t >= TABIT_END && now - (self.lastIn || 0) > 160) {   // settle onto the nearest chapter when the wheel goes quiet
-    var near = TABIT_SNAP.reduce(function (a, b) { return Math.abs(b - self.St) < Math.abs(a - self.St) ? b : a; });
-    if (Math.abs(near - self.St) < 300) self.St = near;
-  }
   if (!N && TB_PIN && self.t >= TABIT_END && now - (self.lastIn || 0) > 240 && !self.touch) {   // XR2: while the page holds, settle on the nearest line when the wheel stops
     var yy = self.St - TABIT_HAND - 720; if (yy > 1 && yy < TB_PIN - 1) self.St += (Math.round(yy / TB_STEPPX) * TB_STEPPX - yy) * Math.min(1, dt * 7); }
   if (N) { if (self.natC) { self.S += (self.St - self.S) * (1 - Math.exp(-dt * 7)); if (Math.abs(self.St - self.S) < 1) { self.S = self.St; self.natC = false; } } else self.S = self.St; }   // XR3.4: the engine stands exactly where the page is scrolled; it only eases when it has to catch up after the intro
-  else { self.S += (self.St - self.S) * (1 - Math.exp(-dt * (self.touch ? 30 : TABIT_SNAP && !TABIT_FLOW ? 4.2 : TABIT_OPT >= 13 ? 3 : 5.5))); if (Math.abs(self.St - self.S) < .3) self.S = self.St; }
+  else { self.S += (self.St - self.S) * (1 - Math.exp(-dt * (self.touch ? 30 : (3)))); if (Math.abs(self.St - self.S) < .3) self.S = self.St; }
   // XR2.7.2: frame governor. Watches the gaps between frames; when more than 12% of a window are dropped it steps the quality down:
   // level 1 renders every other frame on a 120 Hz display (a steady 60), levels 2 and 3 lower the sky's pixel ratio. Never steps back up.
   var G = self.gov || (self.gov = { gaps: [], lvl: 0, skip: false, hz: 60, base: 0 });
@@ -3258,7 +2069,7 @@ self.tick = function () {
 };
 self.raf = requestAnimationFrame(self.tick);
 return {
-  dispose: function () { cancelAnimationFrame(self.raf); offs.forEach(function (f) { f(); }); if (root.__ro) { root.__ro.disconnect(); root.__ro = null; } try { if (self.hero) self.hero.dispose(); } catch (err) {} host.innerHTML = ''; },
+  dispose: function () { cancelAnimationFrame(self.raf); offs.forEach(function (f) { f(); }); if (root.__ro) { root.__ro.disconnect(); root.__ro = null; } try { if (self.hero) self.hero.dispose(); } catch (err) {} if (self.hand) self.hand.dispose(); host.innerHTML = ''; },
   // for testing
   _state: self
 };

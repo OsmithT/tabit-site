@@ -8,7 +8,8 @@ The code behind the Tabit Insurance website prototype in Framer.
   (https://practical-monstera-026490.framer.app).
   - `TabitSite.js`: the home-page engine (XR2.7: the XR2.5.7 night-sky site with the burger menu top left and
     Contact us top right). An ES module exporting `runTabit(host, THREE, init)` and `TABIT_FONTS`; `runTabit` draws the
-    whole home page (intro, logo, scene, copy, nav) into `host` and returns `{ dispose() }`.
+    whole home page (intro, logo, scene, copy, nav) into `host` and returns `{ dispose() }`. Since XR3.7 it holds
+    only the look the site runs: `init` is `OPTIONS` as `TabitHome.tsx` passes them (see below).
   - `TabitHome.tsx`: the Framer code component on the `/` page. Loads three.js, calls `runTabit`, and scales the
     720-unit-tall design to the component's height, letting the width run to the edges (960–1940 design units), so the
     page fills laptops and ultrawides alike.
@@ -53,6 +54,25 @@ The code behind the Tabit Insurance website prototype in Framer.
     strings or pairs for the sky. On a phone one full-screen canvas is drawn in a frame on most of the page (four
     before). The pictures are the same: `pix.py`-style comparisons, old build against new with the clock frozen, are
     the test for any such change. The intro plays once in a visit (`tabit-intro` in `sessionStorage`).
+    The engine holds only what the site runs (XR3.7). `TabitSite.js` used to hold every look the home has had, chosen
+    by `runTabit`'s options. The site passes one set (`OPTIONS` in `TabitHome.tsx`; the click-out pages add `sky`), so
+    what those options can never reach was taken out: three tenths of the file (412 KB to 283 KB), among it eleven of
+    the sky's twelve scenes, which were all set up at every load, and the sky's stand-in interface (elements made at
+    every load, written to in every frame and never put in the page). A piece went only if both held: it follows from the
+    options that it cannot run, and it never ran in recorded runs of the whole site (the browser's own block-by-block
+    record: every window size, phone and desktop, reduced motion, a slowed processor, the click-out pages). Every
+    frame of the home was then compared with the build before, pixel for pixel. What a tool cannot decide (values
+    worked out and never read, work on things that are never shown) was traced by hand. So `runTabit` no longer honours other
+    values of its options: pass them as they are. Commit 94025f7 is the last that holds the earlier looks. Two lines
+    in `makeScrollSky` (`seed = …`, before and after the diagrams scene) put the shared random generator where the
+    removed scenes used to leave it: they keep every star of the figures in its place, so leave them.
+    Work in a frame that changed nothing went with it: the page markers' labels are no longer measured in every frame
+    (a `ResizeObserver` keeps their heights; measured between writes, they made the browser lay the page out again
+    several times a frame); the day's colours are written when the day changes, not in every frame (the site's scene
+    has no day); a star well off to the side is passed over before its place is worked out. And one thing XR3.6 meant
+    to do and did not: the star figures are now made before the first frame with the rest (`prepare` asked the sky for
+    its warm-up, which the sky did not hand on, so each figure was still made at first sight, a held frame at each
+    chapter the first time through).
   - `pages/reinsurance.js`, `captives.js`, `aboutus.js`, `contact.js`: the click-out pages as `{ css, html, js }` strings,
     with the burger header. `TabitPage.tsx` renders one of them (its `page` control picks which), puts the home's live
     sky behind it, and, where the module has a `js` (Captives: its figure, board XR2.9.31E), runs it with the page's
