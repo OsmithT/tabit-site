@@ -56,7 +56,7 @@ The code behind the Tabit Insurance website prototype in Framer.
     the test for any such change. The intro plays once in a visit (`tabit-intro` in `sessionStorage`).
     The engine holds only what the site runs (XR3.7). `TabitSite.js` used to hold every look the home has had, chosen
     by `runTabit`'s options. The site passes one set (`OPTIONS` in `TabitHome.tsx`; the click-out pages add `sky`), so
-    what those options can never reach was taken out: three tenths of the file (412 KB to 283 KB), among it eleven of
+    what those options can never reach was taken out: three tenths of the file (412 KB to 284 KB), among it eleven of
     the sky's twelve scenes, which were all set up at every load, and the sky's stand-in interface (elements made at
     every load, written to in every frame and never put in the page). A piece went only if both held: it follows from the
     options that it cannot run, and it never ran in recorded runs of the whole site (the browser's own block-by-block
