@@ -1,3 +1,9 @@
+// Tabit XR3.10 (16 Nov 2026, Oscar, from Safari's own ?diag readout on his Mac: "both are still dropping frames at the initial load in ... No other
+// website does this"). The readout: in the first second of the intro, six frames 0.1 to 0.9 s apart, 1 ms of this engine's script in each, and the
+// governor at level 2 because of them. What loads then is Framer's own editor (a hidden full-window frame from framer.com, added after the page's
+// load); Safari runs it on the page's thread and Chrome does not. A first play of the intro now waits for the page (self.hold), and the governor
+// does not count the wait. ?diag shows the wait and when Framer's frame came. The cause is read from Framer's loader and WebKit's source and fits
+// the readout's timing; it is to be confirmed by that readout on Oscar's Safari. Search XR3.10.
 // Tabit XR3.9 (16 Nov 2026, Oscar: "the blackhole now doesn't match where the mouse is"). On a stage taller than 720 units (a window squarer than
 // 16:9 at the home's size: his Safari window gives a stage 961 tall, so 120 units, 150 px) the stars bent round a point that far ABOVE the ring
 // that marks the black hole, and each of Orion's glows stood that far BELOW its star through the intro. Both sums left the stage's vertical offset
@@ -1964,6 +1970,17 @@ if (init.t != null) { self.t = init.t; self.S = self.St = init.S || 0; }
 else { try { if (window.sessionStorage.getItem('tabit-intro')) { self.t = TABIT_END; seen0 = true; } } catch (e0) {} }   // XR3.6 (Oscar, 16 Nov: "It's only played once"): the intro plays once in a visit; coming back to Home, or loading it again, opens on the splash
 self.reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 if (self.reduce) { self.t = 9; }
+// XR3.10: the opening waits for the page (Oscar, 16 Nov, Safari on his Mac and phone: "both are still dropping frames at the initial load in"; his ?diag
+// readout: six frames 0.1 to 0.9 s apart in the first second of the intro, with 1 ms of this engine's script in each). Framer adds its own editor to
+// every site it serves: a hidden full-window frame from framer.com (id __framer-editorbar), put in once the page has loaded: at an idle moment where
+// the browser can report one, 300 ms after the load where it cannot (Safari). Safari also runs a frame from another site on the page's own thread
+// (WebKit's SiteIsolationEnabled is off), so that frame starting up stops the page, in the first second of the intro. A first play of the intro
+// therefore begins, in those browsers, only when the page has loaded, Framer's frame (if the page has one) has loaded too, and frames have come
+// steadily for a quarter of a second: until then the clock stands at 0, which is the dark sky. Never longer than 4 s; scrolling ends the wait.
+// Replay, a return to Home (the intro is not played again) and reduced motion do not wait. Nor does a browser that has requestIdleCallback
+// (Chrome, Edge, Firefox): that is the test Framer's loader itself makes, those browsers keep another site's frame off the page's thread on a
+// computer, and the intro there starts exactly when it did.
+self.hold = init.t == null && !seen0 && !self.reduce && !('requestIdleCallback' in window) ? { t0: performance.now() } : null;
 self.input = function (d) {
   if (self.t < TABIT_END) { if (d > 0) self.ff = true; return; }   // scrolling during the intro fast-forwards it
   var qm = (self.hand ? self.hand.qmax : 600) + TABIT_XQ;
@@ -2029,7 +2046,7 @@ on(root.querySelector('[data-tabit-skip]'), 'click', function () { self.t = TABI
 on(root.querySelector('.tabit-replay'), 'click', function () { self.t = 0; self.S = 0; self.St = 0; self.ff = false; var N = natOn(); if (N) N.to(0, false); });
 var skEl = host.querySelector('[data-tabit-skip]'), skA = null, seen = seen0;
 self.tick = function () {
-  var now = performance.now(), dt = Math.min(.05, (now - self.last) / 1000); self.last = now;
+  var now = performance.now(), gap = now - self.last, dt = Math.min(.05, gap / 1000); self.last = now;
   tabitLayout(root);   // re-lays the site out when the width changes (a no-op otherwise)
   if (TB_POLL.length) for (var pi = TB_POLL.length - 1; pi >= 0; pi--) { if (TB_POLL[pi]() === false) TB_POLL.splice(pi, 1); }   // XR2.7.3
   if (!self.boundGL && !self.failed) {   // the first frame: the hero and the hand-off are made, and all they will need (XR3.6: once, not asked for again on every frame)
@@ -2060,6 +2077,17 @@ self.tick = function () {
         else if (TB_PIN && yn > 1 && yn < TB_PIN - 1) { var ln = Math.round(yn / TB_STEPPX) * TB_STEPPX; if (Math.abs(ln - yn) > 1.5) tg = TABIT_HAND + 720 + ln; }   // between two of the compass's lines: on to the nearer one, as before
         if (tg != null) { N.to(tg, true); self.lastIn = now; } } }
   }
+  var HD = self.hold;
+  if (HD) {   // XR3.10: the opening waits for the page (see self.hold)
+    if (!HD.ld && realDoc.readyState === 'complete') HD.ld = now;
+    if (!HD.ef) { var ef0 = realDoc.getElementById('__framer-editorbar');
+      if (ef0) { HD.ef = now; ef0.addEventListener('load', function () { HD.el = performance.now(); }, { once: true });
+        try { if (performance.getEntriesByName(ef0.src).length) HD.el = now; } catch (e4) {} } }   // its page had already arrived when this engine first looked: its load event may have gone by (it is not sent twice), so steady frames decide
+    var hg = HD.g || (HD.g = []); hg.push(gap); if (hg.length > 9) hg.shift();
+    if (gap > Math.max(40, 2.5 * hg.slice().sort(function (a, b) { return a - b; })[hg.length >> 1])) { HD.q = now; HD.n = (HD.n || 0) + 1; HD.mx = Math.max(HD.mx || 0, gap); }   // a frame that came late: over 40 ms, and over two and a half times the usual gap of the last nine (so a slow device, whose every frame is long, is not kept waiting)
+    if (self.ff || now - HD.t0 > 4000 || (HD.ld && (HD.ef ? HD.el || now - HD.ef > 3000 : now - HD.ld >= 350) && now - Math.max(HD.q || 0, HD.el || 0, HD.ld) >= 250)) { HD.go = now; self.held = HD; self.hold = null; }
+    else dt = 0;
+  }
   self.t += dt * (self.ff ? 7 : 1); if (self.t >= TABIT_END) self.ff = false;
   if (skEl) { var ska = (Math.min(1, Math.max(0, (self.t - .6) / .5)) * Math.min(1, Math.max(0, (TABIT_END - .3 - self.t) / .4))).toFixed(3); if (ska !== skA) { skA = ska; skEl.style.opacity = ska; skEl.style.pointerEvents = ska > .1 ? 'auto' : 'none'; } }   // Skip intro, shown only while the intro plays (XR3.6: written when it changes)
   if (!seen && self.t >= TABIT_END) { seen = true; try { window.sessionStorage.setItem('tabit-intro', '1'); } catch (e3) {} }   // XR3.6: the intro has played in this visit
@@ -2070,7 +2098,7 @@ self.tick = function () {
   // XR2.7.2: frame governor. Watches the gaps between frames; when more than 12% of a window are dropped it steps the quality down:
   // level 1 renders every other frame on a 120 Hz display (a steady 60), levels 2 and 3 lower the sky's pixel ratio. Never steps back up.
   var G = self.gov || (self.gov = { gaps: [], lvl: 0, skip: false, hz: 60, base: 0 });
-  if (self.last0) { G.gaps.push(now - self.last0); if (G.gaps.length >= 72) {
+  if (self.last0 && !self.hold) { G.gaps.push(now - self.last0); if (G.gaps.length >= 72) {   // XR3.10: frames while the opening waits for the page are not counted (they are the page loading, not the sky's cost)
     var sorted = G.gaps.slice().sort(function (a, b) { return a - b; }), ref = sorted[Math.floor(sorted.length * .2)]; G.hz = ref < 10 ? 120 : 60;
     var budget = (G.hz === 120 && G.lvl >= 1 ? 2 : 1) * (1000 / G.hz) * 1.45, dropped = G.gaps.filter(function (x) { return x > budget; }).length / G.gaps.length;
     if (dropped > .12 && G.lvl < 3 && self.t < TABIT_END + 2 && !window.__TABIT_NOGOV && !(TABIT_PH && self.t < 1.6)) {   // XR3.1: on a phone the first frames (the page still loading) do not count
@@ -2086,7 +2114,7 @@ self.tick = function () {
   if (DG && N && self.natY !== DG.y0) { if (!DG.sg) DG.sg = []; if (DG.t1 && now - DG.t1 < 400) { DG.sg.push(now - DG.t1); if (DG.sg.length > 120) DG.sg.shift(); } DG.y0 = self.natY; DG.t1 = now; }   // XR3.8: how long the page waits to be told it has scrolled, while it is scrolling (Safari under its sliding bar: 100 ms without TB_LIVE_CSS)
   G.skip = G.lvl >= 1 && G.hz === 120 ? !G.skip : false;
   if (self.hero) { if (!G.skip) { self.hero.render(self.t, !!self.hand && self.hand.covered(self.S)); if (self.hand) self.hand.update(self.t, self.S); } }
-  if (DG) { var tk = performance.now() - DG.t0; DG.ticks.push(tk); if (DG.ticks.length > 240) DG.ticks.shift(); if (tk > 20 || (self.lastGap > 40 && self.t > .3)) DG.stalls.push('t=' + self.t.toFixed(2) + 's  gap ' + Math.round(self.lastGap) + 'ms  js ' + Math.round(tk) + 'ms'); if (DG.stalls.length > 7) DG.stalls.shift();
+  if (DG) { var tk = performance.now() - DG.t0; DG.ticks.push(tk); if (DG.ticks.length > 240) DG.ticks.shift(); if (tk > 20 || (self.lastGap > 40 && (self.t > .3 || HD || self.held))) DG.stalls.push((now / 1000).toFixed(2) + 's  t=' + self.t.toFixed(2) + 's' + (HD ? ' waiting' : '') + '  gap ' + Math.round(self.lastGap) + 'ms  js ' + Math.round(tk) + 'ms'); if (DG.stalls.length > 9) DG.stalls.shift();
     if (++DG.n % 30 === 0) { var gs = DG.gaps.slice(-240).sort(function (a, b) { return a - b; }), ts = DG.ticks.slice(-240), hz = gs.length ? 1000 / gs[Math.floor(gs.length * .2)] : 0, bud = hz ? 1000 / hz * 1.45 : 30, drop = gs.length ? gs.filter(function (x) { return x > bud; }).length / gs.length : 0;
       var glc = host.querySelector('canvas[data-tabit-gl]'), ua = navigator.userAgent, br = /Chrome\//.test(ua) ? 'Chrome ' + (ua.match(/Chrome\/(\d+)/) || [])[1] : /Safari\//.test(ua) ? 'Safari ' + (ua.match(/Version\/([\d.]+)/) || [])[1] : /Firefox\//.test(ua) ? 'Firefox' : 'browser';
       DG.el.textContent = 'TABIT diag  ' + br + '  ' + innerWidth + 'x' + innerHeight + ' @' + (window.devicePixelRatio || 1) + 'x\n'
@@ -2094,7 +2122,8 @@ self.tick = function () {
         + 'js/frame mean ' + (ts.reduce(function (a, b) { return a + b; }, 0) / Math.max(1, ts.length)).toFixed(1) + 'ms  max ' + Math.max.apply(null, ts.concat([0])).toFixed(1) + 'ms\n'
         + (N && DG.sg && DG.sg.length ? 'scroll told every ' + DG.sg.slice().sort(function (a, b) { return a - b; })[DG.sg.length >> 1].toFixed(0) + 'ms  waits over 80ms: ' + DG.sg.filter(function (x) { return x > 80; }).length + ' of last ' + DG.sg.length + '\n' : '')
         + 'sky canvas ' + (glc ? glc.width + 'x' + glc.height : '-') + '  W ' + TABIT_W + '  governor level ' + G.lvl + (G.skip !== undefined && G.lvl >= 1 && G.hz === 120 ? ' (60 lock)' : '') + '  t ' + self.t.toFixed(1) + 's\n'
-        + (DG.stalls.length ? 'stalls:\n  ' + DG.stalls.join('\n  ') : 'stalls: none'); } }
+        + (self.hold || self.held ? (function (h) { function sx(x) { return x ? (x / 1000).toFixed(2) + 's' : '-'; } return 'opening ' + (h.go ? 'began ' + sx(h.go) + ' (waited ' + ((h.go - h.t0) / 1000).toFixed(2) + 's)' : 'waiting') + '  page loaded ' + sx(h.ld) + '\nFramer editor frame ' + (h.ef ? 'seen ' + sx(h.ef) + '  loaded ' + sx(h.el) : 'none') + '   late frames while waiting: ' + (h.n || 0) + (h.n ? ' (longest ' + Math.round(h.mx) + 'ms)' : '') + '\n'; })(self.hold || self.held) : '')
+        + (DG.stalls.length ? 'stalls (time since the page opened, intro time):\n  ' + DG.stalls.join('\n  ') : 'stalls: none'); } }
   else if (self.failed) { var d = tabitDom(); [d.mark].concat(d.letters).forEach(function (el) { if (el) { el.style.opacity = 1; el.style.transform = 'none'; } }); d.masks.forEach(function (m) { m.setAttribute('stroke-width', 60); }); }
   self.raf = requestAnimationFrame(self.tick);
 };
