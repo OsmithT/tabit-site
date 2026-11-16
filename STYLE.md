@@ -1,4 +1,4 @@
-# Tabit website — style code (v1.38, 16 Nov 2026)
+# Tabit website — style code (v1.39, 16 Nov 2026)
 
 The values behind every visual decision on the site, taken from the home page as shipped (XR2.8.2) and the brand
 guidelines. `DESIGN.md` holds the cardinal rules (what never ships); this file holds the values. Where a page and this
@@ -308,7 +308,12 @@ of the bottom edge (v1.36, v1.37). The click-out pages run under the bars the sa
 home's stage does (100 px above the view, 140 below it), their nav bar's glass runs 100 px above the view, and while a
 page is within 200 px of its top its ground is the nav glass over Night as one colour (#060A17), so the status bar
 stands on what reads as the bar. The intro plays once in a
-visit: coming back to Home, or loading it again, opens on the splash (v1.37). The
+visit: coming back to Home, or loading it again, opens on the splash (v1.37). On a phone every page carries one
+scroll-linked animation that shows nothing (`tb-live`, on an empty box): while Safari's bar slides in or out, Safari
+tells a page where it is scrolled only ten times a second unless the page has such an animation (read from WebKit's
+source, and Oscar's recording steps at exactly that rate; that the animation ends it is to be confirmed on his phone),
+and what is drawn from the scroll (all of the home; a click-out page's sky and the Captives figure) stepped. It is not decoration and not to be cleared away (v1.39; README, "Safari
+says where the page is"). The
 page rests 100 px down, at the splash: pulled above that, it comes back when let go. In the compass's hold it settles on
 the nearer line when it comes to rest between two, as before. Both wait until the page has stood still for 240 ms with
 no finger on it (the compass's wait, as before), and both move the page with the browser's own smooth scroll, as do the
@@ -323,7 +328,11 @@ over 180. Skip intro is 44 tall. Hover states
 belong to a mouse alone, on every page (`@media (hover: hover) and (pointer: fine)`).
 
 Scroll and pointer only; the opening sequence (0–7.2 s, replayable, skippable) is the one timed exception; grain loop
-and EXPLORE pulse under decision. Only `transform`/`opacity` on DOM; never `transition: all`, layout properties,
+and EXPLORE pulse under decision. Only `transform`/`opacity` on DOM, the hover colours below aside (one keyframe
+animation is of neither, and it shows nothing: `tb-live`, above, steps a custom property (`--tb-live`) of an unseen, empty box,
+`linear`, on the page's scroll. It has to be a property the compositor cannot run: by WebKit's source, Safari counts
+only a scroll-linked animation that needs the main thread. v1.39, for Oscar to rule); never `transition: all`, layout
+properties,
 filters > 14 px, animated blur. Copy lines slide up 110 % behind a clip and fade (.07 s per line, .36 s stagger in the
 dictionary entry; scroll-positioned in chapters). Hover colour .25 s ease (coordinates .5 s); burger .25 s
 `cubic-bezier(.23,1,.32,1)`; chapter transitions follow the wheel eased `cubic-bezier(.3,.6,.3,1)`. All scroll-driven
@@ -397,6 +406,16 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
 
 ## 10. Change log
 
+- 16 Nov 2026 — v1.39 (XR3.8). Oscar, 16 Nov, from a second recording of his phone: "This hasn't fixed the juttering
+  issues for the phone ... The frames are also being dropped when you first load in on Safari. The second time when you
+  click the replay button, it's fine." No value a visitor sees changes. On a phone every page declares one
+  scroll-linked animation that shows nothing, so that Safari goes on reporting the scroll in every frame while its
+  bar slides (§6: Safari's own rule, read from its source; to be confirmed on Oscar's phone). It is the one keyframe
+  animation on the site that is not of `transform` or `opacity`, and the only `linear` one: an exception for Oscar to
+  rule;
+  and what the graphics card was first asked for during a first play of the intro is asked for before its first
+  frame (README, "A first play does what a Replay does"). The pictures are the same: 248 of 248 frames, at eight
+  window sizes, identical to the build before.
 - 16 Nov 2026 — v1.38 (XR3.7). Oscar, 16 Nov: "Review every single line ... Every single line should be doing something.
   Remove anything that isn't. Remove anything that adds lag while still producing the same output." No value a
   visitor sees changes.

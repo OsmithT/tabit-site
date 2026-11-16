@@ -73,6 +73,35 @@ The code behind the Tabit Insurance website prototype in Framer.
     to do and did not: the star figures are now made before the first frame with the rest (`prepare` asked the sky for
     its warm-up, which the sky did not hand on, so each figure was still made at first sight, a held frame at each
     chapter the first time through).
+    Safari says where the page is (XR3.8). On a phone the home draws everything from the page's own scroll, so it
+    needs that number in every frame. Safari, from the engine of autumn 2026 (WebKit 625; not the Safari 26 line),
+    saves power while its bar slides in or out with the scroll: it sends the page its scroll position once every
+    100 ms then, and moves only pinned boxes itself in between (`-[WKWebView _updateVisibleContentRects]` in WebKit's
+    source: "throttle visible content rect updates to save power"). Oscar's recording of the live site shows it: the
+    home stepped every sixth frame, ten times a second, each time the bar moved (leaving the top, coming back to it,
+    turning round) and ran at sixty everywhere else. WebKit's exception (bug 319523; in each release branch checked
+    that has the rule) is a page with a scroll-linked animation that runs on the main thread, which is told every
+    frame. Every phone page declares one (`TB_LIVE_CSS`, `tb-live`, made with the edge markers in `tabitEdge`, so the
+    home and the click-out pages share it): an empty, unseen box with a custom property of its own that is 0 down the
+    first half of the page and 1 down the second. Nothing reads it, no child inherits it, it has no size: the page
+    is laid out no more often for it, and it costs one more style pass a frame (measured in Chromium). It looks like
+    dead code and is not: it is what Safari's source says lifts the rule, and it must stay a property the compositor
+    cannot run (not `transform` or `opacity`), or Safari does not count it. The click-out pages need it too: the
+    browser moves their copy itself, but their sky's drift and the Captives figure are drawn from the scroll.
+    None of this can be run off a phone: no desktop browser has bars that slide. Tested here: that the animation
+    is there, on a phone's pages only (the home, Captives and About us), bound to the page's scroll, in Chromium
+    and in WebKitGTK. That it ends the stepping is to be confirmed on Oscar's phone; `?diag` there shows how long
+    the page waits to be told it has scrolled.
+    A first play does what a Replay does (XR3.8). Compiling the sky's programs before the first frame (XR2.9.1) did
+    not send their textures, fill their buffers or draw with them: each was done when a thing first came into view,
+    0.05, 0.35, 1.15 and 1.3 s into a first play, and the splash logo was cut into its pieces in the frame the intro
+    ends on. A Replay does none of this (measured: wrap the graphics calls and list what is first asked for after
+    the first frame). Oscar saw frames dropped on a first load in Safari and none on Replay; what each of these
+    costs in Safari is not measured here (there is no Safari here), so this is the likely cause, not a proven one.
+    Now one frame is drawn with everything shown, cut down to one pixel, before the first frame proper (`precompile` in `makeTabitHero`),
+    the splash logo's pieces are made in `prepare`, and the four weights of Manrope are asked for as soon as their
+    stylesheet is in (a browser otherwise fetches a font when text first needs it). The test: that list, for a first
+    play, must be empty.
   - `pages/reinsurance.js`, `captives.js`, `aboutus.js`, `contact.js`: the click-out pages as `{ css, html, js }` strings,
     with the burger header. `TabitPage.tsx` renders one of them (its `page` control picks which), puts the home's live
     sky behind it, and, where the module has a `js` (Captives: its figure, board XR2.9.31E), runs it with the page's

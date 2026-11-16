@@ -76,7 +76,11 @@ live first); whether XR2.9.22's star disk may turn faster than the cells at rest
 worded); the hairline above the Home proof row and the 1 px Dusk 14 edge under the nav bar; `Replay` and the
 coordinates as on-screen chrome; the splash having no primary action; the About legal line at 11 px; on the click-out
 pages, the (Re)insurance hero
-keeping copy left / compass right (the home chapter has them swapped), and whether the pages carry the chapter path.
+keeping copy left / compass right (the home chapter has them swapped), and whether the pages carry the chapter path;
+`tb-live` (XR3.8), the one keyframe animation not of `transform`/`opacity` and the only `linear` one: a custom
+property of an unseen, empty box on a phone's page, on the page's scroll, there so that Safari reports the scroll in
+every frame while its bar slides (by WebKit's source it must be a property the compositor cannot run, or Safari does
+not count it; to be confirmed on Oscar's phone; STYLE.md §6, v1.39).
 
 ## How the gate runs
 

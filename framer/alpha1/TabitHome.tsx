@@ -54,7 +54,8 @@ export default function TabitHome(props: { style?: any }) {
     const host = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
-        once("tabit-fonts", () => Object.assign(document.createElement("link"), { rel: "stylesheet", href: FONT_URL }))
+        // XR3.8: the four weights are asked for as soon as the stylesheet is in (a browser otherwise fetches a font only when text first needs it).
+        once("tabit-fonts", () => { const l = Object.assign(document.createElement("link"), { rel: "stylesheet", href: FONT_URL }); l.addEventListener("load", () => { try { ["300", "400", "500", "600"].forEach((w) => { (document as any).fonts.load(w + " 17px Manrope").catch(() => {}) }) } catch (e) {} }); return l })
         once("tabit-home-css", () => Object.assign(document.createElement("style"), { textContent: TABIT_HOME_CSS }))
         once("tabit-home-foot-css", () => Object.assign(document.createElement("style"), { textContent: FOOT_CSS }))
         let inst: any = null, alive = true
@@ -84,6 +85,9 @@ export default function TabitHome(props: { style?: any }) {
             // XR3.5: Safari on iOS 26 lays a flat colour over the zone under a bar when the element it finds at the middle of that edge of the
             // screen sits in a pinned box about as wide as the screen, as Framer's badge holder is: tabitEdge's markers stand in front. The
             // stage itself is not taken for such a box because the pin is taller than the screen: keep it so. (TabitSite.js, TABIT_PHONE.)
+            // XR3.8: with the markers comes the box that, by WebKit's source, has Safari say where the page is scrolled in every frame while
+            // its bar slides (TabitSite.js, TB_LIVE_CSS). The home draws everything from the scroll: on Oscar's phone it stepped ten times a
+            // second there. To be confirmed on his phone.
             edgeOff = tabitEdge()
             ;(window as any).__TABIT_NAT = nat
             footBind(false)

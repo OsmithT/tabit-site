@@ -1,3 +1,12 @@
+// Tabit XR3.8 (16 Nov 2026, Oscar, from a second recording of his phone: "This hasn't fixed the juttering issues for the phone ... The frames are also
+// being dropped when you first load in on Safari. The second time when you click the replay button, it's fine. So it's something about the initial
+// loading"). Two causes, the first found (in Safari's source, and it matches the recording), the second the likely one (what a first play does
+// that a Replay does not; its cost in Safari is not measured: no Safari here); neither is a change to any picture. 1. Safari (the engine from
+// autumn 2026) tells a page where it is scrolled only once in 100 ms while its bar slides in or out, unless the page has a scroll-linked
+// animation of its own: every phone page now has one (TB_LIVE_CSS, made with the edge markers in tabitEdge). 2. What the graphics card was
+// first asked for during the intro (four textures sent, a program first drawn, buffers filled) and at its end (the splash logo cut into
+// its pieces) is asked for before the first frame, while the screen is still black: a first play now asks for nothing a Replay does not.
+// Search XR3.8.
 // Tabit XR3.7 (16 Nov 2026, Oscar: "go through the entire code base and review it to a professional standard. Review every single line ... Every single
 // line should be doing something. Remove anything that isn't. Remove anything that adds lag while still producing the same output"). This file held
 // every look the home has ever had, chosen by options at start; the site passes one set of options (TabitHome.tsx's OPTIONS; the click-out pages add
@@ -736,9 +745,17 @@ function makeTabitHero(glCanvas, ovCanvas, DATA, DOM) {
     cam.updateProjectionMatrix(); cam.updateMatrixWorld();
   }
   (function precompile() {   // XR2.9.1: every program is compiled here, while the screen is still black, not when an object first appears
-    var hidden = []; scene.traverse(function (o) { if (o.isSprite && !o.visible) { hidden.push(o); o.visible = true; } });
+    var hidden = [], culled = []; scene.traverse(function (o) { if (o.isSprite && !o.visible) { hidden.push(o); o.visible = true; } if (o.frustumCulled) { culled.push(o); o.frustumCulled = false; } });
     try { renderer.compile(scene, cam); } catch (err) {}
-    hidden.forEach(function (o) { o.visible = false; });
+    // XR3.8: and everything is drawn once. Compiling a program does not send its textures, fill its buffers or draw with it: each of those
+    // was done when a thing first came into view (0.05, 0.35, 1.15 and 1.3 s into a first play; never on a Replay). Oscar saw frames
+    // dropped on a first load in Safari and none on Replay; what each costs there is not measured (no Safari here). One frame with every
+    // object shown, wherever the view is, does them all here, cut down to one pixel of the canvas (everything is still sent, filled and
+    // drawn with; next to nothing is painted, so it costs little); that pixel read back makes the browser finish the work now. The
+    // first frame proper is drawn over it in this same turn, so nothing of it is ever seen.
+    try { camera(0); renderer.setScissor(0, 0, 1, 1); renderer.setScissorTest(true); renderer.render(scene, cam); if (PV) { cam.clearViewOffset(); cam.updateProjectionMatrix(); } var gw = renderer.getContext(); gw.readPixels(0, 0, 1, 1, gw.RGBA, gw.UNSIGNED_BYTE, new Uint8Array(4)); } catch (err) {}
+    try { renderer.setScissorTest(false); } catch (err) {}
+    hidden.forEach(function (o) { o.visible = false; }); culled.forEach(function (o) { o.frustumCulled = true; });
   })();
   var v3 = new T3.Vector3();
   function toScreen(v) { v3.copy(v).project(cam); return [(v3.x + 1) / 2 * W - OX, (1 - v3.y) / 2 * H - OY]; }   // in the 1280 design's units. XR2.9.20: vertically too; the overlay is drawn offset by OY, so on a stage taller than 720 the ring, Orion and the grid sat OY below the logo they frame
@@ -1040,7 +1057,7 @@ function makeHandoff(hero, root, V) {
   // D.C.2.6: a soft 'star field' follows the mouse over the logo. Inside it the solid logo gives way to tiny twinkling Tabit
   // stars sitting exactly on the letters (nothing is pushed aside, no hole); when the mouse moves on they settle back into the logo.
   var SG = null;
-  function starUpdate(tx, ty, s1, t) {
+  function starMake(tx, ty, s1) {   // the logo's pieces and the stars that stand on them, made once (XR3.8: a step of its own, so the splash's can be made before the first frame)
     if (!RP) rippleInit(tx, ty, s1);
     var d = RP.d, C = 3;
     if (!SG) { SG = { w: Math.ceil(RP.gw / C), h: Math.ceil(RP.gh / C) }; SG.v = new Float32Array(SG.w * SG.h);
@@ -1048,6 +1065,10 @@ function makeHandoff(hero, root, V) {
       var dens = 1 / (3 * d * d);   // F2.8: the splash logo gets exactly the same little knots as the docked logo   // F2.3: the big splash logo gets sparser stars, so the letters visibly break up
       RP.P.forEach(function (o) { if (o.a < 160 || rr() > dens) return; var an = rr() * 6.283;   // a dense set of stars laid over the letters
         SG.K.push({ x: RP.gx0 + o.hx / d, y: RP.gy0 + o.hy / d, dx: Math.cos(an), dy: Math.sin(an), ph: rr() * 6.283, r2: rr(), r3: rr(), sp: (rr() - .5) * 1.6 }); }); }
+  }
+  function starUpdate(tx, ty, s1, t) {
+    starMake(tx, ty, s1);
+    var d = RP.d, C = 3;
     var inside = PTR.x > RP.gx0 && PTR.x < RP.gx0 + RP.gw && PTR.y > RP.gy0 && PTR.y < RP.gy0 + RP.gh;
     var splash = s1 > .6, mx = PTR.x - RP.gx0, my = PTR.y - RP.gy0, R = 18, mxv = 0; if (splash) inside = inside && SPL.on === 1;   // F2.8: same patch, stars and drift as the docked logo; on the splash, nothing until the pointer is on the logo   // F2.6: a tight patch round the pointer, and nothing until it is on the logo
     for (var gy = 0; gy < SG.h; gy++) for (var gx = 0; gx < SG.w; gx++) {
@@ -1466,6 +1487,9 @@ function makeHandoff(hero, root, V) {
   function prepare() {
     try { if (scene && scene.prepare) scene.prepare(); } catch (e) {}
     try { if (V === 'dc17' && !TABIT_PH && !RM && !FL2) fly2Init(); } catch (e) {}
+    // XR3.8: the splash logo's pieces too. They were cut (the whole lockup read back, a piece made for every one of its pixels) in the first
+    // frame of the splash, the frame the intro ends on: a held frame at the end of every first play.
+    try { if (V === 'dc17' && !TABIT_PH && !RM && FL2 && !STB.RP) { var r0 = RP, g0 = SG; RP = STB.RP; SG = STB.SG; try { starMake(0, 0, 1); STB.RP = RP; STB.SG = SG; } finally { RP = r0; SG = g0; } } } catch (e) {}
     try { if (aiOv && !ST) starsInit(); } catch (e) {}
   }
   function covered(S) { return !!scene && !!scene.ready && scene.ready() && S / TABIT_HAND >= .3; }   // XR3.6: the site's sky lies over the hero's at full strength (makeScene.draw: sg(r, .02, .3))
@@ -2054,6 +2078,7 @@ self.tick = function () {
   var DG = self.diag; if (DG === undefined) { try { DG = /diag/.test(location.search + location.hash) || !!window.__TABIT_DIAG; } catch (e2) { DG = false; }
     if (DG) { DG = self.diag = { el: document.createElement('div'), gaps: [], ticks: [], stalls: [], n: 0 }; DG.el.style.cssText = 'position:absolute;left:16px;top:96px;z-index:40;font:11px/15px ui-monospace,Menlo,monospace;color:#FBF9F4;background:rgba(4,7,15,.72);padding:8px 10px;border:1px solid rgba(251,249,244,.25);border-radius:2px;white-space:pre;pointer-events:none;letter-spacing:0'; root.appendChild(DG.el); } else self.diag = false; }
   if (DG) { DG.t0 = performance.now(); if (self.lastGap) { DG.gaps.push(self.lastGap); if (DG.gaps.length > 240) DG.gaps.shift(); } }
+  if (DG && N && self.natY !== DG.y0) { if (!DG.sg) DG.sg = []; if (DG.t1 && now - DG.t1 < 400) { DG.sg.push(now - DG.t1); if (DG.sg.length > 120) DG.sg.shift(); } DG.y0 = self.natY; DG.t1 = now; }   // XR3.8: how long the page waits to be told it has scrolled, while it is scrolling (Safari under its sliding bar: 100 ms without TB_LIVE_CSS)
   G.skip = G.lvl >= 1 && G.hz === 120 ? !G.skip : false;
   if (self.hero) { if (!G.skip) { self.hero.render(self.t, !!self.hand && self.hand.covered(self.S)); if (self.hand) self.hand.update(self.t, self.S); } }
   if (DG) { var tk = performance.now() - DG.t0; DG.ticks.push(tk); if (DG.ticks.length > 240) DG.ticks.shift(); if (tk > 20 || (self.lastGap > 40 && self.t > .3)) DG.stalls.push('t=' + self.t.toFixed(2) + 's  gap ' + Math.round(self.lastGap) + 'ms  js ' + Math.round(tk) + 'ms'); if (DG.stalls.length > 7) DG.stalls.shift();
@@ -2062,6 +2087,7 @@ self.tick = function () {
       DG.el.textContent = 'TABIT diag  ' + br + '  ' + innerWidth + 'x' + innerHeight + ' @' + (window.devicePixelRatio || 1) + 'x\n'
         + 'display ~' + Math.round(hz) + ' Hz   fps ' + (gs.length ? Math.round(1000 / (gs.reduce(function (a, b) { return a + b; }, 0) / gs.length)) : 0) + '   dropped ' + Math.round(drop * 100) + '%   gap p90 ' + (gs.length ? gs[Math.floor(gs.length * .9)].toFixed(1) : '-') + 'ms\n'
         + 'js/frame mean ' + (ts.reduce(function (a, b) { return a + b; }, 0) / Math.max(1, ts.length)).toFixed(1) + 'ms  max ' + Math.max.apply(null, ts.concat([0])).toFixed(1) + 'ms\n'
+        + (N && DG.sg && DG.sg.length ? 'scroll told every ' + DG.sg.slice().sort(function (a, b) { return a - b; })[DG.sg.length >> 1].toFixed(0) + 'ms  waits over 80ms: ' + DG.sg.filter(function (x) { return x > 80; }).length + ' of last ' + DG.sg.length + '\n' : '')
         + 'sky canvas ' + (glc ? glc.width + 'x' + glc.height : '-') + '  W ' + TABIT_W + '  governor level ' + G.lvl + (G.skip !== undefined && G.lvl >= 1 && G.hz === 120 ? ' (60 lock)' : '') + '  t ' + self.t.toFixed(1) + 's\n'
         + (DG.stalls.length ? 'stalls:\n  ' + DG.stalls.join('\n  ') : 'stalls: none'); } }
   else if (self.failed) { var d = tabitDom(); [d.mark].concat(d.letters).forEach(function (el) { if (el) { el.style.opacity = 1; el.style.transform = 'none'; } }); d.masks.forEach(function (m) { m.setAttribute('stroke-width', 60); }); }
@@ -2098,10 +2124,25 @@ var TABIT_PHONE = { top: 100, bot: 140, glass: '#060A17' };   // glass: the nav 
 // cannot chase each other. Each has an empty child on purpose: a box with no child and no background is one Safari looks through.
 // One pair serves everyone who asks (going from a click-out page to the home, both ask for a frame). Returns the function that gives
 // the caller's share back; the last to go takes the markers away.
+// XR3.8: with the markers goes one more box nothing can see, for the same pages (a phone's, under Safari's bars). Safari, from the engine of
+// autumn 2026 (WebKit 625), saves power while its bar slides in or out with the scroll: it tells the page where it is scrolled only once
+// every 100 ms then (WKWebView _updateVisibleContentRects: "throttle visible content rect updates to save power") and moves only pinned
+// boxes itself in between. The home draws everything from the page's scroll, and a click-out page its sky's drift and (Captives) its
+// figure, so they stepped ten times a second each time the bar moved: leaving the top, coming back to it, turning round. WebKit's own
+// exception (bug 319523, in each release branch checked that has the rule) is a page with a scroll-linked animation that runs on the main thread: it
+// is told every frame. This is that animation: a property of the box's own is 0 down the first half of the page and 1 down the second;
+// nothing reads it, the box has no child to inherit it and no size, so there is nothing to lay out or paint. It has to be a property the
+// compositor cannot run (so not transform or opacity, STYLE.md 6): Safari counts only an animation that needs the main thread. It is
+// not dead code: it is what Safari's source says lifts the rule. That it does so on a phone is to be confirmed on Oscar's (?diag there
+// shows how long the page waits to be told it has scrolled).
+var TB_LIVE_CSS = '@supports (animation-timeline:scroll()){@keyframes tb-live{from{--tb-live:0}to{--tb-live:1}}[data-tb-live]{animation:tb-live linear both;animation-timeline:scroll(root block)}}';
 var TB_EDGE = null;
 function tabitEdge() {
   var E = TB_EDGE;
   if (!E) {
+    if (!document.getElementById('tabit-live-css')) { var lc = document.createElement('style'); lc.id = 'tabit-live-css'; lc.textContent = TB_LIVE_CSS; document.head.appendChild(lc); }
+    var live = document.createElement('div'); live.setAttribute('data-tb-live', '1'); live.setAttribute('aria-hidden', 'true');
+    live.style.cssText = 'position:absolute;left:0;top:0;width:0;height:0;visibility:hidden;pointer-events:none'; document.body.appendChild(live);
     var body = document.body, n = 0, marks = ['top', 'bottom'].map(function (side) {
       var m = document.createElement('div'); m.setAttribute('data-tb-edge', side); m.setAttribute('aria-hidden', 'true');
       m.style.cssText = 'position:fixed;left:calc(50% - 6px);' + side + ':0;width:12px;height:12px;z-index:2147483647;pointer-events:none';
@@ -2109,7 +2150,7 @@ function tabitEdge() {
     });
     var last = typeof MutationObserver !== 'undefined' ? new MutationObserver(function () { if (body.lastElementChild !== marks[1] && n < 8) { n++; body.appendChild(marks[0]); body.appendChild(marks[1]); } }) : null;
     if (last) last.observe(body, { childList: true });
-    E = TB_EDGE = { n: 0, off: function () { if (last) last.disconnect(); marks.forEach(function (m) { if (m.parentNode) m.parentNode.removeChild(m); }); } };
+    E = TB_EDGE = { n: 0, off: function () { if (last) last.disconnect(); marks.forEach(function (m) { if (m.parentNode) m.parentNode.removeChild(m); }); if (live.parentNode) live.parentNode.removeChild(live); } };
   }
   E.n++;
   return function () { if (!--E.n) { E.off(); TB_EDGE = null; } };
