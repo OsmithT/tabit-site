@@ -1,7 +1,7 @@
 // Tabit XR3.10 (16 Nov 2026, Oscar, from Safari's own ?diag readout on his Mac: "both are still dropping frames at the initial load in ... No other
 // website does this"). The readout: in the first second of the intro, six frames 0.1 to 0.9 s apart, 1 ms of this engine's script in each, and the
-// governor at level 2 because of them. What loads then is Framer's own editor (a hidden full-window frame from framer.com, added after the page's
-// load); Safari runs it on the page's thread and Chrome does not. A first play of the intro now waits for the page (self.hold), and the governor
+// governor at level 2 because of them. What loads then, by Framer's loader, is its own editor (a hidden full-window frame from framer.com, added
+// after the page's load); by WebKit's source Safari runs such a frame on the page's thread, and Chrome on a computer does not. A first play of the intro now waits for the page (self.hold), and the governor
 // does not count the wait. ?diag shows the wait and when Framer's frame came. The cause is read from Framer's loader and WebKit's source and fits
 // the readout's timing; it is to be confirmed by that readout on Oscar's Safari. Search XR3.10.
 // Tabit XR3.9 (16 Nov 2026, Oscar: "the blackhole now doesn't match where the mouse is"). On a stage taller than 720 units (a window squarer than
@@ -1971,16 +1971,19 @@ else { try { if (window.sessionStorage.getItem('tabit-intro')) { self.t = TABIT_
 self.reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 if (self.reduce) { self.t = 9; }
 // XR3.10: the opening waits for the page (Oscar, 16 Nov, Safari on his Mac and phone: "both are still dropping frames at the initial load in"; his ?diag
-// readout: six frames 0.1 to 0.9 s apart in the first second of the intro, with 1 ms of this engine's script in each). Framer adds its own editor to
-// every site it serves: a hidden full-window frame from framer.com (id __framer-editorbar), put in once the page has loaded: at an idle moment where
-// the browser can report one, 300 ms after the load where it cannot (Safari). Safari also runs a frame from another site on the page's own thread
-// (WebKit's SiteIsolationEnabled is off), so that frame starting up stops the page, in the first second of the intro. A first play of the intro
-// therefore begins, in those browsers, only when the page has loaded, Framer's frame (if the page has one) has loaded too, and frames have come
-// steadily for a quarter of a second: until then the clock stands at 0, which is the dark sky. Never longer than 4 s; scrolling ends the wait.
-// Replay, a return to Home (the intro is not played again) and reduced motion do not wait. Nor does a browser that has requestIdleCallback
-// (Chrome, Edge, Firefox): that is the test Framer's loader itself makes, those browsers keep another site's frame off the page's thread on a
-// computer, and the intro there starts exactly when it did.
-self.hold = init.t == null && !seen0 && !self.reduce && !('requestIdleCallback' in window) ? { t0: performance.now() } : null;
+// readout: six frames 0.1 to 0.9 s apart, most in the first second of the intro, with 1 ms of this engine's script in each). Framer adds its own editor to
+// a site it serves: a hidden full-window frame from framer.com (id __framer-editorbar), put in once the page has loaded: at an idle moment where the
+// browser can report one, 300 ms after the load where it cannot (Safari); at once for a visitor it already knows as an editor. Safari also runs a frame
+// from another site on the page's own thread (WebKit's SiteIsolationEnabled is off), so, on this reading, that frame starting up stops the page, in the
+// first second of the intro. A first play of the intro therefore begins, in those browsers, only when the page has loaded, Framer's frame (if the page
+// has one) has loaded too, and frames have come steadily for a quarter of a second: until then the clock stands at 0, which is the dark sky. The wait
+// is never longer than 4 s from the engine's first frame; a press or a scroll down ends it, and so does anything that moves the clock (Skip, a chapter
+// button). Replay, a return to Home (the intro is not played again), reduced motion and a start time given by the host do not wait. Nor does a browser
+// that has requestIdleCallback (Chrome, Edge and Firefox on a computer): that is the test Framer's loader itself makes, those browsers are built to keep
+// another site's frame off the page's thread on a computer, and the intro there starts exactly when it did (no wait is set up; checked in Chromium).
+// Known: Chrome on Android has requestIdleCallback and may still share the thread (it is as it was); a Safari that gains requestIdleCallback before it
+// keeps frames apart would stop waiting.
+self.hold = init.t == null && !seen0 && !self.reduce && !('requestIdleCallback' in window) ? {} : null;
 self.input = function (d) {
   if (self.t < TABIT_END) { if (d > 0) self.ff = true; return; }   // scrolling during the intro fast-forwards it
   var qm = (self.hand ? self.hand.qmax : 600) + TABIT_XQ;
@@ -1997,7 +2000,7 @@ self.go = function (S) { var N = natOn(); if (N) N.to(S, true); else self.St = S
 var inOff = [];
 function onIn(ev, fn, opt) { root.addEventListener(ev, fn, opt); inOff.push(function () { root.removeEventListener(ev, fn, opt); }); }
 offs.push(function () { inOff.forEach(function (f) { f(); }); inOff = []; });
-on(root, 'pointerdown', function () { try { root.focus({ preventScroll: true }); } catch (err) {} });
+on(root, 'pointerdown', function () { if (self.hold) self.hold.end = 1; try { root.focus({ preventScroll: true }); } catch (err) {} });   // XR3.10: a press ends the opening's wait for the page: something answers it
 var hb = root.querySelector('[data-tabit-home]');
 on(hb, 'click', function () { self.go(0); });
 on(root, 'keydown', function (e) {
@@ -2079,13 +2082,18 @@ self.tick = function () {
   }
   var HD = self.hold;
   if (HD) {   // XR3.10: the opening waits for the page (see self.hold)
+    if (!HD.t0) HD.t0 = now;   // the wait is timed from the first frame the engine runs (a tab opened in the background runs none until it is shown)
+    else { var hg = HD.g || (HD.g = []); hg.push(gap); if (hg.length > 9) hg.shift();
+      // a frame that came late: over 40 ms, and over two and a half times the second shortest gap of the last nine (the shortest while fewer than five are in hand):
+      // a low mark, so a run of long gaps does not come to count as usual, and not the very shortest, so a slow device with one quick frame is not kept waiting
+      if (gap > Math.max(40, 2.5 * hg.slice().sort(function (a, b) { return a - b; })[hg.length > 4 ? 1 : 0])) { HD.q = now; HD.n = (HD.n || 0) + 1; HD.mx = Math.max(HD.mx || 0, gap); } }
     if (!HD.ld && realDoc.readyState === 'complete') HD.ld = now;
     if (!HD.ef) { var ef0 = realDoc.getElementById('__framer-editorbar');
       if (ef0) { HD.ef = now; ef0.addEventListener('load', function () { HD.el = performance.now(); }, { once: true });
-        try { if (performance.getEntriesByName(ef0.src).length) HD.el = now; } catch (e4) {} } }   // its page had already arrived when this engine first looked: its load event may have gone by (it is not sent twice), so steady frames decide
-    var hg = HD.g || (HD.g = []); hg.push(gap); if (hg.length > 9) hg.shift();
-    if (gap > Math.max(40, 2.5 * hg.slice().sort(function (a, b) { return a - b; })[hg.length >> 1])) { HD.q = now; HD.n = (HD.n || 0) + 1; HD.mx = Math.max(HD.mx || 0, gap); }   // a frame that came late: over 40 ms, and over two and a half times the usual gap of the last nine (so a slow device, whose every frame is long, is not kept waiting)
-    if (self.ff || now - HD.t0 > 4000 || (HD.ld && (HD.ef ? HD.el || now - HD.ef > 3000 : now - HD.ld >= 350) && now - Math.max(HD.q || 0, HD.el || 0, HD.ld) >= 250)) { HD.go = now; self.held = HD; self.hold = null; }
+        // its page had arrived, or the page itself loaded over 3 s ago, before this engine first looked: its load event may have gone by (it is not sent twice), so a full second of steady frames stands in for it
+        try { var nv0 = performance.getEntriesByType('navigation')[0]; if (performance.getEntriesByName(ef0.src).length || (nv0 && nv0.loadEventEnd && now - nv0.loadEventEnd > 3000)) HD.pre = now; } catch (e4) {} } }
+    var efOk = HD.ef ? HD.el || (HD.pre && now - Math.max(HD.q || 0, HD.pre) >= 1000) || now - HD.ef > 3000 : HD.ld && now - HD.ld >= 400;   // Framer's frame has loaded (3 s is the most it is given); or none has come in the 400 ms after the page's load (Framer's own delay is 300)
+    if (self.t > 0 || self.ff || HD.end || now - HD.t0 > 4000 || (HD.ld && efOk && now - Math.max(HD.q || 0, HD.el || 0, HD.ld) >= 250)) { HD.go = now; self.held = HD; self.hold = null; }
     else dt = 0;
   }
   self.t += dt * (self.ff ? 7 : 1); if (self.t >= TABIT_END) self.ff = false;
@@ -2122,7 +2130,7 @@ self.tick = function () {
         + 'js/frame mean ' + (ts.reduce(function (a, b) { return a + b; }, 0) / Math.max(1, ts.length)).toFixed(1) + 'ms  max ' + Math.max.apply(null, ts.concat([0])).toFixed(1) + 'ms\n'
         + (N && DG.sg && DG.sg.length ? 'scroll told every ' + DG.sg.slice().sort(function (a, b) { return a - b; })[DG.sg.length >> 1].toFixed(0) + 'ms  waits over 80ms: ' + DG.sg.filter(function (x) { return x > 80; }).length + ' of last ' + DG.sg.length + '\n' : '')
         + 'sky canvas ' + (glc ? glc.width + 'x' + glc.height : '-') + '  W ' + TABIT_W + '  governor level ' + G.lvl + (G.skip !== undefined && G.lvl >= 1 && G.hz === 120 ? ' (60 lock)' : '') + '  t ' + self.t.toFixed(1) + 's\n'
-        + (self.hold || self.held ? (function (h) { function sx(x) { return x ? (x / 1000).toFixed(2) + 's' : '-'; } return 'opening ' + (h.go ? 'began ' + sx(h.go) + ' (waited ' + ((h.go - h.t0) / 1000).toFixed(2) + 's)' : 'waiting') + '  page loaded ' + sx(h.ld) + '\nFramer editor frame ' + (h.ef ? 'seen ' + sx(h.ef) + '  loaded ' + sx(h.el) : 'none') + '   late frames while waiting: ' + (h.n || 0) + (h.n ? ' (longest ' + Math.round(h.mx) + 'ms)' : '') + '\n'; })(self.hold || self.held) : '')
+        + (self.hold || self.held ? (function (h) { function sx(x) { return x ? (x / 1000).toFixed(2) + 's' : '-'; } return 'opening ' + (h.go ? 'began ' + sx(h.go) + ' (waited ' + ((h.go - (h.t0 || h.go)) / 1000).toFixed(2) + 's)' : 'waiting') + '  page loaded ' + sx(h.ld) + '\nFramer editor frame ' + (h.ef ? 'seen ' + sx(h.ef) + (h.pre ? ' (already there)' : '') + '  loaded ' + sx(h.el) : 'none') + '   late frames while waiting: ' + (h.n || 0) + (h.n ? ' (longest ' + Math.round(h.mx) + 'ms)' : '') + '\n'; })(self.hold || self.held) : '')
         + (DG.stalls.length ? 'stalls (time since the page opened, intro time):\n  ' + DG.stalls.join('\n  ') : 'stalls: none'); } }
   else if (self.failed) { var d = tabitDom(); [d.mark].concat(d.letters).forEach(function (el) { if (el) { el.style.opacity = 1; el.style.transform = 'none'; } }); d.masks.forEach(function (m) { m.setAttribute('stroke-width', 60); }); }
   self.raf = requestAnimationFrame(self.tick);

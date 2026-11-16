@@ -339,15 +339,22 @@ dictionary entry; scroll-positioned in chapters). Hover colour .25 s ease (coord
 values are functions of position (reversible); pointer effects decay ~.5 s. Reduced motion keeps opacity/colour, stops
 grain and cue, stops the tilt, stars no longer travel between figures. Budget 8 ms at 120 Hz; governor locks 60 then
 ×.75/×.55 resolution; `?diag`, `?nograin`; target dropped < 5 %, JS < 4 ms on an M1 Mac.
-**The opening waits for the page (v1.40).** A first play of the opening sequence begins when the page can play it.
-Framer adds its own editor to every site it serves, as a hidden frame from framer.com, once the page has loaded. Safari,
-and every browser on an iPhone or iPad, runs a frame from another site on the page's own thread, and that frame starting
-up stopped the page for up to 0.9 s at a time in the first second of the intro (Oscar's `?diag` readout, 16 Nov). In a
-browser without `requestIdleCallback` (the test Framer's own loader makes; they are the browsers that share the thread)
-the intro's clock stands at 0, the dark sky, until the page has loaded, Framer's frame has loaded (350 ms is allowed
-for it to appear), and frames have come steadily for 250 ms (a late frame is one more than 40 ms, and 2.5 times the
-usual gap, after the one before). Never longer than 4 s; a scroll ends the wait. Replay, a return to Home and reduced
-motion do not wait; Chrome, Edge and Firefox start as before. The governor does not count frames during the wait.
+**The opening waits for the page (v1.40).** A first play of the opening sequence begins when the page can play it; its
+0–7.2 s are unchanged and only start later. Framer adds its own editor to a site it serves, as a hidden frame from
+framer.com, once the page has loaded. Safari, and every browser on an iPhone or iPad, runs a frame from another site on
+the page's own thread (WebKit's source), and on a first load the page stopped for up to 0.9 s at a time, mostly in the
+intro's first second (Oscar's `?diag` readout, 16 Nov), which is read as that frame starting up and is to be confirmed on
+his Safari. In a browser without `requestIdleCallback` (the test Framer's own loader makes; by WebKit's source they are
+the browsers that share the thread) the intro's clock stands at 0, the dark sky, until all of: the page has loaded;
+Framer's frame has loaded, or none has appeared in the 400 ms after the page's load (Framer's own delay is 300 ms); and no
+frame has come late for 250 ms. A late frame is one more than 40 ms, and more than 2.5 times the second shortest of the
+last nine gaps, after the one before. Framer's frame is given 3 s to load; where it was there before the engine first
+looked, 1 s of steady frames stands in for its load. The wait is never longer than 4 s from the engine's first frame. A
+press, a scroll down (wheel, touch or key), or anything that moves the clock (Skip, a chapter button) ends it; after a
+scroll the intro runs fast, as a scroll during the intro always has. Replay, a return to Home,
+reduced motion and a start time given by the host do not wait; nor does a browser that has `requestIdleCallback`
+(Chrome, Edge and Firefox on a computer), where the intro starts as before (checked in Chromium). The governor does not
+count frames during the wait. As before, the clock never moves on more than 0.05 s in one frame.
 **A figure that changes as you scroll (v1.18, Oscar 12 Nov: "something needs to happen").** On a click-out page a
 figure may change from one state beside the headline to its finished state beside the content it explains, driven by
 the scroll and reversed by it. The stretch: two columns, from the top of the page until the next heading is half way up
@@ -417,11 +424,13 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
 
 - 16 Nov 2026 — v1.40 (XR3.10). Oscar, 16 Nov, from Safari's own `?diag` readout on his Mac: "both are still dropping
   frames at the initial load in ... No other website does this". §6 gains "The opening waits for the page": in a
-  browser without `requestIdleCallback` a first play of the intro begins once the page and Framer's editor frame have
-  loaded and frames have been steady for 250 ms (350 ms for the frame to appear; a late frame is over 40 ms and 2.5
-  times the usual gap; never longer than 4 s). The cause is read from Framer's loader and WebKit's source and fits the
-  readout's timing; it is to be confirmed by the readout on his Safari. No colour, type, layout or component value
-  changes. XR3.9, the same evening (the black hole on the mouse), changed no value in this code.
+  browser without `requestIdleCallback` a first play of the intro begins once the page has loaded, Framer's editor frame
+  has loaded (or none has appeared in 400 ms), and no frame has been late for 250 ms. Its values: 400 ms, 250 ms, a late
+  frame over 40 ms and 2.5 times the second shortest of the last nine gaps, 3 s for the frame to load, 1 s of steady
+  frames where the frame was already there, never longer than 4 s; and, written down for the first time, the 0.05 s the
+  clock may move in one frame. The cause is read from Framer's loader and WebKit's source and fits the readout's timing;
+  it is to be confirmed by the readout on his Safari. No color, type, layout or component value changes. XR3.9, the
+  same evening (the black hole on the mouse), changed no value in this code.
 - 16 Nov 2026 — v1.39 (XR3.8). Oscar, 16 Nov, from a second recording of his phone: "This hasn't fixed the juttering
   issues for the phone ... The frames are also being dropped when you first load in on Safari. The second time when you
   click the replay button, it's fine." No value a visitor sees changes. On a phone every page declares one

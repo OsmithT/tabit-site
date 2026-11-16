@@ -116,23 +116,31 @@ The code behind the Tabit Insurance website prototype in Framer.
     on a phone (390 x 844, 390 x 664), every pixel of the intro, the splash and the pages is as it was.
     The opening waits for the page (XR3.10). Oscar's `?diag` readout from Safari 27 on his Mac, two first loads: in the
     first second of the intro, six frames 0.1 to 0.9 s apart, with 1 ms of the engine's own script in each, and the
-    governor at level 2 because of them. So the page was being stopped by something that is not the engine. What loads
-    then is Framer's own editor: `framer.com/edit/init.mjs`, which every site Framer serves pulls in, adds a hidden
+    governor at level 2 because of them. So what stopped the page was not the engine's script. What loads then, by
+    Framer's own loader, is its editor: `framer.com/edit/init.mjs`, which every site Framer serves pulls in, adds a hidden
     full-window frame from framer.com (`#__framer-editorbar`) once the page has loaded: at an idle moment where the
-    browser has `requestIdleCallback`, 300 ms after the load where it has not. Safari has not (WebKit's
-    `RequestIdleCallbackEnabled` is off), and Safari runs a frame from another site on the page's own thread (WebKit's
-    `SiteIsolationEnabled` is off; both read in WebKit's source, on its main line and its release branches); Chrome runs it in a process of its
-    own, and in the Chromium pane on the same Mac the intro drops nothing. That is the reading; it is not proved until
+    browser has `requestIdleCallback`, 300 ms after the load where it has not. By WebKit's source (its main line and
+    release branches 7622 to 7625) Safari has not (`RequestIdleCallbackEnabled` is off) and runs a frame from another
+    site on the page's own thread (`SiteIsolationEnabled` is off). Chrome on a computer gives such a frame a process of
+    its own (that is Chrome's documented design, not tested here), and through the Claude browser pane on the same Mac
+    (Chromium) the intro measured 120 frames a second with none dropped. That is the reading; it is not proved until
     the readout shows it on his Safari. The engine cannot stop Framer's frame, so a first play of the intro waits for it
     (`self.hold` in `TabitSite.js`): in a browser without `requestIdleCallback` the clock stands at 0 until the page has
-    loaded, Framer's frame has loaded (350 ms is allowed for it to appear), and frames have been steady for 250 ms;
-    never longer than 4 s, and a scroll ends it. The governor does not count the wait. `?diag` now says when the page
-    loaded, when Framer's frame was seen and loaded, how long the opening waited and how many frames came late
-    meanwhile. Tested with a stand-in frame that holds the thread for the times in Oscar's readout (Chromium with
-    `requestIdleCallback` taken away, and WebKitGTK): before, stalls of 0.16 to 0.94 s while the intro played (2.3 s in
-    one piece in WebKitGTK); after, none, with the intro beginning once the frame has loaded. In Chromium as it is the
-    intro begins when it did. Known: a browser that gains `requestIdleCallback` while still sharing the thread would
-    not wait; work Framer's frame does after its own load (seen once at 2.4 s for a signed-in editor) is not waited for.
+    loaded, Framer's frame has loaded (400 ms is allowed for it to appear, 3 s for it to load), and no frame has come
+    late for 250 ms; never longer than 4 s from the engine's first frame; a press or a scroll down ends it, and so
+    does anything that moves the clock. The governor does not count the wait. `?diag` now says when the page loaded,
+    when Framer's frame was seen and loaded, how long the opening waited and how many frames came late meanwhile.
+    Simulated with a stand-in frame that holds the thread for the times in Oscar's readout (Chromium with
+    `requestIdleCallback` taken away, and WebKitGTK, which is WebKit but not Safari): before, stalls of 0.16 to 0.96 s
+    while the intro played (2.3 s in one piece in WebKitGTK); after, none in the simulation, with the intro beginning
+    once the frame has loaded. In Chromium as it is the intro begins when it did. Known: a browser that gains
+    `requestIdleCallback` while still sharing the thread would not wait, and Chrome on Android (which has it, and does
+    not always keep frames apart) is as it was; work Framer's frame does after its own load (seen once at 2.4 s for a
+    signed-in editor) is not waited for; a page whose own load takes most of the 4 s starts on time and may meet the
+    frame. Framer's own site, on its own domain, pulls in the same loader but made no frame for an ordinary visitor in
+    40 s (seen through the Claude browser pane, 16 Nov): on a real domain the frame may come only for owners and
+    collaborators, as Framer's help page says of the Edit button, and a visitor there then waits only the 400 ms.
+    `?diag` on the real domain will say ("Framer editor frame none").
   - `pages/reinsurance.js`, `captives.js`, `aboutus.js`, `contact.js`: the click-out pages as `{ css, html, js }` strings,
     with the burger header. `TabitPage.tsx` renders one of them (its `page` control picks which), puts the home's live
     sky behind it, and, where the module has a `js` (Captives: its figure, board XR2.9.31E), runs it with the page's

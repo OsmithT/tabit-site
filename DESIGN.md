@@ -73,7 +73,8 @@ failure is flagged for Oscar's decision rather than blocking on its own. Owner o
 Under decision (flag, do not block, until Oscar rules): on a phone, Orion on Home cut by the foot of a tall screen
 (as on the phone design Oscar chose) and left out on a short one, against "whole or not at all" (Oscar wants to see it
 live first); whether XR2.9.22's star disk may turn faster than the cells at rest, as its reference does (built at the cells' 3 degrees a second, the extra whirl on the scroll); the film-grain loop and the EXPLORE cue pulse (cardinal 4 as
-worded); the hairline above the Home proof row and the 1 px Dusk 14 edge under the nav bar; `Replay` and the
+worded); the opening's wait for the page in Safari (XR3.10: a first play may stand on the dark sky for up to 4 s before the
+approved intro begins; a start condition for that intro, no new motion); the hairline above the Home proof row and the 1 px Dusk 14 edge under the nav bar; `Replay` and the
 coordinates as on-screen chrome; the splash having no primary action; the About legal line at 11 px; on the click-out
 pages, the (Re)insurance hero
 keeping copy left / compass right (the home chapter has them swapped), and whether the pages carry the chapter path;
