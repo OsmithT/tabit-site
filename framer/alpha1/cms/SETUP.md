@@ -191,6 +191,13 @@ Each row's two fields are 12 apart; the rows 12 apart. On a phone every field is
 - Test: a message arrives with all five fields; empty required fields stop Send; the thank-you line shows; it works
   on a phone without zooming; the two columns line up at laptop width as `pages/contact.js` does.
 
+**As built in Framer (XR3.3.1, 17 Nov):** the page is Contact row (Contact: top, then the Form column), then the Legal
+line. The row carries the override `withTabitContactRow` and the Form column `withTabitColumn` (both in
+`TabitColumn.tsx`). The row's override lays the two columns out by CSS with the pages' own rule (at least 1024 wide and
+1.6:1: two columns; otherwise stacked), not by Framer's breakpoints, so a square desktop window stacks as the pages do;
+the Form column is built at 1.25 px a unit and zoomed to the window's unit (no zoom below 810, where the Phone
+breakpoint is built at 1 px a unit). Send stays 30 above (Oscar, 12 Nov), not 24.
+
 ## Privacy Policy and Terms & Conditions (XR3.3)
 
 Two new pages, at the same addresses as on tabitinsurance.com today, so existing links keep working:
