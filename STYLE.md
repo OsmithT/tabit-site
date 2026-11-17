@@ -221,7 +221,10 @@ Radius 2 everywhere; no other radius, no pill.
   timeline: Paper 22 hairline, 7 × 7 diamonds, years Title, labels Small Paper 72, columns 52 apart. Two-column at
   x 560, 420 wide; stacked under the copy, 470 wide.
 - Legal line (About): 11/17 Paper 60, Paper 14 hairline 12 above; 920 wide two-column, 700 wide at the screen foot
-  stacked. Under decision (only text below Small).
+  stacked. Under decision (only text below Small). The footer's last line (v1.41): the copyright and each link are
+  kept whole and the line breaks only between them; on a phone the copyright stands on its own line and the three
+  links under it, so no middot ends a line; on a touch screen each link's tap area is 44 tall, reaching beyond the
+  text without moving anything.
 - Replay (24, 24): 36 tall, padding 0 × 16, Dusk 45 border, `rgba(4,7,15,.35)`, Small 600. Coordinates (64, 30): Label
   400/.14em Paper 80, links to About, Brass on hover. EXPLORE cue (34): Label .26em Dusk over a 1-unit line. All three
   under decision as chrome.
@@ -423,6 +426,15 @@ phones · unapproved words, placeholder people or text · overwriting a board, a
 
 ## 10. Change log
 
+- 17 Nov 2026 — v1.41 (XR3.3.1, Ashleigh's XR3.3 built in Framer; Oscar, 17 Nov: "can you do ashleighs changees now?").
+  No listed value changes. Corrections from the review gate: the policy pages' Brass-dot list items 12 apart, as §4
+  lists (they were 8); Privacy Policy, Terms & Conditions and the article 24 from each edge on a phone, as every
+  click-out page (they kept 80, a 230 px column); the footer's last line as §5 Legal line now says (items whole, the
+  copyright on its own line on a phone, 44-tall tap areas on touch screens; "Privacy Policy" had broken over two
+  lines). The Contact form, built in Framer at 1.25 px a unit, is zoomed to the window's unit: a fixed .8 below
+  1152 px, steps of 16 px between 1152 and 1440 px refined by the script, 1 from 1440 px (TabitColumn.tsx); derived
+  from §4's unit, not a value of its own. Exceptions 4 and 5 of v1.34 stand for Oscar. Not in the code, for Oscar:
+  40 above a policy sub-head and 24 above a minor one; the footer's middots 10 either side.
 - 16 Nov 2026 — v1.40 (XR3.10). Oscar, 16 Nov, from Safari's own `?diag` readout on his Mac: "both are still dropping
   frames at the initial load in ... No other website does this". §6 gains "The opening waits for the page": in a
   browser without `requestIdleCallback` a first play of the intro begins once the page has loaded, Framer's editor frame
