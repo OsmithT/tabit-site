@@ -4,8 +4,9 @@ import { forwardRef, useEffect, useState, type ComponentType } from "react"
 // in pixels, so the part is built at the pages' widest unit (1 unit = 1.25 px, 1440 px wide and up) and this override scales it
 // with the window exactly as the pages' unit does (clamp(1px, 100vw / 1152, 1.25px)). Scroll- and resize-driven only; no timers.
 // In Framer the file sits beside TabitPage.tsx as TabitColumn.tsx.
-// XR3.0: the server render has no window, so the first render adds no zoom (Framer's own layout stands) and the zoom is applied
-// after mount. Below 810 px (Framer's Phone breakpoint) there is no zoom: the Phone breakpoint is built at 1 px a unit.
+// XR3.0: the server render has no window, so the zoom the window needs is applied after mount. XR3.3.1: narrower than 1152 px
+// the unit is 1 px, so the zoom there is a fixed .8 and is set by CSS, right from the first paint (phones and tablets included;
+// before, the Phone breakpoint showed the form unzoomed, at 1.25 px a unit: 55-tall inputs, 21 px text).
 // XR3.3 (Ashleigh's two-column Contact, cms/SETUP.md): the form column now sits in a row with "Contact: top", and the row's
 // layout is set by CSS, with the pages' own media queries, so it is right from the first paint (server render included):
 //   two columns (at least 1024 px wide and 1.6:1): the row is at most 1440 units wide, centred; "Contact: top" takes half
@@ -13,8 +14,8 @@ import { forwardRef, useEffect, useState, type ComponentType } from "react"
 //   (the gap), 80 on its right and 176 above it, so its first label is level with the headline (as pages/contact.js);
 //   stacked (narrower or squarer): "Contact: top" full width, then the form 56 below, at most 640 units wide and within the
 //   pages' 80-unit side margins, centred; 600 px and narrower: full width, 24 from the edges.
-// Put withTabitContactRow on the row and withTabitColumn on the form column (its padding values here are in Framer pixels at
-// 1.25 px a unit; the zoom brings them to the window's unit).
+// Put withTabitContactRow on the row and withTabitColumn on the form column (the form column's values here are in Framer
+// pixels at 1.25 px a unit, as the form is built; the zoom brings them to the window's unit).
 const BASE = 1.25
 
 const ROW_CSS =
@@ -29,8 +30,8 @@ const ROW_CSS =
     ".tbc-row>:not(.tbc-form){flex:none!important;width:100%!important}" +
     ".tbc-row>.tbc-form{flex:none!important;width:800px!important;max-width:calc(100% - 200px)!important;margin:0!important;padding:70px 0 0!important}" +
     "}" +
-    "@media (max-width:809.98px){.tbc-row>.tbc-form{width:640px!important;max-width:calc(100% - 160px)!important;padding:56px 0 0!important}}" +
-    "@media (max-width:600px){.tbc-row{align-items:stretch!important}.tbc-row>.tbc-form{width:100%!important;max-width:none!important;padding:56px 24px 0!important}}"
+    "@media (max-width:1151.98px){.tbc-row>.tbc-form{zoom:.8}}" +
+    "@media (max-width:600px){.tbc-row{align-items:stretch!important}.tbc-row>.tbc-form{width:100%!important;max-width:none!important;padding:70px 30px 0!important}}"
 
 const cx = (a: any, b: string) => (a ? a + " " + b : b)
 
@@ -46,10 +47,8 @@ export function withTabitContactRow(Component: ComponentType<any>): ComponentTyp
     })
 }
 
-function zoomFor(): number | null {
-    const vw = window.innerWidth
-    if (vw < 810) return null
-    return Math.min(BASE, Math.max(1, vw / 1152)) / BASE
+function zoomFor(): number {
+    return Math.min(BASE, Math.max(1, window.innerWidth / 1152)) / BASE
 }
 
 export function withTabitColumn(Component: ComponentType<any>): ComponentType<any> {
